@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Polymer Mixture Experiment CSV
+title: poly script
 nav_order: 1
-parent: Spreadsheets
+parent: spreadsheets
 ---
 
 - [Polymer Mixture Experiment CSV]() - An example csv file to containing polymer experiments

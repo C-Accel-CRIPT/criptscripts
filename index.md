@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Parsers
-nav_order: 2
-has_children: true
+title: Home
+nav_order: 1
+has_children: false
 ---
 
-# CRIPT Scripts & CRIPT Sheets
+# Home
