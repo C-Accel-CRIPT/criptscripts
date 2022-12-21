@@ -1,0 +1,9 @@
+---
+layout: default
+title: CRIPT Tensile Data Template
+parent: Excel files
+---
+
+# CRIPT Tensile Data Template
+
+[Excel file]() used to use with the [CRIPT Excel Uploader](https://c-accel-cript.github.io/cript-excel-uploader/) to upload tensile data collected for a series of mechano-chemical gels.
