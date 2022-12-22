@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Bibliography converter
-parent: Scripts
+# parent: Scripts
 ---
 
 # Reference Bibliography Converter
