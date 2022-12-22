@@ -1,4 +1,4 @@
----
+<!-- ---
 layout: default
 title: Bibliography converter
 # parent: Scripts
@@ -10,4 +10,4 @@ CRIPT Bibliography Converter Python script using [CRIPT Python SDK](https://pypi
 
 ## Python Script
 
-* [a script]()
+* [a script]() -->
