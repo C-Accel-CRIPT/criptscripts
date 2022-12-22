@@ -1,0 +1,2 @@
+Warning: 'advanced_options.json' have been modified after configuration by elwood. This is possible but not recommended.
+Warning: The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+187.gebc9ef3).This may lead to inconsistent results.

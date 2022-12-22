@@ -1,0 +1,21 @@
+/home/ludwigschneider/.local/lib/python3.9/site-packages/mdtraj-1.9.7-py3.9-linux-x86_64.egg/mdtraj/core/trajectory.py:438: UserWarning: top= kwargs ignored since this file parser does not support it
+  warnings.warn('top= kwargs ignored since this file parser does not support it')
+/home/ludwigschneider/.local/lib/python3.9/site-packages/mdtraj-1.9.7-py3.9-linux-x86_64.egg/mdtraj/core/trajectory.py:438: UserWarning: top= kwargs ignored since this file parser does not support it
+  warnings.warn('top= kwargs ignored since this file parser does not support it')
+/home/ludwigschneider/.local/lib/python3.9/site-packages/mdtraj-1.9.7-py3.9-linux-x86_64.egg/mdtraj/core/trajectory.py:438: UserWarning: top= kwargs ignored since this file parser does not support it
+  warnings.warn('top= kwargs ignored since this file parser does not support it')
+Traceback (most recent call last):
+  File "/project/depablo/ludwig/elwood/chimad/hongbo4/G-24DFS/auto_equilibrate.py", line 188, in <module>
+    raise exception
+  File "/project/depablo/ludwig/elwood/chimad/hongbo4/G-24DFS/auto_equilibrate.py", line 185, in <module>
+    main(sys.argv)
+  File "/project/depablo/ludwig/elwood/chimad/hongbo4/G-24DFS/auto_equilibrate.py", line 131, in main
+    simulation.step(steps_per_step)
+  File "/home/ludwigschneider/.conda/envs/elwood/lib/python3.9/site-packages/simtk/openmm/app/simulation.py", line 132, in step
+    self._simulate(endStep=self.currentStep+steps)
+  File "/home/ludwigschneider/.conda/envs/elwood/lib/python3.9/site-packages/simtk/openmm/app/simulation.py", line 197, in _simulate
+    self.integrator.step(10) # Only take 10 steps at a time, to give Python more chances to respond to a control-c.
+  File "/home/ludwigschneider/.conda/envs/elwood/lib/python3.9/site-packages/simtk/openmm/openmm.py", line 15833, in step
+    return _openmm.LangevinIntegrator_step(self, steps)
+simtk.openmm.OpenMMException: Particle coordinate is nan
+srun: error: midway3-0301: task 0: Exited with exit code 1

@@ -1,0 +1,2 @@
+/project/depablo/ludwig/elwood/chimad/hongbo4/G-24DFS/cohesive_energy_density.py:60: RuntimeWarning: invalid value encountered in sqrt
+  delta_b = np.sqrt(ecoh_b)

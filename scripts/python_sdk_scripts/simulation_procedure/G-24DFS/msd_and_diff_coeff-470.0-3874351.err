@@ -1,0 +1,2 @@
+/home/ludwigschneider/.local/lib/python3.9/site-packages/mdtraj-1.9.7-py3.9-linux-x86_64.egg/mdtraj/core/trajectory.py:438: UserWarning: top= kwargs ignored since this file parser does not support it
+  warnings.warn('top= kwargs ignored since this file parser does not support it')

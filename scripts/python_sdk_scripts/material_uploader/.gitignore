@@ -1,0 +1,8 @@
+# ignore venv made
+venv/
+
+# ignore jetbrains IDE
+.idea/
+
+# ignore vscode IDE files
+.vscode/
