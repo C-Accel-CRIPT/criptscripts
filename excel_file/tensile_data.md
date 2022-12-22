@@ -6,4 +6,4 @@ parent: Excel files
 
 # CRIPT Tensile Data Template
 
-[Excel file]() used to use with the [CRIPT Excel Uploader](https://c-accel-cript.github.io/cript-excel-uploader/) to upload tensile data collected for a series of mechano-chemical gels.
+[Excel file](./example_excel_files/weakstrongbond.xlsx) used with the [CRIPT Excel Uploader](https://c-accel-cript.github.io/cript-excel-uploader/) to upload tensile data collected for a series of mechano-chemical gels.
