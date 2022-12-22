@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Material Upload Script
-parent: scripts
+parent: Scripts
 ---
 
 # Material Upload Script

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Polymer Mixture Experiment Script
-parent: scripts
+parent: Scripts
 ---
 
 # Polymer Mixture Experiment Script

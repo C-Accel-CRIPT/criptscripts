@@ -1,6 +1,6 @@
 ---
 layout: default
-title: scripts
+title: Scripts
 has_children: true
 ---
 
