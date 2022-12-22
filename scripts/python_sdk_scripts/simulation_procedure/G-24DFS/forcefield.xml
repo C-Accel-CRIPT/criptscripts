@@ -1,0 +1,257 @@
+<?xml version='1.0' encoding='iso-8859-1'?>
+<ForceField>
+  <AtomTypes>
+    <Type name="AH26" class="HC" element="H" mass="1.008000" />
+    <Type name="AHBE" class="HC" element="H" mass="1.008000" />
+    <Type name="AC17" class="CA" element="C" mass="12.011000" />
+    <Type name="AC03" class="CT" element="C" mass="12.011000" />
+    <Type name="ACBE" class="CT" element="C" mass="12.011000" />
+    <Type name="AH29" class="HC" element="H" mass="1.008000" />
+    <Type name="AO08" class="OH" element="O" mass="15.999000" />
+    <Type name="AH22" class="HC" element="H" mass="1.008000" />
+    <Type name="AO19" class="O" element="O" mass="15.999000" />
+    <Type name="AH33" class="HA" element="H" mass="1.008000" />
+    <Type name="AHAL" class="HC" element="H" mass="1.008000" />
+    <Type name="AC04" class="C" element="C" mass="12.011000" />
+    <Type name="ACAL" class="CT" element="C" mass="12.011000" />
+    <Type name="AO05" class="OS" element="O" mass="15.999000" />
+    <Type name="AC14" class="CA" element="C" mass="12.011000" />
+    <Type name="AC06" class="CT" element="C" mass="12.011000" />
+    <Type name="AF18" class="F" element="F" mass="18.998403" />
+    <Type name="AF15" class="F" element="F" mass="18.998403" />
+    <Type name="AH20" class="HC" element="H" mass="1.008000" />
+    <Type name="AC07" class="CT" element="C" mass="12.011000" />
+    <Type name="AC09" class="CT" element="C" mass="12.011000" />
+    <Type name="AH31" class="HA" element="H" mass="1.008000" />
+    <Type name="AH21" class="HC" element="H" mass="1.008000" />
+    <Type name="AH24" class="HC" element="H" mass="1.008000" />
+    <Type name="AH28" class="HO" element="H" mass="1.008000" />
+    <Type name="AC11" class="CA" element="C" mass="12.011000" />
+    <Type name="AH27" class="HC" element="H" mass="1.008000" />
+    <Type name="AH25" class="HC" element="H" mass="1.008000" />
+    <Type name="AC12" class="CA" element="C" mass="12.011000" />
+    <Type name="AC16" class="CA" element="C" mass="12.011000" />
+    <Type name="AH30" class="HC" element="H" mass="1.008000" />
+    <Type name="AH32" class="HA" element="H" mass="1.008000" />
+    <Type name="AS10" class="S" element="S" mass="32.060000" />
+    <Type name="AC13" class="CA" element="C" mass="12.011000" />
+    <Type name="AH23" class="HC" element="H" mass="1.008000" />
+    </AtomTypes>
+  <Residues>
+    <Residue name="A">
+      <Atom name="CBE" type="ACBE" charge="-0.139200" />
+      <Atom name="CAL" type="ACAL" charge="0.017500" />
+      <Atom name="C03" type="AC03" charge="-0.234200" />
+      <Atom name="C04" type="AC04" charge="0.446200" />
+      <Atom name="O05" type="AO05" charge="-0.374400" />
+      <Atom name="C06" type="AC06" charge="-0.046200" />
+      <Atom name="C07" type="AC07" charge="0.075300" />
+      <Atom name="O08" type="AO08" charge="-0.580400" />
+      <Atom name="C09" type="AC09" charge="-0.156000" />
+      <Atom name="S10" type="AS10" charge="-0.087300" />
+      <Atom name="C11" type="AC11" charge="-0.198000" />
+      <Atom name="C12" type="AC12" charge="-0.055400" />
+      <Atom name="C13" type="AC13" charge="-0.227900" />
+      <Atom name="C14" type="AC14" charge="0.135900" />
+      <Atom name="F15" type="AF15" charge="-0.071900" />
+      <Atom name="C16" type="AC16" charge="-0.251200" />
+      <Atom name="C17" type="AC17" charge="0.160800" />
+      <Atom name="F18" type="AF18" charge="-0.054300" />
+      <Atom name="O19" type="AO19" charge="-0.442900" />
+      <Atom name="H20" type="AH20" charge="0.094700" />
+      <Atom name="H21" type="AH21" charge="0.094700" />
+      <Atom name="H22" type="AH22" charge="0.096200" />
+      <Atom name="H23" type="AH23" charge="0.096200" />
+      <Atom name="H24" type="AH24" charge="0.096200" />
+      <Atom name="H25" type="AH25" charge="0.129300" />
+      <Atom name="H26" type="AH26" charge="0.129300" />
+      <Atom name="H27" type="AH27" charge="0.099900" />
+      <Atom name="H28" type="AH28" charge="0.425600" />
+      <Atom name="H29" type="AH29" charge="0.140000" />
+      <Atom name="H30" type="AH30" charge="0.140000" />
+      <Atom name="H31" type="AH31" charge="0.171500" />
+      <Atom name="H32" type="AH32" charge="0.176200" />
+      <Atom name="H33" type="AH33" charge="0.193800" />
+      <Bond atomName1="CBE" atomName2="CAL" />
+      <Bond atomName1="CAL" atomName2="C03" />
+      <Bond atomName1="CAL" atomName2="C04" />
+      <Bond atomName1="C04" atomName2="O05" />
+      <Bond atomName1="O05" atomName2="C06" />
+      <Bond atomName1="C06" atomName2="C07" />
+      <Bond atomName1="C07" atomName2="O08" />
+      <Bond atomName1="C07" atomName2="C09" />
+      <Bond atomName1="C09" atomName2="S10" />
+      <Bond atomName1="S10" atomName2="C11" />
+      <Bond atomName1="C11" atomName2="C12" />
+      <Bond atomName1="C12" atomName2="C13" />
+      <Bond atomName1="C13" atomName2="C14" />
+      <Bond atomName1="C14" atomName2="F15" />
+      <Bond atomName1="C14" atomName2="C16" />
+      <Bond atomName1="C11" atomName2="C17" />
+      <Bond atomName1="C17" atomName2="F18" />
+      <Bond atomName1="C04" atomName2="O19" />
+      <Bond atomName1="CBE" atomName2="H20" />
+      <Bond atomName1="CBE" atomName2="H21" />
+      <Bond atomName1="C03" atomName2="H22" />
+      <Bond atomName1="C03" atomName2="H23" />
+      <Bond atomName1="C03" atomName2="H24" />
+      <Bond atomName1="C06" atomName2="H25" />
+      <Bond atomName1="C06" atomName2="H26" />
+      <Bond atomName1="C07" atomName2="H27" />
+      <Bond atomName1="O08" atomName2="H28" />
+      <Bond atomName1="C09" atomName2="H29" />
+      <Bond atomName1="C09" atomName2="H30" />
+      <Bond atomName1="C12" atomName2="H31" />
+      <Bond atomName1="C13" atomName2="H32" />
+      <Bond atomName1="C16" atomName2="H33" />
+      <Bond atomName1="C16" atomName2="C17" />
+      <ExternalBond atomName="CBE" />
+      <ExternalBond atomName="CAL" />
+      <AllowPatch name="bA" />
+      <AllowPatch name="aA" />
+      <AllowPatch name="baA" />
+      </Residue>
+    </Residues>
+  <HarmonicBondForce>
+    <Bond class1="CT" class2="CT" length="0.152900" k="224262.400000" />
+    <Bond class1="C" class2="CT" length="0.152200" k="265265.600000" />
+    <Bond class1="OS" class2="C" length="0.132700" k="179075.200000" />
+    <Bond class1="CT" class2="OS" length="0.141000" k="267776.000000" />
+    <Bond class1="OH" class2="CT" length="0.141000" k="267776.000000" />
+    <Bond class1="S" class2="CT" length="0.181000" k="185769.600000" />
+    <Bond class1="CA" class2="S" length="0.176000" k="209200.000000" />
+    <Bond class1="CA" class2="CA" length="0.140000" k="392459.200000" />
+    <Bond class1="F" class2="CA" length="0.135400" k="351456.000000" />
+    <Bond class1="O" class2="C" length="0.122900" k="476976.000000" />
+    <Bond class1="HC" class2="CT" length="0.109000" k="284512.000000" />
+    <Bond class1="HO" class2="OH" length="0.094500" k="462750.400000" />
+    <Bond class1="HA" class2="CA" length="0.108000" k="307105.600000" />
+    </HarmonicBondForce>
+  <HarmonicAngleForce>
+    <Angle class1="CT" class2="CT" class3="CT" angle="1.966986" k="488.272800" />
+    <Angle class1="CT" class2="CT" class3="C" angle="1.939061" k="527.184000" />
+    <Angle class1="CT" class2="C" class3="OS" angle="1.944297" k="677.808000" />
+    <Angle class1="C" class2="OS" class3="CT" angle="2.040290" k="694.544000" />
+    <Angle class1="OS" class2="CT" class3="CT" angle="1.911136" k="418.400000" />
+    <Angle class1="CT" class2="CT" class3="OH" angle="1.911136" k="418.400000" />
+    <Angle class1="CT" class2="CT" class3="S" angle="2.001893" k="418.400000" />
+    <Angle class1="CT" class2="S" class3="CA" angle="1.692969" k="543.920000" />
+    <Angle class1="S" class2="CA" class3="CA" angle="2.083923" k="711.280000" />
+    <Angle class1="CA" class2="CA" class3="CA" angle="2.094395" k="527.184000" />
+    <Angle class1="CA" class2="CA" class3="F" angle="2.094395" k="669.440000" />
+    <Angle class1="CT" class2="C" class3="O" angle="2.101376" k="669.440000" />
+    <Angle class1="CT" class2="CT" class3="HC" angle="1.932079" k="313.800000" />
+    <Angle class1="OS" class2="CT" class3="HC" angle="1.911136" k="292.880000" />
+    <Angle class1="CT" class2="OH" class3="HO" angle="1.893682" k="460.240000" />
+    <Angle class1="CA" class2="CA" class3="HA" angle="2.094395" k="292.880000" />
+    <Angle class1="C" class2="CT" class3="HC" angle="1.911136" k="292.880000" />
+    <Angle class1="OS" class2="C" class3="O" angle="2.153736" k="694.544000" />
+    <Angle class1="OH" class2="CT" class3="CT" angle="1.911136" k="418.400000" />
+    <Angle class1="OH" class2="CT" class3="HC" angle="1.911136" k="292.880000" />
+    <Angle class1="S" class2="CT" class3="HC" angle="1.911136" k="292.880000" />
+    <Angle class1="F" class2="CA" class3="CA" angle="2.094395" k="669.440000" />
+    <Angle class1="HC" class2="CT" class3="HC" angle="1.881465" k="276.144000" />
+    </HarmonicAngleForce>
+  <PeriodicTorsionForce>
+    <Proper class1="CA" class2="CA" class3="CA" class4="CA" k1="0.000000" k2="15.167000" k3="0.000000" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Proper class1="CA" class2="CA" class3="CA" class4="F" k1="0.000000" k2="15.167000" k3="0.000000" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Proper class1="CA" class2="CA" class3="CA" class4="S" k1="0.000000" k2="15.167000" k3="0.000000" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Proper class1="CA" class2="CA" class3="S" class4="CT" k1="0.000000" k2="4.499892" k3="0.000000" k4="0.617140" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Proper class1="CA" class2="S" class3="CT" class4="CT" k1="1.935100" k2="-1.204992" k3="1.416284" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Proper class1="CT" class2="CT" class3="CT" class4="OS" k1="3.579412" k2="-1.046000" k3="1.386996" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Proper class1="CT" class2="CT" class3="OS" class4="C" k1="-2.552240" k2="-0.263592" k3="0.882824" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Proper class1="CT" class2="OS" class3="C" class4="CT" k1="9.767548" k2="10.719408" k3="0.000000" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Proper class1="F" class2="CA" class3="CA" class4="CA" k1="0.000000" k2="15.167000" k3="0.000000" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Proper class1="F" class2="CA" class3="CA" class4="S" k1="0.000000" k2="15.167000" k3="0.000000" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Proper class1="HA" class2="CA" class3="CA" class4="CA" k1="0.000000" k2="15.167000" k3="0.000000" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Proper class1="HA" class2="CA" class3="CA" class4="F" k1="0.000000" k2="15.167000" k3="0.000000" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Proper class1="HA" class2="CA" class3="CA" class4="HA" k1="0.000000" k2="15.167000" k3="0.000000" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Proper class1="HA" class2="CA" class3="CA" class4="S" k1="0.000000" k2="15.167000" k3="0.000000" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Proper class1="HC" class2="CT" class3="C" class4="O" k1="0.000000" k2="0.000000" k3="0.000000" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Proper class1="HC" class2="CT" class3="C" class4="OS" k1="0.000000" k2="0.000000" k3="0.276144" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Proper class1="HC" class2="CT" class3="CT" class4="C" k1="0.000000" k2="0.000000" k3="-0.209200" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Proper class1="HC" class2="CT" class3="CT" class4="CT" k1="0.000000" k2="0.000000" k3="0.627600" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Proper class1="HC" class2="CT" class3="CT" class4="HC" k1="0.000000" k2="0.000000" k3="0.627600" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Proper class1="HC" class2="CT" class3="CT" class4="OH" k1="0.000000" k2="0.000000" k3="0.979056" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Proper class1="HC" class2="CT" class3="CT" class4="OS" k1="0.000000" k2="0.000000" k3="0.979056" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Proper class1="HC" class2="CT" class3="CT" class4="S" k1="0.000000" k2="0.000000" k3="0.945584" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Proper class1="HC" class2="CT" class3="OS" class4="C" k1="0.000000" k2="0.000000" k3="0.414216" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Proper class1="HC" class2="CT" class3="S" class4="CA" k1="0.000000" k2="0.000000" k3="1.353524" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Proper class1="HO" class2="OH" class3="CT" class4="CT" k1="-0.744752" k2="-0.364008" k3="1.029264" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Proper class1="HO" class2="OH" class3="CT" class4="HC" k1="0.000000" k2="0.000000" k3="0.736384" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Proper class1="O" class2="C" class3="CT" class4="CT" k1="0.000000" k2="0.000000" k3="0.000000" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Proper class1="O" class2="C" class3="OS" class4="CT" k1="0.000000" k2="10.719408" k3="0.000000" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Proper class1="OH" class2="CT" class3="CT" class4="OS" k1="9.035348" k2="0.000000" k3="0.000000" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Proper class1="OS" class2="C" class3="CT" class4="CT" k1="0.000000" k2="0.000000" k3="-1.156876" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Proper class1="S" class2="CT" class3="CT" class4="CT" k1="-3.273980" k2="-0.018828" k3="-0.941400" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Proper class1="S" class2="CT" class3="CT" class4="OH" k1="13.091736" k2="-2.169404" k3="2.859764" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Improper class1="CT" class2="C" class3="CT" class4="CT" k1="0.000000" k2="0.000000" k3="0.000000" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Improper class1="CA" class2="CA" class3="CA" class4="F" k1="0.000000" k2="10.460000" k3="0.000000" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Improper class1="CA" class2="CA" class3="CA" class4="HA" k1="0.000000" k2="10.460000" k3="0.000000" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Improper class1="CA" class2="CA" class3="F" class4="CA" k1="0.000000" k2="10.460000" k3="0.000000" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Improper class1="C" class2="CT" class3="OS" class4="O" k1="0.000000" k2="43.932000" k3="0.000000" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    <Improper class1="CA" class2="S" class3="CA" class4="CA" k1="0.000000" k2="10.460000" k3="0.000000" k4="0.000000" periodicity1="1" periodicity2="2" periodicity3="3" periodicity4="4" phase1="0.00" phase2="3.141592653589793" phase3="0.00" phase4="3.141592653589793" />
+    </PeriodicTorsionForce>
+  <NonbondedForce coulomb14scale="0.5" lj14scale="0.5">
+    <UseAttributeFromResidue name="charge" />
+    <Atom type="ACBE" sigma="0.350000" epsilon="0.276144" />
+    <Atom type="AF15" sigma="0.290000" epsilon="0.251040" />
+    <Atom type="AC09" sigma="0.350000" epsilon="0.276144" />
+    <Atom type="AH33" sigma="0.242000" epsilon="0.125520" />
+    <Atom type="AC03" sigma="0.350000" epsilon="0.276144" />
+    <Atom type="AC07" sigma="0.350000" epsilon="0.276144" />
+    <Atom type="AC04" sigma="0.355000" epsilon="0.292880" />
+    <Atom type="AH30" sigma="0.250000" epsilon="0.125520" />
+    <Atom type="AH32" sigma="0.242000" epsilon="0.125520" />
+    <Atom type="AC16" sigma="0.355000" epsilon="0.292880" />
+    <Atom type="AC11" sigma="0.355000" epsilon="0.292880" />
+    <Atom type="AHBE" sigma="0.250000" epsilon="0.125520" />
+    <Atom type="AH23" sigma="0.250000" epsilon="0.125520" />
+    <Atom type="ACAL" sigma="0.350000" epsilon="0.276144" />
+    <Atom type="AC06" sigma="0.350000" epsilon="0.276144" />
+    <Atom type="AH26" sigma="0.250000" epsilon="0.125520" />
+    <Atom type="AHAL" sigma="0.250000" epsilon="0.125520" />
+    <Atom type="AS10" sigma="0.360000" epsilon="1.485320" />
+    <Atom type="AC12" sigma="0.355000" epsilon="0.292880" />
+    <Atom type="AO08" sigma="0.312000" epsilon="0.711280" />
+    <Atom type="AO05" sigma="0.290000" epsilon="0.585760" />
+    <Atom type="AH28" sigma="0.000000" epsilon="0.000000" />
+    <Atom type="AH31" sigma="0.242000" epsilon="0.125520" />
+    <Atom type="AC17" sigma="0.355000" epsilon="0.292880" />
+    <Atom type="AH20" sigma="0.250000" epsilon="0.125520" />
+    <Atom type="AH29" sigma="0.250000" epsilon="0.125520" />
+    <Atom type="AH22" sigma="0.250000" epsilon="0.125520" />
+    <Atom type="AF18" sigma="0.290000" epsilon="0.251040" />
+    <Atom type="AC13" sigma="0.355000" epsilon="0.292880" />
+    <Atom type="AO19" sigma="0.296000" epsilon="0.878640" />
+    <Atom type="AH21" sigma="0.250000" epsilon="0.125520" />
+    <Atom type="AH24" sigma="0.250000" epsilon="0.125520" />
+    <Atom type="AC14" sigma="0.355000" epsilon="0.292880" />
+    <Atom type="AH25" sigma="0.250000" epsilon="0.125520" />
+    <Atom type="AH27" sigma="0.250000" epsilon="0.125520" />
+    </NonbondedForce>
+  <Patches>
+    <Patch name="bA">
+      <AddAtom charge="0.094700" name="HBE" type="AHBE" />
+      <ChangeAtom charge="-0.233900" name="CBE" type="ACBE" />
+      <AddBond atomName1="CBE" atomName2="HBE" />
+      <RemoveExternalBond atomName="CBE" />
+      </Patch>
+    <Patch name="aA">
+      <AddAtom charge="0.136800" name="HAL" type="AHAL" />
+      <ChangeAtom charge="-0.119300" name="CAL" type="ACAL" />
+      <AddBond atomName1="CAL" atomName2="HAL" />
+      <RemoveExternalBond atomName="CAL" />
+      </Patch>
+    <Patch name="baA">
+      <AddAtom charge="0.094700" name="HBE" type="AHBE" />
+      <ChangeAtom charge="-0.233900" name="CBE" type="ACBE" />
+      <AddBond atomName1="CBE" atomName2="HBE" />
+      <RemoveExternalBond atomName="CBE" />
+      <AddAtom charge="0.136800" name="HAL" type="AHAL" />
+      <ChangeAtom charge="-0.119300" name="CAL" type="ACAL" />
+      <AddBond atomName1="CAL" atomName2="HAL" />
+      <RemoveExternalBond atomName="CAL" />
+      </Patch>
+    </Patches>
+  </ForceField>

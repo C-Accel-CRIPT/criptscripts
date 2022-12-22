@@ -1,0 +1,2 @@
+/home/ludwigschneider/.local/lib/python3.9/site-packages/elwood-0.1.1+181.g6759375-py3.9.egg/elwood/system/mol_ops.py:165: UserWarning: Optimal rotation is not uniquely or poorly defined for the given sets of vectors.
+  rotation = Rotation.align_vectors(

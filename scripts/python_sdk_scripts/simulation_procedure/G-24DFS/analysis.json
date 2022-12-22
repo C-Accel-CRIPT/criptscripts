@@ -1,0 +1,815 @@
+{
+  "WARNINGS": [
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+187.gebc9ef3).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+187.gebc9ef3).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+187.gebc9ef3).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+187.gebc9ef3).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+187.gebc9ef3).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+187.gebc9ef3).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+187.gebc9ef3).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+187.gebc9ef3).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+187.gebc9ef3).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+187.gebc9ef3).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+187.gebc9ef3).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+187.gebc9ef3).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+187.gebc9ef3).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+187.gebc9ef3).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+187.gebc9ef3).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+187.gebc9ef3).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+187.gebc9ef3).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+187.gebc9ef3).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+187.gebc9ef3).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+187.gebc9ef3).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+187.gebc9ef3).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+187.gebc9ef3).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+187.gebc9ef3).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+187.gebc9ef3).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+187.gebc9ef3).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+187.gebc9ef3).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+187.gebc9ef3).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+187.gebc9ef3).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+187.gebc9ef3).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+187.gebc9ef3).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+187.gebc9ef3).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+183.g8e66cb5.dirty).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+183.g8e66cb5.dirty).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+183.g8e66cb5.dirty).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+183.g8e66cb5.dirty).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+183.g8e66cb5.dirty).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+183.g8e66cb5.dirty).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+183.g8e66cb5.dirty).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+183.g8e66cb5.dirty).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+183.g8e66cb5.dirty).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+183.g8e66cb5.dirty).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+183.g8e66cb5.dirty).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+183.g8e66cb5.dirty).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+183.g8e66cb5.dirty).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+183.g8e66cb5.dirty).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+183.g8e66cb5.dirty).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+183.g8e66cb5.dirty).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+183.g8e66cb5.dirty).This may lead to inconsistent results.",
+    "The elwood version used to create the analysis.json (v0.1.1+181.g6759375) differs from the current executing version (v0.1.1+183.g8e66cb5.dirty).This may lead to inconsistent results."
+  ],
+  "elwood-version": "v0.1.1+181.g6759375",
+  "forcefield-engine": "ligpargen",
+  "global-seed": 1918983902,
+  "measurements": [
+    {
+      "error": 10.019163450259157,
+      "name": "glass transition temperature",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "unit": "K",
+      "value": 351.67018557143115
+    },
+    {
+      "error": 9.501567728498326e-20,
+      "name": "square radius of gyration",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "temperature": 470.0,
+      "temperature unit": "K",
+      "unit": "m^2",
+      "value": 4.425983408854198e-19
+    },
+    {
+      "error": 3.662222584243415e-05,
+      "name": "thermal expansion coefficient",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "temperature": 470.0,
+      "temperature unit": "K",
+      "unit": "T^-1",
+      "value": 0.0006751591040751396
+    },
+    {
+      "error": 2.6152852625883787e-11,
+      "name": "isothermal compressibility",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "temperature": 470.0,
+      "temperature unit": "K",
+      "unit": "kg^-1 m s^2",
+      "value": 7.628909457780881e-10
+    },
+    {
+      "error": 6.933451890608875e-05,
+      "name": "thermal expansion coefficient",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "temperature": 450.0,
+      "temperature unit": "K",
+      "unit": "T^-1",
+      "value": 0.0007192032696064652
+    },
+    {
+      "error": 9.537075023930975e-20,
+      "name": "square radius of gyration",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "temperature": 450.0,
+      "temperature unit": "K",
+      "unit": "m^2",
+      "value": 4.4441774543449045e-19
+    },
+    {
+      "error": [
+        5.38132106885314e-21,
+        1.4446319080889225e-20,
+        3.538073599338532e-20,
+        5.4050430655479433e-20,
+        7.473865896463395e-20
+      ],
+      "name": "squared internal distances",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "temperature": 470.0,
+      "temperature unit": "K",
+      "unit": "m^2",
+      "value": [
+        2.4972453713417055e-20,
+        7.24780559539795e-20,
+        1.3700403273105621e-19,
+        2.2621940076351165e-19,
+        3.110182285308838e-19
+      ]
+    },
+    {
+      "error": 18765239.690667592,
+      "name": "cohesive energy density",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "temperature": 450.0,
+      "temperature unit": "K",
+      "unit": "kg m^-1 s^-2",
+      "value": -2439418675.791124
+    },
+    {
+      "error": 18765.239690667593,
+      "name": "Hildebrand solubility parameter",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "temperature": 450.0,
+      "temperature unit": "K",
+      "unit": "kg^0.5 m^-0.5 s^-1",
+      "value": NaN
+    },
+    {
+      "error": 13172.913478312783,
+      "name": "heat of vaporization",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "temperature": 450.0,
+      "temperature unit": "K",
+      "unit": "kg m^2 s^-2 mol^-1",
+      "value": -1768864.7124359892
+    },
+    {
+      "error": [
+        5.3733782842755325e-21,
+        1.443404145538807e-20,
+        3.5006266087293626e-20,
+        5.241635814309121e-20,
+        7.228584587574005e-20
+      ],
+      "name": "squared internal distances",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "temperature": 450.0,
+      "temperature unit": "K",
+      "unit": "m^2",
+      "value": [
+        2.4962183088064195e-20,
+        7.244506478309631e-20,
+        1.3646017014980318e-19,
+        2.2491058707237244e-19,
+        3.0809044837951664e-19
+      ]
+    },
+    {
+      "error": [
+        1.559745710060555e-60,
+        5.050335712296069e-61,
+        5.209221316244484e-61
+      ],
+      "name": "squared dipole moment",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "residue names": [
+        "A",
+        "aA",
+        "bA"
+      ],
+      "temperature": 450.0,
+      "temperature unit": "K",
+      "unit": "m^2 C^2",
+      "value": [
+        1.1996803197632909e-58,
+        1.166704756523281e-58,
+        1.184007325337171e-58
+      ]
+    },
+    {
+      "error": 2.3886612929931318e-11,
+      "name": "isothermal compressibility",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "temperature": 450.0,
+      "temperature unit": "K",
+      "unit": "kg^-1 m s^2",
+      "value": 7.00300319729581e-10
+    },
+    {
+      "error": 0.3976529476356238,
+      "name": "density",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "temperature": 450.0,
+      "temperature unit": "K",
+      "unit": "kg m^-3",
+      "value": 1193.0849512627346
+    },
+    {
+      "error": 9025819.583220167,
+      "name": "cohesive energy density",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "temperature": 470.0,
+      "temperature unit": "K",
+      "unit": "kg m^-1 s^-2",
+      "value": -2406548948.236574
+    },
+    {
+      "error": 9025.819583220167,
+      "name": "Hildebrand solubility parameter",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "temperature": 470.0,
+      "temperature unit": "K",
+      "unit": "kg^0.5 m^-0.5 s^-1",
+      "value": NaN
+    },
+    {
+      "error": [
+        1.3567773151583614e-60,
+        1.1781672827738008e-60,
+        8.165784686593293e-61
+      ],
+      "name": "squared dipole moment",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "residue names": [
+        "A",
+        "aA",
+        "bA"
+      ],
+      "temperature": 470.0,
+      "temperature unit": "K",
+      "unit": "m^2 C^2",
+      "value": [
+        1.2132987175026178e-58,
+        1.1614304775634388e-58,
+        1.1741952553405091e-58
+      ]
+    },
+    {
+      "error": 5901.9106602230195,
+      "name": "heat of vaporization",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "temperature": 470.0,
+      "temperature unit": "K",
+      "unit": "kg m^2 s^-2 mol^-1",
+      "value": -1770348.179722816
+    },
+    {
+      "error": 0.5301418185710631,
+      "name": "density",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "temperature": 470.0,
+      "temperature unit": "K",
+      "unit": "kg m^-3",
+      "value": 1175.9176055297226
+    },
+    {
+      "error": [
+        5.352671723812819e-21,
+        1.4404969289898875e-20,
+        3.49644236266613e-20,
+        5.187508836388588e-20,
+        7.411113381385803e-20
+      ],
+      "name": "squared internal distances",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "temperature": 423.5,
+      "temperature unit": "K",
+      "unit": "m^2",
+      "value": [
+        2.4936065077781678e-20,
+        7.229028642177582e-20,
+        1.3682988286018372e-19,
+        2.254398763179779e-19,
+        3.095936179161072e-19
+      ]
+    },
+    {
+      "error": 13357951.258539665,
+      "name": "cohesive energy density",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "temperature": 423.5,
+      "temperature unit": "K",
+      "unit": "kg m^-1 s^-2",
+      "value": -2497872906.026924
+    },
+    {
+      "error": 13357.951258539666,
+      "name": "Hildebrand solubility parameter",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "temperature": 423.5,
+      "temperature unit": "K",
+      "unit": "kg^0.5 m^-0.5 s^-1",
+      "value": NaN
+    },
+    {
+      "error": 9.611399309643779e-20,
+      "name": "square radius of gyration",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "temperature": 423.5,
+      "temperature unit": "K",
+      "unit": "m^2",
+      "value": 4.431579490639891e-19
+    },
+    {
+      "error": 1.0365016848720094,
+      "name": "density",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "temperature": 423.5,
+      "temperature unit": "K",
+      "unit": "kg m^-3",
+      "value": 1215.7991932840907
+    },
+    {
+      "error": 4.759702597263584e-11,
+      "name": "isothermal compressibility",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "temperature": 423.5,
+      "temperature unit": "K",
+      "unit": "kg^-1 m s^2",
+      "value": 5.740271810280622e-10
+    },
+    {
+      "error": 0.00010399405832561317,
+      "name": "thermal expansion coefficient",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "temperature": 423.5,
+      "temperature unit": "K",
+      "unit": "T^-1",
+      "value": 0.0005961685594597333
+    },
+    {
+      "error": 8591.155263835768,
+      "name": "heat of vaporization",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "temperature": 423.5,
+      "temperature unit": "K",
+      "unit": "kg m^2 s^-2 mol^-1",
+      "value": -1777642.890062224
+    },
+    {
+      "error": [
+        1.9697487404862276e-60,
+        2.1387193622697282e-60,
+        9.330015146160971e-61
+      ],
+      "name": "squared dipole moment",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "residue names": [
+        "A",
+        "aA",
+        "bA"
+      ],
+      "temperature": 423.5,
+      "temperature unit": "K",
+      "unit": "m^2 C^2",
+      "value": [
+        1.204605067553803e-58,
+        1.1787515836440486e-58,
+        1.192984337874945e-58
+      ]
+    },
+    {
+      "error": 2.601423273133002e-11,
+      "fit-p-value": 1.448285519196113e-220,
+      "fit-r-value": 0.9998700428044492,
+      "name": "diffusion coefficient",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "temperature": 450.0,
+      "temperature unit": "K",
+      "unit": "m^2 s^-1",
+      "value": 1.7821062953078618e-08
+    },
+    {
+      "error": 9.665562222929378e-11,
+      "fit-p-value": 3.7374726132659324e-175,
+      "fit-r-value": 0.9992782626118375,
+      "name": "diffusion coefficient",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "temperature": 470.0,
+      "temperature unit": "K",
+      "unit": "m^2 s^-1",
+      "value": 2.8084534131356774e-08
+    },
+    {
+      "error": 3.5466476221098466e-11,
+      "fit-p-value": 1.6484891594527333e-136,
+      "fit-r-value": 0.9968925974019262,
+      "name": "diffusion coefficient",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "temperature": 423.5,
+      "temperature unit": "K",
+      "unit": "m^2 s^-1",
+      "value": 4.9575854222572794e-09,
+      "warnings": [
+        "The r-value 0.9968925974019262 of MSD fit is below the threshold 0.999. The diffusion coefficient is most likely not accurate.",
+        "The max value 89.19991100720571 angstrom^2 of the MSD is smaller than threshold 4.0 x Rg^2 44.315794906398914 angstrom^2. The diffusion coefficient might not be accurate."
+      ]
+    },
+    {
+      "error": 16270.257492754467,
+      "fit-p-value": 0.10084464486447937,
+      "fit-r-value": -0.9874799195586288,
+      "name": "diffusion activation energy",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "temperature range": [
+        423.5,
+        470.0
+      ],
+      "unit": "J mol^-1",
+      "value": 53553.26005716269,
+      "warnings": [
+        "The r-value -0.9874799195586288 of diffusion activation energy fit is above the threshold -0.99. "
+      ]
+    },
+    {
+      "error": [
+        2.4965161319984243e-21,
+        1.3660023177360896e-21,
+        1.8171013653840666e-21
+      ],
+      "name": "squared side chain length",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "residue names": [
+        "A",
+        "aA",
+        "bA"
+      ],
+      "temperature": 423.5,
+      "temperature unit": "K",
+      "unit": "m^2",
+      "value": [
+        2.169589941285959e-19,
+        1.9077775713860846e-19,
+        1.990322051858386e-19
+      ]
+    },
+    {
+      "error": [
+        1.9702581609739539e-41,
+        9.865666748941127e-42,
+        1.1912899852182631e-41
+      ],
+      "name": "dot(BBvec, dipole)",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "residue names": [
+        "A",
+        "aA",
+        "bA"
+      ],
+      "temperature": 423.5,
+      "temperature unit": "K",
+      "unit": "m^2 C",
+      "value": [
+        2.29207741405678e-40,
+        2.932635437650883e-40,
+        5.918520883246281e-40
+      ]
+    },
+    {
+      "error": [
+        4.0980749524924784e-41,
+        3.37396513044655e-41,
+        1.170934496741784e-41
+      ],
+      "name": "dot(BB-sideRcm, dipole)",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "residue names": [
+        "A",
+        "aA",
+        "bA"
+      ],
+      "temperature": 423.5,
+      "temperature unit": "K",
+      "unit": "m^2 C",
+      "value": [
+        -1.1337980455679467e-39,
+        -1.1126593618904275e-39,
+        -1.308518630029025e-39
+      ]
+    },
+    {
+      "error": [
+        0.012627143950400798,
+        0.009699337450248927,
+        0.0072006092714124005
+      ],
+      "name": "angle(BBvec, dipole)",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "residue names": [
+        "A",
+        "aA",
+        "bA"
+      ],
+      "temperature": 423.5,
+      "temperature unit": "K",
+      "unit": "Rad",
+      "value": [
+        1.4126141476422749,
+        1.3804948826458563,
+        1.1569564764981364
+      ]
+    },
+    {
+      "error": [
+        0.010685144483812718,
+        0.00917030992353485,
+        0.004305323907132576
+      ],
+      "name": "angle(BB-sideRcm, dipole)",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "residue names": [
+        "A",
+        "aA",
+        "bA"
+      ],
+      "temperature": 423.5,
+      "temperature unit": "K",
+      "unit": "Rad",
+      "value": [
+        1.846995084951509,
+        1.8605737464325132,
+        1.886001916509128
+      ]
+    },
+    {
+      "error": [
+        2.3278666098222307e-21,
+        1.129129710735069e-21,
+        1.0789138338030575e-21
+      ],
+      "name": "squared side chain length",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "residue names": [
+        "A",
+        "aA",
+        "bA"
+      ],
+      "temperature": 450.0,
+      "temperature unit": "K",
+      "unit": "m^2",
+      "value": [
+        2.1322014730973248e-19,
+        1.9419955763518264e-19,
+        1.9707914999827753e-19
+      ]
+    },
+    {
+      "error": [
+        1.1776174654947368e-41,
+        1.4230783771539007e-41,
+        8.478013059727138e-42
+      ],
+      "name": "dot(BBvec, dipole)",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "residue names": [
+        "A",
+        "aA",
+        "bA"
+      ],
+      "temperature": 450.0,
+      "temperature unit": "K",
+      "unit": "m^2 C",
+      "value": [
+        2.4405748297987337e-40,
+        2.7678035605818556e-40,
+        6.1792321720543575e-40
+      ]
+    },
+    {
+      "error": [
+        4.1252417192271476e-41,
+        3.2233411797824895e-41,
+        4.3330106292920454e-41
+      ],
+      "name": "dot(BB-sideRcm, dipole)",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "residue names": [
+        "A",
+        "aA",
+        "bA"
+      ],
+      "temperature": 450.0,
+      "temperature unit": "K",
+      "unit": "m^2 C",
+      "value": [
+        -1.0840666996707385e-39,
+        -1.1235443672140284e-39,
+        -1.3252691261833392e-39
+      ]
+    },
+    {
+      "error": [
+        0.006222569261122024,
+        0.009086987488292555,
+        0.006367520694328055
+      ],
+      "name": "angle(BBvec, dipole)",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "residue names": [
+        "A",
+        "aA",
+        "bA"
+      ],
+      "temperature": 450.0,
+      "temperature unit": "K",
+      "unit": "Rad",
+      "value": [
+        1.400819220633402,
+        1.3912819086010795,
+        1.1385942188592648
+      ]
+    },
+    {
+      "error": [
+        0.009125114096134852,
+        0.0077341613452403014,
+        0.012226525751151168
+      ],
+      "name": "angle(BB-sideRcm, dipole)",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "residue names": [
+        "A",
+        "aA",
+        "bA"
+      ],
+      "temperature": 450.0,
+      "temperature unit": "K",
+      "unit": "Rad",
+      "value": [
+        1.8373296899396983,
+        1.864140218828409,
+        1.8963257574266243
+      ]
+    },
+    {
+      "error": [
+        1.0727132929423201e-21,
+        9.617022478696543e-22,
+        1.1798385563956086e-21
+      ],
+      "name": "squared side chain length",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "residue names": [
+        "A",
+        "aA",
+        "bA"
+      ],
+      "temperature": 470.0,
+      "temperature unit": "K",
+      "unit": "m^2",
+      "value": [
+        2.1393737562892345e-19,
+        1.913672595163414e-19,
+        1.976110376356944e-19
+      ]
+    },
+    {
+      "error": [
+        1.0979178898030009e-41,
+        7.982101618740696e-42,
+        1.3702651493446551e-41
+      ],
+      "name": "dot(BBvec, dipole)",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "residue names": [
+        "A",
+        "aA",
+        "bA"
+      ],
+      "temperature": 470.0,
+      "temperature unit": "K",
+      "unit": "m^2 C",
+      "value": [
+        2.725632704036325e-40,
+        2.751839996190696e-40,
+        5.894144438757139e-40
+      ]
+    },
+    {
+      "error": [
+        4.3984513952442957e-41,
+        3.041915677804104e-41,
+        1.9609267933658653e-41
+      ],
+      "name": "dot(BB-sideRcm, dipole)",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "residue names": [
+        "A",
+        "aA",
+        "bA"
+      ],
+      "temperature": 470.0,
+      "temperature unit": "K",
+      "unit": "m^2 C",
+      "value": [
+        -1.0968386023744883e-39,
+        -1.0702923336356438e-39,
+        -1.3161062699986481e-39
+      ]
+    },
+    {
+      "error": [
+        0.007335422058304384,
+        0.006376095469614746,
+        0.011503069157549254
+      ],
+      "name": "angle(BBvec, dipole)",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "residue names": [
+        "A",
+        "aA",
+        "bA"
+      ],
+      "temperature": 470.0,
+      "temperature unit": "K",
+      "unit": "Rad",
+      "value": [
+        1.3831655228252482,
+        1.3887718612866187,
+        1.1579035870134764
+      ]
+    },
+    {
+      "error": [
+        0.00940982687256819,
+        0.009953398600062047,
+        0.0060600123187890724
+      ],
+      "name": "angle(BB-sideRcm, dipole)",
+      "pressure": 100000.0,
+      "pressure unit": "kg m^-1 s^-2",
+      "residue names": [
+        "A",
+        "aA",
+        "bA"
+      ],
+      "temperature": 470.0,
+      "temperature unit": "K",
+      "unit": "Rad",
+      "value": [
+        1.8416053985155636,
+        1.8519062884277844,
+        1.8984610787511056
+      ]
+    }
+  ],
+  "smiles-string": "<C=C(C)C(OCC(O)CSC1=CC=C(F)C=C1F)=O>{3}",
+  "uID": "eNoNyjsOwjAQRdHtjKV5cq7Hn0QCmkjIqShYAk0qNoDYO5z6XI73fh5X8k5M6r084plfaLWSCGMkVnWxGD0NsYmiqtBm1NQExn-2fIaaszh9Ot41ZvEy4_aJ7w9OWxWM"
+}

@@ -1,0 +1,7 @@
+{
+  "dependency": [
+    "bulk_nvt-423.5",
+    "radius_of_gyration-423.5"
+  ],
+  "state": "finished"
+}

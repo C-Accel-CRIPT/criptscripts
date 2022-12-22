@@ -1,0 +1,126 @@
+{
+  "analysis": {
+    "cohesive_energy_density": {
+      "blocks": 5
+    },
+    "density": {
+      "blocks": 5
+    },
+    "squared dipole moment": {
+      "blocks": 5,
+      "block check": true
+    },
+    "diffusion_activation_energy": {
+      "r-threshold": -0.99
+    },
+    "glass_transition": {
+      "init_high": 5,
+      "init_low": 5,
+      "init_num": 100,
+      "p0_intercept_high": 1.35,
+      "p0_intercept_low": 1.15,
+      "p0_slope_high": -0.0015,
+      "p0_slope_low": -0.001,
+      "plot_high": 20,
+      "plot_low": 20
+    },
+    "heat_vaporization": {
+      "blocks": 5
+    },
+    "isothermal_compressibility": {
+      "blocks": 5
+    },
+    "kuhn": {
+      "cut-data-points": 10,
+      "min-fit-points": 10
+    },
+    "msd_and_diff_coeff": {
+      "from-fraction": 0.25,
+      "r-threshold": 0.999,
+      "rg-warn-factor": 4.0,
+      "to-fraction": 0.75
+    },
+    "thermal_expansion_coeff": {
+      "blocks": 5
+    }
+  },
+  "change-expected": false,
+  "run": {
+    "auto_equilibrate": {
+      "langevin-friction": 1.0,
+      "log-frequency": 20.0,
+      "max-walltime-sec": 129600,
+      "rg-msd-ratio": 6.0,
+      "time-per-step": 500.0
+    },
+    "dt": 0.001,
+    "equilibrate": {
+      "equi-time": 1000.0,
+      "log-frequency": 20.0,
+      "pressure": 1.0,
+      "state-frequency": 2.0
+    },
+    "gas": {
+      "equilibration-time": 1000.0,
+      "log-frequency": 20.0,
+      "production-time": 1000.0,
+      "state-frequency": 2.0,
+      "traj-frequency": 100.0
+    },
+    "min-dt": 0.0002,
+    "minimize": {
+      "dt": 0.002,
+      "dt-iter": 0.0002,
+      "iter": 10,
+      "max-tries": 10,
+      "steps": 100,
+      "steps-iter": 10,
+      "temperature": 250.0
+    },
+    "nb-cutoff": 1.25,
+    "npt": {
+      "log-frequency": 20.0,
+      "pressure": 1.0,
+      "production-time": 25000.0,
+      "state-frequency": 2.0,
+      "traj-frequency": 100.0
+    },
+    "nvt": {
+      "log-frequency": 20.0,
+      "production-time": 25000.0,
+      "state-frequency": 2.0,
+      "traj-frequency": 100.0
+    },
+    "quench": {
+      "cooling-rate": 0.01,
+      "langevin-friction": 1.0,
+      "log-frequency": 20.0,
+      "pressure": 1.0,
+      "state-frequency": 2.0,
+      "time-per-temp": 2.0,
+      "traj-frequency": 100.0
+    },
+    "quench_equilibrate": {
+      "cooling-rate": 0.01,
+      "eq-npt-time": 5000.0,
+      "first-eq-time": 5000.0,
+      "langevin-friction": 1.0,
+      "log-frequency": 20.0,
+      "npt-time": 5000.0,
+      "nvt-time": 5000.0,
+      "pressure": 1.0,
+      "safe-temp": 250.0,
+      "safe-temp-reduction": 10.0,
+      "safe-volume-factor": 2.0,
+      "state-frequency": 2.0,
+      "time-per-temp": 2.0
+    }
+  },
+  "unit": {
+    "frequency": "time",
+    "length": "nanometer",
+    "pressure": "bar",
+    "temperature": "Kelvin",
+    "time": "picoseconds"
+  }
+}
