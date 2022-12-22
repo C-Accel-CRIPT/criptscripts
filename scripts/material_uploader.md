@@ -6,6 +6,10 @@ parent: Scripts
 
 # Material Upload Script
 
-An example script to upload a CSV containing rows of material information
+An example Python script to upload a CSV containing rows of material information
 
-[cript-ingestion-scripts/material_upload](https://github.com/C-Accel-CRIPT/cript-ingestion-scripts/tree/master/material_upload)
+## Python Script
+* [upload.py](./python_sdk_scripts/AFRL/upload.py)
+
+## Supplemental File
+* [polymer Experiment.csv](./python_sdk_scripts/AFRL/Polymer%20Experiment.csv)
