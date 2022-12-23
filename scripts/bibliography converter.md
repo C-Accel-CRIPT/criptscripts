@@ -1,13 +1,18 @@
-<!-- ---
+---
 layout: default
-title: Bibliography converter
-# parent: Scripts
+title: Bibliography Creator
+parent: Scripts
 ---
 
-# Reference Bibliography Converter
+# Bibliography Creator
 
-CRIPT Bibliography Converter Python script using [CRIPT Python SDK](https://pypi.org/project/cript/) to read bibliography and create [CRIPT references](https://criptapp.org/reference/).
+The bibliography converter is a Python script written with the [CRIPT Python SDK](https://github.com/C-Accel-CRIPT/cript) that creates [CRIPT references](https://criptapp.org/reference/) from a text file containing a bibliography.
 
 ## Python Script
+* [script.py](./python_sdk_scripts/bibliography_creator/script.py)
 
-* [a script]() -->
+
+## Supplemental File
+* [sample.bib.txt](./python_sdk_scripts/bibliography_creator/sample.bib.txt)
+* [sample2.bib.txt](./python_sdk_scripts/bibliography_creator/sample2.bib.txt)
+* [test_script.py](./python_sdk_scripts/bibliography_creator/test_script.py)
