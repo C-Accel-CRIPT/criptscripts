@@ -1,4 +1,4 @@
-import { ICollection, IMaterial } from './.';
+import { ICollection, IMaterial } from '.';
 
 export interface IInventory {
   name: string;

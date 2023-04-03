@@ -1,4 +1,7 @@
-import { ICondition, IMaterial } from './.';
+import { IComputation } from "./IComputation";
+import { ICondition } from "./ICondition";
+import { IData } from "./IData";
+import { IMaterial } from "./IMaterial";
 
 export interface IProperty {
   readonly node: ['Property'];
