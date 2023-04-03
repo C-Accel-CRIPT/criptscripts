@@ -10,7 +10,7 @@ export interface IVocab {
  */
 export type IVocabBase = {
   name: string;
-  description;
+  description: string;
 };
 
 // type copy from WebSDK, may require changes. Double check the API.

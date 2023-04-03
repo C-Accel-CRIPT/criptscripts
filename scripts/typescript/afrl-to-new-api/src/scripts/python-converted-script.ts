@@ -1,5 +1,5 @@
 import { AFRLData } from "../types/afrl"
-import { ICitation, IInventory, IMaterial, IReference } from "../types/cript"
+import { ICitation, ICollection, IInventory, IMaterial, IPrimary, IProject, IReference } from "../types/cript"
 import { CitationType } from "../types/cript/ICitation";
 
 /**
@@ -9,33 +9,64 @@ import { CitationType } from "../types/cript/ICitation";
  * Having a *.ts file is very usefull to have autocompletion and static typecheck. * 
  */
 export type Config = {
-    
-    // Inventory name
-    inventory: string;
+    // Destination project's name
+    project_name: string;
+    // Destination inventory's basename
+    inventory_basename: string;    
 }
 
 export class AFRLtoJSON {
 
-    readonly citations = new Map<string, ICitation>();
-    readonly solvents = new Array<IMaterial>();
-    readonly polymers = new Array<IMaterial>();
-    readonly mixtures = new Array<IMaterial>();
+    // declare few maps to retreive data easily
 
+    readonly citations = new Map<string, ICitation>();
+    readonly solvents = new Map<string, IMaterial>();
+    readonly polymers = new Map<string, IMaterial>();
+    readonly mixtures = new Map<string, IMaterial>();
+
+    // The project data will be stored in
+    project: IProject;
+
+    // The collection data will be stored in
+    collection: ICollection;
+
+    // The inventories data will be stored in
     inventory_solvents: IInventory;
     inventory_polymers: IInventory;
     inventory_mixtures: IInventory;
 
     constructor(config: Config = AFRLtoJSON.load_config()) {
 
+        // Create inventories
         this.inventory_solvents = {
-            name: `${config.inventory} (solvents)`
+            name: `${config.inventory_basename} (solvents)`,
+            material: []
         } as any;
         this.inventory_polymers = {
-            name: `${config.inventory} (polymers)`
+            name: `${config.inventory_basename} (polymers)`,
+            material: []
         } as any;
         this.inventory_mixtures = {
-            name: `${config.inventory} (mixtures)`
+            name: `${config.inventory_basename} (mixtures)`,
+            material: []
         } as any;
+
+        // Create collection with the inventories in it
+        this.collection = {
+            inventory: [
+                this.inventory_solvents,
+                this.inventory_polymers,
+                this.inventory_mixtures
+            ] as IInventory[]
+        } as ICollection;
+
+        // Create a project with the collection in it        
+        this.project = {
+            name: config.project_name,
+            node: ['Project'],
+            collection: [this.collection]
+        } as IProject;
+        
     }
 
     get_citation(row: AFRLData): ICitation | undefined {
@@ -73,7 +104,8 @@ export class AFRLtoJSON {
         }
 
         // Create citation
-        const name = row.reference.includes("doi.org") ? row.reference.replace("doi.org", "").split("/").at(0) : row.reference;
+        const DOI_DOT_ORG = "doi.org";
+        const name = row.reference.includes(DOI_DOT_ORG) ? row.reference.replace(DOI_DOT_ORG, "").split("/").at(0) : row.reference;
         const citation: ICitation = {
             node: ['Citation'],
             name,
@@ -109,6 +141,9 @@ export class AFRLtoJSON {
 
     get_solvent(row: AFRLData): IMaterial {
         /*
+        // original code
+        /////////////////
+
         cas = row["solvent_CAS"].strip()
     
         # Skip repeats
@@ -137,10 +172,53 @@ export class AFRLtoJSON {
         except (cript.exceptions.APIGetError):
             return None
         */
-        throw new Error("Function not implemented yet")
+
+        const cas = row.solvent_CAS.trim();
+
+        // Try to reuse an existing solvent
+        const existing_solvent = this.solvents.get(cas);
+        if (existing_solvent) {
+            console.log(`-- Found existing solvent: ${existing_solvent.name}`)
+            return existing_solvent
+        }
+    
+        // Pull solvent from server
+        // Blocker: the script assumes the solvent already exists on the backend, but we probably don't have it.
+        /*
+        try {
+            solvent = api.get(
+                cript.Material, 
+                {
+                    "identifiers": [
+                        {
+                            "key": "cas", 
+                            "value": cas
+                        }
+                    ], 
+                    "project": cript_project.uid
+                },
+                max_level=0
+            )
+            print(f"ROW {index + 2} -- Found existing solvent: {solvent.name}")
+            solvents[cas] = solvent
+            return solvent
+        except (cript.exceptions.APIGetError):
+            return None
+        */
+
+        // Temporary solution: we create a new Solvent...
+        const solvent: IMaterial = {
+            name: row.solvent,
+            cas
+        } as IMaterial;
+
+        // Store in hashmap
+        this.solvents.set(row.solvent, solvent);
+
+        return solvent;
     }
 
-    get_polymer(row: AFRLData, citation: ICitation): IMaterial {
+    get_polymer(row: AFRLData, citation?: ICitation): IMaterial {
         /*
     
          // original code
@@ -195,7 +273,7 @@ export class AFRLtoJSON {
         throw new Error("Function not implemented yet")
     }
 
-    get_mixture(row: AFRLData, polymer: IMaterial, solvent: IMaterial, citation: ICitation): IMaterial {
+    get_mixture(row: AFRLData, polymer: IMaterial, solvent: IMaterial, citation?: ICitation): IMaterial {
 
         /*    
          // original code
@@ -315,26 +393,32 @@ export class AFRLtoJSON {
         throw new Error("Function not implemented yet")
     }
 
-    upload(row: AFRLData): void {
+    /**
+     * Load a single AFRL data
+     * @param row object is called raw because this script was originaly dealing with a CSV file
+     *            In case you need to use a CSV again, just implement a CSV to AFRL[] method.
+     */
+    load(row: AFRLData): boolean {
 
-        const citation = this.get_citation(row) // common to this row
+        // get objects common to this row
+
+        const citation = this.get_citation(row) // is not required
         const solvent = this.get_solvent(row)
 
         if (!solvent) {
             // Record error and skip row if solvent is not found
             this.record_error(`Solvent not found: ${row.solvent} (${row.solvent_CAS})`);
-            return;
-        }
-        /*
-        inventory_solvents.materials.append(solvent)
+            return false;
+        }        
+        this.inventory_solvents.material.push(solvent)
     
-        polymer = get_polymer(index, row, citation)
-        inventory_polymers.materials.append(polymer)
+        const polymer = this.get_polymer(row, citation)
+        this.inventory_polymers.material.push(polymer)
     
-        mixture = get_mixture(index, row, polymer, solvent, citation)
-        inventory_mixtures.materials.append(mixture)
-        */
-        throw new Error("Function not implemented yet")
+        const mixture = this.get_mixture(row, polymer, solvent, citation)
+        this.inventory_mixtures.material.push(mixture)
+
+        return true;
     }
 
     static load_config(): Config {
@@ -362,9 +446,9 @@ export class AFRLtoJSON {
         */
 
         return {
-            inventory: 'local-inventory-test'
-        } // We do not need this for now
-
+            inventory_basename: 'afrl-inventory',
+            project_name: 'afrl-project'
+        }
     }
 
     to_JSON(data: AFRLData[]): void {
@@ -384,9 +468,17 @@ export class AFRLtoJSON {
         */
 
         // Upload data
+        const failed_rows: AFRLData[] = [];
         for (let row of data) {
-            this.upload(row);
+            if( !this.load(row) ) {
+                failed_rows.push(row);
+            }
         }
-        this.update_inventories()
+        this.update_inventories();
+        if( failed_rows.length != 0) {
+            console.error(`Unable to load ${failed_rows.length} row(s), logging them:`)
+            failed_rows.forEach( v => console.error(JSON.stringify(v)) )
+            console.error(`Logged ${failed_rows.length} row(s) the script was unable to load.`)
+        }
     }
 }
