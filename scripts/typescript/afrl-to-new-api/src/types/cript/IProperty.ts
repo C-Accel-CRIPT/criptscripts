@@ -1,3 +1,4 @@
+import { ICitation } from "./ICitation";
 import { IComputation } from "./IComputation";
 import { ICondition } from "./ICondition";
 import { IData } from "./IData";
@@ -19,7 +20,7 @@ export interface IProperty {
   condition: ICondition[];
   data: IData[];
   computation: IComputation[];
-  citation: []; // IReference //ReferencePost
+  citation: ICitation[]; // IReference //ReferencePost
   created_at: string;
   updated_at: string;
   model_version: string;

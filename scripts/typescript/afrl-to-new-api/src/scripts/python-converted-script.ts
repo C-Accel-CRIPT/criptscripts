@@ -1,5 +1,5 @@
 import { AFRLData } from "../types/afrl"
-import { ICitation, ICollection, IInventory, IMaterial, IPrimary, IProject, IReference } from "../types/cript"
+import { ICitation, ICollection, IIdentifier, IInventory, IMaterial, IPrimary, IProject, IProperty, IReference } from "../types/cript"
 import { CitationType } from "../types/cript/ICitation";
 
 /**
@@ -219,58 +219,72 @@ export class AFRLtoJSON {
     }
 
     get_polymer(row: AFRLData, citation?: ICitation): IMaterial {
-        /*
     
-         // original code
-        /////////////////
+        const polymer_id = row.polymer_id;
+        const name = row.polymer;
+        const unique_name = `${name}_${polymer_id}`;
+        const cas = row.polymer_CAS;
+        const bigsmiles = this.smiles_to_BigSMILES(row.polymer_SMILES)
+        const mw_w = row.polymer_Mw;
+        const mw_d = row.polymer_PDI;
     
-        polymer_id = row["polymer_id"]
-        name = row["polymer"]
-        unique_name = name + f"_{polymer_id}"
-        cas = row["polymer_CAS"]
-        bigsmiles = _convert_to_bigsmiles(row["polymer_SMILES"])
-        mw_w = row["polymer_Mw"]
-        mw_d = row["polymer_PDI"]
-    
-        # Return repeats
-        unique_set = (mw_w, mw_d, citation.reference.title)
-        if unique_set in polymers.keys():
-            print(f"ROW {index + 2} -- Found existing polymer: " + polymers[unique_set].name)
-            return polymers[unique_set]
-    
-        # Create identifiers
-        identifiers = []
-        if name:
-            identifiers.append(cript.Identifier(key="preferred_name", value=name))
-        if cas:
-            identifiers.append(cript.Identifier(key="cas", value=cas))
-        if bigsmiles:
-            identifiers.append(cript.Identifier(key="bigsmiles", value=bigsmiles))
-    
-        # Create properties
-        properties = []
-        if not math.isnan(mw_w):
-            properties.append(cript.Property(key="mw_w", value=mw_w, unit="g/mol", citations=[citation]))
-        if not math.isnan(mw_d):
-            properties.append(cript.Property(key="mw_d", value=mw_d, citations=[citation]))
-    
-        # Create new material object
-        polymer_dict = {
-            "project": project,
-            "name": unique_name,
-            "identifiers": identifiers,
-            "properties": properties,
-            "public": True
+        // Try to get the existing
+        if( citation ) {
+            // Note: previous implementation was using both mw_w, mw_d, and name as hash, but using unique_name seems more appropriate.
+            const existing_polymer = this.polymers.get(unique_name);
+            if (existing_polymer) {
+                console.log(`-- Found existing polymer: ${unique_name}`)
+                return existing_polymer;
+            }
         }
-        polymer = cript.Material(**polymer_dict)
+        // Create properties
+        const properties: IProperty[] = [];
+        if (mw_w && !isNaN(mw_w))
+            properties.push({
+                key: "mw_w",
+                value: mw_w,
+                unit: "g/mol",
+                citation: citation ? [citation] : [],
+                node: ['Property']
+            } as IProperty)
+
+        if (mw_d && !isNaN(mw_d))
+            properties.push({
+                key: "mw_d",
+                value: mw_d,
+                unit: "",
+                citation: citation ? [citation] : [],
+                node: ['Property']
+            } as IProperty) 
     
-        #Save material or update and use existing
-        api.save(polymer, update_existing=True, max_level=0)
-    
-        polymers[unique_set] = polymer
+       
+        // Create new material object
+        const polymer: IMaterial = {
+            name: unique_name,
+            property: properties,
+            node: ['Material']
+        } as IMaterial;
+
+        // Create identifiers
+        //
+        // note: the new API does not have a concept for the legacy's API Identifiers.
+        //       We have to set those directly on the Material node.
+        //
+        if(name){
+            polymer.names = [name]; // Not sure about that, waiting for Brilant's answer.
+            //identifiers.push(cript.Identifier(key="prefered_name", value=name))
+        }
+        if(cas){
+            polymer.cas = cas;
+            //identifiers.push(cript.Identifier(key="cas", value=cas))
+        }
+        if(bigsmiles){
+            polymer.bigsmiles = bigsmiles;
+            //identifiers.push(cript.Identifier(key="bigsmiles", value=bigsmiles))
+        }
+        
+        this.polymers.set(unique_name, polymer);
         return polymer
-        */
-        throw new Error("Function not implemented yet")
     }
 
     get_mixture(row: AFRLData, polymer: IMaterial, solvent: IMaterial, citation?: ICitation): IMaterial {
@@ -346,19 +360,12 @@ export class AFRLtoJSON {
 
     }
 
-    _convert_to_bigsmiles(old_smiles: string): string {
-        /*
+    private smiles_to_BigSMILES(old_smiles: string): string {
+        // Replace * with [<] and [>]
+        let bigsmiles = "[<]".concat(old_smiles.split("*", 1)[0])
+        bigsmiles = "[>]".concat(bigsmiles.split("*", 1)[1])
         
-         // original code
-        /////////////////
-        # Replace * with [<] and [>]
-        bigsmiles = "[<]".join(old_smiles.split("*", 1))
-        bigsmiles = "[>]".join(bigsmiles.rsplit("*", 1))
-        
-        return f"{{[]{bigsmiles}[]}}"
-        */
-        throw new Error("Function not implemented yet")
-
+        return `{{[]${bigsmiles}[]}}`;
     }
 
 
