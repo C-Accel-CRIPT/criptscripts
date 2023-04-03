@@ -1,3 +1,5 @@
+import { IReference } from "./IReference";
+
 export enum CitationType {
   'extracted_by_human',
   'extracted_by_nlp',
@@ -14,7 +16,7 @@ export interface ICitation {
   created_at: string;
   updated_at: string;
   model_version: string;
-  reference: string;
+  reference: IReference;
   uuid: string;
   // type: string;
   type: CitationType;

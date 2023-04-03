@@ -1,5 +1,6 @@
 import { AFRLData } from "../types/afrl"
-import { ICitation, IInventory, IMaterial } from "../types/cript"
+import { ICitation, IInventory, IMaterial, IReference } from "../types/cript"
+import { CitationType } from "../types/cript/ICitation";
 
 /**
  * This script is a typescript port of @see https://github.com/C-Accel-CRIPT/criptscripts/tree/master/scripts/python_sdk_scripts/AFRL
@@ -15,7 +16,7 @@ export type Config = {
 
 export class AFRLtoJSON {
 
-    readonly citations = new Array<ICitation>();
+    readonly citations = new Map<string, ICitation>();
     readonly solvents = new Array<IMaterial>();
     readonly polymers = new Array<IMaterial>();
     readonly mixtures = new Array<IMaterial>();
@@ -37,7 +38,7 @@ export class AFRLtoJSON {
         } as any;
     }
 
-    get_citation(row: AFRLData): ICitation {
+    get_citation(row: AFRLData): ICitation | undefined {
         /*     
          // original code
         /////////////////
@@ -62,8 +63,33 @@ export class AFRLtoJSON {
         citations[citation.reference.title] = citation
     
         return citation
-        */
-        throw new Error("Function not implemented yet")
+        */           
+
+        // Check if citation was already created
+        const existing_citation = this.citations.get(row.reference);
+        if ( existing_citation ) {            
+            console.log(`Found existing reference: ${existing_citation.name}`)
+            return existing_citation;
+        }
+
+        // Create citation
+        const name = row.reference.includes("doi.org") ? row.reference.replace("doi.org", "").split("/").at(0) : row.reference;
+        const citation: ICitation = {
+            node: ['Citation'],
+            name,
+            reference: {
+                node: ['Reference'],
+                created_at: "",
+                doi: row.reference
+            } as IReference,
+            type: CitationType.reference
+        } as ICitation;
+
+        // Store in hashmap
+        this.citations.set(row.reference, citation);
+    
+        return citation
+
     }
 
     get_inventory(name: string): IInventory {
