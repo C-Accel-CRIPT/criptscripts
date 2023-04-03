@@ -1,5 +1,13 @@
-/**
-function get_citation(index, row): ICitation
+import { AFRLData } from "../types/afrl"
+import { ICitation, IInventory, IMaterial } from "../types/cript"
+
+export type Config = {}
+
+function get_citation(row: AFRLData): ICitation {
+    /*     
+     // original code
+    /////////////////
+
     reference_title = row["reference"]
 
     # Check if citation was already created
@@ -20,18 +28,27 @@ function get_citation(index, row): ICitation
     citations[citation.reference.title] = citation
 
     return citation
+    */
+    throw new Error("Function not implemented yet")
+}
 
+function get_inventory(name: string): IInventory {
+    /*
+     // original code
+    /////////////////
 
-def get_inventory(inventory_name):
     inventory = cript.Inventory(group=group, collection=collection, name=inventory_name, materials=[], public=True)
 
     #Save inventory or update and use existing
     api.save(inventory, update_existing=True, max_level=0)
 
     return inventory
+    */
+    throw new Error("Function not implemented yet")
+}
 
-
-def get_solvent(index, row):
+function get_solvent(row: AFRLData): IMaterial {
+    /*
     cas = row["solvent_CAS"].strip()
 
     # Skip repeats
@@ -59,9 +76,16 @@ def get_solvent(index, row):
         return solvent
     except (cript.exceptions.APIGetError):
         return None
+    */
+    throw new Error("Function not implemented yet")
+}
 
+function get_polymer(row: AFRLData, citation: ICitation): IMaterial {
+    /*
 
-def get_polymer(index, row, citation):
+     // original code
+    /////////////////
+
     polymer_id = row["polymer_id"]
     name = row["polymer"]
     unique_name = name + f"_{polymer_id}"
@@ -107,9 +131,16 @@ def get_polymer(index, row, citation):
 
     polymers[unique_set] = polymer
     return polymer
+    */
+    throw new Error("Function not implemented yet")
+}
 
+function get_mixture(row: AFRLData, polymer: IMaterial, solvent: IMaterial, citation: ICitation): IMaterial {
 
-def get_mixture(index, row, polymer, solvent, citation):
+    /*    
+     // original code
+    /////////////////
+
     mixture_id = row["mixture_id"]
     name = f"{polymer.name} + {solvent.name} mixture"
     unique_name = name + f" ({mixture_id})"
@@ -172,24 +203,40 @@ def get_mixture(index, row, polymer, solvent, citation):
     mixtures[mixture.name] = mixture
     return mixture
 
+    */
+    throw new Error("Function not implemented yet")
 
-def _convert_to_bigsmiles(old_smiles):
+}
+
+function _convert_to_bigsmiles(old_smiles: string): string {
+    /*
+    
+     // original code
+    /////////////////
     # Replace * with [<] and [>]
     bigsmiles = "[<]".join(old_smiles.split("*", 1))
     bigsmiles = "[>]".join(bigsmiles.rsplit("*", 1))
     
     return f"{{[]{bigsmiles}[]}}"
+    */
+    throw new Error("Function not implemented yet")
+
+}
 
 
-
-def record_error(message):
+function record_error(message: string): void {
+    /*
     error_file = open("./errors.txt", "a")
     error_file.write(message + "\n\n")
     error_file.close()
     print(message)
+    */
+    throw new Error("Function not implemented yet")
+}
 
 
-def update_inventories():
+function update_inventories(): void {
+    /*
     print("Updating Inventory nodes.")
 
     # Update solvent inventory
@@ -203,9 +250,13 @@ def update_inventories():
     # Update mixture inventory
     api.save(inventory_mixtures, max_level=0)
     print(f"Updated mixture inventory.")
+    */
 
+    throw new Error("Function not implemented yet")
+}
 
-def upload(index, row):
+function upload(row: AFRLData): void {
+    /*
     citation = get_citation(index, row)  # Reuse for each object in row
 
     solvent = get_solvent(index, row)
@@ -222,9 +273,12 @@ def upload(index, row):
 
     mixture = get_mixture(index, row, polymer, solvent, citation)
     inventory_mixtures.materials.append(mixture)
+    */
+    throw new Error("Function not implemented yet")
+}
 
-
-def load_config():
+function load_config(): Config {
+    /*
     try:
         with open("config.yaml", "r") as f:
             config = yaml.safe_load(f)
@@ -247,9 +301,15 @@ def load_config():
         config["path"] = input("Path to CSV file: ").strip('"')
 
     return config
-    
+    */
+    throw new Error("Function not implemented yet")
+}
 
-if __name__ == "__main__":
+/**
+ * Main loop
+ */
+export function main(): void {
+    /*
     config = load_config()
     citations = {}
     solvents = {}
@@ -277,4 +337,6 @@ if __name__ == "__main__":
             update_inventories()
             sys.exit(1)
     update_inventories()
- */
+    */
+    throw new Error("Function not implemented yet")
+}
