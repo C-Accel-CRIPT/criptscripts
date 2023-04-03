@@ -1,3 +1,3 @@
-import { main } from "../src/scripts/wrong-aborted-script";
+import { main } from "../src/scripts/python-converted-script";
 
-main({log: true});
+main();

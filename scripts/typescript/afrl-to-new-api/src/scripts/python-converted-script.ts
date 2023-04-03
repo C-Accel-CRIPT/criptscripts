@@ -1,6 +1,13 @@
+import { data } from "../data/data"
 import { AFRLData } from "../types/afrl"
 import { ICitation, IInventory, IMaterial } from "../types/cript"
 
+/**
+ * This script is a typescript port of @see https://github.com/C-Accel-CRIPT/criptscripts/tree/master/scripts/python_sdk_scripts/AFRL
+ * The main difference is the data is already well structured to be used in TS (see ../data/data.ts).
+ * The reason why data is a a AFRLData[] is because the legacy frontend (django app) had a JS file with the same data in it.
+ * Having a *.ts file is very usefull to have autocompletion and static typecheck. * 
+ */
 export type Config = {}
 
 function get_citation(row: AFRLData): ICitation {
@@ -299,44 +306,41 @@ function load_config(): Config {
         config["inventory"] = input("Inventory name: ")
     if config.get("path") is None:
         config["path"] = input("Path to CSV file: ").strip('"')
-
-    return config
     */
-    throw new Error("Function not implemented yet")
+
+    return {} // We do not need this for now
+
 }
 
 /**
  * Main loop
  */
 export function main(): void {
+    
+    const config = load_config()
+    const citations = new Array<ICitation>();
+    const solvents = new Array<IMaterial>();
+    const polymers = new Array<IMaterial>();
+    const mixtures = new Array<IMaterial>();
+
+    // Establish connection with the API
+    // api = cript.API(config["host"], config["token"]) // skip that, we want to produce a JSON
+
+    // Fetch objects <--------- TODO
     /*
-    config = load_config()
-    citations = {}
-    solvents = {}
-    polymers = {}
-    mixtures = {}
+    const group = api.get(cript.Group, {"name": config["group"]}, max_level=0)
+    const project = api.get(cript.Project,{"name": config["project"]}, max_level=0)
+    const cript_project = api.get(cript.Project, {"name": "CRIPT"}, max_level=0)
+    const collection = api.get(cript.Collection, {"name": config["collection"], "project": project.uid}, max_level=0)
 
-    # Establish connection with the API
-    api = cript.API(config["host"], config["token"])
-
-    # Fetch objects
-    group = api.get(cript.Group, {"name": config["group"]}, max_level=0)
-    project = api.get(cript.Project,{"name": config["project"]}, max_level=0)
-    cript_project = api.get(cript.Project, {"name": "CRIPT"}, max_level=0)
-    collection = api.get(cript.Collection, {"name": config["collection"], "project": project.uid}, max_level=0)
-    inventory_solvents = get_inventory(config["inventory"] + " (solvents)")
-    inventory_polymers = get_inventory(config["inventory"] + " (polymers)")
-    inventory_mixtures = get_inventory(config["inventory"] + " (mixtures)")
-
-    # Upload data
-    df = pd.read_csv(config["path"])
-    for index, row in df.iterrows():
-        try:
-            upload(index, row)
-        except KeyboardInterrupt:
-            update_inventories()
-            sys.exit(1)
-    update_inventories()
+    const inventory_solvents = get_inventory(config["inventory"] + " (solvents)")
+    const inventory_polymers = get_inventory(config["inventory"] + " (polymers)")
+    const inventory_mixtures = get_inventory(config["inventory"] + " (mixtures)")
     */
-    throw new Error("Function not implemented yet")
+
+    // Upload data
+    for( let row of data) {
+        upload(row);
+    }
+    update_inventories()
 }
