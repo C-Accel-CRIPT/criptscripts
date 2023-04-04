@@ -8,13 +8,13 @@ import { CitationType } from "../types/cript/ICitation";
  * The reason why data is a a AFRLData[] is because the legacy frontend (django app) had a JS file with the same data in it.
  * Having a *.ts file is very usefull to have autocompletion and static typecheck. * 
  */
+
 export type Config = {
     // Destination project's name
     project_name: string;
     // Destination inventory's basename
     inventory_basename: string;    
 }
-
 export class AFRLtoJSON {
 
     // declare few maps to retreive data easily
@@ -439,33 +439,12 @@ export class AFRLtoJSON {
         throw new Error("Function not implemented yet")
     }
 
-
-    update_inventories(): void {
-        /*
-        print("Updating Inventory nodes.")
-    
-        # Update solvent inventory
-        api.save(inventory_solvents, max_level=0)
-        print(f"Updated solvent inventory.")
-    
-        # Update polymer inventory
-        api.save(inventory_polymers, max_level=0)
-        print(f"Updated polymer inventory.")
-    
-        # Update mixture inventory
-        api.save(inventory_mixtures, max_level=0)
-        print(f"Updated mixture inventory.")
-        */
-
-        throw new Error("Function not implemented yet")
-    }
-
     /**
      * Load a single AFRL data
      * @param row object is called raw because this script was originaly dealing with a CSV file
      *            In case you need to use a CSV again, just implement a CSV to AFRL[] method.
      */
-    load(row: AFRLData): boolean {
+    load_row(row: AFRLData): boolean {
 
         // get objects common to this row
 
@@ -518,34 +497,30 @@ export class AFRLtoJSON {
         }
     }
 
-    to_JSON(data: AFRLData[]): void {
-        // Establish connection with the API
-        // api = cript.API(config["host"], config["token"]) // skip that, we want to produce a JSON
+    load(data: AFRLData[]): IProject {
 
-        // Fetch objects <--------- TODO
-        /*
-        const group = api.get(cript.Group, {"name": config["group"]}, max_level=0)
-        const project = api.get(cript.Project,{"name": config["project"]}, max_level=0)
-        const cript_project = api.get(cript.Project, {"name": "CRIPT"}, max_level=0)
-        const collection = api.get(cript.Collection, {"name": config["collection"], "project": project.uid}, max_level=0)
-
-        const inventory_solvents = get_inventory(config["inventory"] + " (solvents)")
-        const inventory_polymers = get_inventory(config["inventory"] + " (polymers)")
-        const inventory_mixtures = get_inventory(config["inventory"] + " (mixtures)")
-        */
-
-        // Upload data
+        // load data
+        console.log('Loading data ...')
         const failed_rows: AFRLData[] = [];
+        let one_based_index = 1;
+        const data_length = data.length;
         for (let row of data) {
-            if( !this.load(row) ) {
+            console.log(`Loading data ${one_based_index}/${data_length} ...`)
+            if( !this.load_row(row) ) {
                 failed_rows.push(row);
             }
-        }
-        this.update_inventories();
+            one_based_index++;
+        }        
+
+        // Log failures
         if( failed_rows.length != 0) {
-            console.error(`Unable to load ${failed_rows.length} row(s), logging them:`)
+            console.log(`Loading failed. Some objects couldn't be loaded (${failed_rows.length} row(s) failed)`)
             failed_rows.forEach( v => console.error(JSON.stringify(v)) )
-            console.error(`Logged ${failed_rows.length} row(s) the script was unable to load.`)
+            throw new Error(`${failed_rows.length} row(s) were not loaded.`)
+        } else {
+            console.log('Loading data OK')
+            return this.project;
         }
+        
     }
 }
