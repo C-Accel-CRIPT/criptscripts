@@ -395,11 +395,27 @@ export class AFRLtoJSON {
         return mixture;    
     }
 
-    private smiles_to_BigSMILES(old_smiles: string): string {
+
+    private smiles_to_BigSMILES(smiles: string): string | undefined {
+
+        if( !smiles || smiles == '') return undefined;
+
         // Replace * with [<] and [>]
-        let bigsmiles = "[<]".concat(old_smiles.split("*", 1)[0])
-        bigsmiles = "[>]".concat(bigsmiles.split("*", 1)[1])
+        let bigsmiles: string;
+        const tokens = smiles.split('*');
         
+        switch( tokens.length ) {
+            case 1:
+                bigsmiles = tokens[0];
+                break;
+            case 3:
+                bigsmiles = `${tokens[0]}[<]${tokens[1]}[>]${tokens[2]}`;
+                break;
+            default:
+                this.record_error(`Unable to convert smiles to BigSMILES, should have zero or two "*": ${smiles}`);
+                return undefined;
+        }
+
         return `{{[]${bigsmiles}[]}}`;
     }
 
