@@ -201,7 +201,7 @@ export class AFRLtoJSON {
         if (mw_w && !isNaN(mw_w))
             properties.push({
                 key: "mw_w",
-                value: mw_w,
+                value: String(mw_w) as any, // FIXME: backend does not accept numbers
                 unit: "g/mol",
                 citation,
                 node: ['Property']
@@ -210,7 +210,7 @@ export class AFRLtoJSON {
         if (mw_d && !isNaN(mw_d))
             properties.push({
                 key: "mw_d",
-                value: mw_d,
+                value: String(mw_d) as any, // FIXME: backend does not accept numbers,
                 unit: "",
                 citation,
                 node: ['Property']
@@ -301,7 +301,7 @@ export class AFRLtoJSON {
         if (conc_vol_fraction && ! isNaN(conc_vol_fraction) ) {
             mixture.property.push({
                 key: "conc_vol_fraction",
-                value: conc_vol_fraction,
+                value: String(conc_vol_fraction) as any, // FIXME: backend does not accept numbers,
                 // "components_relative" does not exist on new API, using "component" instead.         
                 component: [polymer],
                 citation,
@@ -312,7 +312,7 @@ export class AFRLtoJSON {
         if (conc_mass_fraction && ! isNaN(conc_mass_fraction) ) {
             mixture.property.push({
                 key: "conc_mass_fraction",
-                value: conc_mass_fraction,
+                value: String(conc_mass_fraction) as any, // FIXME: backend does not accept numbers
                 // "components_relative" does not exist on new API, using "component" instead.         
                 component: [polymer],
                 citation,
@@ -324,7 +324,7 @@ export class AFRLtoJSON {
             
             const temp_cloud_property: IProperty = {
                 key: "temp_cloud",
-                value: temp_cloud,
+                value: String(temp_cloud) as any, // FIXME: backend does not accept numbers
                 // "components_relative" does not exist on new API, using "component" instead.         
                 component: [polymer],
                 citation,
