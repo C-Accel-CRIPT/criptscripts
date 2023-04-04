@@ -4,7 +4,7 @@ import { IProperty } from './IProperty';
 
 export interface IComputationalForcefield {}
 export interface IMaterial {
-  readonly node: 'Material';
+  readonly node: ['Material'];
   created_at: string;
   locked: boolean;
   model_version: string;

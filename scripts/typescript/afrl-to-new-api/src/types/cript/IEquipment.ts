@@ -1,5 +1,5 @@
 import { ICitation } from "./ICitation"
-import { ICondition } from "./ICondition.";
+import { ICondition } from "./ICondition";
 import { IFile } from "./IFile";
 
 /**
@@ -16,7 +16,7 @@ export interface IEquipment {
     description: string;
     file?: IFile[];
     model_version: string;
-    node: 'Equipment';
+    node: ['Equipment'];
     uid: string;
     updated_at: string;
     uuid: string;

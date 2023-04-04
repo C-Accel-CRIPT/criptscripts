@@ -4,5 +4,5 @@ export interface IFile {
   type: string;
   uid: string;
   uuid: string;
-  readonly node: 'File';
+  readonly node: ['File'];
 }

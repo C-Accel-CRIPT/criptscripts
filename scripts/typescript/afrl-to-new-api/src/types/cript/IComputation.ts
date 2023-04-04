@@ -5,7 +5,7 @@ import { ICondition, IReference, IData, ISoftwareConfiguration, IExperiment, IIn
  * @see https://chemrxiv.org/engage/api-gateway/chemrxiv/assets/orp/resource/item/6322994103e27d9176d5b10c/original/main-supporting-information.pdf#page=11
  */
 export interface IComputation {
-  readonly node: 'Computation';
+  readonly node: ['Computation'];
   uid: string;
   uuid: string;
   citation?: IReference[];

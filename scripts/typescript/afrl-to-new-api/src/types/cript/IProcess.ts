@@ -1,7 +1,7 @@
 import { ICondition, IExperiment, IIngredient, IMaterial, ICitation, IProperty, IEquipment } from '.';
 
 export interface IProcess {
-  readonly node: 'Process';
+  readonly node: ['Process'];
   experiment?: IExperiment[];
 
   created_at: string;

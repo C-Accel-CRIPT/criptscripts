@@ -9,7 +9,8 @@ export type CitationType =
   'reference';
 
 export interface ICitation {
-  readonly node: 'Citation';
+  readonly node: ['Citation'];
+
   name: string;
   created_at: string;
   updated_at: string;
