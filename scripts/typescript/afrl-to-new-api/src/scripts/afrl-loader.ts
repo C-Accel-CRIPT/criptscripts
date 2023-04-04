@@ -40,21 +40,32 @@ export class AFRLtoJSON {
     constructor(config: Config = AFRLtoJSON.load_config()) {
 
         // Create inventories
+
         this.inventory_solvents = {
             name: `${config.inventory_basename} (solvents)`,
-            material: []
+            material: [],
+            node: ['Inventory'],
+            notes: `Gather all the solvents extracted from AFRL dataset`,
         } as any;
+        
         this.inventory_polymers = {
             name: `${config.inventory_basename} (polymers)`,
-            material: []
+            material: [],
+            node: ['Inventory'],
+            notes:`Gather all the polymers extracted from AFRL dataset`,
         } as any;
+
         this.inventory_mixtures = {
             name: `${config.inventory_basename} (mixtures)`,
-            material: []
+            material: [],
+            node: ['Inventory'],
+            notes:`Gather all the mixtures extracted from AFRL dataset`,
         } as any;
 
         // Create collection with the inventories in it
         this.collection = {
+            name: "afrl", // will be overriden by user config
+            notes:`Gather the 3 inventories extracted from AFRL dataset`,
             inventory: [
                 this.inventory_solvents,
                 this.inventory_polymers,
