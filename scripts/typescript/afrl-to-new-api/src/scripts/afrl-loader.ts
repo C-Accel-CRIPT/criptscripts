@@ -488,10 +488,17 @@ export class AFRLtoJSON {
             console.log(`Loading failed. Some objects couldn't be loaded (${failed_rows.length} row(s) failed)`)
             failed_rows.forEach( v => console.error(JSON.stringify(v)) )
             throw new Error(`${failed_rows.length} row(s) were not loaded.`)
-        } else {
-            console.log('Loading data OK')
-            return this.project;
         }
+
+        // hack
+        // In order to avoid to push multiple times the same Node, we have to
+        // set a "uid" (not "uuid"), which is like a local id.
+        this.solvents.forEach( each =>  each.uid = `_:${each.cas}`)
+        this.mixtures.forEach( each =>  each.uid = `_:${each.cas}`)
+        this.polymers.forEach( each =>  each.uid = `_:${each.cas}`)
+
+        console.log('Loading data OK')
+        return this.project;
         
     }
 }
