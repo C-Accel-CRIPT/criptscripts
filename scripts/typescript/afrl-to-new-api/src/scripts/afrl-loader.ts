@@ -19,21 +19,23 @@ export class AFRLtoJSON {
 
     // declare few maps to retreive data easily
 
-    readonly citations = new Map<string, ICitation>();
-    readonly solvents = new Map<string, IMaterial>();
-    readonly polymers = new Map<string, IMaterial>();
-    readonly mixtures = new Map<string, IMaterial>();
+    private readonly citations = new Map<string, ICitation>();
+    private readonly solvents = new Map<string, IMaterial>();
+    private readonly polymers = new Map<string, IMaterial>();
+    private readonly mixtures = new Map<string, IMaterial>();
 
     // The project data will be stored in
-    project: IProject;
+    private project: IProject;
 
     // The collection data will be stored in
-    collection: ICollection;
+    private collection: ICollection;
 
     // The inventories data will be stored in
-    inventory_solvents: IInventory;
-    inventory_polymers: IInventory;
-    inventory_mixtures: IInventory;
+    private inventory_solvents: IInventory;
+    private inventory_polymers: IInventory;
+    private inventory_mixtures: IInventory;
+
+    private errors: Array<string> = [];
 
     constructor(config: Config = AFRLtoJSON.load_config()) {
 
@@ -67,6 +69,10 @@ export class AFRLtoJSON {
             collection: [this.collection]
         } as IProject;
         
+    }
+
+    get_errors(): any {
+        return [...this.errors];
     }
 
     get_citation(row: AFRLData): ICitation {
@@ -148,12 +154,12 @@ export class AFRLtoJSON {
             return None
         */
 
-        const cas = row.solvent_CAS.trim();
+        const cas = row.solvent_CAS.trim(); // will be used as key in the hashmap this.solvent
 
         // Try to reuse an existing solvent
         const existing_solvent = this.solvents.get(cas);
         if (existing_solvent) {
-            console.log(`-- Found existing solvent: ${existing_solvent.name}`)
+            console.log(`-- Found existing solvent: ${existing_solvent.name} (cas: ${cas})`)
             return existing_solvent
         }
     
@@ -181,14 +187,15 @@ export class AFRLtoJSON {
             return None
         */
 
-        // Temporary solution: we create a new Solvent...
+        // Temporary solution: we create a new Solvent...        
         const solvent: IMaterial = {
             name: row.solvent,
             cas
         } as IMaterial;
+        this.record_error(`Search material from "cas" is not implemented, creating a local solvent for ${JSON.stringify(solvent)}`)
 
         // Store in hashmap
-        this.solvents.set(row.solvent, solvent);
+        this.solvents.set(cas, solvent);
 
         return solvent;
     }
@@ -321,24 +328,8 @@ export class AFRLtoJSON {
                 // "components_relative" does not exist on new API, using "component" instead.         
                 component: [polymer],
                 citation,
-                node: ['Property'],
-                type: "",
-                unit: "",
-                uncertainty: "",
-                uncertainty_type: "",
-                sample_preparation: "",
-                notes: "",
-                structure: "",
-                method: "",
-                condition: [],
-                data: [],
-                computation: [],
-                created_at: "",
-                updated_at: "",
-                model_version: "",
-                uuid: "",
-                uid: ""
-            })
+                node: ['Property']
+            } as IProperty)
         }
 
         if (conc_mass_fraction && ! isNaN(conc_mass_fraction) ) {
@@ -348,24 +339,8 @@ export class AFRLtoJSON {
                 // "components_relative" does not exist on new API, using "component" instead.         
                 component: [polymer],
                 citation,
-                node: ['Property'],
-                type: "",
-                unit: "",
-                uncertainty: "",
-                uncertainty_type: "",
-                sample_preparation: "",
-                notes: "",
-                structure: "",
-                method: "",
-                condition: [],
-                data: [],
-                computation: [],
-                created_at: "",
-                updated_at: "",
-                model_version: "",
-                uuid: "",
-                uid: ""
-            })
+                node: ['Property']
+            } as IProperty)
         }
 
         if (temp_cloud && ! isNaN(temp_cloud) ) {
@@ -379,12 +354,6 @@ export class AFRLtoJSON {
                 node: ['Property'],
                 type: "",
                 unit: "degC",
-                uncertainty: "",
-                uncertainty_type: "",
-                sample_preparation: "",
-                notes: "",
-                structure: "",
-                method: "",
                 condition: [],
                 data: [],
                 computation: [],
@@ -392,7 +361,13 @@ export class AFRLtoJSON {
                 updated_at: "",
                 model_version: "",
                 uuid: "",
-                uid: ""
+                uid: "",
+                uncertainty: "",
+                uncertainty_type: "",
+                sample_preparation: "",
+                notes: "",
+                structure: "",
+                method: ""
             };
 
             // If present, add conditions
@@ -429,14 +404,10 @@ export class AFRLtoJSON {
     }
 
 
-    record_error(message: string): void {
-        /*
-        error_file = open("./errors.txt", "a")
-        error_file.write(message + "\n\n")
-        error_file.close()
-        print(message)
-        */
-        throw new Error("Function not implemented yet")
+    private record_error(message: string): void {
+        
+        this.errors.push(message)
+        console.error(message);
     }
 
     /**
@@ -444,7 +415,7 @@ export class AFRLtoJSON {
      * @param row object is called raw because this script was originaly dealing with a CSV file
      *            In case you need to use a CSV again, just implement a CSV to AFRL[] method.
      */
-    load_row(row: AFRLData): boolean {
+    private load_row(row: AFRLData): boolean {
 
         // get objects common to this row
 
@@ -467,7 +438,7 @@ export class AFRLtoJSON {
         return true;
     }
 
-    static load_config(): Config {
+    private static load_config(): Config {
         /*
         try:
             with open("config.yaml", "r") as f:

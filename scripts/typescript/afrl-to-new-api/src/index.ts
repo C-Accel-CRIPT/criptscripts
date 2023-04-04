@@ -7,6 +7,16 @@ console.log('=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 console.log('=-=-=-=-=-=-=-=-=-=-=-=-=-= AFRL to JSON -=-=-=-=-=-=-==-=-=-=-=-=-=-=')
 console.log('=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=')
 
+
+/*
+product: [{
+    node: Slug,
+    name: "...",
+    "uid": "unique_identifier"
+}]
+
+ */
+
 // Instantiate AFRL to JSON serializer
 const serializer = new AFRLLoader({
     inventory_basename: 'afrl-inventory',
@@ -32,6 +42,7 @@ console.log('Output folder is ready')
 
 write_json_helper(project, 'afrl-transformed', 'minified')
 write_json_helper(project, 'afrl-transformed', 'human-readable')
+write_json_helper(serializer.get_errors(), 'afrl-transformed.errors', 'human-readable')
 
 /**
  * Helper to write a JSON to a given filename
