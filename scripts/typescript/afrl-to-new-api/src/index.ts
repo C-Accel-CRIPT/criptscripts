@@ -1,4 +1,4 @@
-import { AFRLtoJSON } from "../src/scripts/python-converted-script";
+import { AFRLtoJSON as AFRLLoader } from "./scripts/afrl-loader";
 import { data as afrl_data} from "./data/data";
 import fs from 'fs';
 import path from 'path';
@@ -8,7 +8,7 @@ console.log('=-=-=-=-=-=-=-=-=-=-=-=-=-= AFRL to JSON -=-=-=-=-=-=-==-=-=-=-=-=-
 console.log('=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=')
 
 // Instantiate AFRL to JSON serializer
-const serializer = new AFRLtoJSON({
+const serializer = new AFRLLoader({
     inventory_basename: 'afrl-inventory',
     project_name: 'afrl-project'
 });
