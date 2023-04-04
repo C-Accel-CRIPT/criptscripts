@@ -99,7 +99,6 @@ export class AFRLtoJSON {
         // Create citation
         const citation: ICitation = {
             node: ['Citation'],
-            name: row.reference,
             reference: {
                 node: ['Reference'],
                 created_at: "",
