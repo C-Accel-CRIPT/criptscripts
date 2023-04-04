@@ -5,7 +5,7 @@ import { ICondition, IData, IReference, ISoftwareConfiguration, ICitation, IExpe
  * @see https://chemrxiv.org/engage/api-gateway/chemrxiv/assets/orp/resource/item/6322994103e27d9176d5b10c/original/main-supporting-information.pdf#page=13
  */
 export interface IComputationProcess {
-  readonly node: ['ComputationProcess'];
+  readonly node: 'ComputationProcess';
   uid: string;
   uuid: string;
   type: string;

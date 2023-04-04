@@ -15,5 +15,5 @@ export interface IProject {
   uid: string;
   updated_at: string;
   uuid: string;
-  readonly node: ['Project'];
+  readonly node: 'Project';
 }

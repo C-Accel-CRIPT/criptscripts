@@ -5,7 +5,7 @@ export interface ICollection {
   model_version: string;
   name: string;
   notes: string;
-  readonly node: ['Collection'];
+  readonly node: 'Collection';
   public: boolean;
   uid: string;
   uuid: string;

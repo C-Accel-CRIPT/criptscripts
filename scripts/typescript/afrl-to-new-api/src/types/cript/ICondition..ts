@@ -1,7 +1,7 @@
 import { IData } from '.';
 
 export interface ICondition {
-  readonly node: ['Condition'];
+  readonly node: 'Condition';
   data?: IData[];
   created_at: string;
   updated_at: string;

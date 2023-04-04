@@ -1,11 +1,11 @@
 import { ICitation } from "./ICitation";
 import { IComputation } from "./IComputation";
-import { ICondition } from "./ICondition";
+import { ICondition } from "./ICondition.";
 import { IData } from "./IData";
 import { IMaterial } from "./IMaterial";
 
 export interface IProperty {
-  readonly node: ['Property'];
+  readonly node: 'Property';
   model_version: string;
   key: string;
   type: string;

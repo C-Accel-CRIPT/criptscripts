@@ -77,7 +77,7 @@ export interface IIngredient {
   created_at: string;
   keyword?: string[];
   model_version: string;
-  node: ['Ingredient'];
+  node: 'Ingredient';
   updated_at: string;
   uuid: string;
 }

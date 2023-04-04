@@ -9,5 +9,5 @@ export interface IInventory {
   uid: string;
   uuid: string;
   collection: ICollection[];
-  readonly node: ['Inventory'];
+  readonly node: 'Inventory';
 }

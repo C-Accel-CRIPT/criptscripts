@@ -6,5 +6,5 @@ export interface IUser {
   uuid: string;
   updated_at: string;
   username: string;
-  readonly node: ['User'];
+  readonly node: 'User';
 }

@@ -1,5 +1,5 @@
 export interface IReference {
-  readonly node: ['Reference'];
+  readonly node: 'Reference';
   created_at: string;
   doi: string;
   uid: string;

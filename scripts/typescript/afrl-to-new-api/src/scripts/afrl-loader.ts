@@ -70,7 +70,7 @@ export class AFRLtoJSON {
         this.collection = {
             name: "afrl", // will be overriden by user config
             notes:`Gather the 3 inventories extracted from AFRL dataset`,
-            node: ['Collection'],
+            node: 'Collection',
             model_version: MODEL_VERSION,
             inventory: [
                 this.inventory_solvents,
@@ -83,7 +83,7 @@ export class AFRLtoJSON {
         this.project = {
             name: config.project_name,
             model_version: MODEL_VERSION,
-            node: ['Project'],
+            node: 'Project',
             collection: [this.collection],
         } as IProject;
         
@@ -104,11 +104,11 @@ export class AFRLtoJSON {
 
         // Create citation
         const citation: ICitation = {
-            node: ['Citation'],
+            node: 'Citation',
             reference: {
                 title: row.reference,        
                 type: 'database', // raw string, should be ideally picked from vocab
-                node: ['Reference'],
+                node: 'Reference',
                 model_version: MODEL_VERSION,
             } as IReference,
             type: 'reference', // FIXME: typings are incorrect, should be a string.
@@ -173,7 +173,7 @@ export class AFRLtoJSON {
 
         // Temporary solution: we create a new Solvent...        
         const solvent: IMaterial = {
-            node: ['Material'],
+            node: 'Material',
             name: row.solvent,
             cas,
             model_version: MODEL_VERSION,
@@ -213,7 +213,7 @@ export class AFRLtoJSON {
                 value: String(mw_w), // FIXME: backend does not accept numbers
                 unit: "g/mol",
                 citation,
-                node: ['Property'],
+                node: 'Property',
                 model_version: MODEL_VERSION,
                 type: 'value'  // FIXME: is this correct from a chemist point of view?
             } as IProperty)
@@ -224,7 +224,7 @@ export class AFRLtoJSON {
                 value: String(mw_d), // FIXME: backend does not accept numbers,
                 unit: "",
                 citation,
-                node: ['Property'],
+                node: 'Property',
                 model_version: MODEL_VERSION,
                 type: 'value'  // FIXME: is this correct from a chemist point of view?
             } as IProperty) 
@@ -234,7 +234,7 @@ export class AFRLtoJSON {
         const polymer: IMaterial = {
             name: unique_name,
             property: properties,
-            node: ['Material'],
+            node: 'Material',
             model_version: MODEL_VERSION,
         } as IMaterial;
 
@@ -273,7 +273,7 @@ export class AFRLtoJSON {
 
         // Create new material object        
         const mixture: IMaterial = {
-            node: ['Material'],
+            node: 'Material',
             name: unique_name,
             // "identifiers": identifiers, deprecated, see explanation below
             component: [
@@ -305,7 +305,7 @@ export class AFRLtoJSON {
                 // "components_relative" does not exist on new API, using "component" instead.         
                 component: [polymer],
                 citation,
-                node: ['Property'],
+                node: 'Property',
                 type: 'value',  // FIXME: is this correct from a chemist point of view?
                 model_version: MODEL_VERSION,
             } as IProperty)
@@ -318,7 +318,7 @@ export class AFRLtoJSON {
                 // "components_relative" does not exist on new API, using "component" instead.         
                 component: [polymer],
                 citation,
-                node: ['Property'],
+                node: 'Property',
                 type: 'value',  // FIXME: is this correct from a chemist point of view?
                 model_version: MODEL_VERSION,
             } as IProperty)
@@ -332,7 +332,7 @@ export class AFRLtoJSON {
                 // "components_relative" does not exist on new API, using "component" instead.         
                 component: [polymer],
                 citation,
-                node: ['Property'],
+                node: 'Property',
                 type: 'value',  // FIXME: is this correct from a chemist point of view?
                 unit: "degC",
                 model_version: MODEL_VERSION,
@@ -343,7 +343,7 @@ export class AFRLtoJSON {
 
             if (pressure)
                 temp_cloud_property.condition.push({
-                    node: ['Condition'],
+                    node: 'Condition',
                     key: "pressure",
                     value: String(pressure), // FIXME: typings are wrong, we should be able to use a number
                     unit: "MPa",

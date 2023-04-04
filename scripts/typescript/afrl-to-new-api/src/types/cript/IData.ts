@@ -1,7 +1,7 @@
 import { IComputation, IExperiment, IFile, IMaterial, IProcess } from '.';
 
 export interface IData {
-  readonly node: ['Data'];
+  readonly node: 'Data';
   name: string;
   notes: string;
   type: string;

@@ -3,7 +3,7 @@ import { ICitation } from './ICitation';
 import { ICollection } from './ICollection.';
 import { IComputation } from './IComputation';
 import { IComputationProcess } from './IComputationProcess';
-import { ICondition } from './ICondition';
+import { ICondition } from './ICondition.';
 import { IData } from './IData';
 import { IExperiment } from './IExperiment';
 import { IFile } from './IFile';

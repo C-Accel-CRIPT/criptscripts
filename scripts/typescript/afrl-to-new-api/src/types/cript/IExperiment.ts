@@ -21,5 +21,5 @@ export interface IExperiment {
   updated_at: string;
   uuid: string;
   collection: ICollection[];
-  readonly node: ['Experiment'];
+  readonly node: 'Experiment';
 }
