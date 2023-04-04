@@ -1,13 +1,12 @@
 import { IReference } from "./IReference";
 
-export enum CitationType {
-  'extracted_by_human',
-  'extracted_by_nlp',
-  'extracted_by_algorithm',
-  'derived_from',
-  'replicated',
-  'reference',
-}
+export type CitationType =
+  'extracted_by_human' |
+  'extracted_by_nlp' |
+  'extracted_by_algorithm' |
+  'derived_from' |
+  'replicated' |
+  'reference';
 
 export interface ICitation {
   readonly node: ['Citation'];

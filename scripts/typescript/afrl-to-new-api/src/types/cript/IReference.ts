@@ -5,7 +5,9 @@ export interface IReference {
   uid: string;
   uuid: string;
   updated_at: string;
+  model_version: string;
   title: string;
+  type: string; // vocab
   year: string;
   journal: string;
   publisher: string;

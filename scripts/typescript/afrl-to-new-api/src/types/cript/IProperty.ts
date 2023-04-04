@@ -6,9 +6,10 @@ import { IMaterial } from "./IMaterial";
 
 export interface IProperty {
   readonly node: ['Property'];
+  model_version: string;
   key: string;
   type: string;
-  value: number;
+  value: string /* | number*/; // FIXME: backend does not allow number
   unit: string;
   uncertainty: string;
   uncertainty_type: string; //UncertainityType
@@ -23,7 +24,7 @@ export interface IProperty {
   citation: ICitation[]; // IReference //ReferencePost
   created_at: string;
   updated_at: string;
-  model_version: string;
+  
   uuid: string;
   uid: string;
 }

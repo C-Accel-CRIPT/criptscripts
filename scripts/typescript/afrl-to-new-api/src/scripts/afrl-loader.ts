@@ -1,6 +1,5 @@
 import { AFRLData } from "../types/afrl"
-import { ICitation, ICollection, ICondition, IIdentifier, IInventory, IMaterial, IPrimary, IProject, IProperty, IReference } from "../types/cript"
-import { CitationType } from "../types/cript/ICitation";
+import { ICitation, ICollection, ICondition, IInventory, IMaterial, IProject, IProperty, IReference } from "../types/cript"
 
 /**
  * This script is a typescript port of @see https://github.com/C-Accel-CRIPT/criptscripts/tree/master/scripts/python_sdk_scripts/AFRL
@@ -15,6 +14,8 @@ export type Config = {
     // Destination inventory's basename
     inventory_basename: string;    
 }
+
+const MODEL_VERSION: string = '1.0.0';
 export class AFRLtoJSON {
 
     // declare few maps to retreive data easily
@@ -46,6 +47,7 @@ export class AFRLtoJSON {
             material: [],
             node: ['Inventory'],
             notes: `Gather all the solvents extracted from AFRL dataset`,
+            model_version: MODEL_VERSION,
         } as any;
         
         this.inventory_polymers = {
@@ -53,6 +55,7 @@ export class AFRLtoJSON {
             material: [],
             node: ['Inventory'],
             notes:`Gather all the polymers extracted from AFRL dataset`,
+            model_version: MODEL_VERSION,
         } as any;
 
         this.inventory_mixtures = {
@@ -60,6 +63,7 @@ export class AFRLtoJSON {
             material: [],
             node: ['Inventory'],
             notes:`Gather all the mixtures extracted from AFRL dataset`,
+            model_version: MODEL_VERSION,
         } as any;
 
         // Create collection with the inventories in it
@@ -67,6 +71,7 @@ export class AFRLtoJSON {
             name: "afrl", // will be overriden by user config
             notes:`Gather the 3 inventories extracted from AFRL dataset`,
             node: ['Collection'],
+            model_version: MODEL_VERSION,
             inventory: [
                 this.inventory_solvents,
                 this.inventory_polymers,
@@ -77,8 +82,9 @@ export class AFRLtoJSON {
         // Create a project with the collection in it        
         this.project = {
             name: config.project_name,
+            model_version: MODEL_VERSION,
             node: ['Project'],
-            collection: [this.collection]
+            collection: [this.collection],
         } as IProject;
         
     }
@@ -100,10 +106,13 @@ export class AFRLtoJSON {
         const citation: ICitation = {
             node: ['Citation'],
             reference: {
+                title: row.reference,        
+                type: 'database', // raw string, should be ideally picked from vocab
                 node: ['Reference'],
-                created_at: "",
+                model_version: MODEL_VERSION,
             } as IReference,
-            type: CitationType.reference
+            type: 'reference', // FIXME: typings are incorrect, should be a string.
+            model_version: MODEL_VERSION,
         } as ICitation;
 
         // get DOI and authors
@@ -166,7 +175,8 @@ export class AFRLtoJSON {
         const solvent: IMaterial = {
             node: ['Material'],
             name: row.solvent,
-            cas
+            cas,
+            model_version: MODEL_VERSION,
         } as IMaterial;
         this.record_error(`Search material from "cas" is not implemented, creating a local solvent for ${JSON.stringify(solvent)}`)
 
@@ -200,19 +210,23 @@ export class AFRLtoJSON {
         if (mw_w && !isNaN(mw_w))
             properties.push({
                 key: "mw_w",
-                value: String(mw_w) as any, // FIXME: backend does not accept numbers
+                value: String(mw_w), // FIXME: backend does not accept numbers
                 unit: "g/mol",
                 citation,
-                node: ['Property']
+                node: ['Property'],
+                model_version: MODEL_VERSION,
+                type: 'value'  // FIXME: is this correct from a chemist point of view?
             } as IProperty)
 
         if (mw_d && !isNaN(mw_d))
             properties.push({
                 key: "mw_d",
-                value: String(mw_d) as any, // FIXME: backend does not accept numbers,
+                value: String(mw_d), // FIXME: backend does not accept numbers,
                 unit: "",
                 citation,
-                node: ['Property']
+                node: ['Property'],
+                model_version: MODEL_VERSION,
+                type: 'value'  // FIXME: is this correct from a chemist point of view?
             } as IProperty) 
     
        
@@ -220,7 +234,8 @@ export class AFRLtoJSON {
         const polymer: IMaterial = {
             name: unique_name,
             property: properties,
-            node: ['Material']
+            node: ['Material'],
+            model_version: MODEL_VERSION,
         } as IMaterial;
 
         // Create identifiers
@@ -256,7 +271,7 @@ export class AFRLtoJSON {
         const one_phase_direction = row.one_phase_direction;
         const pressure = row.pressure_MPa;
 
-        // Create new material object
+        // Create new material object        
         const mixture: IMaterial = {
             node: ['Material'],
             name: unique_name,
@@ -266,23 +281,9 @@ export class AFRLtoJSON {
                 solvent
             ],
             property: [],
-            created_at: "",
-            locked: false,
-            model_version: "",
-            names: [],
-            notes: "",
-            public: false,
-            uid: "",
-            updated_at: "",
-            uuid: "",
-            project: [],
-            keyword: [],
-            parent_material: "",
-            property_count: 0,
-            component_count: 0,
-            identifier_count: 0,
-            computational_forcefield: unique_name
-        } as IMaterial;
+            names: [unique_name],
+            model_version: MODEL_VERSION,
+        } as Partial<IMaterial> as any; // HACK: had to pick some fields, backend does not allow all the fields in the context of a POST.
 
         // Create identifiers
         //
@@ -300,22 +301,26 @@ export class AFRLtoJSON {
         if (conc_vol_fraction && ! isNaN(conc_vol_fraction) ) {
             mixture.property.push({
                 key: "conc_vol_fraction",
-                value: String(conc_vol_fraction) as any, // FIXME: backend does not accept numbers,
+                value: String(conc_vol_fraction), // FIXME: backend does not accept numbers,
                 // "components_relative" does not exist on new API, using "component" instead.         
                 component: [polymer],
                 citation,
-                node: ['Property']
+                node: ['Property'],
+                type: 'value',  // FIXME: is this correct from a chemist point of view?
+                model_version: MODEL_VERSION,
             } as IProperty)
         }
 
         if (conc_mass_fraction && ! isNaN(conc_mass_fraction) ) {
             mixture.property.push({
                 key: "conc_mass_fraction",
-                value: String(conc_mass_fraction) as any, // FIXME: backend does not accept numbers
+                value: String(conc_mass_fraction), // FIXME: backend does not accept numbers
                 // "components_relative" does not exist on new API, using "component" instead.         
                 component: [polymer],
                 citation,
-                node: ['Property']
+                node: ['Property'],
+                type: 'value',  // FIXME: is this correct from a chemist point of view?
+                model_version: MODEL_VERSION,
             } as IProperty)
         }
 
@@ -323,43 +328,38 @@ export class AFRLtoJSON {
             
             const temp_cloud_property: IProperty = {
                 key: "temp_cloud",
-                value: String(temp_cloud) as any, // FIXME: backend does not accept numbers
+                value: String(temp_cloud), // FIXME: backend does not accept numbers
                 // "components_relative" does not exist on new API, using "component" instead.         
                 component: [polymer],
                 citation,
                 node: ['Property'],
-                type: "",
+                type: 'value',  // FIXME: is this correct from a chemist point of view?
                 unit: "degC",
-                condition: [],
-                data: [],
-                computation: [],
-                created_at: "",
-                updated_at: "",
-                model_version: "",
-                uuid: "",
-                uid: "",
-                uncertainty: "",
-                uncertainty_type: "",
-                sample_preparation: "",
-                notes: "",
-                structure: "",
-                method: ""
-            };
+                model_version: MODEL_VERSION,
+                condition: [] // will be filled below...
+            } as Partial<IProperty> as any;
 
             // If present, add conditions
 
             if (pressure)
                 temp_cloud_property.condition.push({
+                    node: ['Condition'],
                     key: "pressure",
-                    value: pressure as any, // FIXME: typings are wrong, we should be able to use a number
-                    unit: "MPa"
+                    value: String(pressure), // FIXME: typings are wrong, we should be able to use a number
+                    unit: "MPa",
+                    model_version: MODEL_VERSION,
                 } as ICondition);
 
-            if (one_phase_direction)
+
+            if (one_phase_direction) {
                 temp_cloud_property.condition.push({
+                    node: ['Condition'],
                     key: "+one_phase_direction", // Not sure this will work, needs custom vocabulary (starts with a "+").
                     value: one_phase_direction,
+                    model_version: MODEL_VERSION,
                 } as ICondition);
+                this.record_error(`one_phase_direction cannot be stored in CRIPT, +one_phase_direction vocab is not allowed.`)
+            }
 
             // Add property to the mixture
             mixture.property.push(temp_cloud_property);

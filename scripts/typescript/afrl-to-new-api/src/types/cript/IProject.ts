@@ -1,6 +1,7 @@
 import { ICollection, IFile, IMaterial } from '.';
 
 export interface IProject {
+  model_version: string,
   collection: ICollection[];
   collection_count: number;
   created_at: string;
