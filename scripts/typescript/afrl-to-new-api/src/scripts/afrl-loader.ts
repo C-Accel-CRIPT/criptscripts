@@ -352,12 +352,16 @@ export class AFRLtoJSON {
 
 
             if (one_phase_direction) {
+
+                // FIXME: uncomment once backend accepts custom vocab (starts with a "+")
+                /*
                 temp_cloud_property.condition.push({
                     node: ['Condition'],
                     key: "+one_phase_direction", // Not sure this will work, needs custom vocabulary (starts with a "+").
                     value: one_phase_direction,
                     model_version: MODEL_VERSION,
-                } as ICondition);
+                } as ICondition);*/
+
                 this.record_error(`one_phase_direction cannot be stored in CRIPT, +one_phase_direction vocab is not allowed.`)
             }
 
