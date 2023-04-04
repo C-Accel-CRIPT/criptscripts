@@ -153,6 +153,7 @@ export class AFRLtoJSON {
 
         // Temporary solution: we create a new Solvent...        
         const solvent: IMaterial = {
+            node: ['Material'],
             name: row.solvent,
             cas
         } as IMaterial;
