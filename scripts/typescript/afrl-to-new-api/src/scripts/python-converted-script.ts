@@ -70,36 +70,11 @@ export class AFRLtoJSON {
     }
 
     get_citation(row: AFRLData): ICitation {
-        /*     
-         // original code
-        /////////////////
-    
-        reference_title = row["reference"]
-    
-        # Check if citation was already created
-        if row["reference"] in citations.keys():
-            print(f"ROW {index + 2} -- Found existing reference: {reference_title}")
-            return citations[row["reference"]]
-    
-        # Create reference
-        reference = cript.Reference(group=group, title=reference_title, public=True)
-        if "doi.org" in reference_title:
-            reference.doi = reference_title.replace("doi.org", "").strip("/")
-    
-        #Save reference or update and use existing
-        api.save(reference, update_existing=True, max_level=0)
-    
-        # Create citation
-        citation = cript.Citation(reference=reference)
-        citations[citation.reference.title] = citation
-    
-        return citation
-        */           
 
         // Check if citation was already created
         const existing_citation = this.citations.get(row.reference);
         if ( existing_citation ) {            
-            console.log(`Found existing reference: ${existing_citation.name}`)
+            console.log(`-- Found existing reference: ${existing_citation.name}`)
             return existing_citation;
         }
 
