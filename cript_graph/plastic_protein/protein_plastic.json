@@ -1,0 +1,2483 @@
+{
+  "Project": {
+    "node": "Project",
+    "group": {
+      "node": "Group",
+      "name": "CRIPT_E2E"
+    },
+    "Collection": [
+      {
+        "node": "Collection",
+        "name": "Cao et al. Protein Elastomers",
+        "experiment": [
+          {
+            "node": "Experiment",
+            "name": "Methacrylation",
+            "process": [
+              {
+                "node": "Process",
+                "name": "WPI Centrifugation",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "Whey protein isolate",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "water",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "products": [
+                  "WPI supernatant"
+                ]
+              },
+              {
+                "node": "Process",
+                "name": "WPP Centrifugation",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "Whey protein concentrate",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "water",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "products": [
+                  "WPC supernatant"
+                ]
+              },
+              {
+                "node": "Process",
+                "name": "WPC Centrifugation",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "Whey protein powder",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "water",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "products": [
+                  "WPP supernatant"
+                ]
+              },
+              {
+                "node": "Process",
+                "name": "BSA Centrifugation",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "Bovine serum albumin",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "water",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "products": [
+                  "BSA supernatant"
+                ]
+              },
+              {
+                "node": "Process",
+                "name": "SPI Centrifugation",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "Soy protein isolate",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "water",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "products": [
+                  "SPI supernatant"
+                ]
+              },
+              {
+                "node": "Process",
+                "name": "PPI Centrifugation",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "Pea protein isolate",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "water",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "products": [
+                  "PPI supernatant"
+                ]
+              },
+              {
+                "node": "Process",
+                "name": "WPI Methacrylation",
+                "type": "null",
+                "prerequisite_process": [
+                  {
+                    "node": "Process",
+                    "name": "WPI Centrifugation",
+                    "type": "null",
+                    "ingredients": [
+                      {
+                        "node": "Ingredient",
+                        "material": "Whey protein isolate",
+                        "quantities": [
+                          "null"
+                        ]
+                      },
+                      {
+                        "node": "Ingredient",
+                        "material": "water",
+                        "quantities": [
+                          "null"
+                        ]
+                      }
+                    ],
+                    "products": [
+                      "WPI supernatant"
+                    ]
+                  }
+                ],
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "WPI supernatant",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "Sodium hydroxide",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "Methacrylic anhydride",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "products": [
+                  "WPI methacrylate"
+                ]
+              },
+              {
+                "node": "Process",
+                "name": "WPP Methacrylation",
+                "type": "null",
+                "prerequisite_process": [
+                  {
+                    "node": "Process",
+                    "name": "WPP Centrifugation",
+                    "type": "null",
+                    "ingredients": [
+                      {
+                        "node": "Ingredient",
+                        "material": "Whey protein concentrate",
+                        "quantities": [
+                          "null"
+                        ]
+                      },
+                      {
+                        "node": "Ingredient",
+                        "material": "water",
+                        "quantities": [
+                          "null"
+                        ]
+                      }
+                    ],
+                    "products": [
+                      "WPC supernatant"
+                    ]
+                  }
+                ],
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "WPC supernatant",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "Sodium hydroxide",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "Methacrylic anhydride",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "products": [
+                  "WPC methacrylate"
+                ]
+              },
+              {
+                "node": "Process",
+                "name": "WPC Methacrylation",
+                "type": "null",
+                "prerequisite_process": [
+                  {
+                    "node": "Process",
+                    "name": "WPC Centrifugation",
+                    "type": "null",
+                    "ingredients": [
+                      {
+                        "node": "Ingredient",
+                        "material": "Whey protein powder",
+                        "quantities": [
+                          "null"
+                        ]
+                      },
+                      {
+                        "node": "Ingredient",
+                        "material": "water",
+                        "quantities": [
+                          "null"
+                        ]
+                      }
+                    ],
+                    "products": [
+                      "WPP supernatant"
+                    ]
+                  }
+                ],
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "WPP supernatant",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "Sodium hydroxide",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "Methacrylic anhydride",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "products": [
+                  "WPC methacrylate"
+                ]
+              },
+              {
+                "node": "Process",
+                "name": "BSA Methacrylation",
+                "type": "null",
+                "prerequisite_process": [
+                  {
+                    "node": "Process",
+                    "name": "BSA Centrifugation",
+                    "type": "null",
+                    "ingredients": [
+                      {
+                        "node": "Ingredient",
+                        "material": "Bovine serum albumin",
+                        "quantities": [
+                          "null"
+                        ]
+                      },
+                      {
+                        "node": "Ingredient",
+                        "material": "water",
+                        "quantities": [
+                          "null"
+                        ]
+                      }
+                    ],
+                    "products": [
+                      "BSA supernatant"
+                    ]
+                  }
+                ],
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "BSA supernatant",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "Sodium hydroxide",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "Methacrylic anhydride",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "products": [
+                  "BSA methacrylate"
+                ]
+              },
+              {
+                "node": "Process",
+                "name": "SPI Methacrylation",
+                "type": "null",
+                "prerequisite_process": [
+                  {
+                    "node": "Process",
+                    "name": "SPI Centrifugation",
+                    "type": "null",
+                    "ingredients": [
+                      {
+                        "node": "Ingredient",
+                        "material": "Soy protein isolate",
+                        "quantities": [
+                          "null"
+                        ]
+                      },
+                      {
+                        "node": "Ingredient",
+                        "material": "water",
+                        "quantities": [
+                          "null"
+                        ]
+                      }
+                    ],
+                    "products": [
+                      "SPI supernatant"
+                    ]
+                  }
+                ],
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "SPI supernatant",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "Sodium hydroxide",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "Methacrylic anhydride",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "products": [
+                  "SPI methacrylate"
+                ]
+              },
+              {
+                "node": "Process",
+                "name": "PPI Methacrylation",
+                "type": "null",
+                "prerequisite_process": [
+                  {
+                    "node": "Process",
+                    "name": "PPI Centrifugation",
+                    "type": "null",
+                    "ingredients": [
+                      {
+                        "node": "Ingredient",
+                        "material": "Pea protein isolate",
+                        "quantities": [
+                          "null"
+                        ]
+                      },
+                      {
+                        "node": "Ingredient",
+                        "material": "water",
+                        "quantities": [
+                          "null"
+                        ]
+                      }
+                    ],
+                    "products": [
+                      "PPI supernatant"
+                    ]
+                  }
+                ],
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "PPI supernatant",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "Sodium hydroxide",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "Methacrylic anhydride",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "products": [
+                  "PPI methacrylate"
+                ]
+              }
+            ]
+          },
+          {
+            "node": "Experiment",
+            "name": "Pure Protein Material Characterzation",
+            "process": [
+              {
+                "node": "Process",
+                "name": "WPI unheated drying",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "WPI methacrylate",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "products": [
+                  "WPI unheated film"
+                ]
+              },
+              {
+                "node": "Process",
+                "name": "BSA unheated drying",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "BSA methacrylate",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "products": [
+                  "BSA unheated film"
+                ]
+              },
+              {
+                "node": "Process",
+                "name": "SPI unheated drying",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "SPI methacrylate",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "products": [
+                  "SPI unheated film"
+                ],
+                "data": [
+                  {
+                    "node": "Data",
+                    "name": "SPI unheated film FTIR",
+                    "type": "null"
+                  }
+                ]
+              },
+              {
+                "node": "Process",
+                "name": "PPI unheated drying",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "PPI methacrylate",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "products": [
+                  "PPI unheated film"
+                ],
+                "data": [
+                  {
+                    "node": "Data",
+                    "name": "SPI unheated film FTIR",
+                    "type": "null"
+                  }
+                ]
+              },
+              {
+                "node": "Process",
+                "name": "WPI heated drying",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "WPI methacrylate",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "products": [
+                  "WPI heated film"
+                ]
+              },
+              {
+                "node": "Process",
+                "name": "BSA heated drying",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "BSA methacrylate",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "products": [
+                  "BSA heated film"
+                ]
+              },
+              {
+                "node": "Process",
+                "name": "SPI heated drying",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "SPI methacrylate",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "products": [
+                  "SPI heated film"
+                ],
+                "data": [
+                  {
+                    "node": "Data",
+                    "name": "SPI unheated film FTIR",
+                    "type": "null"
+                  }
+                ]
+              },
+              {
+                "node": "Process",
+                "name": "PPI heated drying",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "PPI methacrylate",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "products": [
+                  "PPI heated film"
+                ],
+                "data": [
+                  {
+                    "node": "Data",
+                    "name": "SPI unheated film FTIR",
+                    "type": "null"
+                  }
+                ]
+              }
+            ],
+            "data": [
+              {
+                "node": "Data",
+                "name": "WPI unheated film FTIR",
+                "type": "null"
+              },
+              {
+                "node": "Data",
+                "name": "BSA unheated film FTIR",
+                "type": "null"
+              },
+              {
+                "node": "Data",
+                "name": "SPI unheated film FTIR",
+                "type": "null"
+              },
+              {
+                "node": "Data",
+                "name": "PPI unheated film FTIR",
+                "type": "null"
+              },
+              {
+                "node": "Data",
+                "name": "WPI unheated film WAXS",
+                "type": "null"
+              },
+              {
+                "node": "Data",
+                "name": "BSA unheated film WAXS",
+                "type": "null"
+              },
+              {
+                "node": "Data",
+                "name": "SPI unheated film WAXS",
+                "type": "null"
+              },
+              {
+                "node": "Data",
+                "name": "PPI unheated film WAXS",
+                "type": "null"
+              },
+              {
+                "node": "Data",
+                "name": "WPI heated film FTIR",
+                "type": "null"
+              },
+              {
+                "node": "Data",
+                "name": "BSA heated film FTIR",
+                "type": "null"
+              },
+              {
+                "node": "Data",
+                "name": "SPI heated film FTIR",
+                "type": "null"
+              },
+              {
+                "node": "Data",
+                "name": "PPI heated film FTIR",
+                "type": "null"
+              },
+              {
+                "node": "Data",
+                "name": "WPI heated film WAXS",
+                "type": "null"
+              },
+              {
+                "node": "Data",
+                "name": "BSA heated film WAXS",
+                "type": "null"
+              },
+              {
+                "node": "Data",
+                "name": "SPI heated film WAXS",
+                "type": "null"
+              },
+              {
+                "node": "Data",
+                "name": "PPI heated film WAXS",
+                "type": "null"
+              }
+            ]
+          },
+          {
+            "node": "Experiment",
+            "name": "Thermoset Preparation WPI",
+            "process": [
+              {
+                "node": "Process",
+                "name": "Column purification",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "hydroxypropylacrylate",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "Basic alumina",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ]
+              },
+              {
+                "node": "Process",
+                "name": "Thermoset synthesis",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "WPI Protein methacrylate",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "Ammonium persulfate",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "TEMED",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [
+                  "Column purification"
+                ],
+                "Product": [
+                  "WPI CP23",
+                  "WPI CP70",
+                  "WPI CP100",
+                  "WPI CP120"
+                ]
+              }
+            ]
+          },
+          {
+            "node": "Experiment",
+            "name": "Thermoset Preparation WPC",
+            "process": [
+              {
+                "node": "Process",
+                "name": "Column purification",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "hydroxypropylacrylate",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "Basic alumina",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ]
+              },
+              {
+                "node": "Process",
+                "name": "Thermoset synthesis",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "WPC Protein methacrylate",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "Ammonium persulfate",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "TEMED",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [
+                  "Column purification"
+                ],
+                "Product": [
+                  "WPC CP23",
+                  "WPI CP100"
+                ]
+              }
+            ]
+          },
+          {
+            "node": "Experiment",
+            "name": "Thermoset Preparation WPP",
+            "process": [
+              {
+                "node": "Process",
+                "name": "Column purification",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "hydroxypropylacrylate",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "Basic alumina",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ]
+              },
+              {
+                "node": "Process",
+                "name": "Thermoset synthesis",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "WPP Protein methacrylate",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "Ammonium persulfate",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "TEMED",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [
+                  "Column purification"
+                ],
+                "Product": [
+                  "WPC CP23",
+                  "WPI CP100"
+                ]
+              }
+            ]
+          },
+          {
+            "node": "Experiment",
+            "name": "Thermoset Preparation BSA",
+            "process": [
+              {
+                "node": "Process",
+                "name": "Column purification",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "hydroxypropylacrylate",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "Basic alumina",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ]
+              },
+              {
+                "node": "Process",
+                "name": "Thermoset synthesis",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "BSA methacrylate",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "Ammonium persulfate",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "TEMED",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [
+                  "Column purification"
+                ],
+                "Product": [
+                  "BSA CP23",
+                  "BSA CP100"
+                ]
+              }
+            ]
+          },
+          {
+            "node": "Experiment",
+            "name": "Thermoset Preparation SPI",
+            "process": [
+              {
+                "node": "Process",
+                "name": "Column purification",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "hydroxypropylacrylate",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "Basic alumina",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ]
+              },
+              {
+                "node": "Process",
+                "name": "Thermoset synthesis",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "SPI methacrylate",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "Ammonium persulfate",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "TEMED",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [
+                  "Column purification"
+                ],
+                "Product": [
+                  "SPI CP23",
+                  "SPI CP100"
+                ]
+              }
+            ]
+          },
+          {
+            "node": "Experiment",
+            "name": "Thermoset Preparation PPI",
+            "process": [
+              {
+                "node": "Process",
+                "name": "Column purification",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "hydroxypropylacrylate",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "Basic alumina",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ]
+              },
+              {
+                "node": "Process",
+                "name": "Thermoset synthesis",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "PPI methacrylate",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "Ammonium persulfate",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "TEMED",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [
+                  "Column purification"
+                ],
+                "Product": [
+                  "PPI CP23",
+                  "PPI CP100"
+                ]
+              }
+            ]
+          },
+          {
+            "node": "Experiment",
+            "name": "Sample Characterization WPI CP23",
+            "process": [
+              {
+                "node": "Process",
+                "name": "WPI CP23 HEQ 4",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "WPI CP23",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "products": []
+              },
+              {
+                "node": "Process",
+                "name": "WPI CP23 HEQ 20",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "WPI CP23",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [
+                  "WPI CP23 HEQ 4"
+                ],
+                "products": []
+              },
+              {
+                "node": "Process",
+                "name": "WPI CP23 HEQ 50",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "WPI CP23",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [
+                  "WPI CP23 HEQ 20"
+                ],
+                "products": []
+              },
+              {
+                "node": "Process",
+                "name": "WPI CP100 Die cutting",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "WPI CP23",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [
+                  "WPI CP23 HEQ 50"
+                ],
+                "products": []
+              },
+              {
+                "node": "Process",
+                "name": "WPI CP100 HEQ 70",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "WPI CP23",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [
+                  "WPI CP100 HEQ 50"
+                ],
+                "products": []
+              },
+              {
+                "node": "Process",
+                "name": "WPI CP100 HEQ 90",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "WPI CP23",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [
+                  "WPI CP100 HEQ 70"
+                ],
+                "products": []
+              }
+            ],
+            "data": [
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "WPI CP23 FTIR"
+              },
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "WPI CP23 Image"
+              },
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "WPI CP23 Tensile Test"
+              },
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "WPI CP23 Moisture meas 4"
+              },
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "WPI CP23 Moisture meas 20"
+              },
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "WPI CP23 Moisture meas 20"
+              },
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "WPI CP23 Moisture meas 50"
+              },
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "WPI CP23 Moisture meas 70"
+              },
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "WPI CP23 Moisture meas 90"
+              }
+            ]
+          },
+          {
+            "node": "Experiment",
+            "name": "Sample Characterization WPI CP100",
+            "process": [
+              {
+                "node": "Process",
+                "name": "WPI CP100 HEQ 4",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "WPI CP100",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [],
+                "products": []
+              },
+              {
+                "node": "Process",
+                "name": "WPI CP100 HEQ 20",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "WPI CP100",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [
+                  "WPI CP100 HEQ 4"
+                ],
+                "products": []
+              },
+              {
+                "node": "Process",
+                "name": "WPI CP100 HEQ 50",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "WPI CP100",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [
+                  "WPI CP100 HEQ 20"
+                ],
+                "products": []
+              },
+              {
+                "node": "Process",
+                "name": "WPI CP100 Die cutting",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "WPI CP100",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [
+                  "WPI CP100 HEQ 50"
+                ],
+                "products": []
+              },
+              {
+                "node": "Process",
+                "name": "WPI CP100 HEQ 70",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "WPI CP100",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [
+                  "WPI CP100 HEQ 50"
+                ],
+                "products": []
+              },
+              {
+                "node": "Process",
+                "name": "WPI CP100 HEQ 90",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "WPI CP100",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [
+                  "WPI CP100 HEQ 70"
+                ],
+                "products": []
+              }
+            ],
+            "data": [
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "WPI CP100 Moisture meas 4"
+              },
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "WPI CP100 Image"
+              },
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "WPI CP100 FTIR"
+              },
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "WPI CP100 Moisture meas 20"
+              },
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "WPI CP100 Moisture meas 50"
+              },
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "WPI CP100 Moisture meas 70"
+              },
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "WPI CP100 Moisture meas 90"
+              }
+            ]
+          },
+          {
+            "node": "Experiment",
+            "name": "Sample Characterization WPI CP70",
+            "process": [
+              {
+                "node": "Process",
+                "name": "WPI CP70 HEQ 50",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "WPI CP70",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [],
+                "products": [
+                  "WPI supernatant"
+                ]
+              },
+              {
+                "node": "Process",
+                "name": "WPI CP70 Die cutting",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "WPI CP70",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [
+                  "WPI CP70 HEQ 50"
+                ],
+                "products": [
+                  "WPI supernatant"
+                ]
+              }
+            ],
+            "data": [
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "WPI CP70 FTIR"
+              },
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "WPI CP70 Image"
+              },
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "WPI CP70 Tensile Test"
+              }
+            ]
+          },
+          {
+            "node": "Experiment",
+            "name": "Sample Characterization WPI CP120",
+            "process": [
+              {
+                "node": "Process",
+                "name": "WPI CP120 HEQ 50",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "WPI CP120",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [],
+                "products": [
+                  "WPI supernatant"
+                ]
+              },
+              {
+                "node": "Process",
+                "name": "WPI CP120 Die cutting",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "WPI CP120",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [
+                  "WPI CP120 HEQ 50"
+                ],
+                "products": [
+                  "WPI supernatant"
+                ]
+              }
+            ],
+            "data": [
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "WPI CP120 FTIR"
+              },
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "WPI CP120 Image"
+              },
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "WPI CP120 Tensile Test"
+              }
+            ]
+          },
+          {
+            "node": "Experiment",
+            "name": "Sample Characterization WPP CP23",
+            "process": [
+              {
+                "node": "Process",
+                "name": "WPP CP23 HEQ 50",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "WPP CP23",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [],
+                "products": []
+              },
+              {
+                "node": "Process",
+                "name": "WPP CP23 Die cutting",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "WPP CP23",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [
+                  "WPP CP23 HEQ 50"
+                ],
+                "products": []
+              }
+            ],
+            "data": [
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "WPP CP23 FTIR"
+              },
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "WPP CP23 Tensile Test"
+              }
+            ]
+          },
+          {
+            "node": "Experiment",
+            "name": "Sample Characterization WPP CP100",
+            "process": [
+              {
+                "node": "Process",
+                "name": "WPP CP100 HEQ 50",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "WPP CP100",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [],
+                "products": []
+              },
+              {
+                "node": "Process",
+                "name": "WPP CP100 Die cutting",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "WPP CP100",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [
+                  "WPP CP100 HEQ 50"
+                ],
+                "products": []
+              }
+            ],
+            "data": [
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "WPP CP100 FTIR"
+              },
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "WPP CP100 Tensile Test"
+              }
+            ]
+          },
+          {
+            "node": "Experiment",
+            "name": "Sample Characterization WPC CP23",
+            "process": [
+              {
+                "node": "Process",
+                "name": "WPC CP23 HEQ 50",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "WPC CP23",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [],
+                "products": []
+              },
+              {
+                "node": "Process",
+                "name": "WPC CP23 Die cutting",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "WPC CP23",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [
+                  "WPC CP23 HEQ 50"
+                ],
+                "products": []
+              }
+            ],
+            "data": [
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "WPC CP23 FTIR"
+              },
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "WPC CP23 Tensile Test"
+              }
+            ]
+          },
+          {
+            "node": "Experiment",
+            "name": "Sample Characterization WPC CP100",
+            "process": [
+              {
+                "node": "Process",
+                "name": "WPC CP100 HEQ 50",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "WPC CP100",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [],
+                "products": []
+              },
+              {
+                "node": "Process",
+                "name": "WPC CP100 Die cutting",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "WPC CP100",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [
+                  "WPC CP100 HEQ 50"
+                ],
+                "products": []
+              }
+            ],
+            "data": [
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "WPC CP100 FTIR"
+              },
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "WPC CP100 Tensile Test"
+              }
+            ]
+          },
+          {
+            "node": "Experiment",
+            "name": "Sample Characterization BSA CP23",
+            "process": [
+              {
+                "node": "Process",
+                "name": "BSA CP23 HEQ 50",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "BSA CP23",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [],
+                "products": []
+              },
+              {
+                "node": "Process",
+                "name": "BSA CP23 Die cutting",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "BSA CP23",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [
+                  "BSA CP23 HEQ 50"
+                ],
+                "products": []
+              }
+            ],
+            "data": [
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "BSA CP23 FTIR"
+              },
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "BSA CP23 Tensile Test"
+              }
+            ]
+          },
+          {
+            "node": "Experiment",
+            "name": "Sample Characterization BSA CP100",
+            "process": [
+              {
+                "node": "Process",
+                "name": "BSA CP100 HEQ 50",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "BSA CP100",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [],
+                "products": []
+              },
+              {
+                "node": "Process",
+                "name": "BSA CP100 Die cutting",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "BSA CP100",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [
+                  "BSA CP100 HEQ 50"
+                ],
+                "products": []
+              }
+            ],
+            "data": [
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "BSA CP100 FTIR"
+              },
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "BSA CP100 Tensile Test"
+              }
+            ]
+          },
+          {
+            "node": "Experiment",
+            "name": "Sample Characterization SPI CP23",
+            "process": [
+              {
+                "node": "Process",
+                "name": "SPI CP23 HEQ 50",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "SPI CP23",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [],
+                "products": []
+              },
+              {
+                "node": "Process",
+                "name": "SPI CP23 Die cutting",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "SPI CP23",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [
+                  "SPI CP23 HEQ 50"
+                ],
+                "products": []
+              }
+            ],
+            "data": [
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "SPI CP23 FTIR"
+              },
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "SPI CP23 Tensile Test"
+              }
+            ]
+          },
+          {
+            "node": "Experiment",
+            "name": "Sample Characterization SPI CP100",
+            "process": [
+              {
+                "node": "Process",
+                "name": "SPI CP100 HEQ 50",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "SPI CP100",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [],
+                "products": []
+              },
+              {
+                "node": "Process",
+                "name": "SPI CP100 Die cutting",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "SPI CP100",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [
+                  "SPI CP100 HEQ 50"
+                ],
+                "products": []
+              }
+            ],
+            "data": [
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "SPI CP100 FTIR"
+              },
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "SPI CP100 Tensile Test"
+              }
+            ]
+          },
+          {
+            "node": "Experiment",
+            "name": "Sample Characterization PPI CP23",
+            "process": [
+              {
+                "node": "Process",
+                "name": "PPI CP23 HEQ 50",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "PPI CP23",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [],
+                "products": []
+              },
+              {
+                "node": "Process",
+                "name": "PPI CP23 Die cutting",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "PPI CP23",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [
+                  "PPI CP23 HEQ 50"
+                ],
+                "products": []
+              }
+            ],
+            "data": [
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "PPI CP23 FTIR"
+              },
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "PPI CP23 Tensile Test"
+              }
+            ]
+          },
+          {
+            "node": "Experiment",
+            "name": "Sample Characterization PPI CP100",
+            "process": [
+              {
+                "node": "Process",
+                "name": "PPI CP100 HEQ 50",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "PPI CP100",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [],
+                "products": []
+              },
+              {
+                "node": "Process",
+                "name": "PPI CP100 Die cutting",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "PPI CP100",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [
+                  "PPI CP100 HEQ 50"
+                ],
+                "products": []
+              }
+            ],
+            "data": [
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "PPI CP100 FTIR"
+              },
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "PPI CP100 Tensile Test"
+              }
+            ]
+          },
+          {
+            "node": "Experiment",
+            "name": "Pure PHPA Synthesis and Characterization",
+            "process": [
+              {
+                "node": "Process",
+                "name": "Column purification",
+                "type": "null",
+                "ingredients": [
+                  {
+                    "node": "Ingredient",
+                    "material": "hydroxypropylacrylate",
+                    "quantities": [
+                      "null"
+                    ]
+                  },
+                  {
+                    "node": "Ingredient",
+                    "material": "Basic alumina",
+                    "quantities": [
+                      "null"
+                    ]
+                  }
+                ],
+                "prerequisite_process": [],
+                "products": []
+              },
+              {
+                "node": "Process",
+                "name": "Thermoset synthesis",
+                "type": "null",
+                "ingredients": [],
+                "prerequisite_process": [
+                  "Column purification"
+                ],
+                "products": [
+                  "PHPA"
+                ]
+              }
+            ],
+            "data": [
+              {
+                "node": "Data",
+                "type": "null",
+                "name": "FTIR"
+              }
+            ]
+          }
+        ],
+        "inventory": [
+          {
+            "node": "Inventory",
+            "name": "Protein Materials",
+            "material": [
+              {
+                "node": "Material",
+                "name": "Whey protein isolate"
+              },
+              {
+                "node": "Material",
+                "name": "Whey protein powder"
+              },
+              {
+                "node": "Material",
+                "name": "Whey protein concentrate"
+              },
+              {
+                "node": "Material",
+                "name": "Bovine serum albumin"
+              },
+              {
+                "node": "Material",
+                "name": "Soy protein isolate"
+              },
+              {
+                "node": "Material",
+                "name": "Pea protein isolate"
+              },
+              {
+                "node": "Material",
+                "name": "WPI supernatant"
+              },
+              {
+                "node": "Material",
+                "name": "WPP supernatant"
+              },
+              {
+                "node": "Material",
+                "name": "WPC supernatant"
+              },
+              {
+                "node": "Material",
+                "name": "BSA supernatant"
+              },
+              {
+                "node": "Material",
+                "name": "SPI supernatant"
+              },
+              {
+                "node": "Material",
+                "name": "PPI supernatant"
+              },
+              {
+                "node": "Material",
+                "name": "WPI methacrylate"
+              },
+              {
+                "node": "Material",
+                "name": "WPP methacrylate"
+              },
+              {
+                "node": "Material",
+                "name": "WPC methacrylate"
+              },
+              {
+                "node": "Material",
+                "name": "BSA methacrylate"
+              },
+              {
+                "node": "Material",
+                "name": "SPI methacrylate"
+              },
+              {
+                "node": "Material",
+                "name": "PPI methacrylate"
+              },
+              {
+                "node": "Material",
+                "name": "WPI unheated film"
+              },
+              {
+                "node": "Material",
+                "name": "BSA unheated film"
+              },
+              {
+                "node": "Material",
+                "name": "SPI unheated film"
+              },
+              {
+                "node": "Material",
+                "name": "PPI unheated film"
+              },
+              {
+                "node": "Material",
+                "name": "WPI heated film"
+              },
+              {
+                "node": "Material",
+                "name": "BSA heated film"
+              },
+              {
+                "node": "Material",
+                "name": "SPI heated film"
+              },
+              {
+                "node": "Material",
+                "name": "PPI heated film"
+              },
+              {
+                "node": "Material",
+                "name": "WPI CP23"
+              },
+              {
+                "node": "Material",
+                "name": "WPP CP23"
+              },
+              {
+                "node": "Material",
+                "name": "WPC CP23"
+              },
+              {
+                "node": "Material",
+                "name": "BSA CP23"
+              },
+              {
+                "node": "Material",
+                "name": "PPI CP23"
+              },
+              {
+                "node": "Material",
+                "name": "SPI CP23"
+              },
+              {
+                "node": "Material",
+                "name": "WPI CP70"
+              },
+              {
+                "node": "Material",
+                "name": "WPI CP120"
+              },
+              {
+                "node": "Material",
+                "name": "WPI CP100"
+              },
+              {
+                "node": "Material",
+                "name": "WPP CP100"
+              },
+              {
+                "node": "Material",
+                "name": "WPC CP100"
+              },
+              {
+                "node": "Material",
+                "name": "BSA CP100"
+              },
+              {
+                "node": "Material",
+                "name": "SPI CP100"
+              },
+              {
+                "node": "Material",
+                "name": "PPI CP100"
+              }
+            ]
+          }
+        ],
+        "citation": [
+          {
+            "node": "Citation",
+            "reference": {
+              "node": "Reference",
+              "name": "10.1021/acs.biomac.2c00372",
+              "type": "journal_article",
+              "title": "Strengthening and Toughening of Protein-Based Thermosets via Intermolecular Self-Assembly",
+              "authors": [
+                "Yiping Cao",
+                "Bradley D. Olsen"
+              ],
+              "journal": "Biomacromolecules",
+              "publisher": "American Chemical Society",
+              "year": "2022",
+              "volume": "23",
+              "pages": "3286-3295",
+              "doi": "10.1021/acs.biomac.2c00372"
+            }
+          }
+        ]
+      }
+    ],
+    "material": [
+      {
+        "node": "Material",
+        "name": "Whey protein isolate"
+      },
+      {
+        "node": "Material",
+        "name": "Whey protein powder"
+      },
+      {
+        "node": "Material",
+        "name": "Whey protein concentrate"
+      },
+      {
+        "node": "Material",
+        "name": "Bovine serum albumin"
+      },
+      {
+        "node": "Material",
+        "name": "Soy protein isolate"
+      },
+      {
+        "node": "Material",
+        "name": "Pea protein isolate"
+      },
+      {
+        "node": "Material",
+        "name": "WPI supernatant"
+      },
+      {
+        "node": "Material",
+        "name": "WPP supernatant"
+      },
+      {
+        "node": "Material",
+        "name": "WPC supernatant"
+      },
+      {
+        "node": "Material",
+        "name": "BSA supernatant"
+      },
+      {
+        "node": "Material",
+        "name": "SPI supernatant"
+      },
+      {
+        "node": "Material",
+        "name": "PPI supernatant"
+      },
+      {
+        "node": "Material",
+        "name": "WPI methacrylate"
+      },
+      {
+        "node": "Material",
+        "name": "WPP methacrylate"
+      },
+      {
+        "node": "Material",
+        "name": "WPC methacrylate"
+      },
+      {
+        "node": "Material",
+        "name": "BSA methacrylate"
+      },
+      {
+        "node": "Material",
+        "name": "SPI methacrylate"
+      },
+      {
+        "node": "Material",
+        "name": "PPI methacrylate"
+      },
+      {
+        "node": "Material",
+        "name": "WPI unheated film"
+      },
+      {
+        "node": "Material",
+        "name": "BSA unheated film"
+      },
+      {
+        "node": "Material",
+        "name": "SPI unheated film"
+      },
+      {
+        "node": "Material",
+        "name": "PPI unheated film"
+      },
+      {
+        "node": "Material",
+        "name": "WPI heated film"
+      },
+      {
+        "node": "Material",
+        "name": "BSA heated film"
+      },
+      {
+        "node": "Material",
+        "name": "SPI heated film"
+      },
+      {
+        "node": "Material",
+        "name": "PPI heated film"
+      },
+      {
+        "node": "Material",
+        "name": "WPI CP23"
+      },
+      {
+        "node": "Material",
+        "name": "WPI CP70"
+      },
+      {
+        "node": "Material",
+        "name": "WPI CP100"
+      },
+      {
+        "node": "Material",
+        "name": "WPI CP120"
+      },
+      {
+        "node": "Material",
+        "name": "WPP CP23"
+      },
+      {
+        "node": "Material",
+        "name": "WPP CP100"
+      },
+      {
+        "node": "Material",
+        "name": "WPC CP23"
+      },
+      {
+        "node": "Material",
+        "name": "WPC CP100"
+      },
+      {
+        "node": "Material",
+        "name": "BSA CP23"
+      },
+      {
+        "node": "Material",
+        "name": "BSA CP100"
+      },
+      {
+        "node": "Material",
+        "name": "SPI CP23"
+      },
+      {
+        "node": "Material",
+        "name": "SPI CP100"
+      },
+      {
+        "node": "Material",
+        "name": "PPI CP23"
+      },
+      {
+        "node": "Material",
+        "name": "PPI CP100"
+      }
+    ]
+  }
+}
