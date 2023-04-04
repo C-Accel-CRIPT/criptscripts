@@ -104,8 +104,8 @@ export class AFRLtoJSON {
         }
 
         // Create citation
-        const DOI_DOT_ORG = "doi.org";
-        const name = row.reference.includes(DOI_DOT_ORG) ? row.reference.replace(DOI_DOT_ORG, "").split("/").at(0) : row.reference;
+        const DOI_DOT_ORG = "doi.org/";
+        const name = row.reference.includes(DOI_DOT_ORG) ? row.reference.replace(DOI_DOT_ORG, "") : row.reference;
         const citation: ICitation = {
             node: ['Citation'],
             name,
