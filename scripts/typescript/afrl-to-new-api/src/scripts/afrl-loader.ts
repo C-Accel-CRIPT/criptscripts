@@ -66,6 +66,7 @@ export class AFRLtoJSON {
         this.collection = {
             name: "afrl", // will be overriden by user config
             notes:`Gather the 3 inventories extracted from AFRL dataset`,
+            node: ['Collection'],
             inventory: [
                 this.inventory_solvents,
                 this.inventory_polymers,
