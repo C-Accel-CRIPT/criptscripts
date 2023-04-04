@@ -14,7 +14,7 @@ Check the *.errors.json file to be sure you do not skip important errors.
 Then, you can upload the data to CRIPT using curl:
 
 ```
-curl -X POST -H "Content-Type: application/json" -d "@./out/afrl-transformed.min.json" <host>/project/ --header "authorization: <token>"
+curl -X POST -H "Content-Type: application/json" -d "@./out/afrl-transformed.min.json" <host>/project/ --header "authorization: Bearer <token>"
 ```
 
 
