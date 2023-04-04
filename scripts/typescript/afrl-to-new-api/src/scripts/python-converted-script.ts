@@ -1,5 +1,5 @@
 import { AFRLData } from "../types/afrl"
-import { ICitation, ICollection, IIdentifier, IInventory, IMaterial, IPrimary, IProject, IProperty, IReference } from "../types/cript"
+import { ICitation, ICollection, ICondition, IIdentifier, IInventory, IMaterial, IPrimary, IProject, IProperty, IReference } from "../types/cript"
 import { CitationType } from "../types/cript/ICitation";
 
 /**
@@ -69,7 +69,7 @@ export class AFRLtoJSON {
         
     }
 
-    get_citation(row: AFRLData): ICitation | undefined {
+    get_citation(row: AFRLData): ICitation {
         /*     
          // original code
         /////////////////
@@ -120,7 +120,7 @@ export class AFRLtoJSON {
         // Store in hashmap
         this.citations.set(row.reference, citation);
     
-        return citation
+        return citation;
 
     }
 
@@ -218,7 +218,7 @@ export class AFRLtoJSON {
         return solvent;
     }
 
-    get_polymer(row: AFRLData, citation?: ICitation): IMaterial {
+    get_polymer(row: AFRLData, citation: ICitation[] = []): IMaterial {
     
         const polymer_id = row.polymer_id;
         const name = row.polymer;
@@ -244,7 +244,7 @@ export class AFRLtoJSON {
                 key: "mw_w",
                 value: mw_w,
                 unit: "g/mol",
-                citation: citation ? [citation] : [],
+                citation,
                 node: ['Property']
             } as IProperty)
 
@@ -253,7 +253,7 @@ export class AFRLtoJSON {
                 key: "mw_d",
                 value: mw_d,
                 unit: "",
-                citation: citation ? [citation] : [],
+                citation,
                 node: ['Property']
             } as IProperty) 
     
@@ -287,77 +287,162 @@ export class AFRLtoJSON {
         return polymer
     }
 
-    get_mixture(row: AFRLData, polymer: IMaterial, solvent: IMaterial, citation?: ICitation): IMaterial {
+    get_mixture(row: AFRLData, polymer: IMaterial, solvent: IMaterial, citation: ICitation[] = []): IMaterial {
 
-        /*    
-         // original code
-        /////////////////
-    
-        mixture_id = row["mixture_id"]
-        name = f"{polymer.name} + {solvent.name} mixture"
-        unique_name = name + f" ({mixture_id})"
-        conc_vol_fraction = row["polymer_vol_frac"]
-        conc_mass_fraction = row["polymer_wt_frac"]
-        temp_cloud = row["cloud_point_temp"]
-        one_phase_direction = row["one_phase_direction"]
-        pressure = row["pressure_MPa"]
-    
-        # Create identifiers
-        identifiers = []
-        if name:
-            identifiers.append(cript.Identifier(key="preferred_name", value=name))
-    
-        # Create components
-        components = [
-            polymer,
-            solvent
-        ]
-    
-        # Create properties
-        properties = []
-        if not math.isnan(conc_vol_fraction):
-            properties.append(
-                cript.Property(key="conc_vol_fraction", value=conc_vol_fraction, components_relative=[polymer], citations=[citation])
-            )
-        if not math.isnan(conc_mass_fraction):
-            properties.append(
-                cript.Property(key="conc_mass_fraction", value=conc_mass_fraction, components_relative=[polymer], citations=[citation])
-            )
-        if not math.isnan(temp_cloud):
-            properties.append(
-                cript.Property(
-                    key="temp_cloud", 
-                    value=temp_cloud, 
-                    unit="degC", 
-                    conditions=[],
-                    citations=[citation]
-                )
-            )
-            if pressure:
-                properties[-1].conditions.append(cript.Condition(key="pressure", value=pressure, unit="MPa"))
-            if one_phase_direction:
-                properties[-1].conditions.append(cript.Condition(key="+one_phase_direction", value=one_phase_direction))
-    
-        # Create new material object
-        mixture_dict = {
-            "project": project,
-            "name": unique_name,
-            "identifiers": identifiers,
-            "components": components,
-            "properties": properties,
-            "public": True
+        const name = `${polymer.name}${solvent.name} mixture`;
+        const unique_name = `${name} (${row.mixture_id})`
+
+        const conc_vol_fraction = row.polymer_vol_frac;
+        const conc_mass_fraction = row.polymer_wt_frac;
+        const temp_cloud = row.cloud_point_temp;
+        const one_phase_direction = row.one_phase_direction;
+        const pressure = row.pressure_MPa;
+
+        // Create new material object
+        const mixture: IMaterial = {
+            node: ['Material'],
+            name: unique_name,
+            // "identifiers": identifiers, deprecated, see explanation below
+            component: [
+                polymer,
+                solvent
+            ],
+            property: [],
+            created_at: "",
+            locked: false,
+            model_version: "",
+            names: [],
+            notes: "",
+            public: false,
+            uid: "",
+            updated_at: "",
+            uuid: "",
+            project: [],
+            keyword: [],
+            parent_material: "",
+            property_count: 0,
+            component_count: 0,
+            identifier_count: 0,
+            computational_forcefield: unique_name
+        } as IMaterial;
+
+        // Create identifiers
+        //
+        // The concept of Identifier separate from Material does not exist anymore on the new API.
+        // Instead, a Material has each possible identifier as its own object property.
+        // 
+        if (name) {
+            // There is no such field in the new API
+            // identifiers.append(cript.Identifier(key="preferred_name", value=name))
+            // Waiting for Brilant's answer I am using names instead.
+            mixture.names.push(name)
         }
-        mixture = cript.Material(**mixture_dict)
     
-        # Save material or update and use existing
-        api.save(mixture,update_existing=True, max_level=0)
-    
-        mixtures[mixture.name] = mixture
-        return mixture
-    
-        */
-        throw new Error("Function not implemented yet")
+        // Create properties
+        if (conc_vol_fraction && ! isNaN(conc_vol_fraction) ) {
+            mixture.property.push({
+                key: "conc_vol_fraction",
+                value: conc_vol_fraction,
+                // "components_relative" does not exist on new API, using "component" instead.         
+                component: [polymer],
+                citation,
+                node: ['Property'],
+                type: "",
+                unit: "",
+                uncertainty: "",
+                uncertainty_type: "",
+                sample_preparation: "",
+                notes: "",
+                structure: "",
+                method: "",
+                condition: [],
+                data: [],
+                computation: [],
+                created_at: "",
+                updated_at: "",
+                model_version: "",
+                uuid: "",
+                uid: ""
+            })
+        }
 
+        if (conc_mass_fraction && ! isNaN(conc_mass_fraction) ) {
+            mixture.property.push({
+                key: "conc_mass_fraction",
+                value: conc_mass_fraction,
+                // "components_relative" does not exist on new API, using "component" instead.         
+                component: [polymer],
+                citation,
+                node: ['Property'],
+                type: "",
+                unit: "",
+                uncertainty: "",
+                uncertainty_type: "",
+                sample_preparation: "",
+                notes: "",
+                structure: "",
+                method: "",
+                condition: [],
+                data: [],
+                computation: [],
+                created_at: "",
+                updated_at: "",
+                model_version: "",
+                uuid: "",
+                uid: ""
+            })
+        }
+
+        if (temp_cloud && ! isNaN(temp_cloud) ) {
+            
+            const temp_cloud_property: IProperty = {
+                key: "temp_cloud",
+                value: temp_cloud,
+                // "components_relative" does not exist on new API, using "component" instead.         
+                component: [polymer],
+                citation,
+                node: ['Property'],
+                type: "",
+                unit: "degC",
+                uncertainty: "",
+                uncertainty_type: "",
+                sample_preparation: "",
+                notes: "",
+                structure: "",
+                method: "",
+                condition: [],
+                data: [],
+                computation: [],
+                created_at: "",
+                updated_at: "",
+                model_version: "",
+                uuid: "",
+                uid: ""
+            };
+
+            // If present, add conditions
+
+            if (pressure)
+                temp_cloud_property.condition.push({
+                    key: "pressure",
+                    value: pressure as any, // FIXME: typings are wrong, we should be able to use a number
+                    unit: "MPa"
+                } as ICondition);
+
+            if (one_phase_direction)
+                temp_cloud_property.condition.push({
+                    key: "+one_phase_direction", // Not sure this will work, needs custom vocabulary (starts with a "+").
+                    value: one_phase_direction,
+                } as ICondition);
+
+            // Add property to the mixture
+            mixture.property.push(temp_cloud_property);
+        }
+        
+        // Store in hashmap
+        this.mixtures.set(mixture.name, mixture);
+
+        return mixture;    
     }
 
     private smiles_to_BigSMILES(old_smiles: string): string {
@@ -419,10 +504,10 @@ export class AFRLtoJSON {
         }        
         this.inventory_solvents.material.push(solvent)
     
-        const polymer = this.get_polymer(row, citation)
+        const polymer = this.get_polymer(row, [citation])
         this.inventory_polymers.material.push(polymer)
     
-        const mixture = this.get_mixture(row, polymer, solvent, citation)
+        const mixture = this.get_mixture(row, polymer, solvent, [citation])
         this.inventory_mixtures.material.push(mixture)
 
         return true;
