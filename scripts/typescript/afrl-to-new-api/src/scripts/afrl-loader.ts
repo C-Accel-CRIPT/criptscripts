@@ -105,54 +105,7 @@ export class AFRLtoJSON {
 
     }
 
-    get_inventory(name: string): IInventory {
-        /*
-         // original code
-        /////////////////
-    
-        inventory = cript.Inventory(group=group, collection=collection, name=inventory_name, materials=[], public=True)
-    
-        #Save inventory or update and use existing
-        api.save(inventory, update_existing=True, max_level=0)
-    
-        return inventory
-        */
-        throw new Error("Function not implemented yet")
-    }
-
     get_solvent(row: AFRLData): IMaterial {
-        /*
-        // original code
-        /////////////////
-
-        cas = row["solvent_CAS"].strip()
-    
-        # Skip repeats
-        if cas in solvents.keys():
-            solvent = solvents[cas]
-            print(f"ROW {index + 2} -- Found existing solvent: {solvent.name}")
-            return solvent
-    
-        try:
-            solvent = api.get(
-                cript.Material, 
-                {
-                    "identifiers": [
-                        {
-                            "key": "cas", 
-                            "value": cas
-                        }
-                    ], 
-                    "project": cript_project.uid
-                },
-                max_level=0
-            )
-            print(f"ROW {index + 2} -- Found existing solvent: {solvent.name}")
-            solvents[cas] = solvent
-            return solvent
-        except (cript.exceptions.APIGetError):
-            return None
-        */
 
         const cas = row.solvent_CAS.trim(); // will be used as key in the hashmap this.solvent
 
