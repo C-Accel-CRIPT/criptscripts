@@ -19,8 +19,8 @@ product: [{
 
 // Instantiate AFRL to JSON serializer
 const serializer = new AFRLLoader({
-    inventory_basename: 'afrl-inventory',
-    project_name: 'afrl-project'
+    inventory_basename: 'afrl-deleteme',
+    project_name: 'afrl-deleteme'
 });
 
 // Get project from raw data
@@ -48,11 +48,11 @@ write_json_helper(serializer.get_errors(), 'afrl-transformed.errors', 'human-rea
  * Helper to write a JSON to a given filename
  */
 function write_json_helper(obj: any, filename: string, mode: 'human-readable' | 'minified') {
-    console.log('Writting pretty JSON ...')
+    console.log(`Writting ${mode} JSON ...`)
     const output_json = mode === 'minified' ? JSON.stringify(obj) : JSON.stringify(obj, null, '\t');
     const output_filename = mode === 'minified' ? `${filename}.min.json` : `${filename}.json` 
     const output_filepath =  path.resolve(output_dir_path, output_filename );
     const output_file = fs.openSync(output_filepath, 'w');
     fs.writeFileSync( output_file, output_json);
-    console.log(`Writting minified JSON OK: ${output_filepath}`)
+    console.log(`Writting  ${mode} JSON OK: ${output_filepath}`)
 }

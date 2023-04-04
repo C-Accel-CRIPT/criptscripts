@@ -100,8 +100,13 @@ export class AFRLtoJSON {
         if( row.reference.includes(DOI_DOT_ORG) ) {
             citation.reference.doi = row.reference.replace(DOI_DOT_ORG, "");
         } else {
-            citation.reference.author = row.reference.split(',')            // Authors are usually splitted by comas.
-                                                     .map( a => a.trim() ); // remove empty pre/post spaces
+            // Putting the whole text as an author
+            citation.reference.author = [row.reference];
+
+            // The following does not work, but a better version can work.
+            // I am unsure the reference is always formatted the same way.
+            // citation.reference.author = row.reference.split(',')            // Authors are usually splitted by comas.
+            //                                          .map( a => a.trim() ); // remove empty pre/post spaces
         }
 
         // Store in hashmap
