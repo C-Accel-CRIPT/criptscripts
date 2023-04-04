@@ -85,18 +85,24 @@ export class AFRLtoJSON {
         }
 
         // Create citation
-        const DOI_DOT_ORG = "doi.org/";
-        const name = row.reference.includes(DOI_DOT_ORG) ? row.reference.replace(DOI_DOT_ORG, "") : row.reference;
         const citation: ICitation = {
             node: ['Citation'],
-            name,
+            name: row.reference,
             reference: {
                 node: ['Reference'],
                 created_at: "",
-                doi: row.reference
             } as IReference,
             type: CitationType.reference
         } as ICitation;
+
+        // get DOI and authors
+        const DOI_DOT_ORG = "doi.org/";
+        if( row.reference.includes(DOI_DOT_ORG) ) {
+            citation.reference.doi = row.reference.replace(DOI_DOT_ORG, "");
+        } else {
+            citation.reference.author = row.reference.split(',')            // Authors are usually splitted by comas.
+                                                     .map( a => a.trim() ); // remove empty pre/post spaces
+        }
 
         // Store in hashmap
         this.citations.set(row.reference, citation);
