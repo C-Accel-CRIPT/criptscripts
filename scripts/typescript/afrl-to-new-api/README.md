@@ -9,7 +9,14 @@ Will install this npm package and dependencies.
 
 # `npm start`
 
-Will run the AFRL to JSON script.
+Will run the AFRL to JSON script and produce multiple JSON in the `./out` folder.
+Check the *.errors.json file to be sure you do not skip important errors.
+Then, you can upload the data to CRIPT using curl:
+
+```
+curl -X POST -H "Content-Type: application/json" -d "@./out/afrl-transformed.min.json" <host>/project/ --header "authorization: <token>"
+```
+
 
 # How it works?
 
@@ -21,7 +28,6 @@ Step by step of what the script does on a macro level (for more details look at 
 - Inventories are store in a single `Collection` which is in a single `Project`.
 - The `Project` is serialized as a single JSON (in two version, one minified and an other human-readable).
 - If some data cannot be transformed, a log is produced and transoformation stops before to save the JSON.
-
 
 # History
 
