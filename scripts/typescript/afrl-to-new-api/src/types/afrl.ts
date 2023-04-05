@@ -1,4 +1,7 @@
 export type AFRLData = {
+  // The row index from the CSV file
+  row?: number;
+
   cloud_point_temp: number; 
   mixture_id: number;
   one_phase_direction: string;

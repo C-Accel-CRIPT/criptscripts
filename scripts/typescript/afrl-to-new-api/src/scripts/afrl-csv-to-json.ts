@@ -1,5 +1,6 @@
 import { AFRLData } from "../types/afrl"
 import { ICitation, ICollection, ICondition, IInventory, IMaterial, IProject, IProperty, IReference } from "../types/cript"
+import csvtojson from "csvtojson";
 
 /**
  * This script is a typescript port of @see https://github.com/C-Accel-CRIPT/criptscripts/tree/master/scripts/python_sdk_scripts/AFRL
@@ -12,7 +13,7 @@ export type Config = {
     // Destination project's name
     project_name: string;
     // Destination inventory's basename
-    inventory_basename: string;    
+    inventory_basename: string;
 }
 
 const MODEL_VERSION: string = '1.0.0';
@@ -49,12 +50,12 @@ export class AFRLtoJSON {
             notes: `Gather all the solvents extracted from AFRL dataset`,
             model_version: MODEL_VERSION,
         } as any;
-        
+
         this.inventory_polymers = {
             name: `${config.inventory_basename} (polymers)`,
             material: [],
             node: ['Inventory'],
-            notes:`Gather all the polymers extracted from AFRL dataset`,
+            notes: `Gather all the polymers extracted from AFRL dataset`,
             model_version: MODEL_VERSION,
         } as any;
 
@@ -62,14 +63,14 @@ export class AFRLtoJSON {
             name: `${config.inventory_basename} (mixtures)`,
             material: [],
             node: ['Inventory'],
-            notes:`Gather all the mixtures extracted from AFRL dataset`,
+            notes: `Gather all the mixtures extracted from AFRL dataset`,
             model_version: MODEL_VERSION,
         } as any;
 
         // Create collection with the inventories in it
         this.collection = {
             name: "afrl", // will be overriden by user config
-            notes:`Gather the 3 inventories extracted from AFRL dataset`,
+            notes: `Gather the 3 inventories extracted from AFRL dataset`,
             node: ['Collection'],
             model_version: MODEL_VERSION,
             inventory: [
@@ -86,18 +87,18 @@ export class AFRLtoJSON {
             node: ['Project'],
             collection: [this.collection],
         } as IProject;
-        
+
     }
 
     get_errors(): any {
         return [...this.errors];
     }
 
-    get_citation(row: AFRLData): ICitation {
+    private get_citation(row: AFRLData): ICitation {
 
         // Check if citation was already created
         const existing_citation = this.citations.get(row.reference);
-        if ( existing_citation ) {            
+        if (existing_citation) {
             console.log(`-- Found existing reference: ${existing_citation.name}`)
             return existing_citation;
         }
@@ -106,7 +107,7 @@ export class AFRLtoJSON {
         const citation: ICitation = {
             node: ['Citation'],
             reference: {
-                title: row.reference,        
+                title: row.reference,
                 type: 'database', // raw string, should be ideally picked from vocab
                 node: ['Reference'],
                 model_version: MODEL_VERSION,
@@ -117,7 +118,7 @@ export class AFRLtoJSON {
 
         // get DOI and authors
         const DOI_DOT_ORG = "doi.org/";
-        if( row.reference.includes(DOI_DOT_ORG) ) {
+        if (row.reference.includes(DOI_DOT_ORG)) {
             citation.reference.doi = row.reference.replace(DOI_DOT_ORG, "");
         } else {
             // Putting the whole text as an author
@@ -131,12 +132,12 @@ export class AFRLtoJSON {
 
         // Store in hashmap
         this.citations.set(row.reference, citation);
-    
+
         return citation;
 
     }
 
-    get_solvent(row: AFRLData): IMaterial {
+    private get_solvent(row: AFRLData): IMaterial {
 
         const cas = row.solvent_CAS.trim(); // will be used as key in the hashmap this.solvent
 
@@ -146,7 +147,7 @@ export class AFRLtoJSON {
             console.log(`-- Found existing solvent: ${existing_solvent.name} (cas: ${cas})`)
             return existing_solvent
         }
-    
+
         // Pull solvent from server
         // Blocker: the script assumes the solvent already exists on the backend, but we probably don't have it.
         /*
@@ -186,8 +187,8 @@ export class AFRLtoJSON {
         return solvent;
     }
 
-    get_polymer(row: AFRLData, citation: ICitation[] = []): IMaterial {
-    
+    private get_polymer(row: AFRLData, citation: ICitation[] = []): IMaterial {
+
         const polymer_id = row.polymer_id;
         const name = row.polymer;
         const unique_name = `${name}_${polymer_id}`;
@@ -195,9 +196,9 @@ export class AFRLtoJSON {
         const bigsmiles = this.smiles_to_BigSMILES(row.polymer_SMILES)
         const mw_w = row.polymer_Mw;
         const mw_d = row.polymer_PDI;
-    
+
         // Try to get the existing
-        if( citation ) {
+        if (citation) {
             // Note: previous implementation was using both mw_w, mw_d, and name as hash, but using unique_name seems more appropriate.
             const existing_polymer = this.polymers.get(unique_name);
             if (existing_polymer) {
@@ -227,9 +228,9 @@ export class AFRLtoJSON {
                 node: ['Property'],
                 model_version: MODEL_VERSION,
                 type: 'value'  // FIXME: is this correct from a chemist point of view?
-            } as IProperty) 
-    
-       
+            } as IProperty)
+
+
         // Create new material object
         const polymer: IMaterial = {
             name: unique_name,
@@ -243,24 +244,24 @@ export class AFRLtoJSON {
         // note: the new API does not have a concept for the legacy's API Identifiers.
         //       We have to set those directly on the Material node.
         //
-        if(name){
+        if (name) {
             polymer.names = [name]; // Not sure about that, waiting for Brilant's answer.
             //identifiers.push(cript.Identifier(key="prefered_name", value=name))
         }
-        if(cas){
+        if (cas) {
             polymer.cas = cas;
             //identifiers.push(cript.Identifier(key="cas", value=cas))
         }
-        if(bigsmiles){
+        if (bigsmiles) {
             polymer.bigsmiles = bigsmiles;
             //identifiers.push(cript.Identifier(key="bigsmiles", value=bigsmiles))
         }
-        
+
         this.polymers.set(unique_name, polymer);
         return polymer
     }
 
-    get_mixture(row: AFRLData, polymer: IMaterial, solvent: IMaterial, citation: ICitation[] = []): IMaterial {
+    private get_mixture(row: AFRLData, polymer: IMaterial, solvent: IMaterial, citation: ICitation[] = []): IMaterial {
 
         const name = `${polymer.name}${solvent.name} mixture`;
         const unique_name = `${name} (${row.mixture_id})`
@@ -296,9 +297,9 @@ export class AFRLtoJSON {
             // Waiting for Brilant's answer I am using names instead.
             mixture.names.push(name)
         }
-    
+
         // Create properties
-        if (conc_vol_fraction && ! isNaN(conc_vol_fraction) ) {
+        if (conc_vol_fraction && !isNaN(conc_vol_fraction)) {
             mixture.property.push({
                 key: "conc_vol_fraction",
                 value: String(conc_vol_fraction), // FIXME: backend does not accept numbers,
@@ -311,7 +312,7 @@ export class AFRLtoJSON {
             } as IProperty)
         }
 
-        if (conc_mass_fraction && ! isNaN(conc_mass_fraction) ) {
+        if (conc_mass_fraction && !isNaN(conc_mass_fraction)) {
             mixture.property.push({
                 key: "conc_mass_fraction",
                 value: String(conc_mass_fraction), // FIXME: backend does not accept numbers
@@ -324,8 +325,8 @@ export class AFRLtoJSON {
             } as IProperty)
         }
 
-        if (temp_cloud && ! isNaN(temp_cloud) ) {
-            
+        if (temp_cloud && !isNaN(temp_cloud)) {
+
             const temp_cloud_property: IProperty = {
                 key: "temp_cloud",
                 value: String(temp_cloud), // FIXME: backend does not accept numbers
@@ -368,23 +369,23 @@ export class AFRLtoJSON {
             // Add property to the mixture
             mixture.property.push(temp_cloud_property);
         }
-        
+
         // Store in hashmap
         this.mixtures.set(mixture.name, mixture);
 
-        return mixture;    
+        return mixture;
     }
 
 
     private smiles_to_BigSMILES(smiles: string): string | undefined {
 
-        if( !smiles || smiles == '') return undefined;
+        if (!smiles || smiles == '') return undefined;
 
         // Replace * with [<] and [>]
         let bigsmiles: string;
         const tokens = smiles.split('*');
-        
-        switch( tokens.length ) {
+
+        switch (tokens.length) {
             case 1:
                 bigsmiles = tokens[0];
                 break;
@@ -401,7 +402,7 @@ export class AFRLtoJSON {
 
 
     private record_error(message: string): void {
-        
+
         this.errors.push(message)
         console.error(message);
     }
@@ -422,12 +423,12 @@ export class AFRLtoJSON {
             // Record error and skip row if solvent is not found
             this.record_error(`Solvent not found: ${row.solvent} (${row.solvent_CAS})`);
             return false;
-        }        
+        }
         this.inventory_solvents.material.push(solvent)
-    
+
         const polymer = this.get_polymer(row, [citation])
         this.inventory_polymers.material.push(polymer)
-    
+
         const mixture = this.get_mixture(row, polymer, solvent, [citation])
         this.inventory_mixtures.material.push(mixture)
 
@@ -464,7 +465,119 @@ export class AFRLtoJSON {
         }
     }
 
-    load(data: AFRLData[]): IProject {
+    /**
+     * Load a CSV file to typesafe datastructure
+     * @param csv_file_path the path to the csv file (must be absolute or relative to the package)
+     * @returns 
+     */
+    async load_csv(csv_file_path: string): Promise<AFRLData[]> {
+        console.log(`Loading file and converting to javascript data types: ${csv_file_path} ...`)
+        const raw_json: { [key: string]: string }[] = await csvtojson().fromFile(csv_file_path)
+        console.log(`Found ${raw_json.length} rows found in CSV. File is now converted as a { [key: string]: string }[] `)
+
+        // Log randomly N samples
+        const random_samples_count = 3;
+        console.log(`Logging ${random_samples_count} samples randomly...`);
+        for (let i = 0; i < random_samples_count; ++i) {
+            const random_index = Math.floor(Math.random() * (raw_json.length - 1));
+            console.log(`row #${random_index}:`)
+            console.log(JSON.stringify(raw_json[random_index], null, '  '))
+        }
+        console.log(`Logging samples randomly DONE`);
+
+        // Checking data against type
+        console.warn(`Assigning default value for string properties ...`)
+        console.warn(`Data validation is not 100% safe, some fields might be missing. TODO: install AJV and create a schema for AFRLData type.`)
+
+        // Use typecheck to list all (unique) fields existing on AFRLdata
+        const empty_data: AFRLData = {
+
+            cloud_point_temp: 0,
+            mixture_id: 0,
+            one_phase_direction: "",
+            polymer_CAS: "",
+            polymer_id: 0,
+            polymer_PDI: 0,
+            polymer_Mw: 0,
+            polymer_SMILES: "",
+            polymer_vol_frac: 0,
+            polymer_wt_frac: 0,
+            polymer: "",
+            pressure_MPa: 0,
+            reference: "",
+            solvent_CAS: "",
+            solvent_Mw: 0,
+            solvent_SMILES: "",
+            solvent: ""
+        }
+        const afrldata_type_fields = [...Object.keys(empty_data) as Array<keyof AFRLData>];
+
+        const afrl_data = raw_json.map( (raw_object, index) => {
+            /*
+                At this stage a row is like that (sample is not representative, some data may be different (ex: reference)):
+                {
+                    mixture_id: '1',
+                    polymer_id: '1',
+                    polymer: 'polystyrene',
+                    polymer_CAS: '9003-53-6',
+                    polymer_SMILES: '*C(C*)c1ccccc1',
+                    solvent: 'methylcyclohexane',
+                    solvent_CAS: '108-87-2',
+                    solvent_SMILES: 'CC1CCCCC1',
+                    polymer_Mw: '17500',
+                    polymer_PDI: '1.060606061',
+                    polymer_vol_frac: '0.114055986',
+                    polymer_wt_frac: '0.15',
+                    pressure_MPa: '82.81',
+                    cloud_point_temp: '21.34',
+                    one_phase_direction: 'positive',
+                    reference: 'doi.org/10.1002/macp.1994.021950233'
+                    }
+            */
+
+            // Check if all the fields in raw_object exists in AFRLData type (can use default values in this case)
+            //const missing_field_on_raw_object = afrldata_type_fields.find( field => !Object.keys(raw_object).includes(field));
+            //if( missing_field_on_raw_object ) console.warn(`The field ${missing_field_on_raw_object} cannot be found in: ${JSON.stringify(raw_object)}, default value will be used`);
+
+            // Check it all fields in AFRLData type exists in raw_object (data will be discarded in this case, dev must be done)
+            const missing_field_on_afrldata_type = Object.keys(raw_object).find(field => !afrldata_type_fields.includes(field as any));
+            if (missing_field_on_afrldata_type) this.record_error(`The field ${missing_field_on_afrldata_type} cannot be found in: ${JSON.stringify(afrldata_type_fields)}, field will be ignored. Requires some development.`);
+
+            const safe_object: AFRLData = {
+                
+                row: index + 1, // one-based index, because the CSV column names use the raw 0.
+
+                reference: raw_object.reference ?? "",
+                one_phase_direction: raw_object.one_phase_direction ?? "",
+                polymer_CAS: raw_object.polymer_CAS ?? "",
+                polymer_SMILES: raw_object.polymer_SMILES  ?? "",
+                polymer: raw_object.polymer  ?? "",
+                polymer_Mw: Number(raw_object.polymer_Mw),
+                solvent_CAS: raw_object.solvent_CAS  ?? "",
+                solvent_SMILES: raw_object.solvent_SMILES ?? "",
+                solvent: raw_object.solvent  ?? "",
+                cloud_point_temp: Number(raw_object.cloud_point_temp),
+                mixture_id: Number(raw_object.mixture_id),
+                polymer_id: Number(raw_object.polymer_id),
+                polymer_PDI: Number(raw_object.polymer_PDI),
+                polymer_vol_frac: Number(raw_object.polymer_vol_frac),
+                polymer_wt_frac: Number(raw_object.polymer_wt_frac),
+                pressure_MPa: Number(raw_object.pressure_MPa),
+                solvent_Mw: Number(raw_object.solvent_Mw),
+            };
+            return safe_object;
+        });
+        console.warn(`Assigning default value for string properties OK`);
+
+        return afrl_data;
+    }
+
+    /**
+     * Loads structured AFRLData[] into a project
+     * @param data 
+     * @returns 
+     */
+    load_data(data: AFRLData[]): IProject {
 
         // load data
         console.log('Loading data ...')
@@ -473,28 +586,28 @@ export class AFRLtoJSON {
         const data_length = data.length;
         for (let row of data) {
             console.log(`Loading data ${one_based_index}/${data_length} ...`)
-            if( !this.load_row(row) ) {
+            if (!this.load_row(row)) {
                 failed_rows.push(row);
             }
             one_based_index++;
-        }        
+        }
 
         // Log failures
-        if( failed_rows.length != 0) {
+        if (failed_rows.length != 0) {
             console.log(`Loading failed. Some objects couldn't be loaded (${failed_rows.length} row(s) failed)`)
-            failed_rows.forEach( v => console.error(JSON.stringify(v)) )
+            failed_rows.forEach(v => console.error(JSON.stringify(v)))
             throw new Error(`${failed_rows.length} row(s) were not loaded.`)
         }
 
         // hack
         // In order to avoid to push multiple times the same Node, we have to
         // set a "uid" (not "uuid"), which is like a local id.
-        this.solvents.forEach( each =>  each.uid = `_:${each.cas}`)
-        this.mixtures.forEach( each =>  each.uid = `_:${each.cas}`)
-        this.polymers.forEach( each =>  each.uid = `_:${each.cas}`)
+        this.solvents.forEach(each => each.uid = `_:${each.cas}`)
+        this.mixtures.forEach(each => each.uid = `_:${each.cas}`)
+        this.polymers.forEach(each => each.uid = `_:${each.cas}`)
 
         console.log('Loading data OK')
         return this.project;
-        
+
     }
 }
