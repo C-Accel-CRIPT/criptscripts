@@ -123,7 +123,7 @@ export class AFRLtoJSON {
                 node: ['Reference'],
                 model_version: MODEL_VERSION,
             } as IReference,
-            type: 'reference', // FIXME: typings are incorrect, should be a string.
+            type: 'reference',
             model_version: MODEL_VERSION,
         } as ICitation;
 
