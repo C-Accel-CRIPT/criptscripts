@@ -602,9 +602,10 @@ export class AFRLtoJSON {
         // hack
         // In order to avoid to push multiple times the same Node, we have to
         // set a "uid" (not "uuid"), which is like a local id.
-        this.solvents.forEach(each => each.uid = `_:${each.cas}`)
-        this.mixtures.forEach(each => each.uid = `_:${each.cas}`)
-        this.polymers.forEach(each => each.uid = `_:${each.cas}`)
+        const assign_uid = (material: IMaterial) => material.uid = `_:${material.cas}`;
+        this.solvents.forEach(assign_uid)
+        this.mixtures.forEach(assign_uid)
+        this.polymers.forEach(assign_uid)
 
         console.log('Loading data OK')
         return this.project;
