@@ -11,7 +11,7 @@ Research paper written by Yiping Cao and Bradley D. Olsen.
 The CRIPT graph has been expertly made by
 [Professor Olsen of MIT](https://cheme.mit.edu/profile/bradley-d-olsen/) to serve as an example for CRIPT.
 
-# Files
+## Files
 
 The following includes the original research paper, representation of the research paper in CRIPT data graph, Excel file, and JSON
 
