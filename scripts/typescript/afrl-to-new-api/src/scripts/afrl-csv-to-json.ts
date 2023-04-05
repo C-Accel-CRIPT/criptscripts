@@ -99,7 +99,7 @@ export class AFRLtoJSON {
         // Check if citation was already created
         const existing_citation = this.citations.get(row.reference);
         if (existing_citation) {
-            console.log(`-- Found existing reference: ${existing_citation.name}`)
+            console.log(`-- Found existing reference: ${existing_citation.reference.title}`)
             return existing_citation;
         }
 
