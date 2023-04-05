@@ -23,7 +23,7 @@ curl -X POST -H "Content-Type: application/json" -d "@./out/afrl-transformed.min
 Step by step of what the script does on a macro level (for more details look at the source code).
 
 - Load the data (`./src/data/*.csv`) as an `Array<AFRLData>`.
-- For each data, we create 3 `Material`s (mixture, solvent, polymer) with some `Property`, `Condition` and `Citation` (`doi` is stored in a `Reference`) on it.
+- For each CSV line (or object), we create 3 `Material`s (a mixture, a solvent, and a polymer) with some `Property`, `Condition` and `Citation` (`doi` is stored in a `Reference`) on it.
 - Each type of material is registered in a dedicated `Inventory`.
 - Inventories are store in a single `Collection` which is in a single `Project`.
 - The `Project` is serialized as a single JSON (in two version, one minified and an other human-readable).
@@ -33,6 +33,6 @@ Step by step of what the script does on a macro level (for more details look at 
 
 This script was using Python originaly, last commit was from December 2022. I figured out the python version was existing **after** starting this task, that's why I used typescript.
 
-However, I couldn't us Python (no experience) and the PythonSDK (in development), so I decided to continue this way.
+However, I couldn't use Python (no experience and culture) and the PythonSDK (still in development), so I decided to continue this way.
 
 Berenger.

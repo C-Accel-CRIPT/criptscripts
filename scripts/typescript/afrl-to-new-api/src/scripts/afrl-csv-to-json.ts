@@ -4,9 +4,7 @@ import csvtojson from "csvtojson";
 
 /**
  * This script is a typescript port of @see https://github.com/C-Accel-CRIPT/criptscripts/tree/master/scripts/python_sdk_scripts/AFRL
- * The main difference is the data is already well structured to be used in TS (see ../data/data.ts).
- * The reason why data is a a AFRLData[] is because the legacy frontend (django app) had a JS file with the same data in it.
- * Having a *.ts file is very usefull to have autocompletion and static typecheck. * 
+ * The main difference is the source data is now read from the original CSV and not a preprocessed *.js.
  */
 
 export type Config = {
