@@ -39,6 +39,9 @@ export class AFRLtoJSON {
 
     private errors: Array<string> = [];
 
+    // to generate uid (local only),
+    private last_uid: number = 0;
+
     constructor(config: Config = AFRLtoJSON.load_config()) {
 
         // Create inventories
@@ -94,8 +97,17 @@ export class AFRLtoJSON {
         return [...this.errors];
     }
 
-    private get_citation(row: AFRLData): ICitation {
+    private generate_uid(): number {
+        this.last_uid += 1;
+        return this.last_uid
+    }
 
+    private get_citation(row: AFRLData): ICitation | undefined {
+
+        if(row.reference === undefined) {
+            this.record_error(`Unable to get)citation for row ${row.csv_raw_index}`)
+            return undefined;
+        }
         // Check if citation was already created
         const existing_citation = this.citations.get(row.reference);
         if (existing_citation) {
@@ -426,10 +438,11 @@ export class AFRLtoJSON {
         }
         this.inventory_solvents.material.push(solvent)
 
-        const polymer = this.get_polymer(row, [citation])
+        const citation_as_array = citation ? [citation] : [];
+        const polymer = this.get_polymer(row, citation_as_array)
         this.inventory_polymers.material.push(polymer)
 
-        const mixture = this.get_mixture(row, polymer, solvent, [citation])
+        const mixture = this.get_mixture(row, polymer, solvent, citation_as_array)
         this.inventory_mixtures.material.push(mixture)
 
         return true;
@@ -545,7 +558,7 @@ export class AFRLtoJSON {
 
             const safe_object: AFRLData = {
                 
-                row: index + 1, // one-based index, because the CSV column names use the raw 0.
+                csv_raw_index: index + 1, // one-based index, because the CSV column names use the raw 0.
 
                 reference: raw_object.reference ?? "",
                 one_phase_direction: raw_object.one_phase_direction ?? "",
@@ -602,7 +615,7 @@ export class AFRLtoJSON {
         // hack
         // In order to avoid to push multiple times the same Node, we have to
         // set a "uid" (not "uuid"), which is like a local id.
-        const assign_uid = (material: IMaterial) => material.uid = `_:${material.cas}`;
+        const assign_uid = (material: IMaterial) => material.uid = `afrl-csv-to-json:${this.generate_uid()}`;
         this.solvents.forEach(assign_uid)
         this.mixtures.forEach(assign_uid)
         this.polymers.forEach(assign_uid)

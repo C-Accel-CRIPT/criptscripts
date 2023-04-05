@@ -1,6 +1,6 @@
 export type AFRLData = {
   // The row index from the CSV file
-  row?: number;
+  csv_raw_index?: number;
 
   cloud_point_temp: number; 
   mixture_id: number;
