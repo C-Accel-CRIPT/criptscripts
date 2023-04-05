@@ -87,6 +87,7 @@ export class AFRLtoJSON {
             model_version: MODEL_VERSION,
             node: ['Project'],
             collection: [this.collection],
+            material: new Array<IMaterial>()
         } as IProject;
 
     }
@@ -434,16 +435,30 @@ export class AFRLtoJSON {
             this.record_error(`Solvent not found: ${row.solvent} (${row.solvent_CAS})`);
             return false;
         }
-        this.inventory_solvents.material.push(solvent)
+        this.add_material(solvent, this.inventory_solvents);
 
         const citation_as_array = citation ? [citation] : [];
         const polymer = this.get_polymer(row, citation_as_array)
-        this.inventory_polymers.material.push(polymer)
+        this.add_material(polymer, this.inventory_polymers);
 
         const mixture = this.get_mixture(row, polymer, solvent, citation_as_array)
-        this.inventory_mixtures.material.push(mixture)
+        this.add_material(mixture, this.inventory_mixtures);
 
         return true;
+    }
+
+    /**
+     * Helper to push a material into a project and a given inventory
+     * @param material 
+     * @param inventory 
+     */
+    add_material(material: IMaterial, inventory: IInventory) {
+        
+        // note: here I do not check if inventry is a part of a collection in this.project
+        //       but by design (cf. constructor) the inventory should be a part of it.
+
+        this.project.material.push(material);
+        inventory.material.push(material);
     }
 
     private static load_config(): Config {
@@ -618,9 +633,7 @@ export class AFRLtoJSON {
         // In order to avoid to push multiple times the same Node, we have to
         // set a "uid" (not "uuid"), which is like a local id.
         const assign_uid = (material: IMaterial) => material.uid = `afrl-csv-to-json:${this.generate_uid()}`;
-        this.solvents.forEach(assign_uid)
-        this.mixtures.forEach(assign_uid)
-        this.polymers.forEach(assign_uid)
+        this.project.material.forEach(assign_uid)
 
         console.log('Loading data OK')
         return this.project;
