@@ -18,4 +18,4 @@ The following includes the original research paper, representation of the resear
 - [Calabrese Rubber **Research Paper**](./calabrese_rubber/Calabrese_rubber_recycling_paper.pdf)
 - [Calabrese Rubber **CRIPT Graph**](./calabrese_rubber/Calabrese_ruber_recycling_data_graph.pptx)
 - [Calabrese Rubber **CRIPT Excel File**](./calabrese_rubber/Calabrese_CRIPT_updated_template.xlsx)
-- [Calabrese Rubber **CRIPT JSON**]()
+- [Calabrese Rubber **CRIPT JSON**](./calabrese_rubber/calaberese_rubber.json)
