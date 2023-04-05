@@ -498,6 +498,7 @@ export class AFRLtoJSON {
         }
         console.log(`Logging samples randomly DONE`);
 
+        
         // Checking data against type
         console.warn(`Assigning default value for string properties ...`)
         console.warn(`Data validation is not 100% safe, some fields might be missing. TODO: install AJV and create a schema for AFRLData type.`)
@@ -524,6 +525,8 @@ export class AFRLtoJSON {
             solvent: ""
         }
         const afrldata_type_fields = [...Object.keys(empty_data) as Array<keyof AFRLData>];
+
+        const to_number_or_undefined = (value: string ) => value != '' ? Number.parseFloat(value) : undefined;
 
         const afrl_data = raw_json.map( (raw_object, index) => {
             /*
@@ -560,28 +563,29 @@ export class AFRLtoJSON {
                 
                 csv_raw_index: index + 1, // one-based index, because the CSV column names use the raw 0.
 
-                reference: raw_object.reference ?? "",
-                one_phase_direction: raw_object.one_phase_direction ?? "",
-                polymer_CAS: raw_object.polymer_CAS ?? "",
-                polymer_SMILES: raw_object.polymer_SMILES  ?? "",
-                polymer: raw_object.polymer  ?? "",
-                polymer_Mw: Number(raw_object.polymer_Mw),
-                solvent_CAS: raw_object.solvent_CAS  ?? "",
-                solvent_SMILES: raw_object.solvent_SMILES ?? "",
-                solvent: raw_object.solvent  ?? "",
-                cloud_point_temp: Number(raw_object.cloud_point_temp),
-                mixture_id: Number(raw_object.mixture_id),
-                polymer_id: Number(raw_object.polymer_id),
-                polymer_PDI: Number(raw_object.polymer_PDI),
-                polymer_vol_frac: Number(raw_object.polymer_vol_frac),
-                polymer_wt_frac: Number(raw_object.polymer_wt_frac),
-                pressure_MPa: Number(raw_object.pressure_MPa),
-                solvent_Mw: Number(raw_object.solvent_Mw),
-            };
+                reference: raw_object.reference,
+                one_phase_direction: raw_object.one_phase_direction,
+                polymer_CAS: raw_object.polymer_CAS,
+                polymer_SMILES: raw_object.polymer_SMILES,
+                polymer: raw_object.polymer,                
+                solvent_CAS: raw_object.solvent_CAS,
+                solvent_SMILES: raw_object.solvent_SMILES,
+                solvent: raw_object.solvent,
+                ...{
+                    solvent_Mw: to_number_or_undefined(raw_object.solvent_Mw),
+                    polymer_Mw: to_number_or_undefined(raw_object.polymer_Mw),
+                    cloud_point_temp: to_number_or_undefined(raw_object.cloud_point_temp),
+                    mixture_id: to_number_or_undefined(raw_object.mixture_id),
+                    polymer_id: to_number_or_undefined(raw_object.polymer_id),
+                    polymer_PDI: to_number_or_undefined(raw_object.polymer_PDI),
+                    polymer_vol_frac: to_number_or_undefined(raw_object.polymer_vol_frac),
+                    polymer_wt_frac: to_number_or_undefined(raw_object.polymer_wt_frac),
+                    pressure_MPa: to_number_or_undefined(raw_object.pressure_MPa),
+                }
+            } as Partial<AFRLData> as any;
             return safe_object;
         });
-        console.warn(`Assigning default value for string properties OK`);
-
+        console.log(`Assigning default value for string properties OK`);
         return afrl_data;
     }
 

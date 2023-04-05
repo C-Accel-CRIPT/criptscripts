@@ -6,7 +6,7 @@ const package_directory_path = path.resolve();
 const output_dir_path = path.resolve(package_directory_path, './out/');
 const file_name = 'AFRL_linear_polymer_3pdb_data_csv_4_5_2023.csv'; // TODO: read this from command line argument
 
-// Call main as a promise because low level async are not allowed.
+// Call main as a promise because low level await are not allowed.
 main().then( code => process.exit(code) )
 
 async function main(): Promise<number> {
@@ -14,9 +14,6 @@ async function main(): Promise<number> {
     console.log('=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=')
     console.log('=-=-=-=-=-=-=-=-=-=-=-=-= AFRL CSV to JSON -=-=-=-=-=-==-=-=-=-=-=-=-=')
     console.log('=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=')
-
-    // Convert CSV string to AFRLData[]
-    const input_csv_file_path = path.resolve(package_directory_path, `./src/data/${file_name}`);
     
     // Instantiate AFRL to JSON serializer
     const serializer = new AFRLCSVtoJSON({
@@ -25,6 +22,7 @@ async function main(): Promise<number> {
     });
 
     // Load the CSV into an AFRLData[]
+    const input_csv_file_path = path.resolve(package_directory_path, `./src/data/${file_name}`);
     const afrl_data = await serializer.load_csv(input_csv_file_path);
 
     // Load the AFRLData[] to a Project
