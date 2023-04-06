@@ -15,7 +15,7 @@ The CRIPT graph has been expertly made by
 
 The following includes the original research paper, representation of the research paper in CRIPT data graph, Excel file, and JSON
 
-- [Calabrese Rubber **Research Paper**](./calabrese_rubber/Calabrese_rubber_recycling_paper.pdf)
-- [Calabrese Rubber **CRIPT Graph**](./calabrese_rubber/Calabrese_ruber_recycling_data_graph.pptx)
-- [Calabrese Rubber **CRIPT Excel File**](./calabrese_rubber/Calabrese_CRIPT_updated_template.xlsx)
+- [Calabrese Rubber **Research Paper**](./calabrese_rubber/calabrese_rubber_recycling_paper.pdf)
+- [Calabrese Rubber **CRIPT Graph**](./calabrese_rubber/calabrese_ruber_recycling_data_graph.pptx)
+- [Calabrese Rubber **CRIPT Excel File**](./calabrese_rubber/calabrese_ruber_recycling_data_graph.pptx)
 - [Calabrese Rubber **CRIPT JSON**](./calabrese_rubber/calaberese_rubber.json)
