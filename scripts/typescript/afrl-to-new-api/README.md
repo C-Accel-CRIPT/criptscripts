@@ -31,8 +31,6 @@ Step by step of what the script does on a macro level (for more details look at 
 
 # History
 
-This script was using Python originaly, last commit was from December 2022. I figured out the python version was existing **after** starting this task, that's why I used typescript.
-
-However, I couldn't use Python (no experience and culture) and the PythonSDK (still in development), so I decided to continue this way.
+This script was using Python originally (see [here](../../python_sdk_scripts/AFRL/)), last commit was from December 2022. I figured out the python version was existing **after** starting this task, that's why I started using typescript. However, I couldn't use Python (no much experience and culture) and the PythonSDK (still in development), so I decided to continue this way.
 
 Berenger.
