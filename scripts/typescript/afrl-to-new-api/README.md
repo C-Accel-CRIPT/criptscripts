@@ -24,7 +24,7 @@ Step by step of what the script does on a macro level (for more details look at 
 - Load the data (`./src/data/*.csv`) as an `Array<AFRLData>`.
 - For each CSV line (or object), we create 3 `Material`s (a mixture, a solvent, and a polymer) with some `Property`, `Condition` and `Citation` (`doi` is stored in a `Reference`) on it.
 - Each type of material is registered in a dedicated `Inventory`.
-- Inventories are store in a single `Collection` which is in a single `Project`.
+- Inventories are stored in a unique `Collection` attached to a unique `Project`.
 - The `Project` is serialized as a single JSON (in two version, one minified and an other human-readable).
 - If some data cannot be transformed, logs are added to the *.errors.json file.
 
