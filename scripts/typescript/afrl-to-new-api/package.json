@@ -1,14 +1,14 @@
 {
   "name": "afrl-transformation",
   "version": "1.0.0",
-  "description": "",
+  "description": "Script to convert an AFRL CSV dataset to a CRIPT compatible JSON",
   "main": "index.js",
   "scripts": {
     "start": "npx ts-node src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Bérenger Dalle-Cort, CRIPT, MIT",
+  "license": "MIT",
   "dependencies": {
     "csvtojson": "^2.0.10",
     "ts-node": "^10.9.1",
