@@ -1,5 +1,17 @@
 import { IIngredient, IMaterial, IProcess } from "../afrl/types/cript";
-import { ethanol, ethylhexyl_bromide, ethylhexyloxy_toluene, koh, methylhydroquinone } from "./materials";
+import {
+  POCl3,
+  chlorophorm,
+  dichloromethane,
+  diethylhexyloxy4methylbenzaldehyde,
+  dimethylformamide,
+  ethanol,
+  ethylhexyl_bromide,
+  ethylhexyloxy_toluene,
+  koh,
+  methylhydroquinone,
+  water,
+} from "./materials";
 
 /*
    Processes related to Synthesis of molecule 1 ((2,5-Di(2′-ethylhexyloxy)toluene))
@@ -59,12 +71,28 @@ export const mixing: Partial<IProcess> = {
   name: "mixing",
   node: ["Process"],
   //prerequisite_process: [poured_out_on_water as IProcess],
+  ingredient: [
+    {
+      material: [ethylhexyloxy_toluene],
+    },
+    {
+      material: [chlorophorm],
+    },
+    {
+      material: [dimethylformamide],
+    },
+  ] as IIngredient[],
 };
 
 export const react_below_40: Partial<IProcess> = {
   name: "react below 40 °C, stir for 1h at ambient temperature",
   node: ["Process"],
   prerequisite_process: [mixing as IProcess],
+  ingredient: [
+    {
+      material: [POCl3],
+    },
+  ] as IIngredient[],
 };
 
 export const refluxed_at_80: Partial<IProcess> = {
@@ -77,18 +105,29 @@ export const poured_out_on_ice: Partial<IProcess> = {
   name: "Poured out on ice",
   node: ["Process"],
   prerequisite_process: [refluxed_at_80 as IProcess],
+  ingredient: [
+    {
+      material: [water],
+    },
+  ] as IIngredient[],
 };
 
 export const extracted_into_dichloromethane: Partial<IProcess> = {
   name: "extracted into dichloromethane, and neutralized",
   node: ["Process"],
   prerequisite_process: [poured_out_on_ice as IProcess],
+  ingredient: [
+    {
+      material: [dichloromethane],
+    },
+  ] as IIngredient[],
 };
 
 export const purify_with_column_chromatography: Partial<IProcess> = {
   name: "purify with column chromatography",
   node: ["Process"],
   prerequisite_process: [extracted_into_dichloromethane as IProcess],
+  product: [diethylhexyloxy4methylbenzaldehyde as IMaterial],
 };
 
 /*
