@@ -9,4 +9,5 @@ Will install this npm package and dependencies.
 
 # Scripts
 
-- `afrl`: see [readme](./afrl/README.md)
+- `afrl`: see [readme](./src/afrl/README.md)
+- `rcbc`: see [readme](./src/rcbc/README.md)
