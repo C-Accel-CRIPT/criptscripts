@@ -5,6 +5,7 @@ import {
   chlorophorm,
   dichloromethane,
   diethylhexyloxy4methylbenzaldehyde,
+  diethylhexyloxy4methylbenzylideneaniline,
   dimethylformamide,
   ethanol,
   ethylhexyl_bromide,
@@ -12,6 +13,9 @@ import {
   koh,
   methylhydroquinone,
   water,
+  methanol,
+  PPV,
+  potassiumtertbutoxide
 } from "./materials";
 
 /*
@@ -148,6 +152,45 @@ export const reaction_at_60: Partial<IProcess> = {
     },
   ] as IIngredient[],
   product: [diethylhexyloxy4methylbenzaldehyde as IMaterial],
+};
+
+/*
+  Processes related to Synthesis of poly(phenylene vinylene)
+*/
+
+export const heat_to_30: Partial<IProcess> = {
+  name: "Heat to 30 °C, react for 30 min",
+  node: ["Process"],
+  ingredient: [{
+    material: [diethylhexyloxy4methylbenzylideneaniline]
+  },{
+    material: [potassiumtertbutoxide]
+  },{
+    material: [dimethylformamide]
+  }] as IIngredient[],
+};
+
+export const acidified_water_and_stir: Partial<IProcess> = {
+  name: "Acidified water and stir for 48h to hydrolyze the unreacted imines",
+  node: ["Process"],
+  ingredient: [{ material: [water] }] as IIngredient[],
+  prerequisite_process: [heat_to_30 as IProcess],
+};
+
+export const collect_neutralize_product: Partial<IProcess> = {
+  name: "collect, neutralize product",
+  node: ["Process"],
+  prerequisite_process: [acidified_water_and_stir as IProcess],
+};
+
+export const fractionate_with_chroma: Partial<IProcess> = {
+  name: "fractionate with a chromatography column",
+  node: ["Process"],
+  prerequisite_process: [collect_neutralize_product as IProcess],
+  ingredient: [{
+    material: [methanol]
+  }] as IIngredient[],
+  product: [PPV as IMaterial]
 };
 
 /*

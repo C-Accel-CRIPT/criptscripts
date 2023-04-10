@@ -1,5 +1,14 @@
 import { IData, IMaterial, IProperty } from "../afrl/types/cript";
-import { nmr_diether, nmr_aldehyde, nmr_imine } from "./datasets";
+import {
+  nmr_diether,
+  nmr_aldehyde,
+  nmr_imine,
+  gpc_ppv,
+  density_column_ppv,
+  dsc_ppv,
+  nmr_ppv,
+  pom_ppv,
+} from "./datasets";
 
 /*
   Materials shared 
@@ -23,22 +32,16 @@ export const ethylhexyloxy_toluene: Partial<IMaterial> = {
 export const diethylhexyloxy4methylbenzaldehyde: Partial<IMaterial> = {
   name: "2,5-Di(2′-ethylhexyloxy)-4-methylbenzaldehyde",
   node: ["Material"],
-  property: [
+  property: [ //----------------------- uncomplete, properties lack of key, type, value, unit...?
     {
       node: ["Property"],
-      model_version: "1.0.0",
       key: "nmr",
-      type: "",
-      value: "",
       notes: "NMR aldehyde",
       data: [nmr_aldehyde] as IData[],
     } as IProperty,
     {
       node: ["Property"],
-      model_version: "1.0.0",
       key: "nmr",
-      type: "",
-      value: "",
       notes: "NMR imine",
       data: [nmr_imine] as IData[],
     } as IProperty,
@@ -112,6 +115,58 @@ export const aniline: Partial<IMaterial> = {
   node: ["Material"],
 };
 
+/*
+  Materials related to Synthesis of poly(phenylene vinylene)
+*/
+
+export const diethylhexyloxy4methylbenzylideneaniline: Partial<IMaterial> = {
+  name: "2′,5′-Di(2′′-ethylhexyloxy)-4′-methyl-N- benzylideneaniline",
+  node: ["Material"],
+};
+
+export const methanol: Partial<IMaterial> = {
+  name: "methanol",
+  node: ["Material"],
+};
+
+export const PPV: Partial<IMaterial> = {
+  name: "PPV",
+  node: ["Material"],
+  property: [ //----------------------- uncomplete, properties lack of key, type, value, unit...?
+    {
+      node: ["Property"],
+      notes: "GPC PPV",
+      data: [gpc_ppv] as IData[],
+    } as IProperty,
+    {
+      node: ["Property"],
+      notes: "Density Column PPV",
+      data: [density_column_ppv] as IData[],
+    } as IProperty,
+    {
+      node: ["Property"],
+      notes: "DSC PPV",
+      data: [dsc_ppv] as IData[],
+    } as IProperty,
+    {
+      node: ["Property"],
+      key: "nmr",
+      notes: "NMR PPV",
+      data: [nmr_ppv] as IData[],
+    } as IProperty,
+    {
+      node: ["Property"],
+      notes: "POM PPV",
+      data: [pom_ppv] as IData[],
+    } as IProperty,
+  ],
+};
+
+export const potassiumtertbutoxide: Partial<IMaterial> = {
+  name: "potassium tert-butoxide",
+  node: ["Material"],
+};
+
 /** All materials */
 export const materials: Partial<IMaterial>[] = [
   ethylhexyloxy_toluene,
@@ -129,5 +184,10 @@ export const materials: Partial<IMaterial>[] = [
   water,
   dichloromethane,
 
-  aniline
+  aniline,
+
+  diethylhexyloxy4methylbenzylideneaniline,
+  methanol,
+  PPV,
+  potassiumtertbutoxide,
 ];
