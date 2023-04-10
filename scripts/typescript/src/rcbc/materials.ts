@@ -1,6 +1,5 @@
 import { IData, IMaterial, IProperty } from "../afrl/types/cript";
-import { nmr_diether, nmr_aldehyde } from "./datasets";
-import { default_notes } from "./shared";
+import { nmr_diether, nmr_aldehyde, nmr_imine } from "./datasets";
 
 /*
   Materials shared 
@@ -15,8 +14,33 @@ export const ethylhexyloxy_toluene: Partial<IMaterial> = {
       key: "nmr",
       type: "",
       value: "",
-      notes: default_notes,
+      notes: "NRM diether",
       data: [nmr_diether as IData],
+    } as IProperty,
+  ],
+};
+
+export const diethylhexyloxy4methylbenzaldehyde: Partial<IMaterial> = {
+  name: "2,5-Di(2′-ethylhexyloxy)-4-methylbenzaldehyde",
+  node: ["Material"],
+  property: [
+    {
+      node: ["Property"],
+      model_version: "1.0.0",
+      key: "nmr",
+      type: "",
+      value: "",
+      notes: "NMR aldehyde",
+      data: [nmr_aldehyde] as IData[],
+    } as IProperty,
+    {
+      node: ["Property"],
+      model_version: "1.0.0",
+      key: "nmr",
+      type: "",
+      value: "",
+      notes: "NMR imine",
+      data: [nmr_imine] as IData[],
     } as IProperty,
   ],
 };
@@ -79,28 +103,31 @@ export const dichloromethane: Partial<IMaterial> = {
   node: ["Material"],
 };
 
-export const diethylhexyloxy4methylbenzaldehyde: Partial<IMaterial> = {
-  name: "2,5-Di(2′-ethylhexyloxy)-4-methylbenzaldehyde",
+/*
+   Materials related to Synthesis of molecule 3 (2′,5′-Di(2′′-ethylhexyloxy)-4′-methyl-N- benzylideneaniline)
+*/
+
+export const aniline: Partial<IMaterial> = {
+  name: "aniline",
   node: ["Material"],
-  property: [
-    {
-      node: ["Property"],
-      model_version: "1.0.0",
-      key: "nmr",
-      type: "",
-      value: "",
-      notes: "NMR aldehyde",
-      data: [nmr_aldehyde as IData],
-    } as IProperty,
-  ],
 };
 
 /** All materials */
 export const materials: Partial<IMaterial>[] = [
+  ethylhexyloxy_toluene,
+  diethylhexyloxy4methylbenzaldehyde,
+
   methylhydroquinone,
   koh,
   ethanol,
   ethylhexyl_bromide,
   diethyl_ether,
-  ethylhexyloxy_toluene,
+
+  chlorophorm,
+  dimethylformamide,
+  POCl3,
+  water,
+  dichloromethane,
+
+  aniline
 ];

@@ -10,4 +10,7 @@ export const nmr_aldehyde: Partial<IData> = {
   node: ["Data"],
 };
 
-export const datasets: Partial<IData>[] = [nmr_diether];
+export const nmr_imine: Partial<IData> = {
+  name: "NMR imine",
+  node: ["Data"],
+};

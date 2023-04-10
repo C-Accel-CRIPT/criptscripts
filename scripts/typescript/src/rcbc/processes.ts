@@ -1,5 +1,6 @@
 import { IIngredient, IMaterial, IProcess } from "../afrl/types/cript";
 import {
+  aniline,
   POCl3,
   chlorophorm,
   dichloromethane,
@@ -134,7 +135,20 @@ export const purify_with_column_chromatography: Partial<IProcess> = {
    Processes related to Synthesis of molecule 3 (2′,5′-Di(2′′-ethylhexyloxy)-4′-methyl-N- benzylideneaniline)
 */
 
-// TODO
+export const reaction_at_60: Partial<IProcess> = {
+  name: "Reaction at 60 °C under ~10 Torr vacuum for 2h",
+  node: ["Process"],
+  //prerequisite_process: [ as IProcess],
+  ingredient: [
+    {
+      material: [diethylhexyloxy4methylbenzaldehyde],
+    },
+    {
+      material: [aniline],
+    },
+  ] as IIngredient[],
+  product: [diethylhexyloxy4methylbenzaldehyde as IMaterial],
+};
 
 /*
    Processes related to Synthesis of PPVbPI-42 / 59 / 72 and 89
