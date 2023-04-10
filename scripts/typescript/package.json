@@ -1,7 +1,7 @@
 {
-  "name": "afrl-transformation",
+  "name": "cript-typescript",
   "version": "1.0.0",
-  "description": "Set of scripts to convert raw data to CRIPT JSON format",
+  "description": "Set of typescript code to convert raw data (*.csv, *.ts) to CRIPT *.json format",
   "main": "index.js",
   "scripts": {
     "afrl": "npx ts-node src/afrl/index.ts",
