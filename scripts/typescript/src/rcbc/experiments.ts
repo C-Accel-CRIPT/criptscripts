@@ -1,9 +1,11 @@
-import { IExperiment, IProcess } from "../afrl/types/cript";
-import { clean_chromatography, etherification_methylhydroroquin, extracted_with_ether, poured_out_on_water, reflux_overnight } from "./processes";
+import { IData, IExperiment, IProcess } from "../afrl/types/cript";
+import { nmr_aldehyde, nmr_diether } from "./datasets";
+import { clean_chromatography, etherification_methylhydroroquin, extracted_into_dichloromethane, extracted_with_ether, mixing, poured_out_on_ice, poured_out_on_water, purify_with_column_chromatography, react_below_40, reflux_overnight, refluxed_at_80 } from "./processes";
 
 export const exp_synth_mol1: Partial<IExperiment> = {
     name: 'Synthesis of molecule 1 ((2,5-Di(2′-ethylhexyloxy)toluene))',
     node: ['Experiment'],
+    data: [nmr_diether as IData],
     process: [
         etherification_methylhydroroquin,
         reflux_overnight,
@@ -15,7 +17,17 @@ export const exp_synth_mol1: Partial<IExperiment> = {
 
 export const exp_synth_mol2: Partial<IExperiment> = {
     name: 'Synthesis of molecule 2 (2,5-Di(2′-ethylhexyloxy)toluene)',
-    node: ['Experiment']
+    node: ['Experiment'],
+    data: [nmr_aldehyde as IData],
+    process: [
+        mixing,
+        react_below_40,
+        refluxed_at_80,
+        poured_out_on_ice,
+        clean_chromatography,
+        extracted_into_dichloromethane,
+        purify_with_column_chromatography
+    ] as IProcess[]
 }
 
 export const exp_synth_mol3: Partial<IExperiment> = {
