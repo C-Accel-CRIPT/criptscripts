@@ -4,7 +4,7 @@
  */
 
 import { write_json_helper as write_json_to_out_folder } from "../utils/json";
-import { project } from "./project"; // project is a const object and already has its content (materials, collections...)
+import { project } from "./data/project"; // project is a const object and already has its content (materials, collections...)
 
 // console.log(`RCBC JSON is:\n\n${JSON.stringify(project, null, ' ')}`)
 write_json_to_out_folder(project, "rcbc-transformation", "human-readable");
