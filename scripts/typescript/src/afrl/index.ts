@@ -22,7 +22,7 @@ async function main(): Promise<number> {
     });
 
     // Load the CSV into an AFRLData[]
-    const input_csv_file_path = path.resolve(package_directory_path, `./src/data/${file_name}`);
+    const input_csv_file_path = path.resolve(__dirname, 'data', file_name);
     const afrl_data = await serializer.load_csv(input_csv_file_path);
 
     // Load the AFRLData[] to a Project
