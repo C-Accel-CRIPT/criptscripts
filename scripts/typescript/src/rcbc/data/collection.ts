@@ -1,4 +1,4 @@
-import { ICollection, IExperiment } from "../../afrl/types/cript";
+import { ICollection, IExperiment } from "@cript";
 import { default_notes } from "./shared";
 import { experiments } from "./experiments";
 

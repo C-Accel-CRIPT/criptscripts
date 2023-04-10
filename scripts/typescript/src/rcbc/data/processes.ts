@@ -1,4 +1,4 @@
-import { IIngredient, IMaterial, IProcess } from "../afrl/types/cript";
+import { IIngredient, IMaterial, IProcess } from "@cript";
 import {
   aniline,
   POCl3,

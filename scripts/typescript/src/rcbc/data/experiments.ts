@@ -1,4 +1,4 @@
-import { IData, IExperiment, IProcess } from "../afrl/types/cript";
+import { IData, IExperiment, IProcess } from "@cript";
 import { nmr_aldehyde, nmr_diether } from "./datasets";
 import {
   clean_chromatography,

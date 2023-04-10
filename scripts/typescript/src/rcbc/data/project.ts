@@ -1,5 +1,4 @@
-import { ICollection, IMaterial } from "../afrl/types/cript";
-import { IProject } from "../afrl/types/cript/IProject";
+import { ICollection, IMaterial, IProject } from "@cript";
 import { collection } from "./collection";
 import { materials } from "./materials";
 import { default_notes } from "./shared";

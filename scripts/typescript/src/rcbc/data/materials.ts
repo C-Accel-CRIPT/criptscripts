@@ -1,4 +1,4 @@
-import { IData, IMaterial, IProperty } from "../afrl/types/cript";
+import { IData, IMaterial, IProperty } from "@cript";
 import {
   nmr_diether,
   nmr_aldehyde,

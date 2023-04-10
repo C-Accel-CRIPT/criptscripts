@@ -1,5 +1,5 @@
 import { AFRLData } from "../types/afrl"
-import { ICitation, ICollection, ICondition, IInventory, IMaterial, IProject, IProperty, IReference } from "../types/cript"
+import { ICitation, ICollection, ICondition, IInventory, IMaterial, IProject, IProperty, IReference } from "@cript"
 import csvtojson from "csvtojson";
 
 /**

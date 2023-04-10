@@ -1,4 +1,4 @@
-import { IData } from "../afrl/types/cript";
+import { IData } from "@cript";
 
 export const nmr_diether: Partial<IData> = {
   name: "NMR diether",
