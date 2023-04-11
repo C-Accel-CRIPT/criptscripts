@@ -4,24 +4,24 @@ export interface IProcess {
   readonly node: ['Process'];
   experiment?: IExperiment[];
 
-  created_at: string;
-  description: string;
+  created_at?: string;
+  description?: string;
   keyword?: string[];
-  locked: boolean;
-  model_version: string;
+  locked?: boolean;
+  model_version?: string;
   name: string;
-  notes: string;
-  public: boolean;
-  type: string;
-  updated_at: string;
-  uid: string;
-  uuid: string;
+  notes?: string;
+  public?: boolean;
+  type?: string;
+  updated_at?: string;
+  uid?: string;
+  uuid?: string;
   prerequisite_process?: IProcess[];
-  prerequisite_process_count: number;
+  prerequisite_process_count?: number;
   product?: IMaterial[];
-  product_count: number;
+  product_count?: number;
   waste?: IMaterial[];
-  waste_count: number;
+  waste_count?: number;
 
   // property: {
   //   items: {
@@ -30,17 +30,17 @@ export interface IProcess {
   //   type: 'array';
   // };
   property?: IProperty[];
-  property_count: number;
+  property_count?: number;
 
   equipment?: IEquipment[];
-  equipment_count: number;
+  equipment_count?: number;
 
   citation?: ICitation[];
-  citation_count: number;
+  citation_count?: number;
 
   condition?: ICondition[];
-  condition_count: number;
+  condition_count?: number;
 
   ingredient?: IIngredient[];
-  ingredient_count: number;
+  ingredient_count?: number;
 }

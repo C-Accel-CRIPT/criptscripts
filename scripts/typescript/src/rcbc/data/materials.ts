@@ -1,11 +1,11 @@
-import { IData, IMaterial, IProperty } from "@cript";
+import { IMaterial } from "@cript";
 import * as datasets from "./datasets";
 import * as computations from './computations'
 
 /*
   Materials shared 
  */
-export const ethylhexyloxy_toluene: Partial<IMaterial> = {
+export const ethylhexyloxy_toluene: IMaterial = {
   name: "2,5-Di(2′-ethylhexyloxy)toluene",
   node: ["Material"],
   property: [
@@ -16,12 +16,12 @@ export const ethylhexyloxy_toluene: Partial<IMaterial> = {
       type: "",
       value: "",
       notes: "NRM diether",
-      data: [datasets.nmr_diether as IData],
-    } as IProperty,
+      data: [datasets.nmr_diether],
+    },
   ],
 };
 
-export const diethylhexyloxy4methylbenzaldehyde: Partial<IMaterial> = {
+export const diethylhexyloxy4methylbenzaldehyde: IMaterial = {
   name: "2,5-Di(2′-ethylhexyloxy)-4-methylbenzaldehyde",
   node: ["Material"],
   property: [
@@ -30,14 +30,14 @@ export const diethylhexyloxy4methylbenzaldehyde: Partial<IMaterial> = {
       node: ["Property"],
       key: "nmr",
       notes: "NMR aldehyde",
-      data: [datasets.nmr_aldehyde] as IData[],
-    } as IProperty,
+      data: [datasets.nmr_aldehyde],
+    },
     {
       node: ["Property"],
       key: "nmr",
       notes: "NMR imine",
-      data: [datasets.nmr_imine] as IData[],
-    } as IProperty,
+      data: [datasets.nmr_imine],
+    },
   ],
 };
 
@@ -45,27 +45,27 @@ export const diethylhexyloxy4methylbenzaldehyde: Partial<IMaterial> = {
    Materials related to Synthesis of molecule 1 ((2,5-Di(2′-ethylhexyloxy)toluene))
 */
 
-export const methylhydroquinone: Partial<IMaterial> = {
+export const methylhydroquinone: IMaterial = {
   name: "methylhydroquinone",
   node: ["Material"],
 };
 
-export const koh: Partial<IMaterial> = {
+export const koh: IMaterial = {
   name: "KOH",
   node: ["Material"],
 };
 
-export const ethanol: Partial<IMaterial> = {
+export const ethanol: IMaterial = {
   name: "ethanol",
   node: ["Material"],
 };
 
-export const ethylhexyl_bromide: Partial<IMaterial> = {
+export const ethylhexyl_bromide: IMaterial = {
   name: "ethylhexyl bromide",
   node: ["Material"],
 };
 
-export const diethyl_ether: Partial<IMaterial> = {
+export const diethyl_ether: IMaterial = {
   name: "diethyl ether",
   node: ["Material"],
 };
@@ -74,27 +74,27 @@ export const diethyl_ether: Partial<IMaterial> = {
    Materials related to Synthesis of molecule 2 (2,5-Di(2′-ethylhexyloxy)toluene)
 */
 
-export const chlorophorm: Partial<IMaterial> = {
+export const chlorophorm: IMaterial = {
   name: "chloroform",
   node: ["Material"],
 };
 
-export const dimethylformamide: Partial<IMaterial> = {
+export const dimethylformamide: IMaterial = {
   name: "dimethylformamide",
   node: ["Material"],
 };
 
-export const POCl3: Partial<IMaterial> = {
+export const POCl3: IMaterial = {
   name: "POCl3",
   node: ["Material"],
 };
 
-export const water: Partial<IMaterial> = {
+export const water: IMaterial = {
   name: "water",
   node: ["Material"],
 };
 
-export const dichloromethane: Partial<IMaterial> = {
+export const dichloromethane: IMaterial = {
   name: "dichloromethane",
   node: ["Material"],
 };
@@ -103,7 +103,7 @@ export const dichloromethane: Partial<IMaterial> = {
    Materials related to Synthesis of molecule 3 (2′,5′-Di(2′′-ethylhexyloxy)-4′-methyl-N- benzylideneaniline)
 */
 
-export const aniline: Partial<IMaterial> = {
+export const aniline: IMaterial = {
   name: "aniline",
   node: ["Material"],
 };
@@ -112,17 +112,17 @@ export const aniline: Partial<IMaterial> = {
   Materials related to Synthesis of poly(phenylene vinylene)
 */
 
-export const diethylhexyloxy4methylbenzylideneaniline: Partial<IMaterial> = {
+export const diethylhexyloxy4methylbenzylideneaniline: IMaterial = {
   name: "2′,5′-Di(2′′-ethylhexyloxy)-4′-methyl-N- benzylideneaniline",
   node: ["Material"],
 };
 
-export const methanol: Partial<IMaterial> = {
+export const methanol: IMaterial = {
   name: "methanol",
   node: ["Material"],
 };
 
-export const PPV: Partial<IMaterial> = {
+export const PPV: IMaterial = {
   name: "PPV",
   node: ["Material"],
   property: [
@@ -130,33 +130,33 @@ export const PPV: Partial<IMaterial> = {
     {
       node: ["Property"],
       notes: "GPC PPV",
-      data: [datasets.gpc_ppv] as IData[],
-    } as IProperty,
+      data: [datasets.gpc_ppv],
+    },
     {
       node: ["Property"],
       notes: "Density Column PPV",
-      data: [datasets.density_column_ppv] as IData[],
-    } as IProperty,
+      data: [datasets.density_column_ppv],
+    },
     {
       node: ["Property"],
       notes: "DSC PPV",
-      data: [datasets.dsc_ppv] as IData[],
-    } as IProperty,
+      data: [datasets.dsc_ppv],
+    },
     {
       node: ["Property"],
       key: "nmr",
       notes: "NMR PPV",
-      data: [datasets.nmr_ppv] as IData[],
-    } as IProperty,
+      data: [datasets.nmr_ppv],
+    },
     {
       node: ["Property"],
       notes: "POM PPV",
-      data: [datasets.pom_ppv] as IData[],
-    } as IProperty,
+      data: [datasets.pom_ppv],
+    },
   ],
 };
 
-export const potassiumtertbutoxide: Partial<IMaterial> = {
+export const potassiumtertbutoxide: IMaterial = {
   name: "potassium tert-butoxide",
   node: ["Material"],
 };
@@ -169,17 +169,17 @@ export const sec_butyllithium_in_cyclohexane: IMaterial = {
   name: "sec-butyllithium in cyclohexane",
   notes: "this is one material that is a mix of two so must be represented as such in the data model",
   node: ["Material"],
-} as IMaterial;
+};
 
 export const isoprene: IMaterial = {
   name: "isoprene",
   node: ["Material"],
-} as IMaterial;
+};
 
 export const benzene: IMaterial = {
   name: "benzene",
   node: ["Material"],
-} as IMaterial;
+};
 
 export const polyisoprene_42: IMaterial = {
   name: "Polyisoprene (PI-42)",
@@ -193,11 +193,11 @@ export const polyisoprene_42: IMaterial = {
         {
           name: "GPC PI-42",
           node: ["Data"],
-        } as IData,
+        },
       ],
-    } as IProperty,
+    },
   ],
-} as IMaterial;
+};
 
 export const polyisoprene_59: IMaterial = {
   name: "Polyisoprene (PI-59)",
@@ -211,11 +211,11 @@ export const polyisoprene_59: IMaterial = {
         {
           name: "GPC PI-59",
           node: ["Data"],
-        } as IData,
+        },
       ],
-    } as IProperty,
+    },
   ],
-} as IMaterial;
+};
 
 export const polyisoprene_72: IMaterial = {
   name: "Polyisoprene (PI-72)",
@@ -229,11 +229,11 @@ export const polyisoprene_72: IMaterial = {
         {
           name: "GPC PI-72",
           node: ["Data"],
-        } as IData,
+        },
       ],
-    } as IProperty,
+    },
   ],
-} as IMaterial;
+};
 
 export const polyisoprene_89: IMaterial = {
   name: "Polyisoprene (PI-89)",
@@ -247,21 +247,21 @@ export const polyisoprene_89: IMaterial = {
         {
           name: "GPC PI-89",
           node: ["Data"],
-        } as IData,
+        },
       ],
-    } as IProperty,
+    },
   ],
-} as IMaterial;
+};
 
-export const butanol = {
+export const butanol: IMaterial = {
   name: "butanol",
   node: ["Material"],
-} as IMaterial;
+};
 
 /**
   Materials related to "Synthesis of PPVbPI-xx" AND "Phase Behavior Study"
  */
-export const PPV_b_PI_42 = {
+export const PPV_b_PI_42: IMaterial = {
   name: "PPV-b-PI-42",
   node: ["Material"],
   property: [
@@ -273,9 +273,9 @@ export const PPV_b_PI_42 = {
         {
           name: "GPC PPV-b-PI-42",
           node: ["Data"],
-        } as IData,
+        },
       ],
-    } as IProperty,
+    },
 
     {
       node: ["Property"],
@@ -284,9 +284,9 @@ export const PPV_b_PI_42 = {
         {
           name: "WAXS PPV-b-PI-42",
           node: ["Data"],
-        } as IData,
+        },
       ],
-    } as IProperty,
+    },
 
     {
       node: ["Property"],
@@ -295,9 +295,9 @@ export const PPV_b_PI_42 = {
         {
           name: "TEM PPV-b-PI-42",
           node: ["Data"],
-        } as IData,
+        },
       ],
-    } as IProperty,
+    },
 
     {
       node: ["Property"],
@@ -306,9 +306,9 @@ export const PPV_b_PI_42 = {
         {
           name: "POM PPV-b-PI-42",
           node: ["Data"],
-        } as IData,
+        },
       ],
-    } as IProperty,
+    },
 
     {
       node: ["Property"],
@@ -317,26 +317,26 @@ export const PPV_b_PI_42 = {
         {
           name: "DPLS PPV-b-PI-42",
           node: ["Data"],
-        } as IData,
+        },
       ],
-    } as IProperty,
+    },
 
     {
       node: ["Property"],
       notes: "GPC PPV-b-PI-42",
       computation: [ computations.analysis_PPVbPI_42 ],
-    } as IProperty,
+    },
 
     {
       node: ["Property"],
       notes: "Peak Phase ID PPV-b-PI-42",
       computation: [ computations.peak_phase_id_PPVbPI_42 ],
-    } as IProperty,
+    },
 
   ],
-} as IMaterial;
+};
 
-export const PPV_b_PI_59 = {
+export const PPV_b_PI_59: IMaterial = {
   name: "PPV-b-PI-59",
   node: ["Material"],
   property: [
@@ -348,9 +348,9 @@ export const PPV_b_PI_59 = {
         {
           name: "GPC PPV-b-PI-59",
           node: ["Data"],
-        } as IData,
+        },
       ],
-    } as IProperty,
+    },
 
     {
       node: ["Property"],
@@ -359,9 +359,9 @@ export const PPV_b_PI_59 = {
         {
           name: "WAXS PPV-b-PI-59",
           node: ["Data"],
-        } as IData,
+        },
       ],
-    } as IProperty,
+    },
 
     {
       node: ["Property"],
@@ -370,9 +370,9 @@ export const PPV_b_PI_59 = {
         {
           name: "TEM PPV-b-PI-59",
           node: ["Data"],
-        } as IData,
+        },
       ],
-    } as IProperty,
+    },
 
     {
       node: ["Property"],
@@ -381,9 +381,9 @@ export const PPV_b_PI_59 = {
         {
           name: "POM PPV-b-PI-59",
           node: ["Data"],
-        } as IData,
+        },
       ],
-    } as IProperty,
+    },
 
     {
       node: ["Property"],
@@ -392,25 +392,25 @@ export const PPV_b_PI_59 = {
         {
           name: "DPLS PPV-b-PI-59",
           node: ["Data"],
-        } as IData,
+        },
       ],
-    } as IProperty,
+    },
 
     {
       node: ["Property"],
       notes: "GPC PPV-b-PI-59",
       computation: [ computations.analysis_PPVbPI_59 ],
-    } as IProperty,
+    },
 
     {
       node: ["Property"],
       notes: "Peak Phase ID PPV-b-PI-59",
       computation: [ computations.peak_phase_id_PPVbPI_59 ],
-    } as IProperty,
+    },
   ],
-} as IMaterial;
+};
 
-export const PPV_b_PI_72 = {
+export const PPV_b_PI_72: IMaterial = {
   name: "PPV-b-PI-72",
   node: ["Material"],
   property: [
@@ -422,9 +422,9 @@ export const PPV_b_PI_72 = {
         {
           name: "GPC PPV-b-PI-72",
           node: ["Data"],
-        } as IData,
+        },
       ],
-    } as IProperty,
+    },
 
     {
       node: ["Property"],
@@ -433,9 +433,9 @@ export const PPV_b_PI_72 = {
         {
           name: "WAXS PPV-b-PI-72",
           node: ["Data"],
-        } as IData,
+        },
       ],
-    } as IProperty,
+    },
 
     {
       node: ["Property"],
@@ -444,9 +444,9 @@ export const PPV_b_PI_72 = {
         {
           name: "TEM PPV-b-PI-72",
           node: ["Data"],
-        } as IData,
+        },
       ],
-    } as IProperty,
+    },
 
     {
       node: ["Property"],
@@ -455,9 +455,9 @@ export const PPV_b_PI_72 = {
         {
           name: "POM PPV-b-PI-72",
           node: ["Data"],
-        } as IData,
+        },
       ],
-    } as IProperty,
+    },
 
     {
       node: ["Property"],
@@ -466,25 +466,25 @@ export const PPV_b_PI_72 = {
         {
           name: "DPLS PPV-b-PI-72",
           node: ["Data"],
-        } as IData,
+        },
       ],
-    } as IProperty,
+    },
     
     {
       node: ["Property"],
       notes: "GPC PPV-b-PI-72",
       computation: [ computations.analysis_PPVbPI_72 ],
-    } as IProperty,
+    },
 
     {
       node: ["Property"],
       notes: "Peak Phase ID PPV-b-PI-72",
       computation: [ computations.peak_phase_id_PPVbPI_72 ],
-    } as IProperty,
+    },
   ],
-} as IMaterial;
+};
 
-export const PPV_b_PI_89 = {
+export const PPV_b_PI_89: IMaterial = {
   name: "PPV-b-PI-89",
   node: ["Material"],
   property: [
@@ -496,9 +496,9 @@ export const PPV_b_PI_89 = {
         {
           name: "GPC PPV-b-PI-89",
           node: ["Data"],
-        } as IData,
+        },
       ],
-    } as IProperty,
+    },
 
     {
       node: ["Property"],
@@ -507,9 +507,9 @@ export const PPV_b_PI_89 = {
         {
           name: "WAXS PPV-b-PI-89",
           node: ["Data"],
-        } as IData,
+        },
       ],
-    } as IProperty,
+    },
 
     {
       node: ["Property"],
@@ -518,9 +518,9 @@ export const PPV_b_PI_89 = {
         {
           name: "TEM PPV-b-PI-89",
           node: ["Data"],
-        } as IData,
+        },
       ],
-    } as IProperty,
+    },
 
     {
       node: ["Property"],
@@ -529,9 +529,9 @@ export const PPV_b_PI_89 = {
         {
           name: "POM PPV-b-PI-89",
           node: ["Data"],
-        } as IData,
+        },
       ],
-    } as IProperty,
+    },
 
     {
       node: ["Property"],
@@ -540,21 +540,21 @@ export const PPV_b_PI_89 = {
         {
           name: "DPLS PPV-b-PI-89",
           node: ["Data"],
-        } as IData,
+        },
       ],
-    } as IProperty,
+    },
 
     {
       node: ["Property"],
       notes: "GPC PPV-b-PI-89",
       computation: [ computations.analysis_PPVbPI_89 ],
-    } as IProperty,
+    },
 
     {
       node: ["Property"],
       notes: "Peak Phase ID PPV-b-PI-89",
       computation: [ computations.peak_phase_id_PPVbPI_89 ],
-    } as IProperty,
+    },
 
   ],
-} as IMaterial;
+};

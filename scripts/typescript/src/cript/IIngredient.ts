@@ -74,10 +74,10 @@ import { IMaterial, IQuantity } from ".";
 export interface IIngredient {
   material?: IMaterial[];
   quantity?: IQuantity[];
-  created_at: string;
+  created_at?: string;
   keyword?: string[];
-  model_version: string;
+  model_version?: string;
   node: ['Ingredient'];
-  updated_at: string;
-  uuid: string;
+  updated_at?: string;
+  uuid?: string;
 }
