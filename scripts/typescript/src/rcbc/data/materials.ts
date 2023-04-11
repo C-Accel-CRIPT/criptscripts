@@ -9,6 +9,7 @@ import {
   nmr_ppv,
   pom_ppv,
 } from "./datasets";
+import * as computations from './computations'
 
 /*
   Materials shared 
@@ -32,7 +33,8 @@ export const ethylhexyloxy_toluene: Partial<IMaterial> = {
 export const diethylhexyloxy4methylbenzaldehyde: Partial<IMaterial> = {
   name: "2,5-Di(2′-ethylhexyloxy)-4-methylbenzaldehyde",
   node: ["Material"],
-  property: [ //----------------------- uncomplete, properties lack of key, type, value, unit...?
+  property: [
+    //----------------------- TODO: complete properties (key, type, value, unit...)
     {
       node: ["Property"],
       key: "nmr",
@@ -132,7 +134,8 @@ export const methanol: Partial<IMaterial> = {
 export const PPV: Partial<IMaterial> = {
   name: "PPV",
   node: ["Material"],
-  property: [ //----------------------- uncomplete, properties lack of key, type, value, unit...?
+  property: [
+    //----------------------- TODO: complete properties (key, type, value, unit...)
     {
       node: ["Property"],
       notes: "GPC PPV",
@@ -188,27 +191,75 @@ export const benzene: IMaterial = {
 } as IMaterial;
 
 export const polyisoprene_42: IMaterial = {
-  name: "Polyisoprene (PI-89)",
+  name: "Polyisoprene (PI-42)",
   node: ["Material"],
-  // TODO: property with data
+  property: [
+    //----------------------- TODO: complete properties (key, type, value, unit...)
+    {
+      node: ["Property"],
+      notes: "GPC PI-42",
+      data: [
+        {
+          name: "GPC PI-42",
+          node: ["Data"],
+        } as IData,
+      ],
+    } as IProperty,
+  ],
 } as IMaterial;
 
 export const polyisoprene_59: IMaterial = {
-  name: "Polyisoprene (PI-89)",
+  name: "Polyisoprene (PI-59)",
   node: ["Material"],
-  // TODO: property with data
+  property: [
+    //----------------------- TODO: complete properties (key, type, value, unit...)
+    {
+      node: ["Property"],
+      notes: "GPC PI-59",
+      data: [
+        {
+          name: "GPC PI-59",
+          node: ["Data"],
+        } as IData,
+      ],
+    } as IProperty,
+  ],
 } as IMaterial;
 
 export const polyisoprene_72: IMaterial = {
-  name: "Polyisoprene (PI-89)",
+  name: "Polyisoprene (PI-72)",
   node: ["Material"],
-  // TODO: property with data
+  property: [
+    //----------------------- TODO: complete properties (key, type, value, unit...)
+    {
+      node: ["Property"],
+      notes: "GPC PI-72",
+      data: [
+        {
+          name: "GPC PI-72",
+          node: ["Data"],
+        } as IData,
+      ],
+    } as IProperty,
+  ],
 } as IMaterial;
 
 export const polyisoprene_89: IMaterial = {
   name: "Polyisoprene (PI-89)",
   node: ["Material"],
-  // TODO: property with data
+  property: [
+    //----------------------- TODO: complete properties (key, type, value, unit...)
+    {
+      node: ["Property"],
+      notes: "GPC PI-89",
+      data: [
+        {
+          name: "GPC PI-89",
+          node: ["Data"],
+        } as IData,
+      ],
+    } as IProperty,
+  ],
 } as IMaterial;
 
 export const butanol = {
@@ -219,23 +270,300 @@ export const butanol = {
 /**
   Materials related to "Synthesis of PPVbPI-xx" AND "Phase Behavior Study"
  */
-
 export const PPV_b_PI_42 = {
   name: "PPV-b-PI-42",
   node: ["Material"],
+  property: [
+    //----------------------- TODO: complete properties (key, type, value, unit...)
+    {
+      node: ["Property"],
+      notes: "GPC PPV-b-PI-42",
+      data: [
+        {
+          name: "GPC PPV-b-PI-42",
+          node: ["Data"],
+        } as IData,
+      ],
+    } as IProperty,
+
+    {
+      node: ["Property"],
+      notes: "WAXS PPV-b-PI-42",
+      data: [
+        {
+          name: "WAXS PPV-b-PI-42",
+          node: ["Data"],
+        } as IData,
+      ],
+    } as IProperty,
+
+    {
+      node: ["Property"],
+      notes: "TEM PPV-b-PI-42",
+      data: [
+        {
+          name: "TEM PPV-b-PI-42",
+          node: ["Data"],
+        } as IData,
+      ],
+    } as IProperty,
+
+    {
+      node: ["Property"],
+      notes: "POM PPV-b-PI-42",
+      data: [
+        {
+          name: "POM PPV-b-PI-42",
+          node: ["Data"],
+        } as IData,
+      ],
+    } as IProperty,
+
+    {
+      node: ["Property"],
+      notes: "DPLS PPV-b-PI-42",
+      data: [
+        {
+          name: "DPLS PPV-b-PI-42",
+          node: ["Data"],
+        } as IData,
+      ],
+    } as IProperty,
+
+    {
+      node: ["Property"],
+      notes: "GPC PPV-b-PI-42",
+      computation: [ computations.analysis_PPVbPI_42 ],
+    } as IProperty,
+
+    {
+      node: ["Property"],
+      notes: "Peak Phase ID PPV-b-PI-42",
+      computation: [ computations.peak_phase_id_PPVbPI_42 ],
+    } as IProperty,
+
+  ],
 } as IMaterial;
 
 export const PPV_b_PI_59 = {
   name: "PPV-b-PI-59",
   node: ["Material"],
+  property: [
+    //----------------------- TODO: complete properties (key, type, value, unit...)
+    {
+      node: ["Property"],
+      notes: "GPC PPV-b-PI-59",
+      data: [
+        {
+          name: "GPC PPV-b-PI-59",
+          node: ["Data"],
+        } as IData,
+      ],
+    } as IProperty,
+
+    {
+      node: ["Property"],
+      notes: "WAXS PPV-b-PI-59",
+      data: [
+        {
+          name: "WAXS PPV-b-PI-59",
+          node: ["Data"],
+        } as IData,
+      ],
+    } as IProperty,
+
+    {
+      node: ["Property"],
+      notes: "TEM PPV-b-PI-59",
+      data: [
+        {
+          name: "TEM PPV-b-PI-59",
+          node: ["Data"],
+        } as IData,
+      ],
+    } as IProperty,
+
+    {
+      node: ["Property"],
+      notes: "POM PPV-b-PI-59",
+      data: [
+        {
+          name: "POM PPV-b-PI-59",
+          node: ["Data"],
+        } as IData,
+      ],
+    } as IProperty,
+
+    {
+      node: ["Property"],
+      notes: "DPLS PPV-b-PI-59",
+      data: [
+        {
+          name: "DPLS PPV-b-PI-59",
+          node: ["Data"],
+        } as IData,
+      ],
+    } as IProperty,
+
+    {
+      node: ["Property"],
+      notes: "GPC PPV-b-PI-59",
+      computation: [ computations.analysis_PPVbPI_59 ],
+    } as IProperty,
+
+    {
+      node: ["Property"],
+      notes: "Peak Phase ID PPV-b-PI-59",
+      computation: [ computations.peak_phase_id_PPVbPI_59 ],
+    } as IProperty,
+  ],
 } as IMaterial;
 
 export const PPV_b_PI_72 = {
   name: "PPV-b-PI-72",
   node: ["Material"],
+  property: [
+    //----------------------- TODO: complete properties (key, type, value, unit...)
+    {
+      node: ["Property"],
+      notes: "GPC PPV-b-PI-72",
+      data: [
+        {
+          name: "GPC PPV-b-PI-72",
+          node: ["Data"],
+        } as IData,
+      ],
+    } as IProperty,
+
+    {
+      node: ["Property"],
+      notes: "WAXS PPV-b-PI-72",
+      data: [
+        {
+          name: "WAXS PPV-b-PI-72",
+          node: ["Data"],
+        } as IData,
+      ],
+    } as IProperty,
+
+    {
+      node: ["Property"],
+      notes: "TEM PPV-b-PI-72",
+      data: [
+        {
+          name: "TEM PPV-b-PI-72",
+          node: ["Data"],
+        } as IData,
+      ],
+    } as IProperty,
+
+    {
+      node: ["Property"],
+      notes: "POM PPV-b-PI-72",
+      data: [
+        {
+          name: "POM PPV-b-PI-72",
+          node: ["Data"],
+        } as IData,
+      ],
+    } as IProperty,
+
+    {
+      node: ["Property"],
+      notes: "DPLS PPV-b-PI-72",
+      data: [
+        {
+          name: "DPLS PPV-b-PI-72",
+          node: ["Data"],
+        } as IData,
+      ],
+    } as IProperty,
+    
+    {
+      node: ["Property"],
+      notes: "GPC PPV-b-PI-72",
+      computation: [ computations.analysis_PPVbPI_72 ],
+    } as IProperty,
+
+    {
+      node: ["Property"],
+      notes: "Peak Phase ID PPV-b-PI-72",
+      computation: [ computations.peak_phase_id_PPVbPI_72 ],
+    } as IProperty,
+  ],
 } as IMaterial;
 
 export const PPV_b_PI_89 = {
   name: "PPV-b-PI-89",
   node: ["Material"],
+  property: [
+    //----------------------- TODO: complete properties (key, type, value, unit...)
+    {
+      node: ["Property"],
+      notes: "GPC PPV-b-PI-89",
+      data: [
+        {
+          name: "GPC PPV-b-PI-89",
+          node: ["Data"],
+        } as IData,
+      ],
+    } as IProperty,
+
+    {
+      node: ["Property"],
+      notes: "WAXS PPV-b-PI-89",
+      data: [
+        {
+          name: "WAXS PPV-b-PI-89",
+          node: ["Data"],
+        } as IData,
+      ],
+    } as IProperty,
+
+    {
+      node: ["Property"],
+      notes: "TEM PPV-b-PI-89",
+      data: [
+        {
+          name: "TEM PPV-b-PI-89",
+          node: ["Data"],
+        } as IData,
+      ],
+    } as IProperty,
+
+    {
+      node: ["Property"],
+      notes: "POM PPV-b-PI-89",
+      data: [
+        {
+          name: "POM PPV-b-PI-89",
+          node: ["Data"],
+        } as IData,
+      ],
+    } as IProperty,
+
+    {
+      node: ["Property"],
+      notes: "DPLS PPV-b-PI-89",
+      data: [
+        {
+          name: "DPLS PPV-b-PI-89",
+          node: ["Data"],
+        } as IData,
+      ],
+    } as IProperty,
+
+    {
+      node: ["Property"],
+      notes: "GPC PPV-b-PI-89",
+      computation: [ computations.analysis_PPVbPI_89 ],
+    } as IProperty,
+
+    {
+      node: ["Property"],
+      notes: "Peak Phase ID PPV-b-PI-89",
+      computation: [ computations.peak_phase_id_PPVbPI_89 ],
+    } as IProperty,
+
+  ],
 } as IMaterial;
