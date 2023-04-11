@@ -1,14 +1,5 @@
 import { IData, IMaterial, IProperty } from "@cript";
-import {
-  nmr_diether,
-  nmr_aldehyde,
-  nmr_imine,
-  gpc_ppv,
-  density_column_ppv,
-  dsc_ppv,
-  nmr_ppv,
-  pom_ppv,
-} from "./datasets";
+import * as datasets from "./datasets";
 import * as computations from './computations'
 
 /*
@@ -25,7 +16,7 @@ export const ethylhexyloxy_toluene: Partial<IMaterial> = {
       type: "",
       value: "",
       notes: "NRM diether",
-      data: [nmr_diether as IData],
+      data: [datasets.nmr_diether as IData],
     } as IProperty,
   ],
 };
@@ -39,13 +30,13 @@ export const diethylhexyloxy4methylbenzaldehyde: Partial<IMaterial> = {
       node: ["Property"],
       key: "nmr",
       notes: "NMR aldehyde",
-      data: [nmr_aldehyde] as IData[],
+      data: [datasets.nmr_aldehyde] as IData[],
     } as IProperty,
     {
       node: ["Property"],
       key: "nmr",
       notes: "NMR imine",
-      data: [nmr_imine] as IData[],
+      data: [datasets.nmr_imine] as IData[],
     } as IProperty,
   ],
 };
@@ -139,28 +130,28 @@ export const PPV: Partial<IMaterial> = {
     {
       node: ["Property"],
       notes: "GPC PPV",
-      data: [gpc_ppv] as IData[],
+      data: [datasets.gpc_ppv] as IData[],
     } as IProperty,
     {
       node: ["Property"],
       notes: "Density Column PPV",
-      data: [density_column_ppv] as IData[],
+      data: [datasets.density_column_ppv] as IData[],
     } as IProperty,
     {
       node: ["Property"],
       notes: "DSC PPV",
-      data: [dsc_ppv] as IData[],
+      data: [datasets.dsc_ppv] as IData[],
     } as IProperty,
     {
       node: ["Property"],
       key: "nmr",
       notes: "NMR PPV",
-      data: [nmr_ppv] as IData[],
+      data: [datasets.nmr_ppv] as IData[],
     } as IProperty,
     {
       node: ["Property"],
       notes: "POM PPV",
-      data: [pom_ppv] as IData[],
+      data: [datasets.pom_ppv] as IData[],
     } as IProperty,
   ],
 };
