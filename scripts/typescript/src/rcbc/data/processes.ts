@@ -177,10 +177,197 @@ export const fractionate_with_chroma: Partial<IProcess> = {
 };
 
 /*
-   Processes related to Synthesis of PPVbPI-42 / 59 / 72 and 89
+   Processes related to Synthesis of PPVbPI-42
 */
 
-// TODO
+export const anionic_polymerization_synth_42 = {
+  name: "Anionic polymerization  PI-42",
+  ingredient: [{
+    material: [materials.isoprene]
+  },{
+    material: [materials.benzene]
+  },{
+    material: [materials.sec_butyllithium_in_cyclohexane]
+  }],
+  product: [materials.polyisoprene_42]
+} as IProcess;
+
+export const react_for_30mn_synth_42 = {
+  name: "Polyisoprene (PI-42)",
+  prerequisite_process: [anionic_polymerization_synth_42],
+  ingredient: [{
+    material: [materials.polyisoprene_42]
+  },{
+    material: [materials.PPV]
+  }]
+} as IProcess;
+
+export const terminate_remaining_synth_42 = {
+  name: "Terminate remaining PI with butanol 42",
+  node: ['Process'],
+  prerequisite_process: [react_for_30mn_synth_42],
+  ingredient: [{
+    material: [materials.butanol]
+  }]
+} as IProcess;
+
+export const precipitate_with_methanol_synth_42 = {
+  name: "Precipitate with methanol 42",
+  node: ['Process'],
+  prerequisite_process: [terminate_remaining_synth_42],
+} as IProcess;
+
+export const remove_homopolymer_with_synth_42 = {
+  name: "Remove homopolymer with column chromatography 42",
+  node: ['Process'],
+  prerequisite_process: [precipitate_with_methanol_synth_42],
+  product: [materials.PPV_b_PI_42]
+} as IProcess
+
+/*
+   Processes related to Synthesis of PPVbPI-59
+*/
+
+export const anionic_polymerization_synth_59 = {
+  name: "Anionic polymerization  PI-59",
+  ingredient: [{
+    material: [materials.isoprene]
+  },{
+    material: [materials.benzene]
+  },{
+    material: [materials.sec_butyllithium_in_cyclohexane]
+  }],
+  product: [materials.polyisoprene_59]
+} as IProcess;
+
+export const react_for_30mn_synth_59 = {
+  name: "Polyisoprene (PI-59)",
+  prerequisite_process: [anionic_polymerization_synth_59],
+  ingredient: [{
+    material: [materials.polyisoprene_59]
+  },{
+    material: [materials.PPV]
+  }]
+} as IProcess;
+
+export const terminate_remaining_synth_59 = {
+  name: "Terminate remaining PI with butanol 59",
+  node: ['Process'],
+  prerequisite_process: [react_for_30mn_synth_59],
+  ingredient: [{
+    material: [materials.butanol]
+  }]
+} as IProcess;
+
+export const precipitate_with_methanol_synth_59 = {
+  name: "Precipitate with methanol 59",
+  node: ['Process'],
+  prerequisite_process: [terminate_remaining_synth_59],
+} as IProcess;
+
+export const remove_homopolymer_with_synth_59 = {
+  name: "Remove homopolymer with column chromatography 59",
+  node: ['Process'],
+  prerequisite_process: [precipitate_with_methanol_synth_59],
+  product: [materials.PPV_b_PI_59]
+} as IProcess
+
+/*
+   Processes related to Synthesis of PPVbPI-72
+*/
+
+export const anionic_polymerization_synth_72 = {
+  name: "Anionic polymerization  PI-72",
+  ingredient: [{
+    material: [materials.isoprene]
+  },{
+    material: [materials.benzene]
+  },{
+    material: [materials.sec_butyllithium_in_cyclohexane]
+  }],
+  product: [materials.polyisoprene_72]
+} as IProcess;
+
+export const react_for_30mn_synth_72 = {
+  name: "Polyisoprene (PI-72)",
+  prerequisite_process: [anionic_polymerization_synth_72],
+  ingredient: [{
+    material: [materials.polyisoprene_72]
+  },{
+    material: [materials.PPV]
+  }]
+} as IProcess;
+
+export const terminate_remaining_synth_72 = {
+  name: "Terminate remaining PI with butanol 72",
+  node: ['Process'],
+  prerequisite_process: [react_for_30mn_synth_72],
+  ingredient: [{
+    material: [materials.butanol]
+  }]
+} as IProcess;
+
+export const precipitate_with_methanol_synth_72 = {
+  name: "Precipitate with methanol 72",
+  node: ['Process'],
+  prerequisite_process: [terminate_remaining_synth_72],
+} as IProcess;
+
+export const remove_homopolymer_with_synth_72 = {
+  name: "Remove homopolymer with column chromatography 72",
+  node: ['Process'],
+  prerequisite_process: [precipitate_with_methanol_synth_72],
+  product: [materials.PPV_b_PI_72]
+} as IProcess
+
+/*
+   Processes related to Synthesis of PPVbPI-89
+*/
+
+export const anionic_polymerization_synth_89 = {
+  name: "Anionic polymerization  PI-89",
+  ingredient: [{
+    material: [materials.isoprene]
+  },{
+    material: [materials.benzene]
+  },{
+    material: [materials.sec_butyllithium_in_cyclohexane]
+  }],
+  product: [materials.polyisoprene_89]
+} as IProcess;
+
+export const react_for_30mn_synth_89 = {
+  name: "Polyisoprene (PI-89)",
+  prerequisite_process: [anionic_polymerization_synth_89],
+  ingredient: [{
+    material: [materials.polyisoprene_89]
+  },{
+    material: [materials.PPV]
+  }]
+} as IProcess;
+
+export const terminate_remaining_synth_89 = {
+  name: "Terminate remaining PI with butanol 89",
+  node: ['Process'],
+  prerequisite_process: [react_for_30mn_synth_89],
+  ingredient: [{
+    material: [materials.butanol]
+  }]
+} as IProcess;
+
+export const precipitate_with_methanol_synth_89 = {
+  name: "Precipitate with methanol 89",
+  node: ['Process'],
+  prerequisite_process: [terminate_remaining_synth_89],
+} as IProcess;
+
+export const remove_homopolymer_with_synth_89 = {
+  name: "Remove homopolymer with column chromatography 89",
+  node: ['Process'],
+  prerequisite_process: [precipitate_with_methanol_synth_89],
+  product: [materials.PPV_b_PI_89]
+} as IProcess
+
 
 /*
    Processes related to Phase Behavior Study

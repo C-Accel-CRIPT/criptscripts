@@ -166,3 +166,76 @@ export const potassiumtertbutoxide: Partial<IMaterial> = {
   name: "potassium tert-butoxide",
   node: ["Material"],
 };
+
+/**
+  Materials related to Synthesis of PPVbPI-xx
+ */
+
+export const sec_butyllithium_in_cyclohexane: IMaterial = {
+  name: "sec-butyllithium in cyclohexane",
+  notes: "this is one material that is a mix of two so must be represented as such in the data model",
+  node: ["Material"],
+} as IMaterial;
+
+export const isoprene: IMaterial = {
+  name: "isoprene",
+  node: ["Material"],
+} as IMaterial;
+
+export const benzene: IMaterial = {
+  name: "benzene",
+  node: ["Material"],
+} as IMaterial;
+
+export const polyisoprene_42: IMaterial = {
+  name: "Polyisoprene (PI-89)",
+  node: ["Material"],
+  // TODO: property with data
+} as IMaterial;
+
+export const polyisoprene_59: IMaterial = {
+  name: "Polyisoprene (PI-89)",
+  node: ["Material"],
+  // TODO: property with data
+} as IMaterial;
+
+export const polyisoprene_72: IMaterial = {
+  name: "Polyisoprene (PI-89)",
+  node: ["Material"],
+  // TODO: property with data
+} as IMaterial;
+
+export const polyisoprene_89: IMaterial = {
+  name: "Polyisoprene (PI-89)",
+  node: ["Material"],
+  // TODO: property with data
+} as IMaterial;
+
+export const butanol = {
+  name: "butanol",
+  node: ["Material"],
+} as IMaterial;
+
+/**
+  Materials related to "Synthesis of PPVbPI-xx" AND "Phase Behavior Study"
+ */
+
+export const PPV_b_PI_42 = {
+  name: "PPV-b-PI-42",
+  node: ["Material"],
+} as IMaterial;
+
+export const PPV_b_PI_59 = {
+  name: "PPV-b-PI-59",
+  node: ["Material"],
+} as IMaterial;
+
+export const PPV_b_PI_72 = {
+  name: "PPV-b-PI-72",
+  node: ["Material"],
+} as IMaterial;
+
+export const PPV_b_PI_89 = {
+  name: "PPV-b-PI-89",
+  node: ["Material"],
+} as IMaterial;

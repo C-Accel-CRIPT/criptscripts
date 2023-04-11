@@ -39,3 +39,23 @@ export const pom_ppv: Partial<IData> = {
   name: "POM PPV",
   node: ["Data"],
 };
+
+export const gpc_pi_synth_42: Partial<IData> = {
+  name: "GPC PI-42",
+  node: ["Data"]
+}
+
+export const gpc_pi_synth_59: Partial<IData> = {
+  name: "GPC PI-59",
+  node: ["Data"]
+}
+
+export const gpc_pi_synth_72: Partial<IData> = {
+  name: "GPC PI-72",
+  node: ["Data"]
+}
+
+export const gpc_pi_synth_89: Partial<IData> = {
+  name: "GPC PI-89",
+  node: ["Data"]
+}
