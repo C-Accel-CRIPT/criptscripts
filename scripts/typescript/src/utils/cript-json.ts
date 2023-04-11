@@ -128,7 +128,6 @@ export class CriptJSON {
       console.debug(`-- Optimizing node (uid: "${node.uid}", type: "${type}", name: "${node.name}") DONE`);
     }
 
-    // pass through
     return value;
   };
 
