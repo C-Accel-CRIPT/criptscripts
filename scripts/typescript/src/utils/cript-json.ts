@@ -59,13 +59,24 @@ export class CriptJSON {
       // specific case on per-type basis
       switch (type) {
         case "Inventory":
-          console.debug(`-- Optimizing the materials`);
-          node.material = node.material?.map(as_reference);
+          if (node.material) {
+            console.debug(`-- Optimizing the materials ...`);
+            node.material = node.material.map(as_reference);
+          }
           break;
 
         case 'Experiment':
           // keep data
           break;
+
+        case 'Property':
+        case 'Condition':
+          if (node.data) {
+            console.debug(`-- Optimizing the datasets ...`);
+            node.data = node.data.map(as_reference);
+          }
+          break;
+
         case 'Process':
           node.ingredient = node.ingredient?.map( (each: IIngredient, index: number) => {
             console.debug(`-- Optimizing ingredient.material #${index}`);
@@ -74,20 +85,20 @@ export class CriptJSON {
               material: each.material?.map(as_reference)
             }
           })
-            
-        case 'Material':
-          console.debug(`-- Optimizing the component`);
-          node.component = node.component?.map(as_reference);
-          break;
-        case 'Project':
-            // we want the full collection, material and file arrays
-            break;
-        default:
           if (node.data) {
             console.debug(`-- Optimizing the data`);
             node.data = node.data.map(as_reference);
           }
           break;
+
+        case 'Material':
+          console.debug(`-- Optimizing the component`);
+          node.component = node.component?.map(as_reference);
+          break;
+
+        case 'Project':
+            // we want the full collection, material and file arrays
+            break;
       }
     }
 
