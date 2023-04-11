@@ -3,7 +3,7 @@
  * and export it as a JSON file.
  */
 
-import { write_json_helper as write_json_to_out_folder } from "../utils/json";
+import { write_json_helper as write_json_to_out_folder } from "../utils/file";
 import { project } from "./data/project"; // project is a const object and already has its content (materials, collections...)
 
 // console.log(`RCBC JSON is:\n\n${JSON.stringify(project, null, ' ')}`)
