@@ -21,6 +21,8 @@ const as_reference = (node: any) => {
  */
 export class CriptJSON {
   private static replacer: Replacer = (key: string, value: any): any => {
+
+    /** optimize if value is a node */
     const type: string | undefined = value?.node?.at(0);
     if (type) {
       // create alias
@@ -37,7 +39,7 @@ export class CriptJSON {
       }*/
 
       switch (type) {
-        case "Project":
+        case "Inventory":
           if (node.material) {
             console.log(`Optimizing the materials of the ${type} #${key}...`);
             node.material = node.material.map(as_reference);
@@ -64,6 +66,7 @@ export class CriptJSON {
       }
     }
 
+    /** Always optimize those keys */
     switch (key) {
       case "prerequisite_process":
       case "waste":
