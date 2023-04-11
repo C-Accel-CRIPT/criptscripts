@@ -55,7 +55,22 @@ export const gpc_pi_synth_72: Partial<IData> = {
   node: ["Data"]
 }
 
-export const gpc_pi_synth_89: Partial<IData> = {
-  name: "GPC PI-89",
+export const saxs_ppvbpi_42: Partial<IData> = {
+  name: "SAXS PPV-b-PI-42",
+  node: ["Data"]
+}
+
+export const saxs_ppvbpi_59: Partial<IData> = {
+  name: "SAXS PPV-b-PI-59",
+  node: ["Data"]
+}
+
+export const saxs_ppvbpi_72: Partial<IData> = {
+  name: "SAXS PPV-b-PI-72",
+  node: ["Data"]
+}
+
+export const saxs_ppvbpi_89: Partial<IData> = {
+  name: "SAXS PPV-b-PI-89",
   node: ["Data"]
 }
