@@ -264,7 +264,7 @@ export class AFRLtoJSON {
         const pressure = row.pressure_MPa;
 
         // Create new material object        
-        const mixture: IMaterial = {
+        const mixture = {
             node: ['Material'],
             name: unique_name,
             // "identifiers": identifiers, deprecated, see explanation below
@@ -272,9 +272,9 @@ export class AFRLtoJSON {
                 polymer,
                 solvent
             ],
-            property: [],
+            property: new Array<IProperty>,
             names: [unique_name],
-        } as Partial<IMaterial> as any; // HACK: had to pick some fields, backend does not allow all the fields in the context of a POST.
+        } satisfies IMaterial;
 
         // Create identifiers
         //
@@ -285,12 +285,12 @@ export class AFRLtoJSON {
             // There is no such field in the new API
             // identifiers.append(cript.Identifier(key="preferred_name", value=name))
             // Waiting for Brilant's answer I am using names instead.
-            mixture.names.push(name)
+            mixture.names.push(name);
         }
 
         // Create properties
         if (conc_vol_fraction && !isNaN(conc_vol_fraction)) {
-            mixture.property.push({
+            const property: IProperty = {
                 key: "conc_vol_fraction",
                 value: String(conc_vol_fraction), // FIXME: backend does not accept numbers,
                 // "components_relative" does not exist on new API, using "component" instead.         
@@ -298,11 +298,12 @@ export class AFRLtoJSON {
                 citation,
                 node: ['Property'],
                 type: 'value',  // FIXME: is this correct from a chemist point of view?
-            } as IProperty)
+            };
+            mixture.property.push(property);
         }
 
         if (conc_mass_fraction && !isNaN(conc_mass_fraction)) {
-            mixture.property.push({
+            const property: IProperty = {
                 key: "conc_mass_fraction",
                 value: String(conc_mass_fraction), // FIXME: backend does not accept numbers
                 // "components_relative" does not exist on new API, using "component" instead.         
@@ -310,12 +311,13 @@ export class AFRLtoJSON {
                 citation,
                 node: ['Property'],
                 type: 'value',  // FIXME: is this correct from a chemist point of view?
-            } as IProperty)
+            }
+            mixture.property.push(property);
         }
 
         if (temp_cloud && !isNaN(temp_cloud)) {
 
-            const temp_cloud_property: IProperty = {
+            const temp_cloud_property = {
                 key: "temp_cloud",
                 value: String(temp_cloud), // FIXME: backend does not accept numbers
                 // "components_relative" does not exist on new API, using "component" instead.         
@@ -324,8 +326,8 @@ export class AFRLtoJSON {
                 node: ['Property'],
                 type: 'value',  // FIXME: is this correct from a chemist point of view?
                 unit: "degC",
-                condition: [] // will be filled below...
-            } as Partial<IProperty> as any;
+                condition: new Array<ICondition>() // will be filled below...
+            } satisfies IProperty;
 
             // If present, add conditions
 
@@ -335,7 +337,7 @@ export class AFRLtoJSON {
                     key: "pressure",
                     value: String(pressure), // FIXME: typings are wrong, we should be able to use a number
                     unit: "MPa",
-                } as ICondition);
+                });
 
 
             if (one_phase_direction) {
@@ -428,7 +430,8 @@ export class AFRLtoJSON {
      * @param inventory 
      */
     add_material(material: IMaterial, inventory: IInventory) {
-        
+        if(!this.project.material) this.project.material = [];
+        if(!inventory.material) inventory.material = [];
         // note: here I do not check if inventry is a part of a collection in this.project
         //       but by design (cf. constructor) the inventory should be a part of it.
 
