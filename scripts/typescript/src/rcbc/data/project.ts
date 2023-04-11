@@ -1,4 +1,4 @@
-import { ICollection, IMaterial, IProject } from "@cript";
+import { ICollection, IMaterial, IProject } from "../../types/cript";
 import { collection } from "./collection";
 import * as materials from "./materials";
 import { default_notes } from "./shared";

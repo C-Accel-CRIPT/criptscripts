@@ -1,4 +1,4 @@
-import { IComputation } from "@cript";
+import { IComputation } from "../../types/cript";
 import * as datasets from "./datasets";
 
 export const analysis_PPVbPI_42 = {

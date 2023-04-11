@@ -1,4 +1,4 @@
-import { IIngredient, Slug } from "@cript";
+import { IIngredient, Slug } from "../types/cript";
 
 type Replacer = ((this: any, key: string, value: any) => any) | undefined;
 type NodeReference = { uid: string, node: [string]};

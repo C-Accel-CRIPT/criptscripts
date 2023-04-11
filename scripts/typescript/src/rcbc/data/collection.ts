@@ -1,4 +1,4 @@
-import { ICollection } from "@cript";
+import { ICollection } from "../../types/cript";
 import { default_notes } from "./shared";
 import * as experiments from "./experiments";
 

@@ -1,4 +1,4 @@
-import { IExperiment } from "@cript";
+import { IExperiment } from "../../types/cript";
 import * as datasets from "./datasets";
 import * as processes from "./processes";
 import * as computations from "./computations";

@@ -1,4 +1,4 @@
-import { IData } from "@cript";
+import { IData } from "../../types/cript";
 
 export const nmr_diether: IData = {
   name: "NMR diether",

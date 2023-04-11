@@ -1,4 +1,4 @@
-import { IProcess } from "@cript";
+import { IProcess } from "../../types/cript";
 import * as materials from './materials'
 
 /*

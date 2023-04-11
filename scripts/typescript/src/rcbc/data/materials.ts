@@ -1,4 +1,4 @@
-import { IMaterial } from "@cript";
+import { IMaterial } from "../../types/cript";
 import * as datasets from "./datasets";
 import * as computations from './computations'
 
