@@ -50,7 +50,7 @@ export class CriptJSON {
           // keep data
           break;
         case 'Process':
-          node.ingredients?.map( (each: IIngredient) => {
+          node.ingredient = node.ingredient?.map( (each: IIngredient) => {
             return {
               ...each,
               material: each.material?.map(as_reference)
