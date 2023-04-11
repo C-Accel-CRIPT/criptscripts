@@ -14,7 +14,6 @@ export type Config = {
     inventory_basename: string;
 }
 
-const MODEL_VERSION: string = '1.0.0';
 export class AFRLtoJSON {
 
     // declare few maps to retreive data easily
@@ -37,9 +36,6 @@ export class AFRLtoJSON {
 
     private errors: Array<string> = [];
 
-    // to generate uid (local only),
-    private last_uid: number = 0;
-
     constructor(config: Config = AFRLtoJSON.load_config()) {
 
         // Create inventories
@@ -49,7 +45,6 @@ export class AFRLtoJSON {
             material: [],
             node: ['Inventory'],
             notes: `Gather all the solvents extracted from AFRL dataset`,
-            model_version: MODEL_VERSION,
         } as any;
 
         this.inventory_polymers = {
@@ -57,7 +52,6 @@ export class AFRLtoJSON {
             material: [],
             node: ['Inventory'],
             notes: `Gather all the polymers extracted from AFRL dataset`,
-            model_version: MODEL_VERSION,
         } as any;
 
         this.inventory_mixtures = {
@@ -65,7 +59,6 @@ export class AFRLtoJSON {
             material: [],
             node: ['Inventory'],
             notes: `Gather all the mixtures extracted from AFRL dataset`,
-            model_version: MODEL_VERSION,
         } as any;
 
         // Create collection with the inventories in it
@@ -73,7 +66,6 @@ export class AFRLtoJSON {
             name: "afrl", // will be overriden by user config
             notes: `Gather the 3 inventories extracted from AFRL dataset`,
             node: ['Collection'],
-            model_version: MODEL_VERSION,
             inventory: [
                 this.inventory_solvents,
                 this.inventory_polymers,
@@ -84,7 +76,6 @@ export class AFRLtoJSON {
         // Create a project with the collection in it        
         this.project = {
             name: config.project_name,
-            model_version: MODEL_VERSION,
             node: ['Project'],
             collection: [this.collection],
             material: new Array<IMaterial>()
@@ -94,11 +85,6 @@ export class AFRLtoJSON {
 
     get_errors(): any {
         return [...this.errors];
-    }
-
-    private generate_uid(): number {
-        this.last_uid += 1;
-        return this.last_uid
     }
 
     private get_citation(row: AFRLData): ICitation | undefined {
@@ -121,10 +107,8 @@ export class AFRLtoJSON {
                 title: row.reference,
                 type: 'database', // raw string, should be ideally picked from vocab
                 node: ['Reference'],
-                model_version: MODEL_VERSION,
             } as IReference,
             type: 'reference',
-            model_version: MODEL_VERSION,
         } as ICitation;
 
         // get DOI and authors
@@ -188,7 +172,6 @@ export class AFRLtoJSON {
             node: ['Material'],
             name: row.solvent,
             cas,
-            model_version: MODEL_VERSION,
         } as IMaterial;
         this.record_error(`Search material from "cas" is not implemented, creating a local solvent for ${JSON.stringify(solvent)}`)
 
@@ -226,7 +209,6 @@ export class AFRLtoJSON {
                 unit: "g/mol",
                 citation,
                 node: ['Property'],
-                model_version: MODEL_VERSION,
                 type: 'value'  // FIXME: is this correct from a chemist point of view?
             } as IProperty)
 
@@ -237,7 +219,6 @@ export class AFRLtoJSON {
                 unit: "",
                 citation,
                 node: ['Property'],
-                model_version: MODEL_VERSION,
                 type: 'value'  // FIXME: is this correct from a chemist point of view?
             } as IProperty)
 
@@ -247,7 +228,6 @@ export class AFRLtoJSON {
             name: unique_name,
             property: properties,
             node: ['Material'],
-            model_version: MODEL_VERSION,
         } as IMaterial;
 
         // Create identifiers
@@ -294,7 +274,6 @@ export class AFRLtoJSON {
             ],
             property: [],
             names: [unique_name],
-            model_version: MODEL_VERSION,
         } as Partial<IMaterial> as any; // HACK: had to pick some fields, backend does not allow all the fields in the context of a POST.
 
         // Create identifiers
@@ -319,7 +298,6 @@ export class AFRLtoJSON {
                 citation,
                 node: ['Property'],
                 type: 'value',  // FIXME: is this correct from a chemist point of view?
-                model_version: MODEL_VERSION,
             } as IProperty)
         }
 
@@ -332,7 +310,6 @@ export class AFRLtoJSON {
                 citation,
                 node: ['Property'],
                 type: 'value',  // FIXME: is this correct from a chemist point of view?
-                model_version: MODEL_VERSION,
             } as IProperty)
         }
 
@@ -347,7 +324,6 @@ export class AFRLtoJSON {
                 node: ['Property'],
                 type: 'value',  // FIXME: is this correct from a chemist point of view?
                 unit: "degC",
-                model_version: MODEL_VERSION,
                 condition: [] // will be filled below...
             } as Partial<IProperty> as any;
 
@@ -359,7 +335,6 @@ export class AFRLtoJSON {
                     key: "pressure",
                     value: String(pressure), // FIXME: typings are wrong, we should be able to use a number
                     unit: "MPa",
-                    model_version: MODEL_VERSION,
                 } as ICondition);
 
 
@@ -629,14 +604,7 @@ export class AFRLtoJSON {
             throw new Error(`${failed_rows.length} row(s) were not loaded.`)
         }
 
-        // hack
-        // In order to avoid to push multiple times the same Node, we have to
-        // set a "uid" (not "uuid"), which is like a local id.
-        const assign_uid = (material: IMaterial) => material.uid = `afrl-csv-to-json:${this.generate_uid()}`;
-        this.project.material.forEach(assign_uid)
-
         console.log('Loading data OK')
         return this.project;
-
     }
 }
