@@ -166,28 +166,3 @@ export const potassiumtertbutoxide: Partial<IMaterial> = {
   name: "potassium tert-butoxide",
   node: ["Material"],
 };
-
-/** All materials */
-export const materials: Partial<IMaterial>[] = [
-  ethylhexyloxy_toluene,
-  diethylhexyloxy4methylbenzaldehyde,
-
-  methylhydroquinone,
-  koh,
-  ethanol,
-  ethylhexyl_bromide,
-  diethyl_ether,
-
-  chlorophorm,
-  dimethylformamide,
-  POCl3,
-  water,
-  dichloromethane,
-
-  aniline,
-
-  diethylhexyloxy4methylbenzylideneaniline,
-  methanol,
-  PPV,
-  potassiumtertbutoxide,
-];

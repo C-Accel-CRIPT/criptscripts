@@ -1,22 +1,5 @@
 import { IIngredient, IMaterial, IProcess } from "@cript";
-import {
-  aniline,
-  POCl3,
-  chlorophorm,
-  dichloromethane,
-  diethylhexyloxy4methylbenzaldehyde,
-  diethylhexyloxy4methylbenzylideneaniline,
-  dimethylformamide,
-  ethanol,
-  ethylhexyl_bromide,
-  ethylhexyloxy_toluene,
-  koh,
-  methylhydroquinone,
-  water,
-  methanol,
-  PPV,
-  potassiumtertbutoxide
-} from "./materials";
+import * as materials from './materials'
 
 /*
    Processes related to Synthesis of molecule 1 ((2,5-Di(2′-ethylhexyloxy)toluene))
@@ -27,13 +10,13 @@ export const etherification_methylhydroroquin: Partial<IProcess> = {
   node: ["Process"],
   ingredient: [
     {
-      material: [methylhydroquinone],
+      material: [materials.methylhydroquinone],
     },
     {
-      material: [koh],
+      material: [materials.koh],
     },
     {
-      material: [ethanol],
+      material: [materials.ethanol],
     },
   ] as IIngredient[],
 };
@@ -44,7 +27,7 @@ export const reflux_overnight: Partial<IProcess> = {
   prerequisite_process: [etherification_methylhydroroquin as IProcess],
   ingredient: [
     {
-      material: [ethylhexyl_bromide],
+      material: [materials.ethylhexyl_bromide],
     },
   ] as IIngredient[],
 };
@@ -64,7 +47,7 @@ export const extracted_with_ether: Partial<IProcess> = {
 export const clean_chromatography: Partial<IProcess> = {
   name: "clean with column chromatography",
   node: ["Process"],
-  product: [ethylhexyloxy_toluene as IMaterial],
+  product: [materials.ethylhexyloxy_toluene as IMaterial],
   prerequisite_process: [extracted_with_ether as IProcess],
 };
 
@@ -78,13 +61,13 @@ export const mixing: Partial<IProcess> = {
   //prerequisite_process: [poured_out_on_water as IProcess],
   ingredient: [
     {
-      material: [ethylhexyloxy_toluene],
+      material: [materials.ethylhexyloxy_toluene],
     },
     {
-      material: [chlorophorm],
+      material: [materials.chlorophorm],
     },
     {
-      material: [dimethylformamide],
+      material: [materials.dimethylformamide],
     },
   ] as IIngredient[],
 };
@@ -95,7 +78,7 @@ export const react_below_40: Partial<IProcess> = {
   prerequisite_process: [mixing as IProcess],
   ingredient: [
     {
-      material: [POCl3],
+      material: [materials.POCl3],
     },
   ] as IIngredient[],
 };
@@ -112,7 +95,7 @@ export const poured_out_on_ice: Partial<IProcess> = {
   prerequisite_process: [refluxed_at_80 as IProcess],
   ingredient: [
     {
-      material: [water],
+      material: [materials.water],
     },
   ] as IIngredient[],
 };
@@ -123,7 +106,7 @@ export const extracted_into_dichloromethane: Partial<IProcess> = {
   prerequisite_process: [poured_out_on_ice as IProcess],
   ingredient: [
     {
-      material: [dichloromethane],
+      material: [materials.dichloromethane],
     },
   ] as IIngredient[],
 };
@@ -132,7 +115,7 @@ export const purify_with_column_chromatography: Partial<IProcess> = {
   name: "purify with column chromatography",
   node: ["Process"],
   prerequisite_process: [extracted_into_dichloromethane as IProcess],
-  product: [diethylhexyloxy4methylbenzaldehyde as IMaterial],
+  product: [materials.diethylhexyloxy4methylbenzaldehyde as IMaterial],
 };
 
 /*
@@ -145,13 +128,13 @@ export const reaction_at_60: Partial<IProcess> = {
   //prerequisite_process: [ as IProcess],
   ingredient: [
     {
-      material: [diethylhexyloxy4methylbenzaldehyde],
+      material: [materials.diethylhexyloxy4methylbenzaldehyde],
     },
     {
-      material: [aniline],
+      material: [materials.aniline],
     },
   ] as IIngredient[],
-  product: [diethylhexyloxy4methylbenzaldehyde as IMaterial],
+  product: [materials.diethylhexyloxy4methylbenzaldehyde as IMaterial],
 };
 
 /*
@@ -162,18 +145,18 @@ export const heat_to_30: Partial<IProcess> = {
   name: "Heat to 30 °C, react for 30 min",
   node: ["Process"],
   ingredient: [{
-    material: [diethylhexyloxy4methylbenzylideneaniline]
+    material: [materials.diethylhexyloxy4methylbenzylideneaniline]
   },{
-    material: [potassiumtertbutoxide]
+    material: [materials.potassiumtertbutoxide]
   },{
-    material: [dimethylformamide]
+    material: [materials.dimethylformamide]
   }] as IIngredient[],
 };
 
 export const acidified_water_and_stir: Partial<IProcess> = {
   name: "Acidified water and stir for 48h to hydrolyze the unreacted imines",
   node: ["Process"],
-  ingredient: [{ material: [water] }] as IIngredient[],
+  ingredient: [{ material: [materials.water] }] as IIngredient[],
   prerequisite_process: [heat_to_30 as IProcess],
 };
 
@@ -188,9 +171,9 @@ export const fractionate_with_chroma: Partial<IProcess> = {
   node: ["Process"],
   prerequisite_process: [collect_neutralize_product as IProcess],
   ingredient: [{
-    material: [methanol]
+    material: [materials.methanol]
   }] as IIngredient[],
-  product: [PPV as IMaterial]
+  product: [materials.PPV as IMaterial]
 };
 
 /*
