@@ -8,7 +8,7 @@
 /dataSources.local.xml
 
 # ignore Jetbrains IDE configuration
-idea/
+.idea/
 
 # ignore vs code configurations
 .vscode/
