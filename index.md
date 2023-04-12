@@ -10,7 +10,7 @@ has_children: false
 
 <div>
   <a href="https://criptscripts.org/">
-    <img width="250" src="/assets/images/criptscripts-logo.svg" alt="CRIPT Scripts logo">
+    <img src="/assets/images/criptscripts-logo.svg" alt="CRIPT Scripts logo">
   </a>
 </div>
 
