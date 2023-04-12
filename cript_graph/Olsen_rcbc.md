@@ -14,4 +14,4 @@ The CRIPT graph has been expertly made by
 
 ## Files
 
-- [Olsen_RCBC](./graph_ppt/Olsen_RCBC.pptx)
+- [Olsen_RCBC.pptx](./graph_ppt/Olsen_RCBC.pptx)
