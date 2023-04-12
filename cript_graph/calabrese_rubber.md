@@ -14,4 +14,4 @@ The CRIPT graph has been expertly made by
 
 ## File
 
-* [calabrese_ruber_recycling_data_graph.pptx](./calabrese_rubber/calabrese_ruber_recycling_data_graph.pptx)
+* [calabrese_ruber_recycling_data_graph.pptx](./graph_ppt/Calabrese_ruber_recycling_data_graph.pptx)
