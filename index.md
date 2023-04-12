@@ -18,7 +18,7 @@ CRIPT Scripts is a curated list of examples and tools for interacting with the [
 
 Examples include:
 * <i class="fa-brands fa-python"></i> [Python Scripts](./scripts/index.md) 
-created with the [CRIPT SDK](https://pypi.org/project/cript/)
+created with the [CRIPT Python SDK](https://pypi.org/project/cript/)
 
 * <i class="fa-solid fa-file-excel"></i> [Excel files](./cript_sheets/index.md) 
 used with the [CRIPT Excel Uploader](https://c-accel-cript.github.io/cript-excel-uploader/)
