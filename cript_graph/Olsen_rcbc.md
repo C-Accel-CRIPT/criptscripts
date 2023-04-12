@@ -10,7 +10,8 @@ parent: CRIPT Graphs
 written by Bradley D. Olsen and Rachel A. Segalman*.
 
 The CRIPT graph has been expertly made by
-[Professor Olsen of MIT](https://cheme.mit.edu/profile/bradley-d-olsen/) to serve as an example for CRIPT.
+[Professor Olsen of MIT](https://cheme.mit.edu/profile/bradley-d-olsen/) to serve as an example for 
+the [CRIPT platform](https://criptapp.org).
 
 ## Files
 

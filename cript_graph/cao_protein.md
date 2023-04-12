@@ -9,7 +9,8 @@ parent: CRIPT Graphs
 [Research paper](https://pubs.acs.org/doi/10.1021/acs.biomac.2c00372) written by Yiping Cao and Bradley D. Olsen.
 
 The CRIPT graph has been expertly made by
-[Professor Olsen of MIT](https://cheme.mit.edu/profile/bradley-d-olsen/) to serve as an example for CRIPT.
+[Professor Olsen of MIT](https://cheme.mit.edu/profile/bradley-d-olsen/) to serve as an example for 
+the [CRIPT platform](https://criptapp.org).
 
 ## Files
 

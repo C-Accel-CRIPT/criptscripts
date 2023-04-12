@@ -8,8 +8,8 @@ parent: CRIPT JSON
 
 [Research paper](https://pubs.acs.org/doi/10.1021/acs.biomac.2c00372) written by Yiping Cao and Bradley D. Olsen.
 
-The CRIPT JSON has been expertly made by one of the members of the [CRIPT Platform](https://criptapp.org/) 
-to serve as an example for CRIPT.
+The CRIPT JSON has been expertly made by one of the members of the [CRIPT team](https://criptapp.org/) 
+to serve as an example for the [CRIPT platform](https://criptapp.org).
 
 ## File
 
