@@ -17,7 +17,7 @@ has_children: false
 CRIPT Scripts is a curated list of examples and tools for interacting with the [CRIPT](https://criptapp.org) platform.
 
 ## [CRIPT](https://criptapp.org) Examples:
-* <i class="fa-brands fa-python"></i> [Python Scripts](./scripts/index.md) 
+* <i class="fa-brands fa-python"></i> [Python Scripts](scripts/python/index.md) 
 created with the [CRIPT Python SDK](https://pypi.org/project/cript/)
 
 * <i class="fa-solid fa-file-excel"></i> [Excel files](./cript_sheets/index.md) 
