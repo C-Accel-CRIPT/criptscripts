@@ -13,7 +13,4 @@ The CRIPT graph has been expertly made by
 
 ## Files
 
-The following includes the original research paper, representation of the research paper in CRIPT data graph, Excel file, and JSON
-
-
 - [Cao Protein **CRIPT Graph**](graph_ppt/Cao_protein_materials_data_graph.pptx)
