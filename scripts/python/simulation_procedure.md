@@ -2,6 +2,7 @@
 layout: default
 title: Simulation Procedure Script
 parent: Python Scripts
+grand_parent: CRIPT Scripts
 ---
 
 # Simulation Procedure Script

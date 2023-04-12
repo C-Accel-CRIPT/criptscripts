@@ -2,6 +2,7 @@
 layout: default
 title: Material Upload Script
 parent: Python Scripts
+grand_parent: CRIPT Scripts
 ---
 
 # Material Upload Script

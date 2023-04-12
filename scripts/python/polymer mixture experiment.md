@@ -2,6 +2,7 @@
 layout: default
 title: Polymer Mixture Experiment Script
 parent: Python Scripts
+grand_parent: CRIPT Scripts
 ---
 
 # Polymer Mixture Experiment Script

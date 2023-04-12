@@ -2,6 +2,7 @@
 layout: default
 title: Full Experiment
 parent: Python Scripts
+grand_parent: CRIPT Scripts
 ---
 
 # Full Experiment

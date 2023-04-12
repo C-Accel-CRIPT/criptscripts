@@ -2,6 +2,7 @@
 layout: default
 title: Bibliography Creator
 parent: Python Scripts
+grand_parent: CRIPT Scripts
 ---
 
 # Bibliography Creator

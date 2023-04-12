@@ -2,6 +2,7 @@
 layout: default
 title: Create Materials
 parent: Python Scripts
+grand_parent: CRIPT Scripts
 ---
 
 # Create Materials
