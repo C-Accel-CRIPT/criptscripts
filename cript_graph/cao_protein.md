@@ -13,4 +13,4 @@ The CRIPT graph has been expertly made by
 
 ## Files
 
-- [Cao Protein **CRIPT Graph**](graph_ppt/Cao_protein_materials_data_graph.pptx)
+- [Cao_protein_materials_data_graph.pptx](graph_ppt/Cao_protein_materials_data_graph.pptx)
