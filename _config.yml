@@ -40,7 +40,7 @@ plugins:
 # their entries' file path in the `include:` list.
 #
 #exclude:
-#  - .scripts/typescript/README.md
+#  - .scripts/typescript/typescript_scripts/AFRL/instructions.md
 #   - .sass-cache/
 #   - .jekyll-cache/
 #   - gemfiles/
