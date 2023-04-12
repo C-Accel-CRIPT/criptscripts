@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Olsen Rod-Coil Block Copolymers
+title: Olsen Rod-Coil Block Copolymers CRIPT Graph
 parent: CRIPT Graphs
 ---
 
