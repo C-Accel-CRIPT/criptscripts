@@ -39,8 +39,7 @@ plugins:
 # Excluded items can be processed by explicitly listing the directories or
 # their entries' file path in the `include:` list.
 #
-#exclude:
-#  - .scripts/typescript/typescript_scripts/AFRL/instructions.md
+# exclude:
 #   - .sass-cache/
 #   - .jekyll-cache/
 #   - gemfiles/
