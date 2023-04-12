@@ -26,7 +26,7 @@ used with the [CRIPT Excel Uploader](https://c-accel-cript.github.io/cript-excel
 * <i class="fa-solid fa-circle-nodes"></i> [CRIPT Graphs](./cript_graph/index.md) 
 that translates research into the [CRIPT Data Model](https://pubs.acs.org/doi/10.1021/acscentsci.3c00011)
 
-* <i class="fa-solid fa-file-code"></i> [CRIPT Graph JSON]() 
+* <i class="fa-solid fa-file-code"></i> [CRIPT Graph JSON](./cript_graph_json/index.md) 
 the shows the CRIPT graph in JSON format
 
 ---
