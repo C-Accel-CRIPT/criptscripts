@@ -10,4 +10,4 @@ has_children: true
 
 # <i class="fa-solid fa-code"></i> CRIPT Scripts
 
-Example Python Script used to upload polymer data to [CRIPT](https://criptapp.org/)
+Example script used to upload polymer data to the [CRIPT platform](https://criptapp.org/)
