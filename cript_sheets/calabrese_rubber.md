@@ -11,6 +11,6 @@ Michelle A. Calabrese, Wui Yarn Chan, Sarah H. M. Av-Ron, and Bradley D. Olsen
 
 The CRIPT Sheet has been expertly made by one of the members of the [MIT Olson lab](https://olsenlab.mit.edu/) to serve as an example for the [CRIPT platform](https://criptapp.org).
 
-## File
+## Excel File
 
 * [calabrese_CRIPT_updated_template.xlsx](./example_excel_files/calabrese_CRIPT_updated_template.xlsx)

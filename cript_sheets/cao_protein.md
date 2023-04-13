@@ -10,6 +10,6 @@ parent: Excel files
 
 The CRIPT Sheet has been expertly made by one of the members of the [MIT Olson lab](https://olsenlab.mit.edu/) to serve as an example for the [CRIPT platform](https://criptapp.org).
 
-## File
+## Excel File
 
 * [Cao_CRIPT_template.xlsx](./example_excel_files/Cao_CRIPT_template.xlsx)
