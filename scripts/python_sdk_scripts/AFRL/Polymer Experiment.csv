@@ -1,2 +1,0 @@
-﻿mixture_id,polymer_id,polymer,polymer_chemical_id,polymer_SMILES,solvent,solvent_chemical_id,solvent_SMILES,polymer_Mw,polymer_PDI,polymer_vol_frac,polymer_wt_frac,pressure_MPa,cloud_point_temp,one_phase_direction,reference
-1,1,,1234-56-7,*C(C*)c1ccccc1,water,1234-67-8,CC1CCCCC1,20000,1.2,0.0123,0.05,6,9,negative,doi.org/10.1002/macp.1996.1234567891
