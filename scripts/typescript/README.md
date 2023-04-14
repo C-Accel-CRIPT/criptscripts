@@ -4,15 +4,17 @@ title: AFRL README.md
 published: false
 ---
 
-# AFRL transformation script
+# TypeScript ingestion scripts for CRIPT
 
-The purpose of this node script is to convert AFRL dataset to a CRIPT compatible JSON.
-
+This folder is a unique npm package shared between all ingestion scripts. Browse the `./src` folder.
 # `npm i`
 
 Will install this npm package and dependencies.
 
-# Scripts
+# This project contains several ingestion scripts
+
+Note: scripts are still WIP.
 
 - `afrl`: see [readme](src/afrl/README.md)
 - `rcbc`: see [readme](src/rcbc/README.md)
+
