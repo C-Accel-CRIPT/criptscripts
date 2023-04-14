@@ -1,4 +1,3 @@
-
 ---
 layout: default
 title: Air Force Research Lab TypeScript Script
@@ -8,6 +7,8 @@ grand_parent: CRIPT Scripts
 
 # AFRL CSV to JSON script
 
-## Source code
+*note: this script is WIP*
 
-* [Link to TypeScript source code](https://github.com/C-Accel-CRIPT/criptscripts/tree/master/scripts/typescript/src/afrl)
+This script converts the AFRL CSV file into a unique JSON file. The file can be uploaded at once as a single project into CRIPT.
+
+See source code: [Link to TypeScript source code](https://github.com/C-Accel-CRIPT/criptscripts/tree/master/scripts/typescript/src/afrl)
