@@ -4,8 +4,8 @@
   "description": "Set of typescript code to convert raw data (*.csv, *.ts) to CRIPT *.json format",
   "main": "index.js",
   "scripts": {
-    "afrl": "npx ts-node src/afrl/index.ts",
-    "rcbc": "npx ts-node src/rcbc/index.ts",
+    "afrl": "npx ts-node ./src/afrl/index.ts",
+    "rcbc": "npx ts-node ./src/rcbc/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Bérenger Dalle-Cort, CRIPT, MIT",
@@ -14,5 +14,8 @@
     "csvtojson": "^2.0.10",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.3"
+  },
+  "devDependencies": {
+    "tsconfig-paths": "^4.2.0"
   }
 }
