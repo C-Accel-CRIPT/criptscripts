@@ -1,6 +1,6 @@
 import * as fs from 'fs';
-import * as path from 'src/utils/path';
-import { output_dir_path } from './path';
+import * as path from 'path';
+import { output_dir_path } from './output_dir_path';
 import { CriptJSON } from './cript-json';
 
 /**

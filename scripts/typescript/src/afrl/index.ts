@@ -1,8 +1,7 @@
-import { AFRLtoJSON as AFRLCSVtoJSON } from "./scripts/afrl-csv-to-json";
+import { AFRLtoJSON as AFRLCSVtoJSON } from "./afrl-csv-to-json";
 import fs from 'fs';
 import path from 'path';
-import { output_dir_path } from "../utils/path";
-import { write_json_helper } from "../utils/file";
+import { output_dir_path, write_json_helper } from "@utilities";
 
 const file_name = 'AFRL_linear_polymer_3pdb_data_csv_4_5_2023.csv'; // TODO: read this from command line argument
 

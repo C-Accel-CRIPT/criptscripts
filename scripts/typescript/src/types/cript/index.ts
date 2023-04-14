@@ -20,7 +20,6 @@ import { IUser } from './IUser';
 import { ISoftware } from './ISoftware';
 import { ISoftwareConfiguration } from './ISoftwareConfiguration';
 import { IVocabBase, IVocabIdentifier, IVocabProperty, IVocabQuantity, IVocab, IControlledVocabulary } from './IVocab';
-import { EditorMode } from './EditorMode';
 import { IQuantity } from './IQuantity';
 import { IEquipment } from './IEquipment';
 
@@ -68,7 +67,6 @@ export type {
   IVocabIdentifier,
   IVocabProperty,
   IVocabQuantity,
-  EditorMode,
   IControlledVocabulary,
 };
 

@@ -1,6 +1,4 @@
-
-# AFRL CSV to JSON script
-
+# AFRL CSV to JSON
 ## How to use?
 
 from project root, run `npm run afrl`
