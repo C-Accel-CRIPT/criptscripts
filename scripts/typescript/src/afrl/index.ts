@@ -6,18 +6,25 @@ import { output_dir_path, write_json_helper } from "@utilities";
 const file_name = 'AFRL_linear_polymer_3pdb_data_csv_4_5_2023.csv'; // TODO: read this from command line argument
 
 // Call main as a promise because low level await are not allowed.
-main().then( code => process.exit(code) )
+main().then( () => process.exit() )
 
-async function main(): Promise<number> {
+async function main() {
 
     console.log('=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=')
     console.log('=-=-=-=-=-=-=-=-=-=-=-=-= AFRL CSV to JSON -=-=-=-=-=-==-=-=-=-=-=-=-=')
     console.log('=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=')
     
+    // Pipe the errors in a file
+    const error_file_path = path.resolve(output_dir_path, 'afrl.errors.txt');
+    const error_file = fs.createWriteStream(error_file_path, { flags: 'w'});
+    error_file.write("Beginnin of the conversion...\n");
+    error_file.write("Second line")
+
     // Instantiate AFRL to JSON serializer
     const serializer = new AFRLCSVtoJSON({
-        inventory_basename: 'afrl-deleteme',
-        project_name: 'afrl-deleteme'
+        inventory_basename: 'AFRL (dev)',
+        project_name: 'AFRL (dev)',
+        error_stream: error_file
     });
 
     // Load the CSV into an AFRLData[]
@@ -38,11 +45,7 @@ async function main(): Promise<number> {
     console.log('Output folder is ready')
 
     // Write JSON files
-
-    write_json_helper(project, 'afrl-transformed', 'minified')
-    write_json_helper(project, 'afrl-transformed', 'human-readable')
-    write_json_helper(serializer.get_errors(), 'afrl-transformed.errors', 'human-readable')
-
-    return 0;
+    await write_json_helper(project, 'afrl', 'minified');
+    await write_json_helper(project, 'afrl', 'human-readable');
 }
 

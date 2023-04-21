@@ -1,7 +1,7 @@
 import { AFRLData } from "./types"
 import { ICitation, ICollection, ICondition, IInventory, IMaterial, IProject, IProperty, IReference } from "../types/cript"
 import csvtojson from "csvtojson";
-
+import * as fs from 'stream';
 /**
  * This script is a typescript port of @see https://github.com/C-Accel-CRIPT/criptscripts/tree/master/scripts/python_sdk_scripts/AFRL
  * The main difference is the source data is now read from the original CSV and not a preprocessed *.js.
@@ -12,6 +12,9 @@ export type Config = {
     project_name: string;
     // Destination inventory's basename
     inventory_basename: string;
+    // to redirect errors to a stream
+    // By default it will be process.stderr
+    error_stream?: fs.Writable;
 }
 
 export class AFRLtoJSON {
@@ -34,9 +37,12 @@ export class AFRLtoJSON {
     private inventory_polymers: IInventory;
     private inventory_mixtures: IInventory;
 
-    private errors: Array<string> = [];
+    private error_stream: fs.Writable;
 
-    constructor(config: Config = AFRLtoJSON.load_config()) {
+    constructor(config: Config) {
+
+        this.error_stream = config.error_stream ?? process.stderr;
+        this.error_stream.on('error', e => console.error(e));
 
         // Create inventories
 
@@ -81,10 +87,6 @@ export class AFRLtoJSON {
             material: new Array<IMaterial>()
         } as IProject;
 
-    }
-
-    get_errors(): any {
-        return [...this.errors];
     }
 
     private get_citation(row: AFRLData): ICitation | undefined {
@@ -388,11 +390,8 @@ export class AFRLtoJSON {
         return `{{[]${bigsmiles}[]}}`;
     }
 
-
     private record_error(message: string): void {
-
-        this.errors.push(message)
-        console.error(message);
+        this.error_stream.write(`${message}\n`)
     }
 
     /**
@@ -577,6 +576,7 @@ export class AFRLtoJSON {
             return safe_object;
         });
         console.log(`Assigning default value for string properties OK`);
+
         return afrl_data;
     }
 
@@ -603,7 +603,7 @@ export class AFRLtoJSON {
         // Log failures
         if (failed_rows.length != 0) {
             console.log(`Loading failed. Some objects couldn't be loaded (${failed_rows.length} row(s) failed)`)
-            failed_rows.forEach(v => console.error(JSON.stringify(v)))
+            failed_rows.forEach(v => this.record_error(JSON.stringify(v)))
             throw new Error(`${failed_rows.length} row(s) were not loaded.`)
         }
 
