@@ -118,11 +118,9 @@ export const phase_behavior: IExperiment = {
     computations.analysis_PPVbPI_42,
     computations.analysis_PPVbPI_59,
     computations.analysis_PPVbPI_72,
-    computations.analysis_PPVbPI_89,
 
     computations.peak_phase_id_PPVbPI_42,
     computations.peak_phase_id_PPVbPI_59,
     computations.peak_phase_id_PPVbPI_72,
-    computations.peak_phase_id_PPVbPI_89,
   ],
 };
