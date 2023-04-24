@@ -1,10 +1,10 @@
 /**
- * The purpose of this script is to declare the Graph (defined in https://docs.google.com/presentation/d/1eXM7870YM2sxQQvMFahI2Ox8-EFCGaw_/edit#slide=id.p1)
- * and export it as a JSON file.
+ * The purpose of this script is to load  bdcb.xlsx file and export it as a JSON file.
+ *
  *
  * Documentation reference on XSLX: https://docs.sheetjs.com/docs
  *
- * This script does not import all th sheets and columns.
+ * This script does not import all the sheets and columns.
  * See link to google drive files above (column_meanings.xlsx)
  */
 import * as XLSX from "xlsx";

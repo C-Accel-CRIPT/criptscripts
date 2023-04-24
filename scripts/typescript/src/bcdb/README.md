@@ -1,3 +1,3 @@
 # BCDB XLSX to JSON
 
-This script is able to convert and xlsx file to CRIPT JSON.
+This script is able to convert an xlsx file to CRIPT JSON.
