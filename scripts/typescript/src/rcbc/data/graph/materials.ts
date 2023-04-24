@@ -543,17 +543,15 @@ export const PPV_b_PI_89: IMaterial = {
         },
       ],
     },
-
     {
       node: ["Property"],
-      notes: "GPC PPV-b-PI-89",
-      computation: [ computations.analysis_PPVbPI_89 ],
-    },
-
-    {
-      node: ["Property"],
-      notes: "Peak Phase ID PPV-b-PI-89",
-      computation: [ computations.peak_phase_id_PPVbPI_89 ],
+      notes: "SAXS PPV-b-PI-89",
+      data: [
+        {
+          name: "SAXS PPV-b-PI-89",
+          node: ["Data"],
+        },
+      ],
     },
 
   ],
