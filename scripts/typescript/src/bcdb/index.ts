@@ -19,7 +19,7 @@ import { BCDBLoader } from "./bcdb";
   const errorStream = fs.createWriteStream(resolve(output_dir_path, "bcdb.errors.txt"));
 
   const project = await BCDBLoader.load({
-    input_file_path: resolve(__dirname, "data/sheets/BCPs.xlsx"),
+    input_file_path: resolve(__dirname, "data/sheets/bcdb.xlsx"),
     //log: process.stdout, // if you turn this ON, it will cause issues relative to memory. Something needs to be fixed on Streams to avoid this.
     sheets: [
       "blocks", // needs to be loaded first to get [Polymer, name, BigSMILES] tuples
