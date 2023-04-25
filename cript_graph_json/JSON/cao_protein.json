@@ -175,7 +175,13 @@
                 }
               ],
               "product": [
-                "BSA supernatant"
+                {
+      "node": [
+        "Material"
+      ],
+      "name": "BSA supernatant",
+      "uid": "_:BSA supernatant"
+    }
               ]
             },
             {
@@ -205,7 +211,13 @@
                 }
               ],
               "product": [
-                "SPI supernatant"
+                {
+      "node": [
+        "Material"
+      ],
+      "name": "SPI supernatant",
+      "uid": "_:SPI supernatant"
+    }
               ]
             },
             {
@@ -241,7 +253,13 @@
                 }
               ],
               "product": [
-                "PPI supernatant"
+                {
+      "node": [
+        "Material"
+      ],
+      "name": "PPI supernatant",
+      "uid": "_:PPI supernatant"
+    }
               ]
             },
             {
@@ -312,7 +330,13 @@
                 }
               ],
               "product": [
-                "WPI methacrylate"
+                {
+                  "node": [
+                    "Material"
+                  ],
+                  "name": "WPI methacrylate",
+                  "uid": "_:WPI methacrylate"
+                }
               ]
             },
             {
