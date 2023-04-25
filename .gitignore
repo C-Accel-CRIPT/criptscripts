@@ -6,3 +6,9 @@ vendor
 
 # ignore python venv
 venv/
+
+# ignore jetbrains IDE settings
+.idea/
+
+# ignore vscode settings
+.vscode/
