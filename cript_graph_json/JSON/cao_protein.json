@@ -1,8 +1,7 @@
 {
-  "Project": {
     "node": ["Project"],
     "name": "CRIPT End-to-End Test Papers",
-    "Collection": [
+    "collection": [
       {
         "node": ["Collection"],
         "name": "Cao et al. Protein Elastomers",
@@ -2340,18 +2339,17 @@
             "node": ["Citation"],
             "reference": {
               "node": ["Reference"],
-              "name": "10.1021/acs.biomac.2c00372",
               "type": "journal_article",
               "title": "Strengthening and Toughening of Protein-Based Thermosets via Intermolecular Self-Assembly",
-              "authors": [
+              "author": [
                 "Yiping Cao",
                 "Bradley D. Olsen"
               ],
               "journal": "Biomacromolecules",
               "publisher": "American Chemical Society",
-              "year": "2022",
-              "volume": "23",
-              "pages": "3286-3295",
+              "year": 2022,
+              "volume": 23,
+              "pages": [3286, 3287, 3288, 3289, 3290, 3291, 3292, 3293, 3294, 3295],
               "doi": "10.1021/acs.biomac.2c00372"
             }
           }
@@ -2559,5 +2557,4 @@
         "uid": "_:PPI CP100"
       }
     ]
-  }
 }
