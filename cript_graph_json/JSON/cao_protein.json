@@ -1478,7 +1478,11 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "hydroxypropylacrylate",
+                  "material": {
+                    "node": ["Material"],
+                    "name": "hydroxypropylacrylate",
+                    "uid": "_:hydroxypropylacrylate"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -1487,7 +1491,11 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "Basic alumina",
+                  "material": {
+                    "node": ["Material"],
+                    "name": "Basic alumina",
+                    "uid": "_:Basic alumina"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -1505,7 +1513,11 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "WPC Protein methacrylate",
+                  "material": {
+                    "node": ["Material"],
+                    "name": "WPC Protein methacrylate",
+                    "uid": "_:WPC Protein methacrylate"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -1514,7 +1526,11 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "Ammonium persulfate",
+                  "material": {
+                    "node": ["Material"],
+                    "name": "Ammonium persulfate",
+                    "uid": "_:Ammonium persulfate"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -1523,7 +1539,11 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "TEMED",
+                  "material": {
+                    "node": ["Material"],
+                    "name": "TEMED",
+                    "uid": "_:TEMED"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -1594,7 +1614,11 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "hydroxypropylacrylate",
+                  "material": {
+                    "node": ["Material"],
+                    "name": "hydroxypropylacrylate",
+                    "uid": "_:hydroxypropylacrylate"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -1603,7 +1627,12 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "Basic alumina",
+                  "material": {
+    "node": ["Material"],
+    "name": "Basic alumina",
+    "uid": "_:Basic alumina"
+},
+
                   "quantity": [
                     "null"
                   ]
