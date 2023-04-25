@@ -546,7 +546,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "Sodium hydroxide",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "Sodium hydroxide",
+                    "uid": "_:Sodium hydroxide"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -555,7 +561,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "Methacrylic anhydride",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "Methacrylic anhydride",
+                    "uid": "_:Methacrylic anhydride"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -614,7 +626,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "BSA supernatant",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "BSA supernatant",
+                    "uid": "_:BSA supernatant"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -623,7 +641,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "Sodium hydroxide",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "Sodium hydroxide",
+                    "uid": "_:Sodium hydroxide"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -632,7 +656,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "Methacrylic anhydride",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "Methacrylic anhydride",
+                    "uid": "_:Methacrylic anhydride"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -691,7 +721,11 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "SPI supernatant",
+                  "material": {
+                    "node": ["Material"],
+                    "name": "SPI supernatant",
+                    "uid": "_:SPI supernatant"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -700,7 +734,11 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "Sodium hydroxide",
+                  "material": {
+                    "node": ["Material"],
+                    "name":"Sodium hydroxide",
+                    "uid":"_:Sodium hydroxide"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -709,7 +747,11 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "Methacrylic anhydride",
+                  "material": {
+                    "node": ["Material"],
+                    "name":"Methacrylic anhydride",
+                    "uid":"_:Methacrylic anhydride"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -768,7 +810,11 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "PPI supernatant",
+                  "material": {
+                    "node": ["Material"],
+                    "name":"PPI supernatant",
+                    "uid":"_:PPI supernatant"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -777,7 +823,11 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "Sodium hydroxide",
+                  "material": {
+                    "node": ["Material"],
+                    "name":"Sodium hydroxide",
+                    "uid":"_:Sodium hydroxide"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -786,7 +836,11 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "Methacrylic anhydride",
+                  "material": {
+                    "node": ["Material"],
+                    "name":"Methacrylic anhydride",
+                    "uid":"_:Methacrylic anhydride"
+                  },
                   "quantity": [
                     "null"
                   ]
