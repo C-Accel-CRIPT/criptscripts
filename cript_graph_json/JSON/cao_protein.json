@@ -1239,7 +1239,39 @@
                 }
               ],
               "prerequisite_process": [
-                "Column purification"
+                {
+              "node": [
+                "Process"
+              ],
+              "name": "Column purification",
+              "type": "multistep",
+              "ingredient": [
+                {
+                  "node": [
+                    "Ingredient"
+                  ],
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "hydroxypropylacrylate",
+                    "uid": "_:hydroxypropylacrylate"
+                  },
+                  "quantity": [
+                    "null"
+                  ]
+                },
+                {
+                  "node": [
+                    "Ingredient"
+                  ],
+                  "material": "Basic alumina",
+                  "quantity": [
+                    "null"
+                  ]
+                }
+              ]
+            }
               ],
               "product": [
                 {
@@ -1342,7 +1374,33 @@
                 }
               ],
               "prerequisite_process": [
-                "Column purification"
+                {
+              "node": [
+                "Process"
+              ],
+              "name": "Column purification",
+              "type": "multistep",
+              "ingredient": [
+                {
+                  "node": [
+                    "Ingredient"
+                  ],
+                  "material": "hydroxypropylacrylate",
+                  "quantity": [
+                    "null"
+                  ]
+                },
+                {
+                  "node": [
+                    "Ingredient"
+                  ],
+                  "material": "Basic alumina",
+                  "quantity": [
+                    "null"
+                  ]
+                }
+              ]
+            }
               ],
               "product": [
                 {
