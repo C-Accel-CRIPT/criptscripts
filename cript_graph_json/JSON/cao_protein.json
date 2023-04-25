@@ -561,7 +561,13 @@
                 }
               ],
               "product": [
-                "BSA methacrylate"
+                {
+                  "node": [
+                    "Material"
+                  ],
+                  "name": "BSA methacrylate",
+                  "uid": "_:BSA methacrylate"
+                }
               ]
             },
             {
@@ -758,14 +764,26 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "BSA methacrylate",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "BSA methacrylate",
+                    "uid": "_:BSA methacrylate"
+                  },
                   "quantity": [
                     "null"
                   ]
                 }
               ],
               "product": [
-                "BSA unheated film"
+                {
+                  "node": [
+                    "Material"
+                  ],
+                  "name": "BSA unheated film",
+                  "uid": "_:BSA unheated film"
+                }
               ]
             },
             {
