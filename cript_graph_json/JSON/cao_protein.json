@@ -1452,9 +1452,21 @@
               "prerequisite_process": [
                 "Column purification"
               ],
-              "Product": [
-                "BSA CP23",
-                "BSA CP100"
+              "product": [
+                {
+                  "node": [
+                    "Material"
+                  ],
+                  "name": "BSA CP23",
+                  "uid": "_:BSA CP23"
+                },
+                {
+                  "node": [
+                    "Material"
+                  ],
+                  "name": "BSA CP100",
+                  "uid": "_:BSA CP100"
+                }
               ]
             }
           ]
