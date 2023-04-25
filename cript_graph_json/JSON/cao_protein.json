@@ -1272,9 +1272,21 @@
               "prerequisite_process": [
                 "Column purification"
               ],
-              "Product": [
-                "WPC CP23",
-                "WPI CP100"
+              "product": [
+                {
+                  "node": [
+                    "Material"
+                  ],
+                  "name": "WPC CP23",
+                  "uid": "_:WPC CP23"
+                },
+                {
+                  "node": [
+                    "Material"
+                  ],
+                  "name": "WPC CP100",
+                  "uid": "_:WPC CP100"
+                }
               ]
             }
           ]
