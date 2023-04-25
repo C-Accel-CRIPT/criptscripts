@@ -457,7 +457,11 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "Sodium hydroxide",
+                  "material": {
+                    "node": ["Material"],
+                    "material": "Sodium hydroxide",
+                    "uid": "_:Sodium hydroxide"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -466,7 +470,11 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "Methacrylic anhydride",
+                  "material": {
+                    "node": ["Material"],
+                    "name":"Methacrylic anhydride",
+                    "uid":"_:Methacrylic anhydride"
+                  },
                   "quantity": [
                     "null"
                   ]
