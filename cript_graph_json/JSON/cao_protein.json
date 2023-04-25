@@ -169,7 +169,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "Bovine serum albumin",
+                  "material":  {
+      "node": [
+        "Material"
+      ],
+      "name": "Bovine serum albumin",
+      "uid": "_:Bovine serum albumin"
+    },
                   "quantity": [
                     "null"
                   ]
@@ -178,7 +184,11 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "water",
+                  "material": {
+                    "node": ["Material"],
+                    "name": "water",
+                    "uid": "_:water"
+                  },
                   "quantity": [
                     "null"
                   ]
