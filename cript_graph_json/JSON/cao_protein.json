@@ -779,14 +779,26 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "PPI methacrylate",
+                  "material": {
+      "node": [
+        "Material"
+      ],
+      "name": "PPI methacrylate",
+      "uid": "_:PPI methacrylate"
+    },
                   "quantity": [
                     "null"
                   ]
                 }
               ],
               "product": [
-                "PPI unheated film"
+                {
+      "node": [
+        "Material"
+      ],
+      "name": "PPI unheated film",
+      "uid": "_:PPI unheated film"
+    }
               ],
               "data": [
                 {
@@ -809,14 +821,26 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "WPI methacrylate",
+                  "material": {
+      "node": [
+        "Material"
+      ],
+      "name": "WPI methacrylate",
+      "uid": "_:WPI methacrylate"
+    },
                   "quantity": [
                     "null"
                   ]
                 }
               ],
               "product": [
-                "WPI heated film"
+                {
+      "node": [
+        "Material"
+      ],
+      "name": "WPI heated film",
+      "uid": "_:WPI heated film"
+    }
               ]
             },
             {
@@ -830,14 +854,26 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "BSA methacrylate",
+                  "material": {
+      "node": [
+        "Material"
+      ],
+      "name": "BSA methacrylate",
+      "uid": "_:BSA methacrylate"
+    },
                   "quantity": [
                     "null"
                   ]
                 }
               ],
               "product": [
-                "BSA heated film"
+                {
+      "node": [
+        "Material"
+      ],
+      "name": "BSA heated film",
+      "uid": "_:BSA heated film"
+    }
               ]
             },
             {
@@ -851,14 +887,26 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "SPI methacrylate",
+                  "material": {
+      "node": [
+        "Material"
+      ],
+      "name": "SPI methacrylate",
+      "uid": "_:SPI methacrylate"
+    },
                   "quantity": [
                     "null"
                   ]
                 }
               ],
               "product": [
-                "SPI heated film"
+                {
+      "node": [
+        "Material"
+      ],
+      "name": "SPI heated film",
+      "uid": "_:SPI heated film"
+    }
               ],
               "data": [
                 {
@@ -881,14 +929,26 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "PPI methacrylate",
+                  "material": {
+      "node": [
+        "Material"
+      ],
+      "name": "PPI methacrylate",
+      "uid": "_:PPI methacrylate"
+    },
                   "quantity": [
                     "null"
                   ]
                 }
               ],
               "product": [
-                "PPI heated film"
+                {
+      "node": [
+        "Material"
+      ],
+      "name": "PPI heated film",
+      "uid": "_:PPI heated film"
+    }
               ],
               "data": [
                 {
@@ -1033,7 +1093,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "hydroxypropylacrylate",
+                  "material": {
+                    "node": [
+                    "Material"
+                  ],
+                    "name": "hydroxypropylacrylate",
+                    "uid": "_:hydroxypropylacrylate"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -1503,7 +1569,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "WPI CP23",
+                  "material": {
+      "node": [
+        "Material"
+      ],
+      "name": "WPI CP23",
+      "uid": "_:WPI CP23"
+    },
                   "quantity": [
                     "null"
                   ]
