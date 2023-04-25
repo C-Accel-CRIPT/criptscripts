@@ -2142,7 +2142,7 @@
                 "Process"
               ],
               "name": "WPI CP120 HEQ 50",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -2156,7 +2156,13 @@
               ],
               "prerequisite_process": [],
               "product": [
-                "WPI supernatant"
+                {
+                  "node": [
+                    "Material"
+                  ],
+                  "name": "WPI supernatant",
+                  "uid": "_:WPI supernatant"
+                }
               ]
             },
             {
@@ -2164,7 +2170,7 @@
                 "Process"
               ],
               "name": "WPI CP120 Die cutting",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -2180,7 +2186,13 @@
                 "WPI CP120 HEQ 50"
               ],
               "product": [
-                "WPI supernatant"
+                {
+      "node": [
+        "Material"
+      ],
+      "name": "WPI supernatant",
+      "uid": "_:WPI supernatant"
+    }
               ]
             }
           ],
@@ -2189,21 +2201,21 @@
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "WPI CP120 FTIR"
             },
             {
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "WPI CP120 Image"
             },
             {
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "WPI CP120 Tensile Test"
             }
           ]
