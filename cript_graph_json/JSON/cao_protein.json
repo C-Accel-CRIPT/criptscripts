@@ -2501,7 +2501,7 @@
                 "Process"
               ],
               "name": "BSA CP23 HEQ 50",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -2521,7 +2521,7 @@
                 "Process"
               ],
               "name": "BSA CP23 Die cutting",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -2544,14 +2544,14 @@
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "BSA CP23 FTIR"
             },
             {
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "BSA CP23 Tensile Test"
             }
           ]
