@@ -140,12 +140,12 @@
               ],
               "product": [
                 {
-      "node": [
-        "Material"
-      ],
-      "name": "WPP supernatant",
-      "uid": "_:WPP supernatant"
-    }
+                  "node": [
+                    "Material"
+                  ],
+                  "name": "WPP supernatant",
+                  "uid": "_:WPP supernatant"
+                }
               ]
             },
             {
@@ -176,12 +176,12 @@
               ],
               "product": [
                 {
-      "node": [
-        "Material"
-      ],
-      "name": "BSA supernatant",
-      "uid": "_:BSA supernatant"
-    }
+                  "node": [
+                    "Material"
+                  ],
+                  "name": "BSA supernatant",
+                  "uid": "_:BSA supernatant"
+                }
               ]
             },
             {
@@ -212,12 +212,12 @@
               ],
               "product": [
                 {
-      "node": [
-        "Material"
-      ],
-      "name": "SPI supernatant",
-      "uid": "_:SPI supernatant"
-    }
+                  "node": [
+                    "Material"
+                  ],
+                  "name": "SPI supernatant",
+                  "uid": "_:SPI supernatant"
+                }
               ]
             },
             {
@@ -254,12 +254,12 @@
               ],
               "product": [
                 {
-      "node": [
-        "Material"
-      ],
-      "name": "PPI supernatant",
-      "uid": "_:PPI supernatant"
-    }
+                  "node": [
+                    "Material"
+                  ],
+                  "name": "PPI supernatant",
+                  "uid": "_:PPI supernatant"
+                }
               ]
             },
             {
@@ -2963,7 +2963,9 @@
               ],
               "product": [
                 {
-                  "node": ["Material"],
+                  "node": [
+                    "Material"
+                  ],
                   "name": "PHPA",
                   "uid": "_:PHPA"
                 }
