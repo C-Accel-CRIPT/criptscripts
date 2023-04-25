@@ -123,7 +123,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "Whey protein powder",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "Whey protein powder",
+                    "uid": "_:Whey protein powder"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -132,7 +138,11 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "water",
+                  "material": {
+                    "node": ["Material"],
+                    "name" :"water",
+                    "uid" :"_:water"
+                  },
                   "quantity": [
                     "null"
                   ]
