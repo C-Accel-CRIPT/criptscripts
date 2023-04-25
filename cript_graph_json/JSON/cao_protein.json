@@ -1854,7 +1854,7 @@
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "WPI CP23 Moisture meas 90"
             }
           ]
@@ -1870,7 +1870,7 @@
                 "Process"
               ],
               "name": "WPI CP100 HEQ 4",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -1890,7 +1890,7 @@
                 "Process"
               ],
               "name": "WPI CP100 HEQ 20",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -1912,7 +1912,7 @@
                 "Process"
               ],
               "name": "WPI CP100 HEQ 50",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -1934,7 +1934,7 @@
                 "Process"
               ],
               "name": "WPI CP100 Die cutting",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -1956,7 +1956,7 @@
                 "Process"
               ],
               "name": "WPI CP100 HEQ 70",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -1978,7 +1978,7 @@
                 "Process"
               ],
               "name": "WPI CP100 HEQ 90",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -2001,49 +2001,49 @@
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "WPI CP100 Moisture meas 4"
             },
             {
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "WPI CP100 Image"
             },
             {
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "WPI CP100 FTIR"
             },
             {
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "WPI CP100 Moisture meas 20"
             },
             {
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "WPI CP100 Moisture meas 50"
             },
             {
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "WPI CP100 Moisture meas 70"
             },
             {
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "WPI CP100 Moisture meas 90"
             }
           ]
