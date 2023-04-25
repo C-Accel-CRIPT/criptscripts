@@ -21,7 +21,7 @@
                 "Process"
               ],
               "name": "WPI Centrifugation",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -69,7 +69,7 @@
                 "Process"
               ],
               "name": "WPP Centrifugation",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -117,7 +117,7 @@
                 "Process"
               ],
               "name": "WPC Centrifugation",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -147,7 +147,7 @@
                 "Process"
               ],
               "name": "BSA Centrifugation",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -177,7 +177,7 @@
                 "Process"
               ],
               "name": "SPI Centrifugation",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -207,7 +207,7 @@
                 "Process"
               ],
               "name": "PPI Centrifugation",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -243,7 +243,7 @@
                 "Process"
               ],
               "name": "WPI Methacrylation",
-              "type": "null",
+              "type": "multistep",
               "prerequisite_process": [
                 {
                   "node": [
@@ -314,7 +314,7 @@
                 "Process"
               ],
               "name": "WPP Methacrylation",
-              "type": "null",
+              "type": "multistep",
               "prerequisite_process": [
                 {
                   "node": [
@@ -385,7 +385,7 @@
                 "Process"
               ],
               "name": "WPC Methacrylation",
-              "type": "null",
+              "type": "multistep",
               "prerequisite_process": [
                 {
                   "node": [
@@ -456,7 +456,7 @@
                 "Process"
               ],
               "name": "BSA Methacrylation",
-              "type": "null",
+              "type": "multistep",
               "prerequisite_process": [
                 {
                   "node": [
@@ -527,7 +527,7 @@
                 "Process"
               ],
               "name": "SPI Methacrylation",
-              "type": "null",
+              "type": "multistep",
               "prerequisite_process": [
                 {
                   "node": [
@@ -598,7 +598,7 @@
                 "Process"
               ],
               "name": "PPI Methacrylation",
-              "type": "null",
+              "type": "multistep",
               "prerequisite_process": [
                 {
                   "node": [
