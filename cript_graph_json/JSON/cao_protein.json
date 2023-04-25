@@ -139,7 +139,13 @@
                 }
               ],
               "product": [
-                "WPP supernatant"
+                {
+      "node": [
+        "Material"
+      ],
+      "name": "WPP supernatant",
+      "uid": "_:WPP supernatant"
+    }
               ]
             },
             {
