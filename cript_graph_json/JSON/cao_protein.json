@@ -737,14 +737,26 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "SPI methacrylate",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "SPI methacrylate",
+                    "uid": "_:SPI methacrylate"
+                  },
                   "quantity": [
                     "null"
                   ]
                 }
               ],
               "product": [
-                "SPI unheated film"
+                {
+                  "node": [
+                    "Material"
+                  ],
+                  "name": "SPI unheated film",
+                  "uid": "_:SPI unheated film"
+                }
               ],
               "data": [
                 {
