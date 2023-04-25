@@ -407,7 +407,13 @@
                 }
               ],
               "product": [
-                "WPC methacrylate"
+                {
+                  "node": [
+                    "Material"
+                  ],
+                  "name": "WPC methacrylate",
+                  "uid": "_:WPC methacrylate"
+                }
               ]
             },
             {
@@ -478,7 +484,13 @@
                 }
               ],
               "product": [
-                "WPC methacrylate"
+                {
+                  "node": [
+                    "Material"
+                  ],
+                  "name": "WPC methacrylate",
+                  "uid": "_:WPC methacrylate"
+                }
               ]
             },
             {
