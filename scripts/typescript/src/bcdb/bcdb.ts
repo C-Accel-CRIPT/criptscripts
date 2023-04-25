@@ -37,7 +37,7 @@ export class BCDBLoader {
 
     //-- Load desired sheets
 
-    log(`=-=-=-=-=-=-=-=-=-= RCBC XLSX to JSON =-=-=-=-=-=-=-=-=`);
+    log(`=-=-=-=-=-=-=-=-=-= BCDB XLSX to JSON =-=-=-=-=-=-=-=-=`);
 
     const workBook = XLSX.readFile(options.input_file_path, {
       sheets: options.sheets,
@@ -46,7 +46,6 @@ export class BCDBLoader {
       cellFormula: false,
       dense: true, // really usefull to remove a lot of useless data
     });
-    log(`OK`);
 
     //-- Load the sheets
 
@@ -338,6 +337,7 @@ export class BCDBLoader {
             if (!material.bigsmiles) return log(`No bigsmiles found for ${material.name}`);
 
             // try to get meta data from blocks map
+            // meta data are coming from the 'blocks' tab in the xlsx
             const metaData = blocks.get(material.bigsmiles);
             if (!metaData) return error(index, `No meta data found (in blocks) for ${material.bigsmiles}, keep name: ${material.name} `);
             polymer.name = metaData.name;

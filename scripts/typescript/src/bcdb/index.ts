@@ -1,11 +1,6 @@
 /**
- * The purpose of this script is to declare the Graph (defined in https://docs.google.com/presentation/d/1eXM7870YM2sxQQvMFahI2Ox8-EFCGaw_/edit#slide=id.p1)
- * and export it as a JSON file.
- *
- * Documentation reference on XSLX: https://docs.sheetjs.com/docs
- *
- * This script does not import all th sheets and columns.
- * See link to google drive files above (column_meanings.xlsx)
+ * The purpose of this script is to convert BCBD's XLSX to CRIPT JSON.
+ * @see BCBDLoader for more information
  */
 
 import { finishedAsync, output_dir_path, write_json_helper as write_json_to_out_folder } from "@utilities";
