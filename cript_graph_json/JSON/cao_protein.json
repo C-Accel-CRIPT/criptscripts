@@ -2363,7 +2363,7 @@
                 "Process"
               ],
               "name": "WPC CP23 HEQ 50",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -2383,13 +2383,19 @@
                 "Process"
               ],
               "name": "WPC CP23 Die cutting",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "WPC CP23",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "WPC CP23",
+                    "uid": "_:WPC CP23"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -2406,14 +2412,14 @@
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "WPC CP23 FTIR"
             },
             {
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "WPC CP23 Tensile Test"
             }
           ]
