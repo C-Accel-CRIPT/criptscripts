@@ -139,9 +139,11 @@
                     "Ingredient"
                   ],
                   "material": {
-                    "node": ["Material"],
-                    "name" :"water",
-                    "uid" :"_:water"
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "water",
+                    "uid": "_:water"
                   },
                   "quantity": [
                     "null"
@@ -169,13 +171,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material":  {
-      "node": [
-        "Material"
-      ],
-      "name": "Bovine serum albumin",
-      "uid": "_:Bovine serum albumin"
-    },
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "Bovine serum albumin",
+                    "uid": "_:Bovine serum albumin"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -185,7 +187,9 @@
                     "Ingredient"
                   ],
                   "material": {
-                    "node": ["Material"],
+                    "node": [
+                      "Material"
+                    ],
                     "name": "water",
                     "uid": "_:water"
                   },
@@ -215,7 +219,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "Soy protein isolate",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "Soy protein isolate",
+                    "uid": "_:Soy protein isolate"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -224,7 +234,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "water",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "water",
+                    "uid": "_:water"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -266,7 +282,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "water",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "water",
+                    "uid": "_:water"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -325,7 +347,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "WPI supernatant",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "WPI supernatant",
+                    "uid": "_:WPI supernatant"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -334,7 +362,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "Sodium hydroxide",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "Sodium hydroxide",
+                    "uid": "_:Sodium hydroxide"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -343,7 +377,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "Methacrylic anhydride",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "Methacrylic anhydride",
+                    "uid": "_:Methacrylic anhydride"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -402,7 +442,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "WPC supernatant",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "WPC supernatant",
+                    "uid": "_:WPC supernatant"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -485,7 +531,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "WPP supernatant",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "WPP supernatant",
+                    "uid": "_:WPP supernatant"
+                  },
                   "quantity": [
                     "null"
                   ]
