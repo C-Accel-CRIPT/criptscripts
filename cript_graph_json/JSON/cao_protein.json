@@ -755,16 +755,20 @@
                     "Material"
                   ],
                   "name": "SPI unheated film",
-                  "uid": "_:SPI unheated film"
-                }
-              ],
-              "data": [
-                {
-                  "node": [
-                    "Data"
-                  ],
-                  "name": "SPI unheated film FTIR",
-                  "type": "null"
+                  "uid": "_:SPI unheated film",
+                  "property": [
+                    {
+                      "data": [
+                        {
+                          "node": [
+                            "Data"
+                          ],
+                          "name": "SPI unheated film FTIR",
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  ]
                 }
               ]
             },
@@ -780,12 +784,12 @@
                     "Ingredient"
                   ],
                   "material": {
-      "node": [
-        "Material"
-      ],
-      "name": "PPI methacrylate",
-      "uid": "_:PPI methacrylate"
-    },
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "PPI methacrylate",
+                    "uid": "_:PPI methacrylate"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -793,12 +797,12 @@
               ],
               "product": [
                 {
-      "node": [
-        "Material"
-      ],
-      "name": "PPI unheated film",
-      "uid": "_:PPI unheated film"
-    }
+                  "node": [
+                    "Material"
+                  ],
+                  "name": "PPI unheated film",
+                  "uid": "_:PPI unheated film"
+                }
               ],
               "data": [
                 {
@@ -822,12 +826,12 @@
                     "Ingredient"
                   ],
                   "material": {
-      "node": [
-        "Material"
-      ],
-      "name": "WPI methacrylate",
-      "uid": "_:WPI methacrylate"
-    },
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "WPI methacrylate",
+                    "uid": "_:WPI methacrylate"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -835,12 +839,12 @@
               ],
               "product": [
                 {
-      "node": [
-        "Material"
-      ],
-      "name": "WPI heated film",
-      "uid": "_:WPI heated film"
-    }
+                  "node": [
+                    "Material"
+                  ],
+                  "name": "WPI heated film",
+                  "uid": "_:WPI heated film"
+                }
               ]
             },
             {
@@ -855,12 +859,12 @@
                     "Ingredient"
                   ],
                   "material": {
-      "node": [
-        "Material"
-      ],
-      "name": "BSA methacrylate",
-      "uid": "_:BSA methacrylate"
-    },
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "BSA methacrylate",
+                    "uid": "_:BSA methacrylate"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -868,12 +872,12 @@
               ],
               "product": [
                 {
-      "node": [
-        "Material"
-      ],
-      "name": "BSA heated film",
-      "uid": "_:BSA heated film"
-    }
+                  "node": [
+                    "Material"
+                  ],
+                  "name": "BSA heated film",
+                  "uid": "_:BSA heated film"
+                }
               ]
             },
             {
@@ -888,12 +892,12 @@
                     "Ingredient"
                   ],
                   "material": {
-      "node": [
-        "Material"
-      ],
-      "name": "SPI methacrylate",
-      "uid": "_:SPI methacrylate"
-    },
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "SPI methacrylate",
+                    "uid": "_:SPI methacrylate"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -901,12 +905,12 @@
               ],
               "product": [
                 {
-      "node": [
-        "Material"
-      ],
-      "name": "SPI heated film",
-      "uid": "_:SPI heated film"
-    }
+                  "node": [
+                    "Material"
+                  ],
+                  "name": "SPI heated film",
+                  "uid": "_:SPI heated film"
+                }
               ],
               "data": [
                 {
@@ -930,12 +934,12 @@
                     "Ingredient"
                   ],
                   "material": {
-      "node": [
-        "Material"
-      ],
-      "name": "PPI methacrylate",
-      "uid": "_:PPI methacrylate"
-    },
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "PPI methacrylate",
+                    "uid": "_:PPI methacrylate"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -943,12 +947,12 @@
               ],
               "product": [
                 {
-      "node": [
-        "Material"
-      ],
-      "name": "PPI heated film",
-      "uid": "_:PPI heated film"
-    }
+                  "node": [
+                    "Material"
+                  ],
+                  "name": "PPI heated film",
+                  "uid": "_:PPI heated film"
+                }
               ],
               "data": [
                 {
@@ -1095,8 +1099,8 @@
                   ],
                   "material": {
                     "node": [
-                    "Material"
-                  ],
+                      "Material"
+                    ],
                     "name": "hydroxypropylacrylate",
                     "uid": "_:hydroxypropylacrylate"
                   },
@@ -1570,12 +1574,12 @@
                     "Ingredient"
                   ],
                   "material": {
-      "node": [
-        "Material"
-      ],
-      "name": "WPI CP23",
-      "uid": "_:WPI CP23"
-    },
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "WPI CP23",
+                    "uid": "_:WPI CP23"
+                  },
                   "quantity": [
                     "null"
                   ]
