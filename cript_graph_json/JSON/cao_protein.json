@@ -1392,7 +1392,7 @@
                 "Process"
               ],
               "name": "Column purification",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -1419,7 +1419,7 @@
                 "Process"
               ],
               "name": "Thermoset synthesis",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
