@@ -677,7 +677,7 @@
                 "Process"
               ],
               "name": "WPI unheated drying",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -710,7 +710,7 @@
                 "Process"
               ],
               "name": "BSA unheated drying",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -731,7 +731,7 @@
                 "Process"
               ],
               "name": "SPI unheated drying",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -777,7 +777,7 @@
                 "Process"
               ],
               "name": "PPI unheated drying",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -823,7 +823,7 @@
                 "Process"
               ],
               "name": "WPI heated drying",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -856,7 +856,7 @@
                 "Process"
               ],
               "name": "BSA heated drying",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -889,7 +889,7 @@
                 "Process"
               ],
               "name": "SPI heated drying",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -935,7 +935,7 @@
                 "Process"
               ],
               "name": "PPI heated drying",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
