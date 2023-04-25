@@ -1662,7 +1662,7 @@
                 "Process"
               ],
               "name": "WPI CP23 HEQ 4",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -1687,7 +1687,7 @@
                 "Process"
               ],
               "name": "WPI CP23 HEQ 20",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -1709,7 +1709,7 @@
                 "Process"
               ],
               "name": "WPI CP23 HEQ 50",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -1731,7 +1731,7 @@
                 "Process"
               ],
               "name": "WPI CP100 Die cutting",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -1753,7 +1753,7 @@
                 "Process"
               ],
               "name": "WPI CP100 HEQ 70",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -1775,7 +1775,7 @@
                 "Process"
               ],
               "name": "WPI CP100 HEQ 90",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
