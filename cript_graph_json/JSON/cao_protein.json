@@ -2160,7 +2160,7 @@
               {
                 "node": ["Material"],
                 "name": "Pea protein isolate",
-                "name"uid "Pea _:protein isolate"
+                "uid": "_: Pea _:protein isolate"
               },
               {
                 "node": ["Material"],
