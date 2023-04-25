@@ -2567,7 +2567,7 @@
                 "Process"
               ],
               "name": "BSA CP100 HEQ 50",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -2587,7 +2587,7 @@
                 "Process"
               ],
               "name": "BSA CP100 Die cutting",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -2610,14 +2610,14 @@
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "BSA CP100 FTIR"
             },
             {
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "BSA CP100 Tensile Test"
             }
           ]
