@@ -1849,7 +1849,9 @@
                     "Ingredient"
                   ],
                   "material": {
-                    "node": ["Material"],
+                    "node": [
+                      "Material"
+                    ],
                     "name": "Ammonium persulfate",
                     "uid": "_:Ammonium persulfate"
                   },
@@ -1862,7 +1864,9 @@
                     "Ingredient"
                   ],
                   "material": {
-                    "node": ["Material"],
+                    "node": [
+                      "Material"
+                    ],
                     "name": "TEMED",
                     "uid": "_:TEMED"
                   },
@@ -1937,9 +1941,11 @@
                     "Ingredient"
                   ],
                   "material": {
-                    "node": ["Material"],
-                    "name":"hydroxypropylacrylate",
-                    "uid":"_:hydroxypropylacrylate"
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "hydroxypropylacrylate",
+                    "uid": "_:hydroxypropylacrylate"
                   },
                   "quantity": [
                     "null"
@@ -1950,9 +1956,11 @@
                     "Ingredient"
                   ],
                   "material": {
-                    "node": ["Material"],
-                    "name":"Basic alumina",
-                    "uid":"_:Basic alumina"
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "Basic alumina",
+                    "uid": "_:Basic alumina"
                   },
                   "quantity": [
                     "null"
@@ -1972,7 +1980,9 @@
                     "Ingredient"
                   ],
                   "material": {
-                    "node": ["Material"],
+                    "node": [
+                      "Material"
+                    ],
                     "name": "SPI methacrylate",
                     "uid": "_:SPI methacrylate"
                   },
@@ -1985,7 +1995,9 @@
                     "Ingredient"
                   ],
                   "material": {
-                    "node": ["Material"],
+                    "node": [
+                      "Material"
+                    ],
                     "name": "Ammonium persulfate",
                     "uid": "_:Ammonium persulfate"
                   },
@@ -1998,9 +2010,11 @@
                     "Ingredient"
                   ],
                   "material": {
-                    "node": ["Material"],
-                    "name":"TEMED",
-                    "uid":"_:TEMED"
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "TEMED",
+                    "uid": "_:TEMED"
                   },
                   "quantity": [
                     "null"
