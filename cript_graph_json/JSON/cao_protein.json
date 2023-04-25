@@ -1798,56 +1798,56 @@
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "WPI CP23 FTIR"
             },
             {
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "WPI CP23 Image"
             },
             {
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "WPI CP23 Tensile Test"
             },
             {
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "WPI CP23 Moisture meas 4"
             },
             {
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "WPI CP23 Moisture meas 20"
             },
             {
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "WPI CP23 Moisture meas 20"
             },
             {
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "WPI CP23 Moisture meas 50"
             },
             {
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "WPI CP23 Moisture meas 70"
             },
             {
