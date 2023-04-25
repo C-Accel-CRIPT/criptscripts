@@ -917,14 +917,14 @@
                   "property": [
                     {
                       "data": [
-                {
-                  "node": [
-                    "Data"
-                  ],
-                  "name": "SPI unheated film FTIR",
-                  "type": "null"
-                }
-              ]
+                        {
+                          "node": [
+                            "Data"
+                          ],
+                          "name": "SPI unheated film FTIR",
+                          "type": "null"
+                        }
+                      ]
                     }
                   ]
                 }
@@ -963,14 +963,14 @@
                   "property": [
                     {
                       "data": [
-                {
-                  "node": [
-                    "Data"
-                  ],
-                  "name": "SPI unheated film FTIR",
-                  "type": "null"
-                }
-              ]
+                        {
+                          "node": [
+                            "Data"
+                          ],
+                          "name": "SPI unheated film FTIR",
+                          "type": "null"
+                        }
+                      ]
                     }
                   ]
                 }
