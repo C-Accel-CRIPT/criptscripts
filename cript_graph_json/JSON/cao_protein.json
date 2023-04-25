@@ -2765,7 +2765,7 @@
                 "Process"
               ],
               "name": "PPI CP23 HEQ 50",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -2785,7 +2785,7 @@
                 "Process"
               ],
               "name": "PPI CP23 Die cutting",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -2808,14 +2808,14 @@
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "PPI CP23 FTIR"
             },
             {
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "PPI CP23 Tensile Test"
             }
           ]
