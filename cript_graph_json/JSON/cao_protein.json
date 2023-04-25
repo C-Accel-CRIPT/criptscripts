@@ -2897,7 +2897,7 @@
                 "Process"
               ],
               "name": "Column purification",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -2926,13 +2926,17 @@
                 "Process"
               ],
               "name": "Thermoset synthesis",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [],
               "prerequisite_process": [
                 "Column purification"
               ],
               "product": [
-                "PHPA"
+                {
+                  "node": ["Material"],
+                  "name": "PHPA",
+                  "uid": "_:PHPA"
+                }
               ]
             }
           ],
@@ -2941,7 +2945,7 @@
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "FTIR"
             }
           ]
