@@ -638,7 +638,13 @@
                 }
               ],
               "product": [
-                "SPI methacrylate"
+                {
+      "node": [
+        "Material"
+      ],
+      "name": "SPI methacrylate",
+      "uid": "_:SPI methacrylate"
+    }
               ]
             },
             {
@@ -709,7 +715,13 @@
                 }
               ],
               "product": [
-                "PPI methacrylate"
+                {
+      "node": [
+        "Material"
+      ],
+      "name": "PPI methacrylate",
+      "uid": "_:PPI methacrylate"
+    }
               ]
             }
           ]
