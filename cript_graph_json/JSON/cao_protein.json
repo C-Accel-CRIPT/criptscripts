@@ -1794,7 +1794,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "hydroxypropylacrylate",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "hydroxypropylacrylate",
+                    "uid": "_:hydroxypropylacrylate"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -1803,7 +1809,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "Basic alumina",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "Basic alumina",
+                    "uid": "_:Basic alumina"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -1821,7 +1833,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "BSA methacrylate",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "BSA methacrylate",
+                    "uid": "_:BSA methacrylate"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -1830,7 +1848,11 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "Ammonium persulfate",
+                  "material": {
+                    "node": ["Material"],
+                    "name": "Ammonium persulfate",
+                    "uid": "_:Ammonium persulfate"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -1839,7 +1861,11 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "TEMED",
+                  "material": {
+                    "node": ["Material"],
+                    "name": "TEMED",
+                    "uid": "_:TEMED"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -1910,7 +1936,11 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "hydroxypropylacrylate",
+                  "material": {
+                    "node": ["Material"],
+                    "name":"hydroxypropylacrylate",
+                    "uid":"_:hydroxypropylacrylate"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -1919,7 +1949,11 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "Basic alumina",
+                  "material": {
+                    "node": ["Material"],
+                    "name":"Basic alumina",
+                    "uid":"_:Basic alumina"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -1937,7 +1971,11 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "SPI methacrylate",
+                  "material": {
+                    "node": ["Material"],
+                    "name": "SPI methacrylate",
+                    "uid": "_:SPI methacrylate"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -1946,7 +1984,11 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "Ammonium persulfate",
+                  "material": {
+                    "node": ["Material"],
+                    "name": "Ammonium persulfate",
+                    "uid": "_:Ammonium persulfate"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -1955,7 +1997,11 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "TEMED",
+                  "material": {
+                    "node": ["Material"],
+                    "name":"TEMED",
+                    "uid":"_:TEMED"
+                  },
                   "quantity": [
                     "null"
                   ]
