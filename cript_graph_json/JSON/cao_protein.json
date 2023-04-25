@@ -1632,9 +1632,21 @@
               "prerequisite_process": [
                 "Column purification"
               ],
-              "Product": [
-                "PPI CP23",
-                "PPI CP100"
+              "product": [
+                {
+                  "node": [
+                    "Material"
+                  ],
+                  "name": "PPI CP23",
+                  "uid": "_:PPI CP23"
+                },
+                {
+                  "node": [
+                    "Material"
+                  ],
+                  "name": "PPI CP100",
+                  "uid": "_:PPI CP100"
+                }
               ]
             }
           ]
