@@ -2425,7 +2425,26 @@
                 }
               ],
               "prerequisite_process": [
-                "WPI CP100 HEQ 4"
+                {
+                  "node": [
+                    "Process"
+                  ],
+                  "name": "WPI CP100 HEQ 4",
+                  "type": "multistep",
+                  "ingredient": [
+                    {
+                      "node": [
+                        "Ingredient"
+                      ],
+                      "material": "WPI CP100",
+                      "quantity": [
+                        "null"
+                      ]
+                    }
+                  ],
+                  "prerequisite_process": [],
+                  "product": []
+                }
               ],
               "product": []
             },
@@ -2447,7 +2466,47 @@
                 }
               ],
               "prerequisite_process": [
-                "WPI CP100 HEQ 20"
+                {
+                  "node": [
+                    "Process"
+                  ],
+                  "name": "WPI CP100 HEQ 20",
+                  "type": "multistep",
+                  "ingredient": [
+                    {
+                      "node": [
+                        "Ingredient"
+                      ],
+                      "material": "WPI CP100",
+                      "quantity": [
+                        "null"
+                      ]
+                    }
+                  ],
+                  "prerequisite_process": [
+                    {
+                      "node": [
+                        "Process"
+                      ],
+                      "name": "WPI CP100 HEQ 4",
+                      "type": "multistep",
+                      "ingredient": [
+                        {
+                          "node": [
+                            "Ingredient"
+                          ],
+                          "material": "WPI CP100",
+                          "quantity": [
+                            "null"
+                          ]
+                        }
+                      ],
+                      "prerequisite_process": [],
+                      "product": []
+                    }
+                  ],
+                  "product": []
+                }
               ],
               "product": []
             },
@@ -2469,7 +2528,68 @@
                 }
               ],
               "prerequisite_process": [
-                "WPI CP100 HEQ 50"
+                {
+                  "node": [
+                    "Process"
+                  ],
+                  "name": "WPI CP100 HEQ 50",
+                  "type": "multistep",
+                  "ingredient": [
+                    {
+                      "node": [
+                        "Ingredient"
+                      ],
+                      "material": "WPI CP100",
+                      "quantity": [
+                        "null"
+                      ]
+                    }
+                  ],
+                  "prerequisite_process": [
+                    {
+                      "node": [
+                        "Process"
+                      ],
+                      "name": "WPI CP100 HEQ 20",
+                      "type": "multistep",
+                      "ingredient": [
+                        {
+                          "node": [
+                            "Ingredient"
+                          ],
+                          "material": "WPI CP100",
+                          "quantity": [
+                            "null"
+                          ]
+                        }
+                      ],
+                      "prerequisite_process": [
+                        {
+                          "node": [
+                            "Process"
+                          ],
+                          "name": "WPI CP100 HEQ 4",
+                          "type": "multistep",
+                          "ingredient": [
+                            {
+                              "node": [
+                                "Ingredient"
+                              ],
+                              "material": "WPI CP100",
+                              "quantity": [
+                                "null"
+                              ]
+                            }
+                          ],
+                          "prerequisite_process": [],
+                          "product": []
+                        }
+                      ],
+                      "product": []
+                    }
+                  ],
+                  "product": []
+                }
               ],
               "product": []
             },
@@ -2491,7 +2611,68 @@
                 }
               ],
               "prerequisite_process": [
-                "WPI CP100 HEQ 50"
+                {
+                  "node": [
+                    "Process"
+                  ],
+                  "name": "WPI CP100 HEQ 50",
+                  "type": "multistep",
+                  "ingredient": [
+                    {
+                      "node": [
+                        "Ingredient"
+                      ],
+                      "material": "WPI CP100",
+                      "quantity": [
+                        "null"
+                      ]
+                    }
+                  ],
+                  "prerequisite_process": [
+                    {
+                      "node": [
+                        "Process"
+                      ],
+                      "name": "WPI CP100 HEQ 20",
+                      "type": "multistep",
+                      "ingredient": [
+                        {
+                          "node": [
+                            "Ingredient"
+                          ],
+                          "material": "WPI CP100",
+                          "quantity": [
+                            "null"
+                          ]
+                        }
+                      ],
+                      "prerequisite_process": [
+                        {
+                          "node": [
+                            "Process"
+                          ],
+                          "name": "WPI CP100 HEQ 4",
+                          "type": "multistep",
+                          "ingredient": [
+                            {
+                              "node": [
+                                "Ingredient"
+                              ],
+                              "material": "WPI CP100",
+                              "quantity": [
+                                "null"
+                              ]
+                            }
+                          ],
+                          "prerequisite_process": [],
+                          "product": []
+                        }
+                      ],
+                      "product": []
+                    }
+                  ],
+                  "product": []
+                }
               ],
               "product": []
             },
@@ -2513,7 +2694,89 @@
                 }
               ],
               "prerequisite_process": [
-                "WPI CP100 HEQ 70"
+                {
+                  "node": [
+                    "Process"
+                  ],
+                  "name": "WPI CP100 HEQ 70",
+                  "type": "multistep",
+                  "ingredient": [
+                    {
+                      "node": [
+                        "Ingredient"
+                      ],
+                      "material": "WPI CP100",
+                      "quantity": [
+                        "null"
+                      ]
+                    }
+                  ],
+                  "prerequisite_process": [
+                    {
+                      "node": [
+                        "Process"
+                      ],
+                      "name": "WPI CP100 HEQ 50",
+                      "type": "multistep",
+                      "ingredient": [
+                        {
+                          "node": [
+                            "Ingredient"
+                          ],
+                          "material": "WPI CP100",
+                          "quantity": [
+                            "null"
+                          ]
+                        }
+                      ],
+                      "prerequisite_process": [
+                        {
+                          "node": [
+                            "Process"
+                          ],
+                          "name": "WPI CP100 HEQ 20",
+                          "type": "multistep",
+                          "ingredient": [
+                            {
+                              "node": [
+                                "Ingredient"
+                              ],
+                              "material": "WPI CP100",
+                              "quantity": [
+                                "null"
+                              ]
+                            }
+                          ],
+                          "prerequisite_process": [
+                            {
+                              "node": [
+                                "Process"
+                              ],
+                              "name": "WPI CP100 HEQ 4",
+                              "type": "multistep",
+                              "ingredient": [
+                                {
+                                  "node": [
+                                    "Ingredient"
+                                  ],
+                                  "material": "WPI CP100",
+                                  "quantity": [
+                                    "null"
+                                  ]
+                                }
+                              ],
+                              "prerequisite_process": [],
+                              "product": []
+                            }
+                          ],
+                          "product": []
+                        }
+                      ],
+                      "product": []
+                    }
+                  ],
+                  "product": []
+                }
               ],
               "product": []
             }
