@@ -56,7 +56,7 @@
                   "node": [
                     "Material"
                   ],
-                  "uid": "_:0.035 volume fraction CM gel"
+                  "uid": "_:Pea protein isolate"
                 }
               ]
             },
@@ -193,7 +193,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "Pea protein isolate",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "Pea protein isolate",
+                    "uid": "_:Pea protein isolate"
+                  },
                   "quantities": [
                     "null"
                   ]
@@ -3049,7 +3055,7 @@
         "Material"
       ],
       "name": "Whey protein concentrate",
-      "uid": "_:0.035 volume fraction CM gel"
+      "uid": "_:Whey protein concentrate"
     },
     {
       "node": [
@@ -3070,7 +3076,7 @@
         "Material"
       ],
       "name": "Pea protein isolate",
-      "uid": "_:0.035 volume fraction CM gel"
+      "uid": "_:Pea protein isolate"
     },
     {
       "node": [
