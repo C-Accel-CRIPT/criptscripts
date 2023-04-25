@@ -1542,9 +1542,21 @@
               "prerequisite_process": [
                 "Column purification"
               ],
-              "Product": [
-                "SPI CP23",
-                "SPI CP100"
+              "product": [
+                {
+                  "node": [
+                    "Material"
+                  ],
+                  "name": "SPI CP23",
+                  "uid": "_:SPI CP23"
+                },
+                {
+                  "node": [
+                    "Material"
+                  ],
+                  "name": "SPI CP100",
+                  "uid": "_:SPI CP100"
+                }
               ]
             }
           ]
