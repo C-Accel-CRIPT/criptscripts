@@ -913,16 +913,20 @@
                     "Material"
                   ],
                   "name": "SPI heated film",
-                  "uid": "_:SPI heated film"
-                }
-              ],
-              "data": [
+                  "uid": "_:SPI heated film",
+                  "property": [
+                    {
+                      "data": [
                 {
                   "node": [
                     "Data"
                   ],
                   "name": "SPI unheated film FTIR",
                   "type": "null"
+                }
+              ]
+                    }
+                  ]
                 }
               ]
             },
