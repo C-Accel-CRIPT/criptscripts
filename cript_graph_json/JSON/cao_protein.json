@@ -22,7 +22,7 @@
               ],
               "name": "WPI Centrifugation",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
@@ -36,26 +36,30 @@
                   },
                   "quantities": [
                     "null"
-                  ],
-                  "uid": "_:Whey protein isolate"
+                  ]
                 },
                 {
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "water",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "water",
+                    "uid": ":_water"
+                  },
                   "quantities": [
                     "null"
-                  ],
-                  "uid": "_:water"
+                  ]
                 }
               ],
-              "products": [
+              "product": [
                 {
-                  "name": "Pea protein isolate",
                   "node": [
                     "Material"
                   ],
+                  "name": "Pea protein isolate",
                   "uid": "_:Pea protein isolate"
                 }
               ]
