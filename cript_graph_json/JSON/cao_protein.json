@@ -2059,7 +2059,7 @@
                 "Process"
               ],
               "name": "WPI CP70 HEQ 50",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -2073,7 +2073,13 @@
               ],
               "prerequisite_process": [],
               "product": [
-                "WPI supernatant"
+                {
+      "node": [
+        "Material"
+      ],
+      "name": "WPI supernatant",
+      "uid": "_:WPI supernatant"
+    }
               ]
             },
             {
@@ -2081,7 +2087,7 @@
                 "Process"
               ],
               "name": "WPI CP70 Die cutting",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -2106,21 +2112,21 @@
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "WPI CP70 FTIR"
             },
             {
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "WPI CP70 Image"
             },
             {
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "WPI CP70 Tensile Test"
             }
           ]
