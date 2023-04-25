@@ -983,112 +983,112 @@
                 "Data"
               ],
               "name": "WPI unheated film FTIR",
-              "type": "null"
+              "type": "rxn_conv"
             },
             {
               "node": [
                 "Data"
               ],
               "name": "BSA unheated film FTIR",
-              "type": "null"
+              "type": "rxn_conv"
             },
             {
               "node": [
                 "Data"
               ],
               "name": "SPI unheated film FTIR",
-              "type": "null"
+              "type": "rxn_conv"
             },
             {
               "node": [
                 "Data"
               ],
               "name": "PPI unheated film FTIR",
-              "type": "null"
+              "type": "rxn_conv"
             },
             {
               "node": [
                 "Data"
               ],
               "name": "WPI unheated film WAXS",
-              "type": "null"
+              "type": "rxn_conv"
             },
             {
               "node": [
                 "Data"
               ],
               "name": "BSA unheated film WAXS",
-              "type": "null"
+              "type": "rxn_conv"
             },
             {
               "node": [
                 "Data"
               ],
               "name": "SPI unheated film WAXS",
-              "type": "null"
+              "type": "rxn_conv"
             },
             {
               "node": [
                 "Data"
               ],
               "name": "PPI unheated film WAXS",
-              "type": "null"
+              "type": "rxn_conv"
             },
             {
               "node": [
                 "Data"
               ],
               "name": "WPI heated film FTIR",
-              "type": "null"
+              "type": "rxn_conv"
             },
             {
               "node": [
                 "Data"
               ],
               "name": "BSA heated film FTIR",
-              "type": "null"
+              "type": "rxn_conv"
             },
             {
               "node": [
                 "Data"
               ],
               "name": "SPI heated film FTIR",
-              "type": "null"
+              "type": "rxn_conv"
             },
             {
               "node": [
                 "Data"
               ],
               "name": "PPI heated film FTIR",
-              "type": "null"
+              "type": "rxn_conv"
             },
             {
               "node": [
                 "Data"
               ],
               "name": "WPI heated film WAXS",
-              "type": "null"
+              "type": "rxn_conv"
             },
             {
               "node": [
                 "Data"
               ],
               "name": "BSA heated film WAXS",
-              "type": "null"
+              "type": "rxn_conv"
             },
             {
               "node": [
                 "Data"
               ],
               "name": "SPI heated film WAXS",
-              "type": "null"
+              "type": "rxn_conv"
             },
             {
               "node": [
                 "Data"
               ],
               "name": "PPI heated film WAXS",
-              "type": "null"
+              "type": "rxn_conv"
             }
           ]
         },
