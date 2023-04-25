@@ -2231,7 +2231,7 @@
                 "Process"
               ],
               "name": "WPP CP23 HEQ 50",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -2251,7 +2251,7 @@
                 "Process"
               ],
               "name": "WPP CP23 Die cutting",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -2274,14 +2274,14 @@
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "WPP CP23 FTIR"
             },
             {
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "WPP CP23 Tensile Test"
             }
           ]
