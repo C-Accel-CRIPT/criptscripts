@@ -1336,7 +1336,11 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "Basic alumina",
+                  "material": {
+                    "node": ["Material"],
+                    "name":"Basic alumina",
+                    "uid":"_:Basic alumina"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -1354,7 +1358,11 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "WPI Protein methacrylate",
+                  "material": {
+                    "node": ["Material"],
+                    "name": "WPI Protein methacrylate",
+                    "uid": "_:WPI Protein methacrylate"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -1363,7 +1371,11 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "Ammonium persulfate",
+                  "material": {
+                    "node": ["Material"],
+                    "name":"Ammonium persulfate",
+                    "uid":"_:Ammonium persulfate"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -1372,7 +1384,11 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "TEMED",
+                  "material": {
+                    "node": ["Material"],
+                    "name":"TEMED",
+                    "uid":"_:TEMED"
+                  },
                   "quantity": [
                     "null"
                   ]
