@@ -17,7 +17,11 @@
                 "ingredients": [
                   {
                     "node": ["Ingredient"],
-                    "material": "Whey protein isolate",
+                    "material": {
+                      "node": ["Material"],
+                      "name": "Whey protein isolate",
+                      "uid": "_:Whey protein isolate"
+                    },
                     "quantities": [
                       "null"
                     ],
@@ -33,7 +37,11 @@
                   }
                 ],
                 "products": [
-                  "WPI supernatant"
+                  {
+                    "name": "Pea protein isolate",
+                    "node": ["Material"],
+                    "uid": "_:0.035 volume fraction CM gel"
+                  }
                 ]
               },
               {
