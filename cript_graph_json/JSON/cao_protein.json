@@ -1934,7 +1934,31 @@
                 }
               ],
               "prerequisite_process": [
-                "WPI CP23 HEQ 4"
+                {
+                  "node": [
+                    "Process"
+                  ],
+                  "name": "WPI CP23 HEQ 4",
+                  "type": "multistep",
+                  "ingredient": [
+                    {
+                      "node": [
+                        "Ingredient"
+                      ],
+                      "material": {
+                        "node": [
+                          "Material"
+                        ],
+                        "name": "WPI CP23",
+                        "uid": "_:WPI CP23"
+                      },
+                      "quantity": [
+                        "null"
+                      ]
+                    }
+                  ],
+                  "product": []
+                }
               ],
               "product": []
             },
@@ -1956,7 +1980,52 @@
                 }
               ],
               "prerequisite_process": [
-                "WPI CP23 HEQ 20"
+                {
+                  "node": [
+                    "Process"
+                  ],
+                  "name": "WPI CP23 HEQ 20",
+                  "type": "multistep",
+                  "ingredient": [
+                    {
+                      "node": [
+                        "Ingredient"
+                      ],
+                      "material": "WPI CP23",
+                      "quantity": [
+                        "null"
+                      ]
+                    }
+                  ],
+                  "prerequisite_process": [
+                    {
+                      "node": [
+                        "Process"
+                      ],
+                      "name": "WPI CP23 HEQ 4",
+                      "type": "multistep",
+                      "ingredient": [
+                        {
+                          "node": [
+                            "Ingredient"
+                          ],
+                          "material": {
+                            "node": [
+                              "Material"
+                            ],
+                            "name": "WPI CP23",
+                            "uid": "_:WPI CP23"
+                          },
+                          "quantity": [
+                            "null"
+                          ]
+                        }
+                      ],
+                      "product": []
+                    }
+                  ],
+                  "product": []
+                }
               ],
               "product": []
             },
@@ -1978,7 +2047,73 @@
                 }
               ],
               "prerequisite_process": [
-                "WPI CP23 HEQ 50"
+                {
+                  "node": [
+                    "Process"
+                  ],
+                  "name": "WPI CP23 HEQ 50",
+                  "type": "multistep",
+                  "ingredient": [
+                    {
+                      "node": [
+                        "Ingredient"
+                      ],
+                      "material": "WPI CP23",
+                      "quantity": [
+                        "null"
+                      ]
+                    }
+                  ],
+                  "prerequisite_process": [
+                    {
+                      "node": [
+                        "Process"
+                      ],
+                      "name": "WPI CP23 HEQ 20",
+                      "type": "multistep",
+                      "ingredient": [
+                        {
+                          "node": [
+                            "Ingredient"
+                          ],
+                          "material": "WPI CP23",
+                          "quantity": [
+                            "null"
+                          ]
+                        }
+                      ],
+                      "prerequisite_process": [
+                        {
+                          "node": [
+                            "Process"
+                          ],
+                          "name": "WPI CP23 HEQ 4",
+                          "type": "multistep",
+                          "ingredient": [
+                            {
+                              "node": [
+                                "Ingredient"
+                              ],
+                              "material": {
+                                "node": [
+                                  "Material"
+                                ],
+                                "name": "WPI CP23",
+                                "uid": "_:WPI CP23"
+                              },
+                              "quantity": [
+                                "null"
+                              ]
+                            }
+                          ],
+                          "product": []
+                        }
+                      ],
+                      "product": []
+                    }
+                  ],
+                  "product": []
+                }
               ],
               "product": []
             },
@@ -2000,7 +2135,73 @@
                 }
               ],
               "prerequisite_process": [
-                "WPI CP100 HEQ 50"
+                {
+                  "node": [
+                    "Process"
+                  ],
+                  "name": "WPI CP23 HEQ 50",
+                  "type": "multistep",
+                  "ingredient": [
+                    {
+                      "node": [
+                        "Ingredient"
+                      ],
+                      "material": "WPI CP23",
+                      "quantity": [
+                        "null"
+                      ]
+                    }
+                  ],
+                  "prerequisite_process": [
+                    {
+                      "node": [
+                        "Process"
+                      ],
+                      "name": "WPI CP23 HEQ 20",
+                      "type": "multistep",
+                      "ingredient": [
+                        {
+                          "node": [
+                            "Ingredient"
+                          ],
+                          "material": "WPI CP23",
+                          "quantity": [
+                            "null"
+                          ]
+                        }
+                      ],
+                      "prerequisite_process": [
+                        {
+                          "node": [
+                            "Process"
+                          ],
+                          "name": "WPI CP23 HEQ 4",
+                          "type": "multistep",
+                          "ingredient": [
+                            {
+                              "node": [
+                                "Ingredient"
+                              ],
+                              "material": {
+                                "node": [
+                                  "Material"
+                                ],
+                                "name": "WPI CP23",
+                                "uid": "_:WPI CP23"
+                              },
+                              "quantity": [
+                                "null"
+                              ]
+                            }
+                          ],
+                          "product": []
+                        }
+                      ],
+                      "product": []
+                    }
+                  ],
+                  "product": []
+                }
               ],
               "product": []
             },
@@ -2022,7 +2223,94 @@
                 }
               ],
               "prerequisite_process": [
-                "WPI CP100 HEQ 70"
+                {
+                  "node": [
+                    "Process"
+                  ],
+                  "name": "WPI CP100 HEQ 70",
+                  "type": "multistep",
+                  "ingredient": [
+                    {
+                      "node": [
+                        "Ingredient"
+                      ],
+                      "material": "WPI CP23",
+                      "quantity": [
+                        "null"
+                      ]
+                    }
+                  ],
+                  "prerequisite_process": [
+                    {
+                      "node": [
+                        "Process"
+                      ],
+                      "name": "WPI CP23 HEQ 50",
+                      "type": "multistep",
+                      "ingredient": [
+                        {
+                          "node": [
+                            "Ingredient"
+                          ],
+                          "material": "WPI CP23",
+                          "quantity": [
+                            "null"
+                          ]
+                        }
+                      ],
+                      "prerequisite_process": [
+                        {
+                          "node": [
+                            "Process"
+                          ],
+                          "name": "WPI CP23 HEQ 20",
+                          "type": "multistep",
+                          "ingredient": [
+                            {
+                              "node": [
+                                "Ingredient"
+                              ],
+                              "material": "WPI CP23",
+                              "quantity": [
+                                "null"
+                              ]
+                            }
+                          ],
+                          "prerequisite_process": [
+                            {
+                              "node": [
+                                "Process"
+                              ],
+                              "name": "WPI CP23 HEQ 4",
+                              "type": "multistep",
+                              "ingredient": [
+                                {
+                                  "node": [
+                                    "Ingredient"
+                                  ],
+                                  "material": {
+                                    "node": [
+                                      "Material"
+                                    ],
+                                    "name": "WPI CP23",
+                                    "uid": "_:WPI CP23"
+                                  },
+                                  "quantity": [
+                                    "null"
+                                  ]
+                                }
+                              ],
+                              "product": []
+                            }
+                          ],
+                          "product": []
+                        }
+                      ],
+                      "product": []
+                    }
+                  ],
+                  "product": []
+                }
               ],
               "product": []
             }
