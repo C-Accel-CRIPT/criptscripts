@@ -34,7 +34,7 @@
                     "name": "Whey protein isolate",
                     "uid": "_:Whey protein isolate"
                   },
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -49,7 +49,7 @@
                     "name": "water",
                     "uid": ":_water"
                   },
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -70,30 +70,46 @@
               ],
               "name": "WPP Centrifugation",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "Whey protein concentrate",
-                  "quantities": [
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "Whey protein concentrate",
+                    "uid": "_:Whey protein concentrate"
+                  },
+                  "quantity": [
                     "null"
-                  ],
-                  "uid": "_:Whey protein concentrate"
+                  ]
                 },
                 {
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "water",
-                  "quantities": [
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "water",
+                    "uid": "_:water"
+                  },
+                  "quantity": [
                     "null"
-                  ],
-                  "uid": "_:water"
+                  ]
                 }
               ],
-              "products": [
-                "WPC supernatant"
+              "product": [
+                {
+                  "node": [
+                    "Material"
+                  ],
+                  "name": "WPC supernatant",
+                  "uid": "_:WPC supernatant"
+                }
               ]
             },
             {
@@ -662,19 +678,31 @@
               ],
               "name": "WPI unheated drying",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "WPI methacrylate",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "WPI methacrylate",
+                    "uid": "_:WPI methacrylate"
+                  },
                   "quantities": [
                     "null"
                   ]
                 }
               ],
-              "products": [
-                "WPI unheated film"
+              "product": [
+                {
+                  "node": [
+                    "Material"
+                  ],
+                  "name": "WPI unheated film",
+                  "uid": "_:WPI unheated film"
+                }
               ]
             },
             {
