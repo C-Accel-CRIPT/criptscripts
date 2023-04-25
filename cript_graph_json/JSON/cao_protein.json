@@ -118,13 +118,13 @@
               ],
               "name": "WPC Centrifugation",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "Whey protein powder",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -133,12 +133,12 @@
                     "Ingredient"
                   ],
                   "material": "water",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
               ],
-              "products": [
+              "product": [
                 "WPP supernatant"
               ]
             },
@@ -148,13 +148,13 @@
               ],
               "name": "BSA Centrifugation",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "Bovine serum albumin",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -163,12 +163,12 @@
                     "Ingredient"
                   ],
                   "material": "water",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
               ],
-              "products": [
+              "product": [
                 "BSA supernatant"
               ]
             },
@@ -178,13 +178,13 @@
               ],
               "name": "SPI Centrifugation",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "Soy protein isolate",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -193,12 +193,12 @@
                     "Ingredient"
                   ],
                   "material": "water",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
               ],
-              "products": [
+              "product": [
                 "SPI supernatant"
               ]
             },
@@ -208,7 +208,7 @@
               ],
               "name": "PPI Centrifugation",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
@@ -220,7 +220,7 @@
                     "name": "Pea protein isolate",
                     "uid": "_:Pea protein isolate"
                   },
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -229,12 +229,12 @@
                     "Ingredient"
                   ],
                   "material": "water",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
               ],
-              "products": [
+              "product": [
                 "PPI supernatant"
               ]
             },
@@ -251,13 +251,13 @@
                   ],
                   "name": "WPI Centrifugation",
                   "type": "null",
-                  "ingredients": [
+                  "ingredient": [
                     {
                       "node": [
                         "Ingredient"
                       ],
                       "material": "Whey protein isolate",
-                      "quantities": [
+                      "quantity": [
                         "null"
                       ]
                     },
@@ -266,23 +266,23 @@
                         "Ingredient"
                       ],
                       "material": "water",
-                      "quantities": [
+                      "quantity": [
                         "null"
                       ]
                     }
                   ],
-                  "products": [
+                  "product": [
                     "WPI supernatant"
                   ]
                 }
               ],
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "WPI supernatant",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -291,7 +291,7 @@
                     "Ingredient"
                   ],
                   "material": "Sodium hydroxide",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -300,12 +300,12 @@
                     "Ingredient"
                   ],
                   "material": "Methacrylic anhydride",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
               ],
-              "products": [
+              "product": [
                 "WPI methacrylate"
               ]
             },
@@ -322,13 +322,13 @@
                   ],
                   "name": "WPP Centrifugation",
                   "type": "null",
-                  "ingredients": [
+                  "ingredient": [
                     {
                       "node": [
                         "Ingredient"
                       ],
                       "material": "Whey protein concentrate",
-                      "quantities": [
+                      "quantity": [
                         "null"
                       ]
                     },
@@ -337,23 +337,23 @@
                         "Ingredient"
                       ],
                       "material": "water",
-                      "quantities": [
+                      "quantity": [
                         "null"
                       ]
                     }
                   ],
-                  "products": [
+                  "product": [
                     "WPC supernatant"
                   ]
                 }
               ],
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "WPC supernatant",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -362,7 +362,7 @@
                     "Ingredient"
                   ],
                   "material": "Sodium hydroxide",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -371,12 +371,12 @@
                     "Ingredient"
                   ],
                   "material": "Methacrylic anhydride",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
               ],
-              "products": [
+              "product": [
                 "WPC methacrylate"
               ]
             },
@@ -393,13 +393,13 @@
                   ],
                   "name": "WPC Centrifugation",
                   "type": "null",
-                  "ingredients": [
+                  "ingredient": [
                     {
                       "node": [
                         "Ingredient"
                       ],
                       "material": "Whey protein powder",
-                      "quantities": [
+                      "quantity": [
                         "null"
                       ]
                     },
@@ -408,23 +408,23 @@
                         "Ingredient"
                       ],
                       "material": "water",
-                      "quantities": [
+                      "quantity": [
                         "null"
                       ]
                     }
                   ],
-                  "products": [
+                  "product": [
                     "WPP supernatant"
                   ]
                 }
               ],
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "WPP supernatant",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -433,7 +433,7 @@
                     "Ingredient"
                   ],
                   "material": "Sodium hydroxide",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -442,12 +442,12 @@
                     "Ingredient"
                   ],
                   "material": "Methacrylic anhydride",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
               ],
-              "products": [
+              "product": [
                 "WPC methacrylate"
               ]
             },
@@ -464,13 +464,13 @@
                   ],
                   "name": "BSA Centrifugation",
                   "type": "null",
-                  "ingredients": [
+                  "ingredient": [
                     {
                       "node": [
                         "Ingredient"
                       ],
                       "material": "Bovine serum albumin",
-                      "quantities": [
+                      "quantity": [
                         "null"
                       ]
                     },
@@ -479,23 +479,23 @@
                         "Ingredient"
                       ],
                       "material": "water",
-                      "quantities": [
+                      "quantity": [
                         "null"
                       ]
                     }
                   ],
-                  "products": [
+                  "product": [
                     "BSA supernatant"
                   ]
                 }
               ],
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "BSA supernatant",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -504,7 +504,7 @@
                     "Ingredient"
                   ],
                   "material": "Sodium hydroxide",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -513,12 +513,12 @@
                     "Ingredient"
                   ],
                   "material": "Methacrylic anhydride",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
               ],
-              "products": [
+              "product": [
                 "BSA methacrylate"
               ]
             },
@@ -535,13 +535,13 @@
                   ],
                   "name": "SPI Centrifugation",
                   "type": "null",
-                  "ingredients": [
+                  "ingredient": [
                     {
                       "node": [
                         "Ingredient"
                       ],
                       "material": "Soy protein isolate",
-                      "quantities": [
+                      "quantity": [
                         "null"
                       ]
                     },
@@ -550,23 +550,23 @@
                         "Ingredient"
                       ],
                       "material": "water",
-                      "quantities": [
+                      "quantity": [
                         "null"
                       ]
                     }
                   ],
-                  "products": [
+                  "product": [
                     "SPI supernatant"
                   ]
                 }
               ],
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "SPI supernatant",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -575,7 +575,7 @@
                     "Ingredient"
                   ],
                   "material": "Sodium hydroxide",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -584,12 +584,12 @@
                     "Ingredient"
                   ],
                   "material": "Methacrylic anhydride",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
               ],
-              "products": [
+              "product": [
                 "SPI methacrylate"
               ]
             },
@@ -606,13 +606,13 @@
                   ],
                   "name": "PPI Centrifugation",
                   "type": "null",
-                  "ingredients": [
+                  "ingredient": [
                     {
                       "node": [
                         "Ingredient"
                       ],
                       "material": "Pea protein isolate",
-                      "quantities": [
+                      "quantity": [
                         "null"
                       ]
                     },
@@ -621,23 +621,23 @@
                         "Ingredient"
                       ],
                       "material": "water",
-                      "quantities": [
+                      "quantity": [
                         "null"
                       ]
                     }
                   ],
-                  "products": [
+                  "product": [
                     "PPI supernatant"
                   ]
                 }
               ],
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "PPI supernatant",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -646,7 +646,7 @@
                     "Ingredient"
                   ],
                   "material": "Sodium hydroxide",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -655,12 +655,12 @@
                     "Ingredient"
                   ],
                   "material": "Methacrylic anhydride",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
               ],
-              "products": [
+              "product": [
                 "PPI methacrylate"
               ]
             }
@@ -690,7 +690,7 @@
                     "name": "WPI methacrylate",
                     "uid": "_:WPI methacrylate"
                   },
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -711,18 +711,18 @@
               ],
               "name": "BSA unheated drying",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "BSA methacrylate",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
               ],
-              "products": [
+              "product": [
                 "BSA unheated film"
               ]
             },
@@ -732,18 +732,18 @@
               ],
               "name": "SPI unheated drying",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "SPI methacrylate",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
               ],
-              "products": [
+              "product": [
                 "SPI unheated film"
               ],
               "data": [
@@ -762,18 +762,18 @@
               ],
               "name": "PPI unheated drying",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "PPI methacrylate",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
               ],
-              "products": [
+              "product": [
                 "PPI unheated film"
               ],
               "data": [
@@ -792,18 +792,18 @@
               ],
               "name": "WPI heated drying",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "WPI methacrylate",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
               ],
-              "products": [
+              "product": [
                 "WPI heated film"
               ]
             },
@@ -813,18 +813,18 @@
               ],
               "name": "BSA heated drying",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "BSA methacrylate",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
               ],
-              "products": [
+              "product": [
                 "BSA heated film"
               ]
             },
@@ -834,18 +834,18 @@
               ],
               "name": "SPI heated drying",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "SPI methacrylate",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
               ],
-              "products": [
+              "product": [
                 "SPI heated film"
               ],
               "data": [
@@ -864,18 +864,18 @@
               ],
               "name": "PPI heated drying",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "PPI methacrylate",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
               ],
-              "products": [
+              "product": [
                 "PPI heated film"
               ],
               "data": [
@@ -1016,13 +1016,13 @@
               ],
               "name": "Column purification",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "hydroxypropylacrylate",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -1031,7 +1031,7 @@
                     "Ingredient"
                   ],
                   "material": "Basic alumina",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -1043,13 +1043,13 @@
               ],
               "name": "Thermoset synthesis",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "WPI Protein methacrylate",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -1058,7 +1058,7 @@
                     "Ingredient"
                   ],
                   "material": "Ammonium persulfate",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -1067,7 +1067,7 @@
                     "Ingredient"
                   ],
                   "material": "TEMED",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -1096,13 +1096,13 @@
               ],
               "name": "Column purification",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "hydroxypropylacrylate",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -1111,7 +1111,7 @@
                     "Ingredient"
                   ],
                   "material": "Basic alumina",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -1123,13 +1123,13 @@
               ],
               "name": "Thermoset synthesis",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "WPC Protein methacrylate",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -1138,7 +1138,7 @@
                     "Ingredient"
                   ],
                   "material": "Ammonium persulfate",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -1147,7 +1147,7 @@
                     "Ingredient"
                   ],
                   "material": "TEMED",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -1174,13 +1174,13 @@
               ],
               "name": "Column purification",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "hydroxypropylacrylate",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -1189,7 +1189,7 @@
                     "Ingredient"
                   ],
                   "material": "Basic alumina",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -1201,13 +1201,13 @@
               ],
               "name": "Thermoset synthesis",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "WPP Protein methacrylate",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -1216,7 +1216,7 @@
                     "Ingredient"
                   ],
                   "material": "Ammonium persulfate",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -1225,7 +1225,7 @@
                     "Ingredient"
                   ],
                   "material": "TEMED",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -1252,13 +1252,13 @@
               ],
               "name": "Column purification",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "hydroxypropylacrylate",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -1267,7 +1267,7 @@
                     "Ingredient"
                   ],
                   "material": "Basic alumina",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -1279,13 +1279,13 @@
               ],
               "name": "Thermoset synthesis",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "BSA methacrylate",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -1294,7 +1294,7 @@
                     "Ingredient"
                   ],
                   "material": "Ammonium persulfate",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -1303,7 +1303,7 @@
                     "Ingredient"
                   ],
                   "material": "TEMED",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -1330,13 +1330,13 @@
               ],
               "name": "Column purification",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "hydroxypropylacrylate",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -1345,7 +1345,7 @@
                     "Ingredient"
                   ],
                   "material": "Basic alumina",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -1357,13 +1357,13 @@
               ],
               "name": "Thermoset synthesis",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "SPI methacrylate",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -1372,7 +1372,7 @@
                     "Ingredient"
                   ],
                   "material": "Ammonium persulfate",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -1381,7 +1381,7 @@
                     "Ingredient"
                   ],
                   "material": "TEMED",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -1408,13 +1408,13 @@
               ],
               "name": "Column purification",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "hydroxypropylacrylate",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -1423,7 +1423,7 @@
                     "Ingredient"
                   ],
                   "material": "Basic alumina",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -1435,13 +1435,13 @@
               ],
               "name": "Thermoset synthesis",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "PPI methacrylate",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -1450,7 +1450,7 @@
                     "Ingredient"
                   ],
                   "material": "Ammonium persulfate",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -1459,7 +1459,7 @@
                     "Ingredient"
                   ],
                   "material": "TEMED",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -1486,18 +1486,18 @@
               ],
               "name": "WPI CP23 HEQ 4",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "WPI CP23",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
               ],
-              "products": []
+              "product": []
             },
             {
               "node": [
@@ -1505,13 +1505,13 @@
               ],
               "name": "WPI CP23 HEQ 20",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "WPI CP23",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -1519,7 +1519,7 @@
               "prerequisite_process": [
                 "WPI CP23 HEQ 4"
               ],
-              "products": []
+              "product": []
             },
             {
               "node": [
@@ -1527,13 +1527,13 @@
               ],
               "name": "WPI CP23 HEQ 50",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "WPI CP23",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -1541,7 +1541,7 @@
               "prerequisite_process": [
                 "WPI CP23 HEQ 20"
               ],
-              "products": []
+              "product": []
             },
             {
               "node": [
@@ -1549,13 +1549,13 @@
               ],
               "name": "WPI CP100 Die cutting",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "WPI CP23",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -1563,7 +1563,7 @@
               "prerequisite_process": [
                 "WPI CP23 HEQ 50"
               ],
-              "products": []
+              "product": []
             },
             {
               "node": [
@@ -1571,13 +1571,13 @@
               ],
               "name": "WPI CP100 HEQ 70",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "WPI CP23",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -1585,7 +1585,7 @@
               "prerequisite_process": [
                 "WPI CP100 HEQ 50"
               ],
-              "products": []
+              "product": []
             },
             {
               "node": [
@@ -1593,13 +1593,13 @@
               ],
               "name": "WPI CP100 HEQ 90",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "WPI CP23",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -1607,7 +1607,7 @@
               "prerequisite_process": [
                 "WPI CP100 HEQ 70"
               ],
-              "products": []
+              "product": []
             }
           ],
           "data": [
@@ -1688,19 +1688,19 @@
               ],
               "name": "WPI CP100 HEQ 4",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "WPI CP100",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
               ],
               "prerequisite_process": [],
-              "products": []
+              "product": []
             },
             {
               "node": [
@@ -1708,13 +1708,13 @@
               ],
               "name": "WPI CP100 HEQ 20",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "WPI CP100",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -1722,7 +1722,7 @@
               "prerequisite_process": [
                 "WPI CP100 HEQ 4"
               ],
-              "products": []
+              "product": []
             },
             {
               "node": [
@@ -1730,13 +1730,13 @@
               ],
               "name": "WPI CP100 HEQ 50",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "WPI CP100",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -1744,7 +1744,7 @@
               "prerequisite_process": [
                 "WPI CP100 HEQ 20"
               ],
-              "products": []
+              "product": []
             },
             {
               "node": [
@@ -1752,13 +1752,13 @@
               ],
               "name": "WPI CP100 Die cutting",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "WPI CP100",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -1766,7 +1766,7 @@
               "prerequisite_process": [
                 "WPI CP100 HEQ 50"
               ],
-              "products": []
+              "product": []
             },
             {
               "node": [
@@ -1774,13 +1774,13 @@
               ],
               "name": "WPI CP100 HEQ 70",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "WPI CP100",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -1788,7 +1788,7 @@
               "prerequisite_process": [
                 "WPI CP100 HEQ 50"
               ],
-              "products": []
+              "product": []
             },
             {
               "node": [
@@ -1796,13 +1796,13 @@
               ],
               "name": "WPI CP100 HEQ 90",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "WPI CP100",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -1810,7 +1810,7 @@
               "prerequisite_process": [
                 "WPI CP100 HEQ 70"
               ],
-              "products": []
+              "product": []
             }
           ],
           "data": [
@@ -1877,19 +1877,19 @@
               ],
               "name": "WPI CP70 HEQ 50",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "WPI CP70",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
               ],
               "prerequisite_process": [],
-              "products": [
+              "product": [
                 "WPI supernatant"
               ]
             },
@@ -1899,13 +1899,13 @@
               ],
               "name": "WPI CP70 Die cutting",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "WPI CP70",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -1913,7 +1913,7 @@
               "prerequisite_process": [
                 "WPI CP70 HEQ 50"
               ],
-              "products": [
+              "product": [
                 "WPI supernatant"
               ]
             }
@@ -1954,19 +1954,19 @@
               ],
               "name": "WPI CP120 HEQ 50",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "WPI CP120",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
               ],
               "prerequisite_process": [],
-              "products": [
+              "product": [
                 "WPI supernatant"
               ]
             },
@@ -1976,13 +1976,13 @@
               ],
               "name": "WPI CP120 Die cutting",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "WPI CP120",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -1990,7 +1990,7 @@
               "prerequisite_process": [
                 "WPI CP120 HEQ 50"
               ],
-              "products": [
+              "product": [
                 "WPI supernatant"
               ]
             }
@@ -2031,19 +2031,19 @@
               ],
               "name": "WPP CP23 HEQ 50",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "WPP CP23",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
               ],
               "prerequisite_process": [],
-              "products": []
+              "product": []
             },
             {
               "node": [
@@ -2051,13 +2051,13 @@
               ],
               "name": "WPP CP23 Die cutting",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "WPP CP23",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -2065,7 +2065,7 @@
               "prerequisite_process": [
                 "WPP CP23 HEQ 50"
               ],
-              "products": []
+              "product": []
             }
           ],
           "data": [
@@ -2097,19 +2097,19 @@
               ],
               "name": "WPP CP100 HEQ 50",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "WPP CP100",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
               ],
               "prerequisite_process": [],
-              "products": []
+              "product": []
             },
             {
               "node": [
@@ -2117,13 +2117,13 @@
               ],
               "name": "WPP CP100 Die cutting",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "WPP CP100",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -2131,7 +2131,7 @@
               "prerequisite_process": [
                 "WPP CP100 HEQ 50"
               ],
-              "products": []
+              "product": []
             }
           ],
           "data": [
@@ -2163,19 +2163,19 @@
               ],
               "name": "WPC CP23 HEQ 50",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "WPC CP23",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
               ],
               "prerequisite_process": [],
-              "products": []
+              "product": []
             },
             {
               "node": [
@@ -2183,13 +2183,13 @@
               ],
               "name": "WPC CP23 Die cutting",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "WPC CP23",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -2197,7 +2197,7 @@
               "prerequisite_process": [
                 "WPC CP23 HEQ 50"
               ],
-              "products": []
+              "product": []
             }
           ],
           "data": [
@@ -2229,19 +2229,19 @@
               ],
               "name": "WPC CP100 HEQ 50",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "WPC CP100",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
               ],
               "prerequisite_process": [],
-              "products": []
+              "product": []
             },
             {
               "node": [
@@ -2249,13 +2249,13 @@
               ],
               "name": "WPC CP100 Die cutting",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "WPC CP100",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -2263,7 +2263,7 @@
               "prerequisite_process": [
                 "WPC CP100 HEQ 50"
               ],
-              "products": []
+              "product": []
             }
           ],
           "data": [
@@ -2295,19 +2295,19 @@
               ],
               "name": "BSA CP23 HEQ 50",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "BSA CP23",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
               ],
               "prerequisite_process": [],
-              "products": []
+              "product": []
             },
             {
               "node": [
@@ -2315,13 +2315,13 @@
               ],
               "name": "BSA CP23 Die cutting",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "BSA CP23",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -2329,7 +2329,7 @@
               "prerequisite_process": [
                 "BSA CP23 HEQ 50"
               ],
-              "products": []
+              "product": []
             }
           ],
           "data": [
@@ -2361,19 +2361,19 @@
               ],
               "name": "BSA CP100 HEQ 50",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "BSA CP100",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
               ],
               "prerequisite_process": [],
-              "products": []
+              "product": []
             },
             {
               "node": [
@@ -2381,13 +2381,13 @@
               ],
               "name": "BSA CP100 Die cutting",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "BSA CP100",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -2395,7 +2395,7 @@
               "prerequisite_process": [
                 "BSA CP100 HEQ 50"
               ],
-              "products": []
+              "product": []
             }
           ],
           "data": [
@@ -2427,19 +2427,19 @@
               ],
               "name": "SPI CP23 HEQ 50",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "SPI CP23",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
               ],
               "prerequisite_process": [],
-              "products": []
+              "product": []
             },
             {
               "node": [
@@ -2447,13 +2447,13 @@
               ],
               "name": "SPI CP23 Die cutting",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "SPI CP23",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -2461,7 +2461,7 @@
               "prerequisite_process": [
                 "SPI CP23 HEQ 50"
               ],
-              "products": []
+              "product": []
             }
           ],
           "data": [
@@ -2493,19 +2493,19 @@
               ],
               "name": "SPI CP100 HEQ 50",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "SPI CP100",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
               ],
               "prerequisite_process": [],
-              "products": []
+              "product": []
             },
             {
               "node": [
@@ -2513,13 +2513,13 @@
               ],
               "name": "SPI CP100 Die cutting",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "SPI CP100",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -2527,7 +2527,7 @@
               "prerequisite_process": [
                 "SPI CP100 HEQ 50"
               ],
-              "products": []
+              "product": []
             }
           ],
           "data": [
@@ -2559,19 +2559,19 @@
               ],
               "name": "PPI CP23 HEQ 50",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "PPI CP23",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
               ],
               "prerequisite_process": [],
-              "products": []
+              "product": []
             },
             {
               "node": [
@@ -2579,13 +2579,13 @@
               ],
               "name": "PPI CP23 Die cutting",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "PPI CP23",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -2593,7 +2593,7 @@
               "prerequisite_process": [
                 "PPI CP23 HEQ 50"
               ],
-              "products": []
+              "product": []
             }
           ],
           "data": [
@@ -2625,19 +2625,19 @@
               ],
               "name": "PPI CP100 HEQ 50",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "PPI CP100",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
               ],
               "prerequisite_process": [],
-              "products": []
+              "product": []
             },
             {
               "node": [
@@ -2645,13 +2645,13 @@
               ],
               "name": "PPI CP100 Die cutting",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "PPI CP100",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
@@ -2659,7 +2659,7 @@
               "prerequisite_process": [
                 "PPI CP100 HEQ 50"
               ],
-              "products": []
+              "product": []
             }
           ],
           "data": [
@@ -2691,13 +2691,13 @@
               ],
               "name": "Column purification",
               "type": "null",
-              "ingredients": [
+              "ingredient": [
                 {
                   "node": [
                     "Ingredient"
                   ],
                   "material": "hydroxypropylacrylate",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 },
@@ -2706,13 +2706,13 @@
                     "Ingredient"
                   ],
                   "material": "Basic alumina",
-                  "quantities": [
+                  "quantity": [
                     "null"
                   ]
                 }
               ],
               "prerequisite_process": [],
-              "products": []
+              "product": []
             },
             {
               "node": [
@@ -2720,11 +2720,11 @@
               ],
               "name": "Thermoset synthesis",
               "type": "null",
-              "ingredients": [],
+              "ingredient": [],
               "prerequisite_process": [
                 "Column purification"
               ],
-              "products": [
+              "product": [
                 "PHPA"
               ]
             }
