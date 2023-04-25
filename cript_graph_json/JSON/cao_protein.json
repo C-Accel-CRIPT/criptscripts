@@ -2885,10 +2885,43 @@
                 }
               ],
               "prerequisite_process": [
-                "WPI CP70 HEQ 50"
+                {
+                  "node": [
+                    "Process"
+                  ],
+                  "name": "WPI CP70 HEQ 50",
+                  "type": "multistep",
+                  "ingredient": [
+                    {
+                      "node": [
+                        "Ingredient"
+                      ],
+                      "material": "WPI CP70",
+                      "quantity": [
+                        "null"
+                      ]
+                    }
+                  ],
+                  "prerequisite_process": [],
+                  "product": [
+                    {
+                      "node": [
+                        "Material"
+                      ],
+                      "name": "WPI supernatant",
+                      "uid": "_:WPI supernatant"
+                    }
+                  ]
+                }
               ],
               "product": [
-                "WPI supernatant"
+                {
+                  "node": [
+                    "Material"
+                  ],
+                  "name": "WPI supernatant",
+                  "uid": "_:WPI supernatant"
+                }
               ]
             }
           ],
