@@ -1606,7 +1606,33 @@
                 }
               ],
               "prerequisite_process": [
-                "Column purification"
+                {
+                  "node": [
+                    "Process"
+                  ],
+                  "name": "Column purification",
+                  "type": "multistep",
+                  "ingredient": [
+                    {
+                      "node": [
+                        "Ingredient"
+                      ],
+                      "material": "hydroxypropylacrylate",
+                      "quantity": [
+                        "null"
+                      ]
+                    },
+                    {
+                      "node": [
+                        "Ingredient"
+                      ],
+                      "material": "Basic alumina",
+                      "quantity": [
+                        "null"
+                      ]
+                    }
+                  ]
+                }
               ],
               "product": [
                 {
