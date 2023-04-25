@@ -639,12 +639,12 @@
               ],
               "product": [
                 {
-      "node": [
-        "Material"
-      ],
-      "name": "SPI methacrylate",
-      "uid": "_:SPI methacrylate"
-    }
+                  "node": [
+                    "Material"
+                  ],
+                  "name": "SPI methacrylate",
+                  "uid": "_:SPI methacrylate"
+                }
               ]
             },
             {
@@ -716,12 +716,12 @@
               ],
               "product": [
                 {
-      "node": [
-        "Material"
-      ],
-      "name": "PPI methacrylate",
-      "uid": "_:PPI methacrylate"
-    }
+                  "node": [
+                    "Material"
+                  ],
+                  "name": "PPI methacrylate",
+                  "uid": "_:PPI methacrylate"
+                }
               ]
             }
           ]
@@ -1240,38 +1240,38 @@
               ],
               "prerequisite_process": [
                 {
-              "node": [
-                "Process"
-              ],
-              "name": "Column purification",
-              "type": "multistep",
-              "ingredient": [
-                {
                   "node": [
-                    "Ingredient"
+                    "Process"
                   ],
-                  "material": {
-                    "node": [
-                      "Material"
-                    ],
-                    "name": "hydroxypropylacrylate",
-                    "uid": "_:hydroxypropylacrylate"
-                  },
-                  "quantity": [
-                    "null"
-                  ]
-                },
-                {
-                  "node": [
-                    "Ingredient"
-                  ],
-                  "material": "Basic alumina",
-                  "quantity": [
-                    "null"
+                  "name": "Column purification",
+                  "type": "multistep",
+                  "ingredient": [
+                    {
+                      "node": [
+                        "Ingredient"
+                      ],
+                      "material": {
+                        "node": [
+                          "Material"
+                        ],
+                        "name": "hydroxypropylacrylate",
+                        "uid": "_:hydroxypropylacrylate"
+                      },
+                      "quantity": [
+                        "null"
+                      ]
+                    },
+                    {
+                      "node": [
+                        "Ingredient"
+                      ],
+                      "material": "Basic alumina",
+                      "quantity": [
+                        "null"
+                      ]
+                    }
                   ]
                 }
-              ]
-            }
               ],
               "product": [
                 {
@@ -1375,32 +1375,32 @@
               ],
               "prerequisite_process": [
                 {
-              "node": [
-                "Process"
-              ],
-              "name": "Column purification",
-              "type": "multistep",
-              "ingredient": [
-                {
                   "node": [
-                    "Ingredient"
+                    "Process"
                   ],
-                  "material": "hydroxypropylacrylate",
-                  "quantity": [
-                    "null"
-                  ]
-                },
-                {
-                  "node": [
-                    "Ingredient"
-                  ],
-                  "material": "Basic alumina",
-                  "quantity": [
-                    "null"
+                  "name": "Column purification",
+                  "type": "multistep",
+                  "ingredient": [
+                    {
+                      "node": [
+                        "Ingredient"
+                      ],
+                      "material": "hydroxypropylacrylate",
+                      "quantity": [
+                        "null"
+                      ]
+                    },
+                    {
+                      "node": [
+                        "Ingredient"
+                      ],
+                      "material": "Basic alumina",
+                      "quantity": [
+                        "null"
+                      ]
+                    }
                   ]
                 }
-              ]
-            }
               ],
               "product": [
                 {
@@ -1490,7 +1490,33 @@
                 }
               ],
               "prerequisite_process": [
-                "Column purification"
+                {
+                  "node": [
+                    "Process"
+                  ],
+                  "name": "Column purification",
+                  "type": "multistep",
+                  "ingredient": [
+                    {
+                      "node": [
+                        "Ingredient"
+                      ],
+                      "material": "hydroxypropylacrylate",
+                      "quantity": [
+                        "null"
+                      ]
+                    },
+                    {
+                      "node": [
+                        "Ingredient"
+                      ],
+                      "material": "Basic alumina",
+                      "quantity": [
+                        "null"
+                      ]
+                    }
+                  ]
+                }
               ],
               "product": [
                 {
