@@ -2699,7 +2699,7 @@
                 "Process"
               ],
               "name": "SPI CP100 HEQ 50",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -2719,7 +2719,7 @@
                 "Process"
               ],
               "name": "SPI CP100 Die cutting",
-              "type": "null",
+              "type": "multistep",
               "ingredient": [
                 {
                   "node": [
@@ -2742,14 +2742,14 @@
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "SPI CP100 FTIR"
             },
             {
               "node": [
                 "Data"
               ],
-              "type": "null",
+              "type": "rxn_conv",
               "name": "SPI CP100 Tensile Test"
             }
           ]
