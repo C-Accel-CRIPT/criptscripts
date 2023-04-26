@@ -322,7 +322,13 @@
                       "node": [
                         "Ingredient"
                       ],
-                      "material": "Whey protein isolate",
+                      "material": {
+                        "node": [
+                          "Material"
+                        ],
+                        "name": "Whey protein isolate",
+                        "uid": "_:Whey protein isolate"
+                      },
                       "quantity": [
                         "null"
                       ]
@@ -331,7 +337,13 @@
                       "node": [
                         "Ingredient"
                       ],
-                      "material": "water",
+                      "material": {
+                        "node": [
+                          "Material"
+                        ],
+                        "name": "water",
+                        "uid": "_:water"
+                      },
                       "quantity": [
                         "null"
                       ]
@@ -423,7 +435,13 @@
                       "node": [
                         "Ingredient"
                       ],
-                      "material": "Whey protein concentrate",
+                      "material": {
+                        "node": [
+                          "Material"
+                        ],
+                        "name": "Whey protein concentrate",
+                        "uid": "_:Whey protein concentrate"
+                      },
                       "quantity": [
                         "null"
                       ]
@@ -1073,6 +1091,11 @@
                   "uid": "_:PPI unheated film",
                   "property": [
                     {
+                      "node": [
+                        "property"
+                      ],
+                      "key": "air_flow",
+                      "type": "min",
                       "data": [
                         {
                           "node": [
@@ -1185,6 +1208,11 @@
                   "uid": "_:SPI heated film",
                   "property": [
                     {
+                      "node": [
+                        "property"
+                      ],
+                      "key": "air_flow",
+                      "type": "min",
                       "data": [
                         {
                           "node": [
@@ -1231,6 +1259,11 @@
                   "uid": "_:PPI heated film",
                   "property": [
                     {
+                      "node": [
+                        "property"
+                      ],
+                      "key": "air_flow",
+                      "type": "min",
                       "data": [
                         {
                           "node": [
