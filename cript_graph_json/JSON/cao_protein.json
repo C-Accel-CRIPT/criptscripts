@@ -2086,7 +2086,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "hydroxypropylacrylate",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "hydroxypropylacrylate"
+                    "uid": "_:hydroxypropylacrylate"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -4378,12 +4384,12 @@
                     "Ingredient"
                   ],
                   "material": {
-      "node": [
-        "Material"
-      ],
-      "name": "PPI CP100",
-      "uid": "_:PPI CP100"
-    },
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "PPI CP100",
+                    "uid": "_:PPI CP100"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -4449,9 +4455,11 @@
                     "Ingredient"
                   ],
                   "material": {
-                    "node": ["Material"],
-                    "name":"hydroxypropylacrylate",
-                    "uid":"_:hydroxypropylacrylate"
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "hydroxypropylacrylate",
+                    "uid": "_:hydroxypropylacrylate"
                   },
                   "quantity": [
                     "null"
@@ -4462,7 +4470,9 @@
                     "Ingredient"
                   ],
                   "material": {
-                    "node": ["Material"],
+                    "node": [
+                      "Material"
+                    ],
                     "name": "Basic alumina",
                     "uid": "_:Basic alumina"
                   },
