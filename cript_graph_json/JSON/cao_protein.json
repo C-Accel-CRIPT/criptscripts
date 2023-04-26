@@ -2700,7 +2700,13 @@
                       "node": [
                         "Ingredient"
                       ],
-                      "material": "WPI CP23",
+                      "material": {
+      "node": [
+        "Material"
+      ],
+      "name": "WPI CP23",
+      "uid": "_:WPI CP23"
+    },
                       "quantity": [
                         "null"
                       ]
@@ -2718,7 +2724,13 @@
                           "node": [
                             "Ingredient"
                           ],
-                          "material": "WPI CP23",
+                          "material": {
+      "node": [
+        "Material"
+      ],
+      "name": "WPI CP23",
+      "uid": "_:WPI CP23"
+    },
                           "quantity": [
                             "null"
                           ]
