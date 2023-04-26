@@ -3639,13 +3639,7 @@
                     "node": [
                       "Material"
                     ],
-                    "name": {
-                      "node": [
-                        "Material"
-                      ],
-                      "name": "WPP CP100",
-                      "uid": "_:WPP CP100"
-                    },
+                    "name": "WPP CP100",
                     "uid": "_:WPP CP100"
                   },
                   "quantity": [
