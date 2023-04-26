@@ -47,7 +47,7 @@
                       "Material"
                     ],
                     "name": "water",
-                    "uid": ":_water"
+                    "uid": "_:water"
                   },
                   "quantity": [
                     "null"
