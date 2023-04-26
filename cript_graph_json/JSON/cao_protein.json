@@ -3216,7 +3216,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "WPI CP70",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "WPI CP70",
+                    "uid": "_:WPI CP70"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -3244,7 +3250,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "WPI CP70",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "WPI CP70",
+                    "uid": "_:WPI CP70"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -3332,7 +3344,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "WPI CP120",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "WPI CP120",
+                    "uid": "_:WPI CP120"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -3360,7 +3378,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "WPI CP120",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "WPI CP120",
+                    "uid": "_:WPI CP120"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -3448,7 +3472,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "WPP CP23",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "WPP CP23",
+                    "uid": "_:WPP CP23"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -3468,7 +3498,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "WPP CP23",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "WPP CP23",
+                    "uid": "_:WPP CP23"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -3533,7 +3569,19 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "WPP CP100",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": {
+                      "node": [
+                        "Material"
+                      ],
+                      "name": "WPP CP100",
+                      "uid": "_:WPP CP100"
+                    },
+                    "uid": "_:WPP CP100"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -3553,7 +3601,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "WPP CP100",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "WPP CP100",
+                    "uid": "_:WPP CP100"
+                  },
                   "quantity": [
                     "null"
                   ]
