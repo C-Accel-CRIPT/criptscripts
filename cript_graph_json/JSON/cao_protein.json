@@ -338,7 +338,13 @@
                     }
                   ],
                   "product": [
-                    "WPI supernatant"
+                    {
+                      "node": [
+                        "Material"
+                      ],
+                      "name": "WPI supernatant",
+                      "uid": "_:WPI supernatant"
+                    }
                   ]
                 }
               ],
