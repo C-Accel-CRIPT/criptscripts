@@ -3672,7 +3672,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "WPC CP23",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "WPC CP23",
+                    "uid": "_:WPC CP23"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -3763,7 +3769,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "WPC CP100",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "WPC CP100",
+                    "uid": "_:WPC CP100"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -3783,7 +3795,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "WPC CP100",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "WPC CP100",
+                    "uid": "_:WPC CP100"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -3848,7 +3866,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "BSA CP23",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "BSA CP23",
+                    "uid": "_:BSA CP23"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -3868,7 +3892,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "BSA CP23",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "BSA CP23",
+                    "uid": "_:BSA CP23"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -3933,7 +3963,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "BSA CP100",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "BSA CP100",
+                    "uid": "_:BSA CP100"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -3953,7 +3989,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "BSA CP100",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "BSA CP100",
+                    "uid": "_:BSA CP100"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -4018,7 +4060,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "SPI CP23",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "SPI CP23",
+                    "uid": "_:SPI CP23"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -4038,7 +4086,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "SPI CP23",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "SPI CP23",
+                    "uid": "_:SPI CP23"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -4103,7 +4157,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "SPI CP100",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "SPI CP100",
+                    "uid": "_:SPI CP100"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -4123,7 +4183,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "SPI CP100",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "SPI CP100",
+                    "uid": "_:SPI CP100"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -4188,7 +4254,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "PPI CP23",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "PPI CP23",
+                    "uid": "_:PPI CP23"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -4208,7 +4280,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "PPI CP23",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "PPI CP23",
+                    "uid": "_:PPI CP23"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -4273,7 +4351,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "PPI CP100",
+                  "material": {
+                    "node": [
+                      "Material"
+                    ],
+                    "name": "PPI CP100",
+                    "uid": "_:PPI CP100"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -4293,7 +4377,13 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "PPI CP100",
+                  "material": {
+      "node": [
+        "Material"
+      ],
+      "name": "PPI CP100",
+      "uid": "_:PPI CP100"
+    },
                   "quantity": [
                     "null"
                   ]
@@ -4358,7 +4448,11 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "hydroxypropylacrylate",
+                  "material": {
+                    "node": ["Material"],
+                    "name":"hydroxypropylacrylate",
+                    "uid":"_:hydroxypropylacrylate"
+                  },
                   "quantity": [
                     "null"
                   ]
@@ -4367,7 +4461,11 @@
                   "node": [
                     "Ingredient"
                   ],
-                  "material": "Basic alumina",
+                  "material": {
+                    "node": ["Material"],
+                    "name": "Basic alumina",
+                    "uid": "_:Basic alumina"
+                  },
                   "quantity": [
                     "null"
                   ]
