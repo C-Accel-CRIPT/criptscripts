@@ -450,7 +450,11 @@
                       "node": [
                         "Ingredient"
                       ],
-                      "material": "water",
+                      "material": {
+                        "node": ["Material"],
+                        "name": "water",
+                        "uid": "_:water"
+                      },
                       "quantity": [
                         "null"
                       ]
@@ -557,7 +561,11 @@
                       "node": [
                         "Ingredient"
                       ],
-                      "material": "water",
+                      "material": {
+                        "node": ["Material"],
+                        "name": "water",
+                        "uid": "_:water"
+                      },
                       "quantity": [
                         "null"
                       ]
@@ -649,7 +657,11 @@
                       "node": [
                         "Ingredient"
                       ],
-                      "material": "Bovine serum albumin",
+                      "material": {
+                        "node": ["Material"],
+                        "name": "Bovine serum albumin",
+                        "uid": "_:Bovine serum albumin"
+                      },
                       "quantity": [
                         "null"
                       ]
@@ -658,7 +670,11 @@
                       "node": [
                         "Ingredient"
                       ],
-                      "material": "water",
+                      "material": {
+                        "node": ["Material"],
+                        "name":"water",
+                        "uid":"_:water"
+                      },
                       "quantity": [
                         "null"
                       ]
@@ -750,7 +766,11 @@
                       "node": [
                         "Ingredient"
                       ],
-                      "material": "Soy protein isolate",
+                      "material": {
+                        "node": ["Material"],
+                        "name":"Soy protein isolate",
+                        "uid":"_:Soy protein isolate"
+                      },
                       "quantity": [
                         "null"
                       ]
@@ -759,7 +779,11 @@
                       "node": [
                         "Ingredient"
                       ],
-                      "material": "water",
+                      "material": {
+                        "node": ["Material"],
+                        "name":"water",
+                        "uid":"_:water"
+                      },
                       "quantity": [
                         "null"
                       ]
