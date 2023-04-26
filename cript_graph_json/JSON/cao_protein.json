@@ -2183,7 +2183,11 @@
                       "node": [
                         "Ingredient"
                       ],
-                      "material": "hydroxypropylacrylate",
+                      "material": {
+                        "node": ["Material"],
+                        "name": "hydroxypropylacrylate",
+                        "uid": "_:hydroxypropylacrylate"
+                      },
                       "quantity": [
                         "null"
                       ]
@@ -2192,7 +2196,11 @@
                       "node": [
                         "Ingredient"
                       ],
-                      "material": "Basic alumina",
+                      "material": {
+                        "node": ["Material"],
+                        "name": "Basic alumina",
+                        "uid": "_:Basic alumina"
+                      },
                       "quantity": [
                         "null"
                       ]
