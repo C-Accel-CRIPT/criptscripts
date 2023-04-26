@@ -1022,6 +1022,11 @@
                   "uid": "_:SPI unheated film",
                   "property": [
                     {
+                      "node": [
+                        "property"
+                      ],
+                      "key": "air_flow",
+                      "type": "min",
                       "data": [
                         {
                           "node": [
