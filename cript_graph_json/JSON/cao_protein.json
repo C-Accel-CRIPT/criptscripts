@@ -1150,7 +1150,7 @@
                             "Data"
                           ],
                           "name": "SPI unheated film FTIR",
-                          "type": "multistep"
+                          "type": "rxn_conv"
                         }
                       ]
                     }
@@ -1267,7 +1267,7 @@
                             "Data"
                           ],
                           "name": "SPI unheated film FTIR",
-                          "type": "multistep"
+                          "type": "rxn_conv"
                         }
                       ]
                     }
@@ -1318,7 +1318,7 @@
                             "Data"
                           ],
                           "name": "SPI unheated film FTIR",
-                          "type": "multistep"
+                          "type": "rxn_conv"
                         }
                       ]
                     }
