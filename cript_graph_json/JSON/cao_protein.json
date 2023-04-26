@@ -3159,7 +3159,13 @@
                       "node": [
                         "Ingredient"
                       ],
-                      "material": "WPI CP100",
+                      "material":  {
+      "node": [
+        "Material"
+      ],
+      "name": "WPI CP100",
+      "uid": "_:WPI CP100"
+    },
                       "quantity": [
                         "null"
                       ]
