@@ -4543,13 +4543,7 @@
                     "node": [
                       "Material"
                     ],
-                    "name": {
-                      "node": [
-                        "Material"
-                      ],
-                      "name": "SPI CP100",
-                      "uid": "_:SPI CP100"
-                    },
+                    "name": "SPI CP100",
                     "uid": "_:SPI CP100"
                   },
                   "quantity": [
@@ -4652,13 +4646,7 @@
                     "node": [
                       "Material"
                     ],
-                    "name": {
-                      "node": [
-                        "Material"
-                      ],
-                      "name": "PPI CP23",
-                      "uid": "_:PPI CP23"
-                    },
+                    "name": "PPI CP23",
                     "uid": "_:PPI CP23"
                   },
                   "quantity": [
@@ -4761,13 +4749,7 @@
                     "node": [
                       "Material"
                     ],
-                    "name": {
-      "node": [
-        "Material"
-      ],
-      "name": "PPI CP100",
-      "uid": "_:PPI CP100"
-    },
+                    "name": "PPI CP100",
                     "uid": "_:PPI CP100"
                   },
                   "quantity": [
@@ -4788,12 +4770,12 @@
                         "Ingredient"
                       ],
                       "material": {
-      "node": [
-        "Material"
-      ],
-      "name": "PPI CP100",
-      "uid": "_:PPI CP100"
-    },
+                        "node": [
+                          "Material"
+                        ],
+                        "name": "PPI CP100",
+                        "uid": "_:PPI CP100"
+                      },
                       "quantity": [
                         "null"
                       ]
@@ -4890,7 +4872,9 @@
                         "Ingredient"
                       ],
                       "material": {
-                        "node": ["Material"],
+                        "node": [
+                          "Material"
+                        ],
                         "name": "hydroxypropylacrylate",
                         "uid": "_:hydroxypropylacrylate"
                       },
@@ -4903,7 +4887,9 @@
                         "Ingredient"
                       ],
                       "material": {
-                        "node": ["Material"],
+                        "node": [
+                          "Material"
+                        ],
                         "name": "Basic alumina",
                         "uid": "_:Basic alumina"
                       },
