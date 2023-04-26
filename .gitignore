@@ -3,3 +3,12 @@ _site
 .jekyll-cache
 .jekyll-metadata
 vendor
+
+# ignore python venv
+venv/
+
+# ignore jetbrains IDE settings
+.idea/
+
+# ignore vscode settings
+.vscode/
