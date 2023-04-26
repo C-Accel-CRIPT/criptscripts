@@ -647,7 +647,13 @@
                     }
                   ],
                   "product": [
-                    "BSA supernatant"
+                    {
+                      "node": [
+                        "Material"
+                      ],
+                      "name": "BSA supernatant",
+                      "uid": "_:BSA supernatant"
+                    }
                   ]
                 }
               ],
