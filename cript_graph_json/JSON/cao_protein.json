@@ -1568,7 +1568,9 @@
                         "Ingredient"
                       ],
                       "material": {
-                        "node": ["Material"],
+                        "node": [
+                          "Material"
+                        ],
                         "name": "Basic alumina",
                         "uid": "_:Basic alumina"
                       },
@@ -1722,7 +1724,9 @@
                         "Ingredient"
                       ],
                       "material": {
-                        "node": ["Material"],
+                        "node": [
+                          "Material"
+                        ],
                         "name": "hydroxypropylacrylate",
                         "uid": "_:hydroxypropylacrylate"
                       },
@@ -1735,7 +1739,9 @@
                         "Ingredient"
                       ],
                       "material": {
-                        "node": ["Material"],
+                        "node": [
+                          "Material"
+                        ],
                         "name": "Basic alumina",
                         "uid": "_:Basic alumina"
                       },
@@ -1876,7 +1882,9 @@
                         "Ingredient"
                       ],
                       "material": {
-                        "node": ["Material"],
+                        "node": [
+                          "Material"
+                        ],
                         "name": "hydroxypropylacrylate",
                         "uid": "_:hydroxypropylacrylate"
                       },
@@ -1889,7 +1897,9 @@
                         "Ingredient"
                       ],
                       "material": {
-                        "node": ["Material"],
+                        "node": [
+                          "Material"
+                        ],
                         "name": "Basic alumina",
                         "uid": "_:Basic alumina"
                       },
@@ -2030,7 +2040,9 @@
                         "Ingredient"
                       ],
                       "material": {
-                        "node": ["Material"],
+                        "node": [
+                          "Material"
+                        ],
                         "name": "hydroxypropylacrylate",
                         "uid": "_:hydroxypropylacrylate"
                       },
@@ -2043,7 +2055,9 @@
                         "Ingredient"
                       ],
                       "material": {
-                        "node": ["Material"],
+                        "node": [
+                          "Material"
+                        ],
                         "name": "Basic alumina",
                         "uid": "_:Basic alumina"
                       },
@@ -2184,7 +2198,9 @@
                         "Ingredient"
                       ],
                       "material": {
-                        "node": ["Material"],
+                        "node": [
+                          "Material"
+                        ],
                         "name": "hydroxypropylacrylate",
                         "uid": "_:hydroxypropylacrylate"
                       },
@@ -2197,7 +2213,9 @@
                         "Ingredient"
                       ],
                       "material": {
-                        "node": ["Material"],
+                        "node": [
+                          "Material"
+                        ],
                         "name": "Basic alumina",
                         "uid": "_:Basic alumina"
                       },
@@ -2338,7 +2356,9 @@
                         "Ingredient"
                       ],
                       "material": {
-                        "node": ["Material"],
+                        "node": [
+                          "Material"
+                        ],
                         "name": "hydroxypropylacrylate",
                         "uid": "_:hydroxypropylacrylate"
                       },
@@ -2351,7 +2371,9 @@
                         "Ingredient"
                       ],
                       "material": {
-                        "node": ["Material"],
+                        "node": [
+                          "Material"
+                        ],
                         "name": "Basic alumina",
                         "uid": "_:Basic alumina"
                       },
@@ -2500,12 +2522,12 @@
                         "Ingredient"
                       ],
                       "material": {
-      "node": [
-        "Material"
-      ],
-      "name": "WPI CP23",
-      "uid": "_:WPI CP23"
-    },
+                        "node": [
+                          "Material"
+                        ],
+                        "name": "WPI CP23",
+                        "uid": "_:WPI CP23"
+                      },
                       "quantity": [
                         "null"
                       ]
