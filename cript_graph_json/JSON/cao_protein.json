@@ -779,11 +779,12 @@
                           "Material"
                         ],
                         "name": "Soy protein isolate",
-                        "uid": "_:Soy protein isolate"
+                        "uid": "_:Soy protein isolate",
                         "quantity": [
                           "null"
                         ]
-                      },
+                      }
+                    },
                     {
                       "node": [
                         "Ingredient"
@@ -886,7 +887,13 @@
                       "node": [
                         "Ingredient"
                       ],
-                      "material": "Pea protein isolate",
+                      "material": {
+                        "node": [
+                          "Material"
+                        ],
+                        "name": "Pea protein isolate",
+                        "uid": "_:Pea protein isolate"
+                      },
                       "quantity": [
                         "null"
                       ]
@@ -895,7 +902,13 @@
                       "node": [
                         "Ingredient"
                       ],
-                      "material": "water",
+                      "material": {
+                        "node": [
+                          "Material"
+                        ],
+                        "name": "water",
+                        "uid": "_:water"
+                      },
                       "quantity": [
                         "null"
                       ]
@@ -1554,7 +1567,11 @@
                       "node": [
                         "Ingredient"
                       ],
-                      "material": "Basic alumina",
+                      "material": {
+                        "node": ["Material"],
+                        "name": "Basic alumina",
+                        "uid": "_:Basic alumina"
+                      },
                       "quantity": [
                         "null"
                       ]
