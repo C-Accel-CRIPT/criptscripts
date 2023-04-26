@@ -779,11 +779,11 @@
                           "Material"
                         ],
                         "name": "Soy protein isolate",
-                        "uid": "_:Soy protein isolate",
-                        "quantity": [
-                          "null"
-                        ]
-                      }
+                        "uid": "_:Soy protein isolate"
+                      },
+                      "quantity": [
+                        "null"
+                      ]
                     },
                     {
                       "node": [
@@ -1089,7 +1089,7 @@
                   "property": [
                     {
                       "node": [
-                        "property"
+                        "Property"
                       ],
                       "key": "air_flow",
                       "type": "min",
@@ -1140,7 +1140,7 @@
                   "property": [
                     {
                       "node": [
-                        "property"
+                        "Property"
                       ],
                       "key": "air_flow",
                       "type": "min",
@@ -1257,7 +1257,7 @@
                   "property": [
                     {
                       "node": [
-                        "property"
+                        "Property"
                       ],
                       "key": "air_flow",
                       "type": "min",
@@ -1308,7 +1308,7 @@
                   "property": [
                     {
                       "node": [
-                        "property"
+                        "Property"
                       ],
                       "key": "air_flow",
                       "type": "min",
