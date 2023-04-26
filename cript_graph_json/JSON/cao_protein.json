@@ -461,7 +461,7 @@
                     "node": [
                       "Material"
                     ],
-                    "material": "Sodium hydroxide",
+                    "name": "Sodium hydroxide",
                     "uid": "_:Sodium hydroxide"
                   },
                   "quantity": [
