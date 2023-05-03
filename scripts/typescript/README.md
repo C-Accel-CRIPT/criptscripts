@@ -16,5 +16,5 @@ Will install this npm package and dependencies.
 Note: scripts are still WIP.
 
 - `afrl`: see [readme](src/afrl/README.md)
-- `bcdb`: see [readme](src/bcdb/README.md)
 - `rcbc`: see [readme](src/rcbc/README.md)
+
