@@ -109,7 +109,7 @@ export class BCDBLoader {
               node: ["Reference"],
               doi: doi,
               author: [author], // TODO: parse array
-              type: "", // TODO: pick a reference-type key from vocab
+              type: "journal_article",
             };
             if (reference.doi) {
               references.set(reference.doi, reference);
@@ -125,7 +125,7 @@ export class BCDBLoader {
             // uid: will be determined by CriptJSON serializer
             name: `RCBC Citation ${index}`,
             node: ["Citation"],
-            type: "reference",
+            type: "extracted_by_human",
             reference,
           };
 
