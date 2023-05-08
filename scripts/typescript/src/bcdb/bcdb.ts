@@ -153,6 +153,7 @@ export class BCDBLoader {
             value: row[Column.Mn],
             method: row[Column.Mn_method],
             unit: "g/mol",
+            citation: [citation]
           });
           polymer.property.push({
             node: ["Property"],
@@ -160,6 +161,7 @@ export class BCDBLoader {
             value: row[Column.Mw],
             method: row[Column.Mw_method],
             unit: "g/mol",
+            citation: [citation]
           });
           polymer.property.push({
             node: ["Property"],
@@ -167,12 +169,14 @@ export class BCDBLoader {
             value: row[Column.D],
             method: row[Column.D_method],
             unit: "g/mol",
+            citation: [citation]
           });
           polymer.property.push({
             node: ["Property"],
             key: "invariant_degree_of_polymerization",
             value: row[Column.N],
             method: row[Column.N_method],
+            citation: [citation]
             //unit: undefined
           });
           polymer.property.push({
@@ -180,6 +184,7 @@ export class BCDBLoader {
             key: "temperature",
             unit: "degC",
             value: row[Column.T],
+            citation: [citation]
           });
 
           const phase_method = row[Column.phase_method] ?? "";
@@ -193,7 +198,8 @@ export class BCDBLoader {
             key: "microstructure_phase",
             notes: "phase1",
             value: row[Column.PHASE1],
-            condition: [{...condition}]
+            condition: [{...condition}],
+            citation: [citation]
           });
           polymer.property.push({
             node: ["Property"],
@@ -201,6 +207,7 @@ export class BCDBLoader {
             notes: "phase2",
             value: row[Column.PHASE2],
             condition: [{...condition}],
+            citation: [citation]
           });
 
           //-- Individual Block 1
@@ -215,6 +222,7 @@ export class BCDBLoader {
                 value: row[Column.Mw1],
                 method: row[Column.Mw1_method],
                 unit: "g/mol",
+                citation: [citation],
               },
               {
                 node: ["Property"],
@@ -222,6 +230,7 @@ export class BCDBLoader {
                 value: row[Column.D1],
                 method: row[Column.D1_method],
                 unit: "g/mol",
+                citation: [citation],
               },
               {
                 node: ["Property"],
@@ -229,6 +238,7 @@ export class BCDBLoader {
                 value: row[Column.N1],
                 method: row[Column.N1_method],
                 //unit: undefined
+                citation: [citation],
               },
               {
                 node: ["Property"],
@@ -236,6 +246,7 @@ export class BCDBLoader {
                 value: row[Column.f1],
                 method: row[Column.f1_method],
                 //unit: undefined
+                citation: [citation],
               },
               {
                 node: ["Property"],
@@ -243,6 +254,7 @@ export class BCDBLoader {
                 value: row[Column.ftot1],
                 method: row[Column.ftot1_method],
                 //unit: undefined
+                citation: [citation],
               },
               {
                 node: ["Property"],
@@ -250,6 +262,7 @@ export class BCDBLoader {
                 value: row[Column.w1],
                 method: row[Column.w1_method],
                 //unit: undefined
+                citation: [citation],
               },
               {
                 node: ["Property"],
@@ -257,6 +270,7 @@ export class BCDBLoader {
                 value: row[Column.rho1],
                 method: row[Column.rho1_method],
                 unit: "g/mL",
+                citation: [citation],
               },
               {
                 node: ["Property"],
@@ -264,6 +278,7 @@ export class BCDBLoader {
                 value: `${row[Column.PHASE1]},${row[Column.PHASE2]}`,
                 method: row[Column.rho1_method],
                 unit: "g/mL",
+                citation: [citation],
               },
             ],
           };
@@ -281,6 +296,7 @@ export class BCDBLoader {
                 value: row[Column.Mw2],
                 method: row[Column.Mw2_method],
                 unit: "g/mol",
+                citation: [citation],
               },
               {
                 node: ["Property"],
@@ -288,6 +304,7 @@ export class BCDBLoader {
                 value: row[Column.D2],
                 method: row[Column.D2_method],
                 unit: "g/mol",
+                citation: [citation],
               },
               {
                 node: ["Property"],
@@ -295,6 +312,7 @@ export class BCDBLoader {
                 value: row[Column.N2],
                 method: row[Column.N2_method],
                 //unit: undefined
+                citation: [citation],
               },
               {
                 node: ["Property"],
@@ -302,6 +320,7 @@ export class BCDBLoader {
                 value: row[Column.f2],
                 method: row[Column.f2_method],
                 //unit: undefined
+                citation: [citation],
               },
               {
                 node: ["Property"],
@@ -309,6 +328,7 @@ export class BCDBLoader {
                 value: row[Column.ftot2],
                 method: row[Column.ftot2_method],
                 //unit: undefined
+                citation: [citation],
               },
               {
                 node: ["Property"],
@@ -316,6 +336,7 @@ export class BCDBLoader {
                 value: row[Column.w2],
                 method: row[Column.w2_method],
                 //unit: undefined
+                citation: [citation],
               },
               {
                 node: ["Property"],
@@ -323,6 +344,7 @@ export class BCDBLoader {
                 value: row[Column.rho2],
                 method: row[Column.rho2_method],
                 unit: "g/mL",
+                citation: [citation],
               },
             ],
           };
