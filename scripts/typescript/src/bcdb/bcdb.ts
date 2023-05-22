@@ -187,12 +187,19 @@ export class BCDBLoader {
             citation: [citation]
           });
 
-          const phase_method = row[Column.phase_method] ?? "";
+          // can be: "saxs", "tem", or "rheology"
+          let phase_method = row[Column.phase_method]?.toLowerCase() ?? "";
+
+          // The custom vocabulary does not allow "rheology"
+          // Replacing with "rheometer".
+          if(phase_method === "rheology")  phase_method = "rheometer";
+
           const condition: ICondition = {
             node: ["Condition"],
             key: "phase_method",
-            value: phase_method.toLowerCase(), // saxs, tem, rheology
+            value: phase_method, 
           };
+
           polymer.property.push({
             node: ["Property"],
             key: "microstructure_phase",
