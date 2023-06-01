@@ -9,10 +9,10 @@ export interface IProperty {
   model_version?: string;
   key?: string;
   type?: string;
-  value?: string /* | number*/; // FIXME: backend does not allow number
+  value?: string  | number;
   unit?: string;
-  uncertainty?: string;
-  uncertainty_type?: string; //UncertainityType
+  uncertainty?: number;
+  uncertainty_type?: string;
   sample_preparation?: string;
   notes?: string;
   structure?: string;
@@ -21,7 +21,7 @@ export interface IProperty {
   condition?: ICondition[];
   data?: IData[];
   computation?: IComputation[];
-  citation?: ICitation[]; // IReference //ReferencePost
+  citation?: ICitation[];
   created_at?: string;
   updated_at?: string;  
   uuid?: string;

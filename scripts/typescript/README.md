@@ -13,8 +13,9 @@ Will install this npm package and dependencies.
 
 # This project contains several ingestion scripts
 
-Note: scripts are still WIP.
+Disclaimer: these scripts do not rely on an SDK, that's why you should not consider to use them as a durable solution. We encourage you to rely on the SDK to write such scripts.
 
 - `afrl`: see [readme](src/afrl/README.md)
 - `bcdb`: see [readme](src/bcdb/README.md)
+- `pppdb`: see [readme](src/pppdb/README.md)
 - `rcbc`: see [readme](src/rcbc/README.md)

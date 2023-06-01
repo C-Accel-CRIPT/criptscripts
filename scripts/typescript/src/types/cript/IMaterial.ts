@@ -27,9 +27,13 @@ export interface IMaterial {
   identifier_count?: number;
   bigsmiles?: string;
   smiles?: string;
+  /** @deprecated, use chem_formula instead*/
   cas?: string;
   inchi?: string;
   inchi_key?: string;
   mol_form?: string;
   pubchem_cid?: number;  
+  chem_formula?: string;
+  // a.k.a CAS number
+  chemical_id?: string;
 }

@@ -8,11 +8,13 @@
     "afrl": "npx ts-node ./src/afrl",
     "bcdb": "npx ts-node ./src/bcdb",
     "rcbc": "npx ts-node ./src/rcbc",
+    "pppdb": "npx ts-node ./src/pppdb",
     "test": "bash ./test.sh"
   },
   "author": "Bérenger Dalle-Cort, CRIPT, MIT",
   "license": "MIT",
   "dependencies": {
+    "@cript-web/bigsmiles-toolkit": "^1.0.5",
     "csvtojson": "^2.0.10",
     "jsonstream-ts": "^1.3.6",
     "ts-node": "^10.9.1",
@@ -21,6 +23,7 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
+    "@types/node": "^18.15.12",
     "ajv": "^8.12.0",
     "ajv-formats": "^2.1.1"
   }
