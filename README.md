@@ -1,5 +1,7 @@
 [![CRIPT Scripts logo](./assets/images/criptscripts-logo.svg)](https://criptscripts.org/)
 
+This is the repository of the [CRIPTScrips](https://criptscripts.org/) website
+
 
 <!--
 ![Markdown](https://img.shields.io/badge/Language-Markdown-lightgrey?style=for-the-badge&logo=markdown)
