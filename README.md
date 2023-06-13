@@ -1,6 +1,5 @@
-<div>
-  <img src="./assets/images/criptscripts-logo.svg" alt="CRIPT Scripts logo">
-</div>
+[![CRIPT Scripts logo](./assets/images/criptscripts-logo.svg)](https://criptscripts.org/)
+
 
 <!--
 ![Markdown](https://img.shields.io/badge/Language-Markdown-lightgrey?style=for-the-badge&logo=markdown)
