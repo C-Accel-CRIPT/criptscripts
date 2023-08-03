@@ -3,7 +3,7 @@
  */
 
 import { IProject } from "@cript";
-import { CriptProjectValidator } from "@utilities";
+import { CriptValidator } from "@utilities";
 import { readFileSync } from "fs";
 import { isAbsolute, resolve } from "path";
 import { argv, exit } from "process";
@@ -20,7 +20,7 @@ import { argv, exit } from "process";
 
     console.log('project_path', project_path);
 
-    const validator = new CriptProjectValidator();
+    const validator = new CriptValidator();
     try {
         const absolute_project_path = isAbsolute(project_path) ? project_path : resolve(__dirname, project_path);
         console.log('Absolute file path is:', absolute_project_path);
