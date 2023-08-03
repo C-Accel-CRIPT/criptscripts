@@ -8,36 +8,35 @@
  * See link to google drive files above (column_meanings.xlsx)
  */
 import * as XLSX from "xlsx";
-import * as fs from "fs";
 import { Column } from "./types/column";
-import { ICitation, ICollection, ICondition, IExperiment, IMaterial, IProcess, IProject, IReference } from "@cript";
-import { Stream } from "stream";
+import { ICitation, ICollection, ICondition, IMaterial, IProject, IReference } from "@cript";
+import { CriptGraphOptimizer, CriptProjectValidator, LogLevel, Logger, LoggerOptions } from "@utilities";
 
 export class BCDBLoader {
+  readonly logger: Logger;
+
+  constructor(options: {
+    logger: LoggerOptions;
+  } = { logger: { outstream: process.stdout, verbosity: LogLevel.INFO, timestamp: true }})
+  {
+    this.logger = new Logger(options.logger);
+  }
+
   /**
-   * Loads a given BCDB file and converts it to a CRIPT Project
+   * Loads a given BCDB file and converts it to a CRIPT Project.
+   * 
+   * The output IProject has the garantee to be optimized and validated against the DB schema,
+   * otherwise an exception will be thrown.
    */
-  static async load(options: {
+  async load(options: {
     input_file_path: string;
-    //log?: Writable;
     sheets: ['blocks', 'diblock']; // added for the user to understand, but only expect a const array
     limitSheetRows: number;
   }): Promise<IProject> {
-    // format errors
-    function error(index: number | null, message: string) {
-      /*
-      if (index !== null) log_buffer.write(`ERR: line ${index}: ${message}\n`);
-      else log_buffer.write(`ERR: ${message}\n`);   */
-    }
-
-    // Format messages
-    function log(message: string) {    /*  
-      log_buffer.write(`MSG: ${message}\n`);*/
-    }
 
     //-- Load desired sheets
 
-    log(`=-=-=-=-=-=-=-=-=-= BCDB XLSX to JSON =-=-=-=-=-=-=-=-=`);
+    this.logger.info(`=-=-=-=-=-=-=-=-=-= BCDB XLSX to JSON =-=-=-=-=-=-=-=-=`);
 
     const workBook = XLSX.readFile(options.input_file_path, {
       sheets: options.sheets,
@@ -70,7 +69,7 @@ export class BCDBLoader {
         header: "A",
       });
 
-      log(`-- Found ${rows.length} row(s)`);
+      this.logger.info(`-- Found ${rows.length} row(s)`);
 
       rows
         .slice(1) // Skip header row.
@@ -81,8 +80,8 @@ export class BCDBLoader {
           const entry = { index, polymer, name, bigsmiles };
           blocks.set(bigsmiles, entry);
         });
-      log(`Found ${JSON.stringify([...blocks.values()], null, " ")} (${blocks.size} rows)`);
-      log(`Storing blocks meta information ... DONE`);
+      this.logger.info(`Found ${JSON.stringify([...blocks.values()], null, " ")} (${blocks.size} rows)`);
+      this.logger.info(`Storing blocks meta information ... DONE`);
     }
 
     {
@@ -91,14 +90,14 @@ export class BCDBLoader {
       const rows: { [key: string]: string }[] = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName], {
         header: "A",
       });
-      log(`-- Found ${rows.length} row(s)`);
-      log(`-- Converting polymer rows to JSON ...`);
+      this.logger.info(`-- Found ${rows.length} row(s)`);
+      this.logger.info(`-- Converting polymer rows to JSON ...`);
 
       rows
         .slice(2) // Skip 2 header rows
         .forEach((row, index, arr) => {
-          index % 100 == 0 && process.stdout.write(`-- Loading row ${index}/${arr.length - 1}\n`);
-
+          index % 100 == 0 && process.stdout.write(`-- Converting rows ... ${index}/${arr.length - 1}\n`);
+          this.logger.prefix = `[row ${String(index).padEnd(4)}]`;
           //-- reference
           //   to store DOI and ORCIDs
           const doi = row[Column.DOI];
@@ -114,7 +113,7 @@ export class BCDBLoader {
             if (reference.doi) {
               references.set(reference.doi, reference);
             } else {
-              error(index, `Unable to store this reference, it has no doi (we use it as a key)`);
+              this.logger.error(`Unable to store this reference, it has no doi (we use it as a key)`, JSON.stringify(reference));
             }
           }
           //log(`Reference read: ${reference.doi}`);
@@ -149,6 +148,7 @@ export class BCDBLoader {
           polymer.property.push({
             node: ["Property"],
             key: "mw_n",
+            type: 'value',
             value: row[Column.Mn],
             method: row[Column.Mn_method],
             unit: "g/mol",
@@ -157,6 +157,7 @@ export class BCDBLoader {
           polymer.property.push({
             node: ["Property"],
             key: "mw_w",
+            type: 'value',
             value: row[Column.Mw],
             method: row[Column.Mw_method],
             unit: "g/mol",
@@ -165,6 +166,7 @@ export class BCDBLoader {
           polymer.property.push({
             node: ["Property"],
             key: "mw_d",
+            type: 'value',
             value: row[Column.D],
             method: row[Column.D_method],
             unit: "g/mol",
@@ -173,14 +175,16 @@ export class BCDBLoader {
           polymer.property.push({
             node: ["Property"],
             key: "invariant_degree_of_polymerization",
+            type: 'value',
             value: row[Column.N],
             method: row[Column.N_method],
-            citation: [citation]
-            //unit: undefined
+            citation: [citation],
+            unit: null,
           });
           polymer.property.push({
             node: ["Property"],
             key: "temperature",
+            type: 'value',
             unit: "degC",
             value: row[Column.T],
             citation: [citation]
@@ -202,18 +206,22 @@ export class BCDBLoader {
           polymer.property.push({
             node: ["Property"],
             key: "microstructure_phase",
+            type: 'value',
             notes: "phase1",
             value: row[Column.PHASE1],
             condition: [{...condition}],
-            citation: [citation]
+            citation: [citation],
+            unit: null,
           });
           polymer.property.push({
             node: ["Property"],
             key: "microstructure_phase",
             notes: "phase2",
+            type: 'value',
             value: row[Column.PHASE2],
             condition: [{...condition}],
-            citation: [citation]
+            citation: [citation],
+            unit: null,
           });
 
           //-- Individual Block 1
@@ -225,6 +233,7 @@ export class BCDBLoader {
               {
                 node: ["Property"],
                 key: "mw_w",
+              type: 'value',
                 value: row[Column.Mw1],
                 method: row[Column.Mw1_method],
                 unit: "g/mol",
@@ -233,6 +242,7 @@ export class BCDBLoader {
               {
                 node: ["Property"],
                 key: "mw_d",
+                type: 'value',
                 value: row[Column.D1],
                 method: row[Column.D1_method],
                 unit: "g/mol",
@@ -241,38 +251,43 @@ export class BCDBLoader {
               {
                 node: ["Property"],
                 key: "invariant_degree_of_polymerization",
+                type: 'value',
                 value: row[Column.N1],
                 method: row[Column.N1_method],
-                //unit: undefined
+                unit: null,
                 citation: [citation],
               },
               {
                 node: ["Property"],
                 key: "conc_vol_fraction",
+                type: 'value',
                 value: row[Column.f1],
                 method: row[Column.f1_method],
-                //unit: undefined
+                unit: null,
                 citation: [citation],
               },
               {
                 node: ["Property"],
                 key: "conc_vol_fraction",
+                type: 'value',
                 value: row[Column.ftot1],
                 method: row[Column.ftot1_method],
-                //unit: undefined
+                unit: null,
                 citation: [citation],
               },
               {
                 node: ["Property"],
                 key: "conc_mass_fraction",
+                type: 'value',
                 value: row[Column.w1],
                 method: row[Column.w1_method],
-                //unit: undefined
+                unit: null,
                 citation: [citation],
               },
               {
                 node: ["Property"],
                 key: "density",
+                type: 'value',
                 value: row[Column.rho1],
                 method: row[Column.rho1_method],
                 unit: "g/mL",
@@ -281,6 +296,7 @@ export class BCDBLoader {
               {
                 node: ["Property"],
                 key: "microstructure_phase",
+                type: 'value',
                 value: `${row[Column.PHASE1]},${row[Column.PHASE2]}`,
                 method: row[Column.rho1_method],
                 unit: "g/mL",
@@ -299,6 +315,7 @@ export class BCDBLoader {
               {
                 node: ["Property"],
                 key: "mw_w",
+                type: 'value',
                 value: row[Column.Mw2],
                 method: row[Column.Mw2_method],
                 unit: "g/mol",
@@ -307,6 +324,7 @@ export class BCDBLoader {
               {
                 node: ["Property"],
                 key: "mw_d",
+                type: 'value',
                 value: row[Column.D2],
                 method: row[Column.D2_method],
                 unit: "g/mol",
@@ -315,38 +333,43 @@ export class BCDBLoader {
               {
                 node: ["Property"],
                 key: "invariant_degree_of_polymerization",
+                type: 'value',
                 value: row[Column.N2],
                 method: row[Column.N2_method],
-                //unit: undefined
+                unit: null,
                 citation: [citation],
               },
               {
                 node: ["Property"],
                 key: "conc_vol_fraction",
+                type: 'value',
                 value: row[Column.f2],
                 method: row[Column.f2_method],
-                //unit: undefined
+                unit: null,
                 citation: [citation],
               },
               {
                 node: ["Property"],
                 key: "conc_vol_fraction",
+                type: 'value',
                 value: row[Column.ftot2],
                 method: row[Column.ftot2_method],
-                //unit: undefined
+                unit: null,
                 citation: [citation],
               },
               {
                 node: ["Property"],
                 key: "conc_mass_fraction",
+                type: 'value',
                 value: row[Column.w2],
                 method: row[Column.w2_method],
-                //unit: undefined
+                unit: null,
                 citation: [citation],
               },
               {
                 node: ["Property"],
                 key: "density",
+                type: 'value',
                 value: row[Column.rho2],
                 method: row[Column.rho2_method],
                 unit: "g/mL",
@@ -356,25 +379,47 @@ export class BCDBLoader {
           };
           project.material.push(block2);
 
-          //log(`Add blocks to process as ingredients ...`);
-
+          this.logger.info(`Add blocks to process as ingredients ...`);
           polymer.component = [block1, block2];
-
-          //-- add meta data for each material
-          project.material.forEach((material) => {
-            if (!material.bigsmiles) return log(`No bigsmiles found for ${material.name}`);
-
-            // try to get meta data from blocks map
-            // meta data are coming from the 'blocks' tab in the xlsx
-            const metaData = blocks.get(material.bigsmiles);
-            if (!metaData) return error(index, `No meta data found (in blocks) for ${material.bigsmiles}, keep name: ${material.name} `);
-            polymer.name = metaData.name;
-            polymer.names = [metaData.polymer];
-            //log(`Meta data found, name and names[] added`);
-          });
         });
     }
+    this.logger.prefix = null;
 
-    return project;
+    //-- add meta data for each material
+    for(const material of project.material) {
+      if (!material.bigsmiles) {
+        this.logger.info(`No bigsmiles found for ${material.name}`);
+        continue;
+      } 
+
+      // try to get meta data from blocks map
+      // meta data are coming from the 'blocks' tab in the xlsx
+      const metaData = blocks.get(material.bigsmiles);
+      if (!metaData) {
+        this.logger.warning(`No meta data found (in blocks) for '${material.bigsmiles}', keep name: ${material.name} `);
+        continue;
+      }
+      material.name = metaData.name;
+      material.names = [metaData.polymer];
+      this.logger.debug(`Meta data found for '${material.bigsmiles}', name and names[] added`);
+    };
+
+    // Optimise the project object (uses uids, create Edges, etc..)
+    const optimizer = new CriptGraphOptimizer();
+    const optimized_project: IProject = optimizer.get_optimized(project);
+
+    // Validate against DB schema
+    const validator = new CriptProjectValidator();
+    const is_valid = await validator.validate('ProjectPost', optimized_project);
+
+    if(!is_valid) {
+      this.logger.error(validator.errorsAsString(10));
+      this.logger.error(`Project '${optimized_project.name}' is NOT valid, see errors in logs above!`)
+      throw new Error(`Project is NOT valid`);
+    } else {
+      this.logger.info(`Project '${optimized_project.name}' is valid.`)
+    }
+
+    return optimized_project;
   } // load()
 } // namespace BCDBLoader
