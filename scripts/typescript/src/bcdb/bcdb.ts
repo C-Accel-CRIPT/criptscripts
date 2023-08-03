@@ -10,16 +10,18 @@
 import * as XLSX from "xlsx";
 import { Column } from "./types/column";
 import { ICitation, ICollection, ICondition, IMaterial, IProject, IReference } from "@cript";
-import { CriptGraphOptimizer, CriptProjectValidator, LogLevel, Logger, LoggerOptions } from "@utilities";
+import { CriptGraphOptimizer, CriptValidator, LogLevel, Logger, LoggerOptions } from "@utilities";
 
 export class BCDBLoader {
   readonly logger: Logger;
+  readonly validator: CriptValidator;
 
   constructor(options: {
     logger: LoggerOptions;
   } = { logger: { outstream: process.stdout, verbosity: LogLevel.INFO, timestamp: true }})
   {
     this.logger = new Logger(options.logger);
+    this.validator = new CriptValidator({allErrors: true }, options.logger);
   }
 
   /**
@@ -34,6 +36,12 @@ export class BCDBLoader {
     limitSheetRows: number;
   }): Promise<IProject> {
 
+    //-- Download DB schema
+    try {
+      await this.validator.init();
+    } catch(error: any) {
+      throw new Error('Unable to initialize the validator', error);
+    }
     //-- Load desired sheets
 
     this.logger.info(`=-=-=-=-=-=-=-=-=-= BCDB XLSX to JSON =-=-=-=-=-=-=-=-=`);
@@ -93,10 +101,12 @@ export class BCDBLoader {
       this.logger.info(`-- Found ${rows.length} row(s)`);
       this.logger.info(`-- Converting polymer rows to JSON ...`);
 
-      rows
-        .slice(2) // Skip 2 header rows
-        .forEach((row, index, arr) => {
+      let index = 0;
+      const arr = rows.slice(2) /** Skip 2 header rows */;
+      for(let row in arr) {
+          index++; // 1-based index
           index % 100 == 0 && process.stdout.write(`-- Converting rows ... ${index}/${arr.length - 1}\n`);
+
           this.logger.prefix = `[row ${String(index).padEnd(4)}]`;
           //-- reference
           //   to store DOI and ORCIDs
@@ -105,12 +115,14 @@ export class BCDBLoader {
           let reference: IReference | undefined = references.get(doi);
           if (!reference) {
             reference = {
+              title: 'Reference',
               node: ["Reference"],
               doi: doi,
-              author: [author], // TODO: parse array
-              type: "journal_article",
+              author: author ? [author] : undefined,
+              type: "journal_article",              
             };
             if (reference.doi) {
+              this.validator.validate_or_throw(reference); 
               references.set(reference.doi, reference);
             } else {
               this.logger.error(`Unable to store this reference, it has no doi (we use it as a key)`, JSON.stringify(reference));
@@ -120,11 +132,16 @@ export class BCDBLoader {
 
           //-- citation
           //   to reference the reference (haha)
-          const citation: ICitation = {
-            // uid: will be determined by CriptJSON serializer
-            node: ["Citation"],
-            type: "extracted_by_human",
-            reference,
+          let citation: ICitation[] | undefined;
+          
+          if( reference ) {
+            citation = [{
+              // uid: will be determined by CriptJSON serializer
+              node: ["Citation"],
+              type: "extracted_by_human",
+              reference,
+            }]
+            this.validator.validate_or_throw(citation[0]); 
           };
 
           //-- product (Overall polymer)
@@ -138,6 +155,7 @@ export class BCDBLoader {
             bigsmiles,
             notes: row[Column.notes]
           };
+          this.validator.validate_or_throw(polymer);
           project.material.push(polymer);
 
           // log(`Added polymer: ${polymer.bigsmiles}`);
@@ -152,7 +170,7 @@ export class BCDBLoader {
             value: row[Column.Mn],
             method: row[Column.Mn_method],
             unit: "g/mol",
-            citation: [citation]
+            citation,
           });
           polymer.property.push({
             node: ["Property"],
@@ -161,7 +179,7 @@ export class BCDBLoader {
             value: row[Column.Mw],
             method: row[Column.Mw_method],
             unit: "g/mol",
-            citation: [citation]
+            citation,
           });
           polymer.property.push({
             node: ["Property"],
@@ -170,7 +188,7 @@ export class BCDBLoader {
             value: row[Column.D],
             method: row[Column.D_method],
             unit: "g/mol",
-            citation: [citation]
+            citation,
           });
           polymer.property.push({
             node: ["Property"],
@@ -178,7 +196,7 @@ export class BCDBLoader {
             type: 'value',
             value: row[Column.N],
             method: row[Column.N_method],
-            citation: [citation],
+            citation,
             unit: null,
           });
           polymer.property.push({
@@ -187,7 +205,7 @@ export class BCDBLoader {
             type: 'value',
             unit: "degC",
             value: row[Column.T],
-            citation: [citation]
+            citation,
           });
 
           // can be: "saxs", "tem", or "rheology"
@@ -197,20 +215,14 @@ export class BCDBLoader {
           // Replacing with "rheometer".
           if(phase_method === "rheology")  phase_method = "rheometer";
 
-          const condition: ICondition = {
-            node: ["Condition"],
-            key: "phase_method",
-            value: phase_method, 
-          };
-
           polymer.property.push({
             node: ["Property"],
             key: "microstructure_phase",
             type: 'value',
             notes: "phase1",
             value: row[Column.PHASE1],
-            condition: [{...condition}],
-            citation: [citation],
+            method: phase_method,
+            citation,
             unit: null,
           });
           polymer.property.push({
@@ -219,8 +231,8 @@ export class BCDBLoader {
             notes: "phase2",
             type: 'value',
             value: row[Column.PHASE2],
-            condition: [{...condition}],
-            citation: [citation],
+            method: phase_method,
+            citation,
             unit: null,
           });
 
@@ -237,7 +249,7 @@ export class BCDBLoader {
                 value: row[Column.Mw1],
                 method: row[Column.Mw1_method],
                 unit: "g/mol",
-                citation: [citation],
+                citation,
               },
               {
                 node: ["Property"],
@@ -246,7 +258,7 @@ export class BCDBLoader {
                 value: row[Column.D1],
                 method: row[Column.D1_method],
                 unit: "g/mol",
-                citation: [citation],
+                citation,
               },
               {
                 node: ["Property"],
@@ -255,7 +267,7 @@ export class BCDBLoader {
                 value: row[Column.N1],
                 method: row[Column.N1_method],
                 unit: null,
-                citation: [citation],
+                citation,
               },
               {
                 node: ["Property"],
@@ -264,7 +276,7 @@ export class BCDBLoader {
                 value: row[Column.f1],
                 method: row[Column.f1_method],
                 unit: null,
-                citation: [citation],
+                citation,
               },
               {
                 node: ["Property"],
@@ -273,7 +285,7 @@ export class BCDBLoader {
                 value: row[Column.ftot1],
                 method: row[Column.ftot1_method],
                 unit: null,
-                citation: [citation],
+                citation,
               },
               {
                 node: ["Property"],
@@ -282,7 +294,7 @@ export class BCDBLoader {
                 value: row[Column.w1],
                 method: row[Column.w1_method],
                 unit: null,
-                citation: [citation],
+                citation,
               },
               {
                 node: ["Property"],
@@ -291,7 +303,7 @@ export class BCDBLoader {
                 value: row[Column.rho1],
                 method: row[Column.rho1_method],
                 unit: "g/mL",
-                citation: [citation],
+                citation,
               },
               {
                 node: ["Property"],
@@ -300,10 +312,11 @@ export class BCDBLoader {
                 value: `${row[Column.PHASE1]},${row[Column.PHASE2]}`,
                 method: row[Column.rho1_method],
                 unit: "g/mL",
-                citation: [citation],
+                citation,
               },
             ],
           };
+          this.validator.validate_or_throw(block1);
           project.material.push(block1);
 
           //-- Individual Block 2
@@ -319,7 +332,7 @@ export class BCDBLoader {
                 value: row[Column.Mw2],
                 method: row[Column.Mw2_method],
                 unit: "g/mol",
-                citation: [citation],
+                citation,
               },
               {
                 node: ["Property"],
@@ -328,7 +341,7 @@ export class BCDBLoader {
                 value: row[Column.D2],
                 method: row[Column.D2_method],
                 unit: "g/mol",
-                citation: [citation],
+                citation,
               },
               {
                 node: ["Property"],
@@ -337,7 +350,7 @@ export class BCDBLoader {
                 value: row[Column.N2],
                 method: row[Column.N2_method],
                 unit: null,
-                citation: [citation],
+                citation,
               },
               {
                 node: ["Property"],
@@ -346,7 +359,7 @@ export class BCDBLoader {
                 value: row[Column.f2],
                 method: row[Column.f2_method],
                 unit: null,
-                citation: [citation],
+                citation,
               },
               {
                 node: ["Property"],
@@ -355,7 +368,7 @@ export class BCDBLoader {
                 value: row[Column.ftot2],
                 method: row[Column.ftot2_method],
                 unit: null,
-                citation: [citation],
+                citation,
               },
               {
                 node: ["Property"],
@@ -364,7 +377,7 @@ export class BCDBLoader {
                 value: row[Column.w2],
                 method: row[Column.w2_method],
                 unit: null,
-                citation: [citation],
+                citation,
               },
               {
                 node: ["Property"],
@@ -373,15 +386,17 @@ export class BCDBLoader {
                 value: row[Column.rho2],
                 method: row[Column.rho2_method],
                 unit: "g/mL",
-                citation: [citation],
+                citation,
               },
             ],
           };
+          this.validator.validate_or_throw(block2);
           project.material.push(block2);
 
           this.logger.info(`Add blocks to process as ingredients ...`);
           polymer.component = [block1, block2];
-        });
+          this.validator.validate_or_throw(polymer);
+        };
     }
     this.logger.prefix = null;
 
@@ -409,11 +424,10 @@ export class BCDBLoader {
     const optimized_project: IProject = optimizer.get_optimized(project);
 
     // Validate against DB schema
-    const validator = new CriptProjectValidator();
-    const is_valid = await validator.validate('ProjectPost', optimized_project);
+    const is_valid = await this.validator.validate('ProjectPost', optimized_project);
 
     if(!is_valid) {
-      this.logger.error(validator.errorsAsString(10));
+      this.logger.error(this.validator.errorsAsString(100));
       this.logger.error(`Project '${optimized_project.name}' is NOT valid, see errors in logs above!`)
       throw new Error(`Project is NOT valid`);
     } else {

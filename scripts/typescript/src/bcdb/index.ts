@@ -17,7 +17,7 @@ import { BCDBLoader } from "./bcdb";
 
   const loader = new BCDBLoader({ logger: {
     outstream: logStream, // We use a stream to reduce considerably CPU usage compared to console.log|warn|error|info() which flushes after each call.
-    verbosity: LogLevel.INFO, // Consider reducing the verbosity when needed, it will reduce log output
+    verbosity: LogLevel.DEBUG, // Consider reducing the verbosity when needed, it will reduce log output
     timestamp: true, // Not required, but usefull to figure out when a problem occured.
   }});
 
