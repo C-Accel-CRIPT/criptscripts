@@ -123,7 +123,6 @@ export class BCDBLoader {
           //   to reference the reference (haha)
           const citation: ICitation = {
             // uid: will be determined by CriptJSON serializer
-            name: `RCBC Citation ${index}`,
             node: ["Citation"],
             type: "extracted_by_human",
             reference,
@@ -136,7 +135,7 @@ export class BCDBLoader {
           const bigsmiles = row[Column.BigSMILES];
           const polymer: IMaterial = {
             node: ["Material"],
-            name: `RCBC Material ${index}`,
+            name: `BCDB_Material_${index}`,
             bigsmiles,
             notes: row[Column.notes]
           };
@@ -220,7 +219,7 @@ export class BCDBLoader {
           //-- Individual Block 1
           //   name and properties (Mn, Mw, D, N, f, ftot, w, rho)
           const block1: IMaterial = {
-            name: row[Column.name1],
+            name: `${polymer.name}_${row[Column.name1]}`,
             node: ["Material"],
             property: [
               {
@@ -294,7 +293,7 @@ export class BCDBLoader {
           //-- Individual Block 2
           //   name and properties (Mn, Mw, D, N, f, ftot, w, rho)
           const block2: IMaterial = {
-            name: row[Column.name2],
+            name: `${polymer.name}_${row[Column.name2]}`,
             node: ["Material"],
             property: [
               {
