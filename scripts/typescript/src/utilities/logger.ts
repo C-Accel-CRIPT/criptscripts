@@ -5,7 +5,8 @@ import date from "date-and-time";
  * Log levels from low to high verbosity
  */
 export enum LogLevel {
-  ERROR = 0,
+  NONE = 0,
+  ERROR,
   WARNING,  
   /** Is usually the default */
   INFO,
@@ -46,7 +47,7 @@ export class Logger {
     this.logStream = new Readable({
       read: () => {},
     });
-    this.logStream.pipe(options.outstream);
+    this.logStream.pipe(options.outstream, { end: true });
     this.prefix = null;
     this.timestamp_enabled = options.timestamp;
   }
@@ -64,7 +65,7 @@ export class Logger {
    * "[timestamp] <VERBOSITY> <prefix><arg0><arg1>...<argn>""
    */
   _log(level: LogLevel, ...args: string[]) {
-    if (level > this.verbosity) return;
+    if (level === LogLevel.NONE || level > this.verbosity ) return;
 
     if(this.timestamp_enabled) {
       const now = new Date();
