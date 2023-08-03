@@ -10,13 +10,10 @@ export type CitationType =
 
 export interface ICitation {
   readonly node: ['Citation'];
-
-  name: string;
   created_at?: string;
   updated_at?: string;
   model_version?: string;
   reference: IReference;
   uuid?: string;
-  // type: string;
   type: CitationType;
 }

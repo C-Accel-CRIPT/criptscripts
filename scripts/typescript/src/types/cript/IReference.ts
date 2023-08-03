@@ -13,6 +13,7 @@ export interface IReference {
   publisher?: string;
   volume?: string;
   issue?: string;
+  isbn?: string;
   issn?: string;
   arxiv_id?: string;
   pmid?: string;
