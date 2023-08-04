@@ -22,6 +22,7 @@ import { ISoftwareConfiguration } from './ISoftwareConfiguration';
 import { IVocabBase, IVocabIdentifier, IVocabProperty, IVocabQuantity, IVocab, IControlledVocabulary } from './IVocab';
 import { IQuantity } from './IQuantity';
 import { IEquipment } from './IEquipment';
+import { Edge, EdgeUUID } from './Edges';
 
 export type IPrimary =
   | ICollection
@@ -68,6 +69,8 @@ export type {
   IVocabProperty,
   IVocabQuantity,
   IControlledVocabulary,
+  Edge,
+  EdgeUUID,
 };
 
 export type Slug =

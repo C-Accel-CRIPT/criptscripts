@@ -15,5 +15,5 @@ export interface ICondition {
   uncertainty_type?: string;
   unit?: string;
   uuid?: string;
-  value: string;
+  value: string | number | string[] | number[];
 }
