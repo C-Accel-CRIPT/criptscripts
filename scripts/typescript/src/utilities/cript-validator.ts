@@ -89,7 +89,12 @@ export class CriptValidator {
         // 3- Ensure data is valid
         if(!is_valid) {
             this.logErrors();
-            throw new Error(`Invalid '${ref}' (${JSON.stringify(obj).substring(0, 128)}...)`);
+            let json = JSON.stringify(obj, null, '  ');
+            const json_length_max = 1024;
+            if( json.length > json_length_max ) {
+                json = `${json.substring(0, json_length_max/2)}\n- - - - - (cut here, json is bigger than ${json_length_max} chars) - - - - -\n${json.substring(json.length-json_length_max/2)}`;
+            }
+            throw new Error(`Invalid '${ref}'\n JSON is:\n (${json})\n${this.errorsAsString()}`);
         }
         return is_valid;
     }
@@ -116,7 +121,7 @@ export class CriptValidator {
         return this.ajv.validate(schema_ref, node);
     }
 
-    logErrors(limit = 100) {
+    logErrors(limit: number = Number.POSITIVE_INFINITY) {
         const errors = this.errorsAsString(limit);
         if(errors.length === 0) {
             return  this.logger.info(`No error found.`)
@@ -124,7 +129,7 @@ export class CriptValidator {
         this.logger.error(errors);
     }
 
-    errorsAsString(limit = 100) {
+    errorsAsString(limit: number = Number.POSITIVE_INFINITY) {
         if ( !this.ajv.errors ) {
             return '';
         }
