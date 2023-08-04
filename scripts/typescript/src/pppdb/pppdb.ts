@@ -11,13 +11,14 @@ import { resolve } from "path";
 import { ICitation, ICollection, ICondition, IMaterial, IProject, IProperty, IReference } from "@cript";
 import { Chi, Method, Polymer, PubChemCASResponse, PubChemResponse as PubChemPropertyResponse, Solvent } from "./types";
 import { molfile_to_bigsmiles } from "@cript-web/bigsmiles-toolkit";
-import { CriptProjectValidator as CriptProjectValidator, Logger, LogLevel, LoggerOptions, CriptGraphOptimizer } from "@utilities";
+import { CriptValidator, Logger, LogLevel, LoggerOptions, CriptGraphOptimizer } from "@utilities";
 import { Other } from "./types/sheets/others";
 import { fetch } from "cross-fetch";
 export class PPPDBLoader {
 
   readonly logger: Logger;
   private project = this.createProject();
+  private validator = new CriptValidator();
 
   private reference = {
     /** To ensure references are unique */
@@ -75,7 +76,7 @@ export class PPPDBLoader {
   }
 
   constructor(options: { logger: LoggerOptions }) {
-    this.logger = new Logger(options.logger);
+    this.logger = new Logger(options.logger);    
   }
 
   private createProject() {
@@ -121,6 +122,9 @@ export class PPPDBLoader {
     this.other.missing.clear();
     this.xlsx.chi.parsed_row_count  = 0;
     this.xlsx.chi.skipped_row_count = 0;
+
+    // Downloads DB schema
+    await this.validator.init(); 
 
     /**
      * Global Strategy:
@@ -245,6 +249,7 @@ export class PPPDBLoader {
           this.xlsx.chi.parsed_row_count++;
           continue;
       }
+      this.validator.validate_or_throw(material1); // To find errors earlier
 
       this.logger.debug(`Creating Material 2 ...`);
       const material2 = {
@@ -284,6 +289,8 @@ export class PPPDBLoader {
           this.xlsx.chi.parsed_row_count++;
           continue;
       }
+      this.validator.validate_or_throw(material2); // To find errors earlier
+
 
       this.logger.debug(`Creating Combined Material ...`);
 
@@ -522,19 +529,16 @@ export class PPPDBLoader {
     const optimized_project = new CriptGraphOptimizer().get_optimized(this.project);
 
     // Validate the project using DB schema
-    const project_validator = new CriptProjectValidator();
-    try {
-      this.logger.info(`Project validation ...`);      
-      const project_is_valid = await project_validator.validate('ProjectPost', optimized_project);
-      this.logger.info(` - Validator errors: ${project_validator.errorsAsString()}`);
-      if( project_is_valid ) {
-        this.logger.info(`Project validation: SUCCEEDED!`);
-      } else {
-        this.logger.error(`Project validation: FAILED (check logs above)`);
-      }
-    } catch(err: any) {
-      this.logger.error(`Project validation: FAILED. \n${err.stack}`);
-    }    
+    this.logger.info(`Project validation ...`);      
+    const project_is_valid = this.validator.validate('ProjectPost', optimized_project);      
+    this.logger.info(this.validator.errorsAsString());
+    if( project_is_valid ) {
+      this.logger.info(`Project validation: SUCCEEDED!`);
+    } else {
+      this.logger.error(`Project validation: FAILED (check logs above)`);
+      throw new Error(`The optimized project is NOT valid.`);
+    }
+
     this.logger.info(`=-=-=-=-=-=-=-=-=-==--=- Report End =-=-=-=-=-=-=-=-=-=-=-=-=-`);
     this.logger.info(`PPPDB.loader() DONE`);
 

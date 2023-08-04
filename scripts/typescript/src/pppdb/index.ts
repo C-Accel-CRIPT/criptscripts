@@ -8,6 +8,7 @@ import { resolve } from "path";
 import * as fs from "fs";
 import { PPPDBLoader } from "./pppdb";
 import { stdout } from "process";
+import { IProject } from "@cript";
 
 (async () => {
   const log_file_path = resolve(output_dir_path, 'pppdb.logs.txt');
@@ -31,25 +32,34 @@ import { stdout } from "process";
   logger.info("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
 
   const sheets_dir = resolve(__dirname, "data/sheets");
-  const project = await pppdb_loader.load({
-    paths: {
-      others: resolve(sheets_dir, "others.xlsx"),
-      chi: resolve(sheets_dir, "chi.xlsx"),
-      methods: resolve(sheets_dir, "methods.xlsx"),
-      polymers: resolve(sheets_dir, "polymers.xlsx"),
-      solvents: resolve(sheets_dir, "solvents.xlsx"),
-      molfile_dir: resolve(__dirname, "data/molfiles/")
-    },
-    row_limit: 0, // 0 => unlimited
-  });
+
+  let project: IProject | undefined;
 
   try {
-    await Promise.race([
-      write_json_to_out_folder(project, "pppdb"),
-      write_json_to_out_folder(project, "pppdb", "minified")
-    ]);
+    project = await pppdb_loader.load({
+      paths: {
+        others: resolve(sheets_dir, "others.xlsx"),
+        chi: resolve(sheets_dir, "chi.xlsx"),
+        methods: resolve(sheets_dir, "methods.xlsx"),
+        polymers: resolve(sheets_dir, "polymers.xlsx"),
+        solvents: resolve(sheets_dir, "solvents.xlsx"),
+        molfile_dir: resolve(__dirname, "data/molfiles/")
+      },
+      row_limit: 0, // 0 => unlimited
+    });
   } catch (error: any) {
-    console.error(`An error occured during write_json_to_out_folder. Reason: \n`, JSON.stringify(error, null, ' '));
+    console.error(`An error occurend during pppdb_loader.load()`, error);
+  }
+
+  if( project ) {
+    try {
+      await Promise.race([
+        write_json_to_out_folder(project, "pppdb"),
+        write_json_to_out_folder(project, "pppdb", "minified")
+      ]);
+    } catch (error: any) {
+      console.error(`An error occured during write_json_to_out_folder.`, error);
+    }
   }
 
   logger.info("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
