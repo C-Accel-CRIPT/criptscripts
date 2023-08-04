@@ -39,7 +39,7 @@ import { BCDBLoader } from "./bcdb";
     ]);
     console.log('Saving JSON OK');
   } catch( error: any ) {
-    console.log(`An error occured, check errors in '${log_file_path}'.\nReason:\n`, error.message, error.stack)
+    console.log(`An error occured, check errors in '${log_file_path}'.\n`, error.stack)
   }
 
   loader.logger.warning("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
