@@ -19,6 +19,7 @@ export class PPPDBLoader {
   readonly logger: Logger;
   private project = this.createProject();
   private validator = new CriptValidator();
+  private optimizer = new CriptGraphOptimizer();
 
   private reference = {
     /** To ensure references are unique */
@@ -229,7 +230,7 @@ export class PPPDBLoader {
           const mw_w_property = this.create_mw_w_property(chi_row.molmass1, chi_row.molmassunit);
           if( mw_w_property ) {
             mw_w_property.citation = shared_citation;
-            material1.property.push(mw_w_property);
+            this.validate_and_push_property( material1, mw_w_property);
           } else {
             this.logger.debug(`Unable to create molmass1 property`);
           }
@@ -269,7 +270,7 @@ export class PPPDBLoader {
           const mw_w_property = this.create_mw_w_property(chi_row.molmass2, chi_row.molmassunit);
           if( mw_w_property ) {
             mw_w_property.citation = shared_citation;
-            material2.property.push(mw_w_property);
+            this.validate_and_push_property( material2, mw_w_property);
           } else {
             this.logger.debug(`Unable to create molmass2 property`);
           }
@@ -310,7 +311,7 @@ export class PPPDBLoader {
         method: method,
         condition: [] as ICondition[],
         citation: shared_citation
-      } satisfies Pick<IProperty, 'citation' | 'condition' | 'method' | 'notes'>;
+      } as const;
 
       // shared conditions
       {
@@ -319,7 +320,7 @@ export class PPPDBLoader {
 
           // If column P (tempmax) is blank, we can only have a single temperature.
           if( !chi_row.tempmax ) {
-            shared_by_all_properties.condition.push({
+            this.validate_and_push_condition( shared_by_all_properties, {
               node: ['Condition'],
               key: 'temperature',
               type: 'value',
@@ -329,14 +330,14 @@ export class PPPDBLoader {
 
           // Instead, If column P (tempmax) is NOT blank, we have a min/max.
           } else if (chi_row.temperature && chi_row.tempmax) {
-            shared_by_all_properties.condition.push({
+            this.validate_and_push_condition( shared_by_all_properties, {
                 node: ['Condition'],
                 key: 'temperature',
                 type: 'min',
                 value: chi_row.temperature, // temperature is considered as min in such case
                 unit: chi_row.tempunit
-              },
-              {
+              });
+            this.validate_and_push_condition( shared_by_all_properties, {              
                 node: ['Condition'],
                 key: 'temperature',
                 type: 'max',
@@ -346,9 +347,9 @@ export class PPPDBLoader {
           }
           // If column AK (refvolume) is NOT blank
           if( chi_row.refvolume ) {
-            shared_by_all_properties.condition.push({
+            this.validate_and_push_condition( shared_by_all_properties, {
               node: ['Condition'],
-              key: 'reference_volume',
+              key: 'reference_volume', // Berenger|8/4/2023: Require to merge https://github.mit.edu/cript/cript-api/pull/4
               type: 'value',
               value: chi_row.refvolume,
               unit: chi_row.refvolumeunit
@@ -365,25 +366,25 @@ export class PPPDBLoader {
       }
 
       if( chi_row.composition1 ) {
-        combined_material.property.push({
+        this.validate_and_push_property( combined_material, {
           node: ['Property'],
           key: 'conc_vol_fraction',
           type: 'value',
           value: chi_row.composition1,
           unit: null,
-          component: [material1],
+          component: [this.optimizer.make_edge(material1)],
           ...shared_by_all_conc_vol_fraction,
         });
       }
 
       if( chi_row.composition2 ) {
-        combined_material.property.push({
+        this.validate_and_push_property( combined_material, {
           node: ['Property'],
           key: 'conc_vol_fraction',
           type: 'value',
           value: chi_row.composition2,
           unit: null,
-          component: [material2],
+          component: [this.optimizer.make_edge(material2)],
           ...shared_by_all_conc_vol_fraction,
         });
       }
@@ -395,7 +396,8 @@ export class PPPDBLoader {
         case "Type 1":
           // If Type 1 and column X is blank
           if( !chi_row.chimax ) {
-            const interaction_param = {
+           
+            this.validate_and_push_property(combined_material, {
               node: ['Property'],
               key: 'interaction_param',
               type: 'value',
@@ -403,14 +405,13 @@ export class PPPDBLoader {
               uncertainty: chi_row.chierror,
               unit: null,
               ...shared_by_all_properties,
-            } satisfies IProperty;
-            combined_material.property.push(interaction_param);
+            } satisfies IProperty);
 
           // If Type 1 and column X is *not* blank
           } else if (chi_row.chinumber && chi_row.chimax) {
 
             // interaction param (min)
-            combined_material.property.push({
+            this.validate_and_push_property( combined_material, {
               node: ['Property'],
               key: 'interaction_param',
               type: 'min',
@@ -420,7 +421,7 @@ export class PPPDBLoader {
             });
 
             // interaction param (max)
-            combined_material.property.push({
+            this.validate_and_push_property( combined_material, {
               node: ['Property'],
               key: 'interaction_param',
               type: 'max',
@@ -433,7 +434,7 @@ export class PPPDBLoader {
         
         case 'Type 3':
           if( chi_row.chic ){
-            combined_material.property.push({
+            this.validate_and_push_property( combined_material, {
               node: ['Property'],
               key: 'interaction_param_c',
               type: 'value',
@@ -449,7 +450,7 @@ export class PPPDBLoader {
         case 'Type 2' /* or 'Type 3'*/: 
 
           if( chi_row.chia ) {
-            combined_material.property.push({
+            this.validate_and_push_property( combined_material, {
               node: ['Property'],
               key: 'interaction_param_a',
               type: 'value',
@@ -461,7 +462,7 @@ export class PPPDBLoader {
           }
 
           if( chi_row.chib ) {
-            combined_material.property.push({
+            this.validate_and_push_property( combined_material, {
               node: ['Property'],
               key: 'interaction_param_b',
               type: 'value',
@@ -526,15 +527,15 @@ export class PPPDBLoader {
     }
 
     // Ensure graph is optimised (using Edge and EdgeUUID instead of full nodes, look at the class to know more)
-    const optimized_project = new CriptGraphOptimizer().get_optimized(this.project);
+    const optimized_project = this.optimizer.get_optimized(this.project);
 
     // Validate the project using DB schema
     this.logger.info(`Project validation ...`);      
     const project_is_valid = this.validator.validate('ProjectPost', optimized_project);      
-    this.logger.info(this.validator.errorsAsString());
     if( project_is_valid ) {
       this.logger.info(`Project validation: SUCCEEDED!`);
     } else {
+      this.logger.error(this.validator.errorsAsString());
       this.logger.error(`Project validation: FAILED (check logs above)`);
       throw new Error(`The optimized project is NOT valid.`);
     }
@@ -545,6 +546,22 @@ export class PPPDBLoader {
     console.log(`Processing DONE!`)
     return optimized_project;
   } // load()
+
+  /**
+   * Validate (or throw) a property and push it to the materials' property array.
+   */
+  validate_and_push_condition(node_with_condition: { condition: ICondition[]}, condition: ICondition) {
+    this.validator.validate_or_throw(condition);
+    node_with_condition.condition.push(condition);
+  }
+
+  /**
+   * Validate (or throw) a property and push it to the materials' property array.
+   */
+  validate_and_push_property(node_with_property: { property: IProperty[] }, property: IProperty): void | never {
+    this.validator.validate_or_throw(property);
+    node_with_property.property.push(property);
+  }
 
   /**
    * Create a mw_w property
