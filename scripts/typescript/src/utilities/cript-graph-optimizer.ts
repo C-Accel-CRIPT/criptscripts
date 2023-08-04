@@ -54,7 +54,7 @@ export class CriptGraphOptimizer {
    * Make an edge from a given node.
    * note: and Edge only has a uid (which is NOT a uuid).
    */
-  private make_edge = (node: any): Edge => {
+  make_edge(node: any): Edge {
     if (node === undefined) throw new Error("Unable to use a reference from an undefined node");
     if (node.uid === undefined) this.register_node(node);
 
@@ -72,11 +72,11 @@ export class CriptGraphOptimizer {
   /**
    * Convert a given node property to edges.
    */
-  private convert_to_edges = <T extends {[key: string]: any }, K extends keyof T>(node: T, key: K): void => {
+  private convert_to_edges<T extends {[key: string]: any }, K extends keyof T>(node: T, key: K): void {
     const arr = node[key];
     if(arr && arr.length !== 0) {
       this.debug(`\tkey: ${key as string} ...`);
-      (node[key] as any[]) = arr.map(this.make_edge);
+      (node[key] as any[]) = arr.map((node: any) => this.make_edge(node));
       this.debug(`\tkey: ${key as string} DONE`);
     }
   }
@@ -127,7 +127,7 @@ export class CriptGraphOptimizer {
             node.ingredient = node.ingredient?.map( (each: IIngredient, index: number) => {
               return {
                ...each,
-                material: each.material?.map(this.make_edge)
+                material: each.material?.map((m: any) => this.make_edge(m))
               }
             })
             this.debug(`\tkey: ingredient DONE`);
@@ -151,7 +151,7 @@ export class CriptGraphOptimizer {
       case "output_data":
         if(value) {
           this.debug(`\tkey: ${key} ...`);
-          value = value.map(this.make_edge);
+          value = value.map((v: any ) => this.make_edge(v));
           this.debug(`\tkey: ${key} DONE`);
         }
         break;
@@ -190,7 +190,7 @@ export class CriptGraphOptimizer {
     return this.optimize_recursively('', criptObjectCopy);
   }
 
-  private reset_state() {
+  reset_state() {
     this.optimized_uid.clear();
     this.unique_names.clear();
   }

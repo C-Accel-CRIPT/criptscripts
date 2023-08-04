@@ -1,3 +1,4 @@
+import { Edge, EdgeUUID } from "@cript";
 import { ICitation } from "./ICitation";
 import { IComputation } from "./IComputation";
 import { ICondition } from "./ICondition";
@@ -16,7 +17,7 @@ export interface IProperty {
   sample_preparation?: string;
   notes?: string;
   structure?: string;
-  component?: IMaterial[];
+  component?: IMaterial[] | Edge[] | EdgeUUID[];
   method?: string;
   condition?: ICondition[];
   data?: IData[];
