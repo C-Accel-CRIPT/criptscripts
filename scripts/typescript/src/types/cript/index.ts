@@ -37,6 +37,38 @@ export type IPrimary =
   | IProject
   | ISoftware;
 
+export type ICriptObject =   IAlgorithm |
+ICitation |
+ICollection |
+IComputation |
+IComputationProcess |
+ICondition |
+IData |
+IExperiment |
+IEquipment |
+IFile |
+IIdentifier |
+IIngredient |
+IInventory |
+IMaterial |
+IParameter |
+IProperty |
+IProcess |
+IProject |
+IQuantity |
+IReference |
+ISoftware |
+ISoftwareConfiguration |
+IUser |
+IVocab |
+IVocabBase |
+IVocabIdentifier |
+IVocabProperty |
+IVocabQuantity |
+IControlledVocabulary |
+Edge |
+EdgeUUID; 
+
 export type Item = IPrimary | ICitation | IReference | IUser;
 
 export type {

@@ -8,36 +8,43 @@
  * See link to google drive files above (column_meanings.xlsx)
  */
 import * as XLSX from "xlsx";
-import * as fs from "fs";
 import { Column } from "./types/column";
-import { ICitation, ICollection, ICondition, IExperiment, IMaterial, IProcess, IProject, IReference } from "@cript";
-import { Stream } from "stream";
+import { ICitation, ICollection, ICondition, IMaterial, IProject, IProperty, IReference } from "@cript";
+import { CriptGraphOptimizer, CriptValidator, LogLevel, Logger, LoggerOptions } from "@utilities";
 
 export class BCDBLoader {
+  readonly logger: Logger;
+  readonly validator: CriptValidator;
+
+  constructor(options: {
+    logger: LoggerOptions;
+  } = { logger: { outstream: process.stdout, verbosity: LogLevel.INFO, timestamp: true }})
+  {
+    this.logger = new Logger(options.logger);
+    this.validator = new CriptValidator({allErrors: false }, options.logger);
+  }
+
   /**
-   * Loads a given BCDB file and converts it to a CRIPT Project
+   * Loads a given BCDB file and converts it to a CRIPT Project.
+   * 
+   * The output IProject has the garantee to be optimized and validated against the DB schema,
+   * otherwise an exception will be thrown.
    */
-  static async load(options: {
+  async load(options: {
     input_file_path: string;
-    //log?: Writable;
     sheets: ['blocks', 'diblock']; // added for the user to understand, but only expect a const array
     limitSheetRows: number;
   }): Promise<IProject> {
-    // format errors
-    function error(index: number | null, message: string) {
-      /*
-      if (index !== null) log_buffer.write(`ERR: line ${index}: ${message}\n`);
-      else log_buffer.write(`ERR: ${message}\n`);   */
-    }
 
-    // Format messages
-    function log(message: string) {    /*  
-      log_buffer.write(`MSG: ${message}\n`);*/
+    //-- Download DB schema
+    try {
+      await this.validator.init();
+    } catch(error: any) {
+      throw new Error('Unable to initialize the validator', error);
     }
-
     //-- Load desired sheets
 
-    log(`=-=-=-=-=-=-=-=-=-= BCDB XLSX to JSON =-=-=-=-=-=-=-=-=`);
+    this.logger.info(`=-=-=-=-=-=-=-=-=-= BCDB XLSX to JSON =-=-=-=-=-=-=-=-=`);
 
     const workBook = XLSX.readFile(options.input_file_path, {
       sheets: options.sheets,
@@ -70,7 +77,7 @@ export class BCDBLoader {
         header: "A",
       });
 
-      log(`-- Found ${rows.length} row(s)`);
+      this.logger.info(`-- Found ${rows.length} row(s)`);
 
       rows
         .slice(1) // Skip header row.
@@ -81,8 +88,8 @@ export class BCDBLoader {
           const entry = { index, polymer, name, bigsmiles };
           blocks.set(bigsmiles, entry);
         });
-      log(`Found ${JSON.stringify([...blocks.values()], null, " ")} (${blocks.size} rows)`);
-      log(`Storing blocks meta information ... DONE`);
+      this.logger.info(`Found ${JSON.stringify([...blocks.values()], null, " ")} (${blocks.size} rows)`);
+      this.logger.info(`Storing blocks meta information ... DONE`);
     }
 
     {
@@ -91,14 +98,16 @@ export class BCDBLoader {
       const rows: { [key: string]: string }[] = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName], {
         header: "A",
       });
-      log(`-- Found ${rows.length} row(s)`);
-      log(`-- Converting polymer rows to JSON ...`);
+      this.logger.info(`-- Found ${rows.length} row(s)`);
+      this.logger.info(`-- Converting polymer rows to JSON ...`);
 
-      rows
-        .slice(2) // Skip 2 header rows
-        .forEach((row, index, arr) => {
-          index % 100 == 0 && process.stdout.write(`-- Loading row ${index}/${arr.length - 1}\n`);
+      let index = 0;
+      const arr = rows.slice(2) /** Skip 2 header rows */;
+      for(let row in arr) {
+          index++; // 1-based index
+          index % 100 == 0 && process.stdout.write(`-- Converting rows ... ${index}/${arr.length - 1}\n`);
 
+          this.logger.prefix = `[row ${String(index).padEnd(4)}]`;
           //-- reference
           //   to store DOI and ORCIDs
           const doi = row[Column.DOI];
@@ -106,26 +115,33 @@ export class BCDBLoader {
           let reference: IReference | undefined = references.get(doi);
           if (!reference) {
             reference = {
+              title: 'Reference',
               node: ["Reference"],
               doi: doi,
-              author: [author], // TODO: parse array
-              type: "journal_article",
+              author: author ? [author] : undefined,
+              type: "journal_article",              
             };
             if (reference.doi) {
+              this.validator.validate_or_throw(reference); 
               references.set(reference.doi, reference);
             } else {
-              error(index, `Unable to store this reference, it has no doi (we use it as a key)`);
+              this.logger.error(`Unable to store this reference, it has no doi (we use it as a key)`, JSON.stringify(reference));
             }
           }
           //log(`Reference read: ${reference.doi}`);
 
           //-- citation
           //   to reference the reference (haha)
-          const citation: ICitation = {
-            // uid: will be determined by CriptJSON serializer
-            node: ["Citation"],
-            type: "extracted_by_human",
-            reference,
+          let citation: ICitation[] | undefined;
+          
+          if( reference ) {
+            citation = [{
+              // uid: will be determined by CriptJSON serializer
+              node: ["Citation"],
+              type: "extracted_by_human",
+              reference,
+            }]
+            this.validator.validate_or_throw(citation[0]); 
           };
 
           //-- product (Overall polymer)
@@ -139,242 +155,304 @@ export class BCDBLoader {
             bigsmiles,
             notes: row[Column.notes]
           };
+          this.validator.validate_or_throw(polymer);
           project.material.push(polymer);
 
           // log(`Added polymer: ${polymer.bigsmiles}`);
 
           //-- product's properties
           //   mw_n, mw_w, mw_d, invariant_degree_of_polymerization
+
+          const temperature: ICondition = {
+            node: ["Condition"],
+            key: "temperature",
+            type: 'value',
+            unit: "degC",
+            value: row[Column.T],
+          };
+          this.validator.validate_or_throw(temperature);
+
           if (!polymer.property) polymer.property = [];
-          polymer.property.push({
+          this.validate_and_push_property(polymer, {
             node: ["Property"],
             key: "mw_n",
+            type: 'value',
             value: row[Column.Mn],
             method: row[Column.Mn_method],
             unit: "g/mol",
-            citation: [citation]
+            condition: [temperature],
+            citation,
           });
-          polymer.property.push({
+          this.validate_and_push_property(polymer, {
             node: ["Property"],
             key: "mw_w",
+            type: 'value',
             value: row[Column.Mw],
             method: row[Column.Mw_method],
             unit: "g/mol",
-            citation: [citation]
+            condition: [temperature],
+            citation,
           });
-          polymer.property.push({
+          this.validate_and_push_property(polymer, {
             node: ["Property"],
             key: "mw_d",
+            type: 'value',
             value: row[Column.D],
             method: row[Column.D_method],
             unit: "g/mol",
-            citation: [citation]
+            condition: [temperature],
+            citation,
           });
-          polymer.property.push({
+          this.validate_and_push_property(polymer, {
             node: ["Property"],
             key: "invariant_degree_of_polymerization",
+            type: 'value',
             value: row[Column.N],
             method: row[Column.N_method],
-            citation: [citation]
-            //unit: undefined
-          });
-          polymer.property.push({
-            node: ["Property"],
-            key: "temperature",
-            unit: "degC",
-            value: row[Column.T],
-            citation: [citation]
+            condition: [temperature],
+            citation,
+            unit: null,          
           });
 
           // can be: "saxs", "tem", or "rheology"
-          let phase_method = row[Column.phase_method]?.toLowerCase() ?? "";
+          let phase_method = row[Column.phase_method]?.toLowerCase();
 
           // The custom vocabulary does not allow "rheology"
           // Replacing with "rheometer".
           if(phase_method === "rheology")  phase_method = "rheometer";
 
-          const condition: ICondition = {
-            node: ["Condition"],
-            key: "phase_method",
-            value: phase_method, 
-          };
-
-          polymer.property.push({
+          this.validate_and_push_property(polymer, {
             node: ["Property"],
             key: "microstructure_phase",
+            type: 'value',
             notes: "phase1",
             value: row[Column.PHASE1],
-            condition: [{...condition}],
-            citation: [citation]
+            method: phase_method,
+            citation,
+            unit: null,
           });
-          polymer.property.push({
+          this.validate_and_push_property(polymer, {
             node: ["Property"],
             key: "microstructure_phase",
             notes: "phase2",
+            type: 'value',
             value: row[Column.PHASE2],
-            condition: [{...condition}],
-            citation: [citation]
+            method: phase_method,
+            citation,
+            unit: null,
           });
 
           //-- Individual Block 1
           //   name and properties (Mn, Mw, D, N, f, ftot, w, rho)
           const block1: IMaterial = {
-            name: `${polymer.name}_${row[Column.name1]}`,
+            name: `${polymer.name}_${row[Column.name1] ?? 'block1'}`,
             node: ["Material"],
-            property: [
-              {
-                node: ["Property"],
-                key: "mw_w",
-                value: row[Column.Mw1],
-                method: row[Column.Mw1_method],
-                unit: "g/mol",
-                citation: [citation],
-              },
-              {
-                node: ["Property"],
-                key: "mw_d",
-                value: row[Column.D1],
-                method: row[Column.D1_method],
-                unit: "g/mol",
-                citation: [citation],
-              },
-              {
-                node: ["Property"],
-                key: "invariant_degree_of_polymerization",
-                value: row[Column.N1],
-                method: row[Column.N1_method],
-                //unit: undefined
-                citation: [citation],
-              },
-              {
-                node: ["Property"],
-                key: "conc_vol_fraction",
-                value: row[Column.f1],
-                method: row[Column.f1_method],
-                //unit: undefined
-                citation: [citation],
-              },
-              {
-                node: ["Property"],
-                key: "conc_vol_fraction",
-                value: row[Column.ftot1],
-                method: row[Column.ftot1_method],
-                //unit: undefined
-                citation: [citation],
-              },
-              {
-                node: ["Property"],
-                key: "conc_mass_fraction",
-                value: row[Column.w1],
-                method: row[Column.w1_method],
-                //unit: undefined
-                citation: [citation],
-              },
-              {
-                node: ["Property"],
-                key: "density",
-                value: row[Column.rho1],
-                method: row[Column.rho1_method],
-                unit: "g/mL",
-                citation: [citation],
-              },
-              {
-                node: ["Property"],
-                key: "microstructure_phase",
-                value: `${row[Column.PHASE1]},${row[Column.PHASE2]}`,
-                method: row[Column.rho1_method],
-                unit: "g/mL",
-                citation: [citation],
-              },
-            ],
+            property: [],
           };
+
+          this.validate_and_push_property( block1, {
+            node: ["Property"],
+            key: "mw_w",
+            type: 'value',
+            value: row[Column.Mw1],
+            method: row[Column.Mw1_method],
+            unit: "g/mol",
+            citation,
+          });
+          this.validate_and_push_property( block1, {
+            node: ["Property"],
+            key: "mw_d",
+            type: 'value',
+            value: row[Column.D1],
+            method: row[Column.D1_method],
+            unit: "g/mol",
+            citation,
+          });
+          this.validate_and_push_property( block1, {
+            node: ["Property"],
+            key: "invariant_degree_of_polymerization",
+            type: 'value',
+            value: row[Column.N1],
+            method: row[Column.N1_method],
+            unit: null,
+            citation,
+          });
+          this.validate_and_push_property( block1, {
+            node: ["Property"],
+            key: "conc_vol_fraction",
+            type: 'value',
+            value: row[Column.f1],
+            method: row[Column.f1_method],
+            unit: null,
+            citation,
+          });
+          this.validate_and_push_property( block1, {
+            node: ["Property"],
+            key: "conc_vol_fraction",
+            type: 'value',
+            value: row[Column.ftot1],
+            method: row[Column.ftot1_method],
+            unit: null,
+            citation,
+          });
+          this.validate_and_push_property( block1, {
+            node: ["Property"],
+            key: "conc_mass_fraction",
+            type: 'value',
+            value: row[Column.w1],
+            method: row[Column.w1_method],
+            unit: null,
+            citation,
+          });
+          this.validate_and_push_property( block1, {
+            node: ["Property"],
+            key: "density",
+            type: 'value',
+            value: row[Column.rho1],
+            method: row[Column.rho1_method],
+            unit: "g/mL",
+            citation,
+          });
+          this.validate_and_push_property( block1, {
+            node: ["Property"],
+            key: "microstructure_phase",
+            type: 'value',
+            value: `${row[Column.PHASE1]},${row[Column.PHASE2]}`,
+            method: row[Column.rho1_method],
+            unit: "g/mL",
+            citation,
+          })
+          this.validator.validate_or_throw(block1);
           project.material.push(block1);
 
           //-- Individual Block 2
           //   name and properties (Mn, Mw, D, N, f, ftot, w, rho)
           const block2: IMaterial = {
-            name: `${polymer.name}_${row[Column.name2]}`,
+            name: `${polymer.name}_${row[Column.name2] ?? 'block2'}`,
             node: ["Material"],
-            property: [
-              {
-                node: ["Property"],
-                key: "mw_w",
-                value: row[Column.Mw2],
-                method: row[Column.Mw2_method],
-                unit: "g/mol",
-                citation: [citation],
-              },
-              {
-                node: ["Property"],
-                key: "mw_d",
-                value: row[Column.D2],
-                method: row[Column.D2_method],
-                unit: "g/mol",
-                citation: [citation],
-              },
-              {
-                node: ["Property"],
-                key: "invariant_degree_of_polymerization",
-                value: row[Column.N2],
-                method: row[Column.N2_method],
-                //unit: undefined
-                citation: [citation],
-              },
-              {
-                node: ["Property"],
-                key: "conc_vol_fraction",
-                value: row[Column.f2],
-                method: row[Column.f2_method],
-                //unit: undefined
-                citation: [citation],
-              },
-              {
-                node: ["Property"],
-                key: "conc_vol_fraction",
-                value: row[Column.ftot2],
-                method: row[Column.ftot2_method],
-                //unit: undefined
-                citation: [citation],
-              },
-              {
-                node: ["Property"],
-                key: "conc_mass_fraction",
-                value: row[Column.w2],
-                method: row[Column.w2_method],
-                //unit: undefined
-                citation: [citation],
-              },
-              {
-                node: ["Property"],
-                key: "density",
-                value: row[Column.rho2],
-                method: row[Column.rho2_method],
-                unit: "g/mL",
-                citation: [citation],
-              },
-            ],
+            property: [],
           };
+
+          this.validate_and_push_property( block2, {
+            node: ["Property"],
+            key: "mw_w",
+            type: 'value',
+            value: row[Column.Mw2],
+            method: row[Column.Mw2_method],
+            unit: "g/mol",
+            citation,
+          });
+          this.validate_and_push_property( block2, {
+            node: ["Property"],
+            key: "mw_d",
+            type: 'value',
+            value: row[Column.D2],
+            method: row[Column.D2_method],
+            unit: "g/mol",
+            citation,
+          });
+          this.validate_and_push_property( block2, {
+            node: ["Property"],
+            key: "invariant_degree_of_polymerization",
+            type: 'value',
+            value: row[Column.N2],
+            method: row[Column.N2_method],
+            unit: null,
+            citation,
+          });
+          this.validate_and_push_property( block2, {
+            node: ["Property"],
+            key: "conc_vol_fraction",
+            type: 'value',
+            value: row[Column.f2],
+            method: row[Column.f2_method],
+            unit: null,
+            citation,
+          });
+          this.validate_and_push_property( block2, {
+            node: ["Property"],
+            key: "conc_vol_fraction",
+            type: 'value',
+            value: row[Column.ftot2],
+            method: row[Column.ftot2_method],
+            unit: null,
+            citation,
+          });
+          this.validate_and_push_property( block2, {
+            node: ["Property"],
+            key: "conc_mass_fraction",
+            type: 'value',
+            value: row[Column.w2],
+            method: row[Column.w2_method],
+            unit: null,
+            citation,
+          })
+          this.validate_and_push_property( block2, {
+            node: ["Property"],
+            key: "density",
+            type: 'value',
+            value: row[Column.rho2],
+            method: row[Column.rho2_method],
+            unit: "g/mL",
+            citation,
+          })
+          this.validator.validate_or_throw(block2);
           project.material.push(block2);
 
-          //log(`Add blocks to process as ingredients ...`);
-
+          this.logger.info(`Add blocks to process as ingredients ...`);
           polymer.component = [block1, block2];
+        };
+    }
+    this.logger.prefix = null;
 
-          //-- add meta data for each material
-          project.material.forEach((material) => {
-            if (!material.bigsmiles) return log(`No bigsmiles found for ${material.name}`);
+    //-- add meta data for each material
+    for(const material of project.material) {
+      if (!material.bigsmiles) {
+        this.logger.info(`No bigsmiles found for ${material.name}`);
+        continue;
+      } 
 
-            // try to get meta data from blocks map
-            // meta data are coming from the 'blocks' tab in the xlsx
-            const metaData = blocks.get(material.bigsmiles);
-            if (!metaData) return error(index, `No meta data found (in blocks) for ${material.bigsmiles}, keep name: ${material.name} `);
-            polymer.name = metaData.name;
-            polymer.names = [metaData.polymer];
-            //log(`Meta data found, name and names[] added`);
-          });
-        });
+      // try to get meta data from blocks map
+      // meta data are coming from the 'blocks' tab in the xlsx
+      const metaData = blocks.get(material.bigsmiles);
+      if (!metaData) {
+        this.logger.warning(`No meta data found (in blocks) for '${material.bigsmiles}', keep name: ${material.name} `);
+        continue;
+      }
+      material.name = metaData.name;
+      material.names = [metaData.polymer];
+      this.logger.debug(`Meta data found for '${material.bigsmiles}', name and names[] added`);
+    };
+
+    // Optimise the project object (uses uids, create Edges, etc..)
+    const optimizer = new CriptGraphOptimizer();
+    const optimized_project: IProject = optimizer.get_optimized(project);
+
+    // Validate against DB schema
+    const is_valid = await this.validator.validate('ProjectPost', optimized_project);
+
+    if(!is_valid) {
+      this.logger.error(this.validator.errorsAsString(100));
+      this.logger.error(`Project '${optimized_project.name}' is NOT valid, see errors in logs above!`)
+      throw new Error(`Project is NOT valid`);
+    } else {
+      this.logger.info(`Project '${optimized_project.name}' is valid.`)
     }
 
-    return project;
+    return optimized_project;
   } // load()
+
+  /**
+   * Ensure property is valid before to push it into a given material
+   * 
+   */
+  private validate_and_push_property(material: IMaterial, property: IProperty ): void | never {
+    this.validator.validate_or_throw(property);
+    if( material.property )
+      material.property?.push(property);
+    else
+      material.property = [property];
+  }
+  
 } // namespace BCDBLoader
+
