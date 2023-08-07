@@ -294,12 +294,12 @@ export class AFRLtoJSON {
         if (conc_vol_fraction && !isNaN(conc_vol_fraction)) {
             const property: IProperty = {
                 key: "conc_vol_fraction",
-                value: String(conc_vol_fraction), // FIXME: backend does not accept numbers,
-                // "components_relative" does not exist on new API, using "component" instead.         
+                value: conc_vol_fraction,
                 component: [polymer],
                 citation,
                 node: ['Property'],
                 type: 'value',  // FIXME: is this correct from a chemist point of view?
+                unit: null,
             };
             mixture.property.push(property);
         }
@@ -307,12 +307,12 @@ export class AFRLtoJSON {
         if (conc_mass_fraction && !isNaN(conc_mass_fraction)) {
             const property: IProperty = {
                 key: "conc_mass_fraction",
-                value: String(conc_mass_fraction), // FIXME: backend does not accept numbers
-                // "components_relative" does not exist on new API, using "component" instead.         
+                value: conc_mass_fraction,       
                 component: [polymer],
                 citation,
                 node: ['Property'],
                 type: 'value',  // FIXME: is this correct from a chemist point of view?
+                unit: null,
             }
             mixture.property.push(property);
         }
@@ -321,8 +321,7 @@ export class AFRLtoJSON {
 
             const temp_cloud_property = {
                 key: "temp_cloud",
-                value: String(temp_cloud), // FIXME: backend does not accept numbers
-                // "components_relative" does not exist on new API, using "component" instead.         
+                value: temp_cloud,
                 component: [polymer],
                 citation,
                 node: ['Property'],
@@ -343,15 +342,12 @@ export class AFRLtoJSON {
 
 
             if (one_phase_direction) {
-
-                // FIXME: uncomment once backend accepts custom vocab (starts with a "+")
-                /*
                 temp_cloud_property.condition.push({
                     node: ['Condition'],
-                    key: "+one_phase_direction", // Not sure this will work, needs custom vocabulary (starts with a "+").
+                    key: "+one_phase_direction",
+                    type: 'value',
                     value: one_phase_direction,
-                    model_version: MODEL_VERSION,
-                } as ICondition);*/
+                } as ICondition);
 
                 this.record_error(`one_phase_direction cannot be stored in CRIPT, +one_phase_direction vocab is not allowed.`)
             }
