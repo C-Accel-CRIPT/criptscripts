@@ -10,7 +10,7 @@
 import * as XLSX from "xlsx";
 import { Column } from "./types/column";
 import { ICitation, ICollection, ICondition, IMaterial, IProject, IProperty, IReference } from "@cript";
-import { CriptGraphOptimizer, CriptValidator, LogLevel, Logger, LoggerOptions } from "@utilities";
+import { CriptGraphOptimizer, CriptValidator, LogLevel, Logger, LoggerOptions, OptimizedProject } from "@utilities";
 
 export class BCDBLoader {
   readonly logger: Logger;
@@ -34,7 +34,7 @@ export class BCDBLoader {
     input_file_path: string;
     sheets: ['blocks', 'diblock']; // added for the user to understand, but only expect a const array
     limitSheetRows: number;
-  }): Promise<IProject> {
+  }): Promise<OptimizedProject> {
 
     //-- Download DB schema
     try {
@@ -103,7 +103,7 @@ export class BCDBLoader {
 
       let index = 0;
       const arr = rows.slice(2) /** Skip 2 header rows */;
-      for(let row in arr) {
+      for(let row of arr) {
           index++; // 1-based index
           index % 100 == 0 && process.stdout.write(`-- Converting rows ... ${index}/${arr.length - 1}\n`);
 
@@ -111,22 +111,22 @@ export class BCDBLoader {
           //-- reference
           //   to store DOI and ORCIDs
           const doi = row[Column.DOI];
-          const author = row[Column.ORCID];
+          if(!doi) {
+            throw new Error(`DOI undefined`);
+          }
           let reference: IReference | undefined = references.get(doi);
           if (!reference) {
+            const author = row[Column.ORCID];
+
             reference = {
-              title: 'Reference',
+              title: doi,
               node: ["Reference"],
               doi: doi,
               author: author ? [author] : undefined,
               type: "journal_article",              
             };
-            if (reference.doi) {
-              this.validator.validate_or_throw(reference); 
-              references.set(reference.doi, reference);
-            } else {
-              this.logger.error(`Unable to store this reference, it has no doi (we use it as a key)`, JSON.stringify(reference));
-            }
+            this.validator.validate_or_throw(reference); 
+            references.set(doi, reference);
           }
           //log(`Reference read: ${reference.doi}`);
 
@@ -426,17 +426,17 @@ export class BCDBLoader {
 
     // Optimise the project object (uses uids, create Edges, etc..)
     const optimizer = new CriptGraphOptimizer();
-    const optimized_project: IProject = optimizer.get_optimized(project);
+    const optimized_project: OptimizedProject = optimizer.get_optimized(project);
 
     // Validate against DB schema
-    const is_valid = await this.validator.validate('ProjectPost', optimized_project);
+    const is_valid = await this.validator.validate('ProjectPost', optimized_project.project);
 
     if(!is_valid) {
       this.logger.error(this.validator.errorsAsString(100));
-      this.logger.error(`Project '${optimized_project.name}' is NOT valid, see errors in logs above!`)
+      this.logger.error(`Project '${optimized_project.project.name}' is NOT valid, see errors in logs above!`)
       throw new Error(`Project is NOT valid`);
     } else {
-      this.logger.info(`Project '${optimized_project.name}' is valid.`)
+      this.logger.info(`Project '${optimized_project.project.name}' is valid.`)
     }
 
     return optimized_project;
