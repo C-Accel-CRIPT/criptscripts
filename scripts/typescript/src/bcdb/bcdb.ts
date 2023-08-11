@@ -178,7 +178,7 @@ export class BCDBLoader {
             key: "mw_n",
             type: 'value',
             value: row[Column.Mn],
-            method: row[Column.Mn_method],
+            //method: row[Column.Mn_method], TODO: fix data to match with vocab
             unit: "g/mol",
             condition: [temperature],
             citation,
@@ -188,7 +188,7 @@ export class BCDBLoader {
             key: "mw_w",
             type: 'value',
             value: row[Column.Mw],
-            method: row[Column.Mw_method],
+            //method: row[Column.Mw_method], TODO: fix data to match with vocab
             unit: "g/mol",
             condition: [temperature],
             citation,
@@ -198,7 +198,7 @@ export class BCDBLoader {
             key: "mw_d",
             type: 'value',
             value: row[Column.D],
-            method: row[Column.D_method],
+            //method: row[Column.D_method], TODO: fix data to match with vocab
             unit: "g/mol",
             condition: [temperature],
             citation,
@@ -208,7 +208,7 @@ export class BCDBLoader {
             key: "invariant_degree_of_polymerization",
             type: 'value',
             value: row[Column.N],
-            method: row[Column.N_method],
+            //method: row[Column.N_method], TODO: fix data to match with vocab
             condition: [temperature],
             citation,
             unit: null,          
@@ -227,7 +227,7 @@ export class BCDBLoader {
             type: 'value',
             notes: "phase1",
             value: row[Column.PHASE1],
-            method: phase_method,
+            //method: phase_method, TODO: fix data to match with vocab
             citation,
             unit: null,
           });
@@ -237,7 +237,7 @@ export class BCDBLoader {
             notes: "phase2",
             type: 'value',
             value: row[Column.PHASE2],
-            method: phase_method,
+            //method: phase_method, TODO: fix data to match with vocab
             citation,
             unit: null,
           });
@@ -255,7 +255,7 @@ export class BCDBLoader {
             key: "mw_w",
             type: 'value',
             value: row[Column.Mw1],
-            method: row[Column.Mw1_method],
+            //method: row[Column.Mw1_method], TODO: fix data to match with vocab
             unit: "g/mol",
             citation,
           });
@@ -264,7 +264,7 @@ export class BCDBLoader {
             key: "mw_d",
             type: 'value',
             value: row[Column.D1],
-            method: row[Column.D1_method],
+            //method: row[Column.D1_method], TODO: fix data to match with vocab
             unit: "g/mol",
             citation,
           });
@@ -273,7 +273,7 @@ export class BCDBLoader {
             key: "invariant_degree_of_polymerization",
             type: 'value',
             value: row[Column.N1],
-            method: row[Column.N1_method],
+            //method: row[Column.N1_method], TODO: fix data to match with vocab
             unit: null,
             citation,
           });
@@ -282,7 +282,7 @@ export class BCDBLoader {
             key: "conc_vol_fraction",
             type: 'value',
             value: row[Column.f1],
-            method: row[Column.f1_method],
+            //method: row[Column.f1_method], TODO: fix data to match with vocab
             unit: null,
             citation,
           });
@@ -291,7 +291,7 @@ export class BCDBLoader {
             key: "conc_vol_fraction",
             type: 'value',
             value: row[Column.ftot1],
-            method: row[Column.ftot1_method],
+            // method: row[Column.ftot1_method], TODO: fix data to match with vocab
             unit: null,
             citation,
           });
@@ -300,7 +300,7 @@ export class BCDBLoader {
             key: "conc_mass_fraction",
             type: 'value',
             value: row[Column.w1],
-            method: row[Column.w1_method],
+            //method: row[Column.w1_method], TODO: fix data to match with vocab
             unit: null,
             citation,
           });
@@ -309,7 +309,7 @@ export class BCDBLoader {
             key: "density",
             type: 'value',
             value: row[Column.rho1],
-            method: row[Column.rho1_method],
+            //method: row[Column.rho1_method], TODO: fix data to match with vocab
             unit: "g/mL",
             citation,
           });
@@ -318,7 +318,7 @@ export class BCDBLoader {
             key: "microstructure_phase",
             type: 'value',
             value: `${row[Column.PHASE1]},${row[Column.PHASE2]}`,
-            method: row[Column.rho1_method],
+            // method: row[Column.rho1_method], TODO: fix data to match with vocab
             unit: "g/mL",
             citation,
           })
@@ -356,7 +356,7 @@ export class BCDBLoader {
             key: "invariant_degree_of_polymerization",
             type: 'value',
             value: row[Column.N2],
-            method: row[Column.N2_method],
+            // method: row[Column.N2_method], TODO: fix data to match with vocab
             unit: null,
             citation,
           });
@@ -365,7 +365,7 @@ export class BCDBLoader {
             key: "conc_vol_fraction",
             type: 'value',
             value: row[Column.f2],
-            method: row[Column.f2_method],
+            //method: row[Column.f2_method], TODO: fix data to match with vocab
             unit: null,
             citation,
           });
@@ -374,7 +374,7 @@ export class BCDBLoader {
             key: "conc_vol_fraction",
             type: 'value',
             value: row[Column.ftot2],
-            method: row[Column.ftot2_method],
+            //method: row[Column.ftot2_method], TODO: fix data to match with vocab
             unit: null,
             citation,
           });
@@ -383,7 +383,7 @@ export class BCDBLoader {
             key: "conc_mass_fraction",
             type: 'value',
             value: row[Column.w2],
-            method: row[Column.w2_method],
+            // method: row[Column.w2_method], TODO: fix data to match with vocab
             unit: null,
             citation,
           })
@@ -392,7 +392,7 @@ export class BCDBLoader {
             key: "density",
             type: 'value',
             value: row[Column.rho2],
-            method: row[Column.rho2_method],
+            //method: row[Column.rho2_method], TODO: fix data to match with vocab
             unit: "g/mL",
             citation,
           })
