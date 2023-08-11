@@ -200,9 +200,9 @@ export class CriptGraphOptimizer {
 
       case "citation":
         // Reference will be moved to the shared_references, and a simple Edge will be set for node.reference
-        if (value) value = value.map( v => {
-          v.reference = this.make_edge(value);
-          return v
+        if (value) value = value.map( _citation => {
+          _citation.reference = this.make_edge(_citation.reference);
+          return _citation;
         })
         break;
     }
