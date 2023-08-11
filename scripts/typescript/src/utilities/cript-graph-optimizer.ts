@@ -234,18 +234,18 @@ export class CriptGraphOptimizer {
    * - uses Edge or EdgeUUID when possible
    * - criptObject not changed (a deep copy is made)
    */
-  get_optimized(criptObject: IProject): OptimizedProject {
+  get_optimized(project: IProject): OptimizedProject {
     this.reset_state();
 
     // Generate an optimized structure
-    const criptObjectCopy = structuredClone(criptObject);
+    const _project = this.optimize_recursively('', structuredClone(project));
+
     const result: OptimizedProject = {
       shared: {
-        reference: [...this.shared_references.values()],
+        reference: [...this.shared_references.values()]
       },
-      project: this.optimize_recursively('', criptObjectCopy)
+      project: _project
     }
-
     // Warn user in case no references are present
     if( result.shared.reference.length === 0 ) {
       this.debug(`No shared references found`);
