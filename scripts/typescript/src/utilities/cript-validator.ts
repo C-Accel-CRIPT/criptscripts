@@ -42,7 +42,7 @@ export class CriptValidator {
         return true;
     }
 
-    private async fetchSchema(url: string, cache: 'r' | 'rw' | 'w' = 'rw'): Promise<AnySchemaObject> {
+    private async fetchSchema(url: string): Promise<AnySchemaObject> {
 
         let response: Response;
         try {

@@ -11,7 +11,7 @@ import { resolve } from "path";
 import { ICitation, ICollection, ICondition, IMaterial, IProject, IProperty, IReference } from "@cript";
 import { Chi, Method, Polymer, PubChemCASResponse, PubChemResponse as PubChemPropertyResponse, Solvent } from "./types";
 import { molfile_to_bigsmiles } from "@cript-web/bigsmiles-toolkit";
-import { CriptValidator, Logger, LogLevel, LoggerOptions, CriptGraphOptimizer } from "@utilities";
+import { CriptValidator, Logger, LogLevel, LoggerOptions, CriptGraphOptimizer, OptimizedProject } from "@utilities";
 import { Other } from "./types/sheets/others";
 import { fetch } from "cross-fetch";
 export class PPPDBLoader {
@@ -102,7 +102,7 @@ export class PPPDBLoader {
       molfile_dir: string,
     };
     row_limit: number;
-  }): Promise<IProject> {
+  }): Promise<OptimizedProject> {
     this.logger.prefix = null;
     this.logger.info(`PPPDB.load() ...`);
     this.logger.debug(`Reset state`);
@@ -531,7 +531,7 @@ export class PPPDBLoader {
 
     // Validate the project using DB schema
     this.logger.info(`Project validation ...`);      
-    const project_is_valid = this.validator.validate('ProjectPost', optimized_project);      
+    const project_is_valid = this.validator.validate('ProjectPost', optimized_project.project);      
     if( project_is_valid ) {
       this.logger.info(`Project validation: SUCCEEDED!`);
     } else {

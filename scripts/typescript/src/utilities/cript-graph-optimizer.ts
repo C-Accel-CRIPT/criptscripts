@@ -1,11 +1,27 @@
-import { IIngredient, Edge } from "@cript";
+import { IIngredient, Edge, IReference, IProject } from "@cript";
 
+/**
+ * Optimized project structure.
+ * 
+ * Why? Some shared nodes cannot be stored in a project (Reference),
+ * and need to be inserted prior to the project to be reused.
+ */
+export type OptimizedProject = {
+  // Unique nodes shared by the project
+  shared: {
+    reference: IReference[];
+  },
+  // Project referencing children with Edge or EdgeUUID
+  project: IProject;
+}
+ 
 /**
  * The role of this class is to reduce redundancy and ensure certain fields are properly defined.
  * It is designed to work with any CRIPT object, but primarly intended to be use with an IProject.
  * @example
  * const my_project: IProject = { ... };
- * const my_optimized_project = CriptGraphOptimizer.get_optimized(my_project);
+ * const optimized = CriptGraphOptimizer.get_optimized(my_project);
+ * // optimized.project
  */
 export class CriptGraphOptimizer {
   enable_logs = false;
@@ -15,6 +31,9 @@ export class CriptGraphOptimizer {
   private optimized_uid = new Set<string>();
   // Unique names
   private unique_names = new Set<string>();
+  // They cannot be stored directly in a project to be reused.
+  // They should be ingested first, and referenced using Edge or EdgeUUID by the Citations.
+  private shared_references = new Map<string, IReference>();
 
   private debug(...args: any) {
     this.enable_logs && console.debug(args);
@@ -25,13 +44,14 @@ export class CriptGraphOptimizer {
   private register_node(node: any): void {
     if(node.uid) throw new Error("Node already has a uid, cannot be registered twice");
 
+    const type = node.node[0];
     // ensure has a name
-    switch( node.node[0]) {
+    switch( type ) {
       case 'Reference': // Reference has not a "name" it has a "title"   
-        if(!node.title) node.title = `${node.node[0]}_${this.next_uid++}`;
+        if(!node.title) node.title = `${type}_${this.next_uid++}`;
         break;
       default:   
-        if(!node.name) node.name = `${node.node[0]}_${this.next_uid++}`;
+        if(!node.name) node.name = `${type}_${this.next_uid++}`;
         break;
       case 'Ingredient': // Ingredient has no name and should not be reused
       case 'Citation':   // Citation has no name and should not be reused        
@@ -39,14 +59,31 @@ export class CriptGraphOptimizer {
     }
 
     // ensure has a unique name/title
-    if( node.name) {
-      if( this.unique_names.has(node.name ) ) {
-        throw new Error(`The name '${node.name }' is already in use.`);
+    const name_or_title =  node.name ??  node.title;
+    if( name_or_title ) {
+      if( this.unique_names.has(name_or_title) ) {
+        throw new Error(`The name '${name_or_title}' is already in use.`);
       } else {
-        this.unique_names.add(node.name);
+        this.unique_names.add(name_or_title);
         // temporary method for the backend to recognyze a reference
-        node.uid = `_:${node.name}`;
+        node.uid = `_:${name_or_title}`;
       } 
+    }
+
+    // ensure has a name
+    switch( type) {
+      case 'Reference': // Reference has not a "name" it has a "title"   
+        if(!node.title) node.title = `${type}_${this.next_uid++}`;
+        // References must be stored in a shared container, outside of the project (which cannot handle them by design)
+        if( this.shared_references.has(node.uid)) throw new Error(`Reference already exists in shared_references (uid: '${node.uid}')`);
+        this.shared_references.set(node.uid, node);
+        break;
+      default:   
+        if(!node.name) node.name = `${type}_${this.next_uid++}`;
+        break;
+      case 'Ingredient': // Ingredient has no name and should not be reused
+      case 'Citation':   // Citation has no name and should not be reused        
+        return;
     }
   };
 
@@ -101,7 +138,7 @@ export class CriptGraphOptimizer {
           if (node.uid === undefined) this.register_node(node);                  
       }
       if(this.optimized_uid.has(node.uid)) return node; 
-      this.optimized_uid.add(node.uid);
+      if(node.uid) this.optimized_uid.add(node.uid);
 
       this.debug(`-- Optimizing node (uid: "${node.uid}", type: "${type}", name: "${node.name}") ...`);
 
@@ -143,6 +180,9 @@ export class CriptGraphOptimizer {
 
     // Some keys always require to be references
     switch (key) {
+      
+      // Arrays
+      
       case "prerequisite_process":
       case "waste":
       case "product":
@@ -154,6 +194,16 @@ export class CriptGraphOptimizer {
           value = value.map((v: any ) => this.make_edge(v));
           this.debug(`\tkey: ${key} DONE`);
         }
+        break;
+      
+      // Single value
+
+      case "citation":
+        // Reference will be moved to the shared_references, and a simple Edge will be set for node.reference
+        if (value) value = value.map( _citation => {
+          _citation.reference = this.make_edge(_citation.reference);
+          return _citation;
+        })
         break;
     }
 
@@ -184,14 +234,29 @@ export class CriptGraphOptimizer {
    * - uses Edge or EdgeUUID when possible
    * - criptObject not changed (a deep copy is made)
    */
-  get_optimized(criptObject: any): any {
+  get_optimized(project: IProject): OptimizedProject {
     this.reset_state();
-    const criptObjectCopy = structuredClone(criptObject); 
-    return this.optimize_recursively('', criptObjectCopy);
+
+    // Generate an optimized structure
+    const _project = this.optimize_recursively('', structuredClone(project));
+
+    const result: OptimizedProject = {
+      shared: {
+        reference: [...this.shared_references.values()]
+      },
+      project: _project
+    }
+    // Warn user in case no references are present
+    if( result.shared.reference.length === 0 ) {
+      this.debug(`No shared references found`);
+    }
+
+    return result;
   }
 
   reset_state() {
     this.optimized_uid.clear();
     this.unique_names.clear();
+    this.shared_references.clear();
   }
 }

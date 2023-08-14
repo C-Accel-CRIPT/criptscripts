@@ -10,7 +10,7 @@
 import * as XLSX from "xlsx";
 import { Column } from "./types/column";
 import { ICitation, ICollection, ICondition, IMaterial, IProject, IProperty, IReference } from "@cript";
-import { CriptGraphOptimizer, CriptValidator, LogLevel, Logger, LoggerOptions } from "@utilities";
+import { CriptGraphOptimizer, CriptValidator, LogLevel, Logger, LoggerOptions, OptimizedProject } from "@utilities";
 
 export class BCDBLoader {
   readonly logger: Logger;
@@ -34,7 +34,7 @@ export class BCDBLoader {
     input_file_path: string;
     sheets: ['blocks', 'diblock']; // added for the user to understand, but only expect a const array
     limitSheetRows: number;
-  }): Promise<IProject> {
+  }): Promise<OptimizedProject> {
 
     //-- Download DB schema
     try {
@@ -103,7 +103,7 @@ export class BCDBLoader {
 
       let index = 0;
       const arr = rows.slice(2) /** Skip 2 header rows */;
-      for(let row in arr) {
+      for(let row of arr) {
           index++; // 1-based index
           index % 100 == 0 && process.stdout.write(`-- Converting rows ... ${index}/${arr.length - 1}\n`);
 
@@ -111,22 +111,22 @@ export class BCDBLoader {
           //-- reference
           //   to store DOI and ORCIDs
           const doi = row[Column.DOI];
-          const author = row[Column.ORCID];
+          if(!doi) {
+            throw new Error(`DOI undefined`);
+          }
           let reference: IReference | undefined = references.get(doi);
           if (!reference) {
+            const author = row[Column.ORCID];
+
             reference = {
-              title: 'Reference',
+              title: doi,
               node: ["Reference"],
               doi: doi,
               author: author ? [author] : undefined,
               type: "journal_article",              
             };
-            if (reference.doi) {
-              this.validator.validate_or_throw(reference); 
-              references.set(reference.doi, reference);
-            } else {
-              this.logger.error(`Unable to store this reference, it has no doi (we use it as a key)`, JSON.stringify(reference));
-            }
+            this.validator.validate_or_throw(reference); 
+            references.set(doi, reference);
           }
           //log(`Reference read: ${reference.doi}`);
 
@@ -178,7 +178,7 @@ export class BCDBLoader {
             key: "mw_n",
             type: 'value',
             value: row[Column.Mn],
-            method: row[Column.Mn_method],
+            //method: row[Column.Mn_method], TODO: fix data to match with vocab
             unit: "g/mol",
             condition: [temperature],
             citation,
@@ -188,7 +188,7 @@ export class BCDBLoader {
             key: "mw_w",
             type: 'value',
             value: row[Column.Mw],
-            method: row[Column.Mw_method],
+            //method: row[Column.Mw_method], TODO: fix data to match with vocab
             unit: "g/mol",
             condition: [temperature],
             citation,
@@ -198,7 +198,7 @@ export class BCDBLoader {
             key: "mw_d",
             type: 'value',
             value: row[Column.D],
-            method: row[Column.D_method],
+            //method: row[Column.D_method], TODO: fix data to match with vocab
             unit: "g/mol",
             condition: [temperature],
             citation,
@@ -208,7 +208,7 @@ export class BCDBLoader {
             key: "invariant_degree_of_polymerization",
             type: 'value',
             value: row[Column.N],
-            method: row[Column.N_method],
+            //method: row[Column.N_method], TODO: fix data to match with vocab
             condition: [temperature],
             citation,
             unit: null,          
@@ -227,7 +227,7 @@ export class BCDBLoader {
             type: 'value',
             notes: "phase1",
             value: row[Column.PHASE1],
-            method: phase_method,
+            //method: phase_method, TODO: fix data to match with vocab
             citation,
             unit: null,
           });
@@ -237,7 +237,7 @@ export class BCDBLoader {
             notes: "phase2",
             type: 'value',
             value: row[Column.PHASE2],
-            method: phase_method,
+            //method: phase_method, TODO: fix data to match with vocab
             citation,
             unit: null,
           });
@@ -255,7 +255,7 @@ export class BCDBLoader {
             key: "mw_w",
             type: 'value',
             value: row[Column.Mw1],
-            method: row[Column.Mw1_method],
+            //method: row[Column.Mw1_method], TODO: fix data to match with vocab
             unit: "g/mol",
             citation,
           });
@@ -264,7 +264,7 @@ export class BCDBLoader {
             key: "mw_d",
             type: 'value',
             value: row[Column.D1],
-            method: row[Column.D1_method],
+            //method: row[Column.D1_method], TODO: fix data to match with vocab
             unit: "g/mol",
             citation,
           });
@@ -273,7 +273,7 @@ export class BCDBLoader {
             key: "invariant_degree_of_polymerization",
             type: 'value',
             value: row[Column.N1],
-            method: row[Column.N1_method],
+            //method: row[Column.N1_method], TODO: fix data to match with vocab
             unit: null,
             citation,
           });
@@ -282,7 +282,7 @@ export class BCDBLoader {
             key: "conc_vol_fraction",
             type: 'value',
             value: row[Column.f1],
-            method: row[Column.f1_method],
+            //method: row[Column.f1_method], TODO: fix data to match with vocab
             unit: null,
             citation,
           });
@@ -291,7 +291,7 @@ export class BCDBLoader {
             key: "conc_vol_fraction",
             type: 'value',
             value: row[Column.ftot1],
-            method: row[Column.ftot1_method],
+            // method: row[Column.ftot1_method], TODO: fix data to match with vocab
             unit: null,
             citation,
           });
@@ -300,7 +300,7 @@ export class BCDBLoader {
             key: "conc_mass_fraction",
             type: 'value',
             value: row[Column.w1],
-            method: row[Column.w1_method],
+            //method: row[Column.w1_method], TODO: fix data to match with vocab
             unit: null,
             citation,
           });
@@ -309,7 +309,7 @@ export class BCDBLoader {
             key: "density",
             type: 'value',
             value: row[Column.rho1],
-            method: row[Column.rho1_method],
+            //method: row[Column.rho1_method], TODO: fix data to match with vocab
             unit: "g/mL",
             citation,
           });
@@ -318,7 +318,7 @@ export class BCDBLoader {
             key: "microstructure_phase",
             type: 'value',
             value: `${row[Column.PHASE1]},${row[Column.PHASE2]}`,
-            method: row[Column.rho1_method],
+            // method: row[Column.rho1_method], TODO: fix data to match with vocab
             unit: "g/mL",
             citation,
           })
@@ -356,7 +356,7 @@ export class BCDBLoader {
             key: "invariant_degree_of_polymerization",
             type: 'value',
             value: row[Column.N2],
-            method: row[Column.N2_method],
+            // method: row[Column.N2_method], TODO: fix data to match with vocab
             unit: null,
             citation,
           });
@@ -365,7 +365,7 @@ export class BCDBLoader {
             key: "conc_vol_fraction",
             type: 'value',
             value: row[Column.f2],
-            method: row[Column.f2_method],
+            //method: row[Column.f2_method], TODO: fix data to match with vocab
             unit: null,
             citation,
           });
@@ -374,7 +374,7 @@ export class BCDBLoader {
             key: "conc_vol_fraction",
             type: 'value',
             value: row[Column.ftot2],
-            method: row[Column.ftot2_method],
+            //method: row[Column.ftot2_method], TODO: fix data to match with vocab
             unit: null,
             citation,
           });
@@ -383,7 +383,7 @@ export class BCDBLoader {
             key: "conc_mass_fraction",
             type: 'value',
             value: row[Column.w2],
-            method: row[Column.w2_method],
+            // method: row[Column.w2_method], TODO: fix data to match with vocab
             unit: null,
             citation,
           })
@@ -392,7 +392,7 @@ export class BCDBLoader {
             key: "density",
             type: 'value',
             value: row[Column.rho2],
-            method: row[Column.rho2_method],
+            //method: row[Column.rho2_method], TODO: fix data to match with vocab
             unit: "g/mL",
             citation,
           })
@@ -426,17 +426,17 @@ export class BCDBLoader {
 
     // Optimise the project object (uses uids, create Edges, etc..)
     const optimizer = new CriptGraphOptimizer();
-    const optimized_project: IProject = optimizer.get_optimized(project);
+    const optimized_project: OptimizedProject = optimizer.get_optimized(project);
 
     // Validate against DB schema
-    const is_valid = await this.validator.validate('ProjectPost', optimized_project);
+    const is_valid = await this.validator.validate('ProjectPost', optimized_project.project);
 
     if(!is_valid) {
       this.logger.error(this.validator.errorsAsString(100));
-      this.logger.error(`Project '${optimized_project.name}' is NOT valid, see errors in logs above!`)
+      this.logger.error(`Project '${optimized_project.project.name}' is NOT valid, see errors in logs above!`)
       throw new Error(`Project is NOT valid`);
     } else {
-      this.logger.info(`Project '${optimized_project.name}' is valid.`)
+      this.logger.info(`Project '${optimized_project.project.name}' is valid.`)
     }
 
     return optimized_project;
