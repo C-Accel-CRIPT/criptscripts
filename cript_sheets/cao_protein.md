@@ -1,9 +1,3 @@
----
-layout: default
-title: Cao Protein CRIPT Sheet
-parent: Excel files
----
-
 # Development of a Rubber Recycling Process Based on a Single-Component Interfacial Adhesive
 
 [Research paper](https://pubs.acs.org/doi/10.1021/acs.biomac.2c00372) written by Yiping Cao and Bradley D. Olsen.

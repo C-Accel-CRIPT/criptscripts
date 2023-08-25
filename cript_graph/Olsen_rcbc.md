@@ -1,9 +1,3 @@
----
-layout: default
-title: Olsen Rod-Coil Block Copolymers CRIPT Graph
-parent: CRIPT Graphs
----
-
 # Structure and Thermodynamics of Weakly Segregated Rod-Coil Block Copolymers
 
 [Research paper](https://pubs.acs.org/doi/10.1021/ma051468v) 

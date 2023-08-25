@@ -1,0 +1,1 @@
+The bibliography converter script is a Python script written with the [CRIPT Python SDK](https://github.com/C-Accel-CRIPT/cript) that creates [CRIPT references](https://app.criptapp.org/reference/) from a text file containing a bibliography.

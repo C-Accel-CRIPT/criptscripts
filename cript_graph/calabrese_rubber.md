@@ -1,9 +1,3 @@
----
-layout: default
-title: Calabrese Rubber CRIPT Graph
-parent: CRIPT Graphs
----
-
 # Development of a Rubber Recycling Process Based on a Single-Component Interfacial Adhesive
 
 [Research paper](https://pubs.acs.org/doi/abs/10.1021/acsapm.0c01343) written by 
