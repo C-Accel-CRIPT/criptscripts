@@ -1,14 +1,7 @@
-[![CRIPT Scripts logo](./assets/images/criptscripts-logo.svg)](https://criptscripts.org/)
+[![CRIPT Scripts logo](./assets/images/criptscripts-logo.svg)](http://www.criptapp.org/resources/scripts/)
 
-This is the repository of the [CRIPTScrips](https://criptscripts.org/) website
+This repository host ingestion scripts referenced by [criptapp.org](http://www.criptapp.org/resources/scripts/).
 
 
-<!--
-![Markdown](https://img.shields.io/badge/Language-Markdown-lightgrey?style=for-the-badge&logo=markdown)
-![Ruby](https://img.shields.io/badge/Language-Ruby-red?style=for-the-badge&logo=ruby)
-![Ruby Package Jekyll](https://img.shields.io/badge/Ruby%20Gem-Jekyll-red?style=for-the-badge&logo=jekyll)
-![HTML](https://img.shields.io/badge/Language-HTML5-red?style=for-the-badge&logo=html5)
-![CSS](https://img.shields.io/badge/Language-CSS-blue?style=for-the-badge&logo=css3)
-![Fontawesome](https://img.shields.io/badge/Icons-Fontawesome-blueviolet?style=for-the-badge&logo=fontawesome)
-
--->
+> As many of the files from this repository are referenced by pages from criptapp.org, we recommend you to avoid
+doing naming refactor. In case you need to, please check that the [cript scripts](http://www.criptapp.org/resources/scripts/) pages are still pointing to existing URLS.
