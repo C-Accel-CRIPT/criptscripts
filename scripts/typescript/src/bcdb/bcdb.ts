@@ -178,7 +178,7 @@ export class BCDBLoader {
             key: "mw_n",
             type: 'value',
             value: row[Column.Mn],
-            //method: row[Column.Mn_method], TODO: fix data to match with vocab
+            method: row[Column.Mn_method],
             unit: "g/mol",
             condition: [temperature],
             citation,
@@ -188,7 +188,7 @@ export class BCDBLoader {
             key: "mw_w",
             type: 'value',
             value: row[Column.Mw],
-            //method: row[Column.Mw_method], TODO: fix data to match with vocab
+            method: row[Column.Mw_method],
             unit: "g/mol",
             condition: [temperature],
             citation,
@@ -208,18 +208,11 @@ export class BCDBLoader {
             key: "invariant_degree_of_polymerization",
             type: 'value',
             value: row[Column.N],
-            //method: row[Column.N_method], TODO: fix data to match with vocab
+            method: row[Column.N_method],
             condition: [temperature],
             citation,
             unit: null,          
           });
-
-          // can be: "saxs", "tem", or "rheology"
-          let phase_method = row[Column.phase_method]?.toLowerCase();
-
-          // The custom vocabulary does not allow "rheology"
-          // Replacing with "rheometer".
-          if(phase_method === "rheology")  phase_method = "rheometer";
 
           this.validate_and_push_property(polymer, {
             node: ["Property"],
@@ -227,7 +220,7 @@ export class BCDBLoader {
             type: 'value',
             notes: "phase1",
             value: row[Column.PHASE1],
-            //method: phase_method, TODO: fix data to match with vocab
+            method: row[Column.phase_method],
             citation,
             unit: null,
           });
@@ -237,7 +230,7 @@ export class BCDBLoader {
             notes: "phase2",
             type: 'value',
             value: row[Column.PHASE2],
-            //method: phase_method, TODO: fix data to match with vocab
+            method: row[Column.phase_method],
             citation,
             unit: null,
           });
@@ -255,7 +248,7 @@ export class BCDBLoader {
             key: "mw_w",
             type: 'value',
             value: row[Column.Mw1],
-            //method: row[Column.Mw1_method], TODO: fix data to match with vocab
+            method: row[Column.Mw1_method],
             unit: "g/mol",
             citation,
           });
@@ -264,7 +257,7 @@ export class BCDBLoader {
             key: "mw_d",
             type: 'value',
             value: row[Column.D1],
-            //method: row[Column.D1_method], TODO: fix data to match with vocab
+            method: row[Column.D1_method],
             unit: "g/mol",
             citation,
           });
@@ -273,7 +266,7 @@ export class BCDBLoader {
             key: "invariant_degree_of_polymerization",
             type: 'value',
             value: row[Column.N1],
-            //method: row[Column.N1_method], TODO: fix data to match with vocab
+            method: row[Column.N1_method],
             unit: null,
             citation,
           });
@@ -282,7 +275,7 @@ export class BCDBLoader {
             key: "conc_vol_fraction",
             type: 'value',
             value: row[Column.f1],
-            //method: row[Column.f1_method], TODO: fix data to match with vocab
+            method: row[Column.f1_method],
             unit: null,
             citation,
           });
@@ -291,7 +284,7 @@ export class BCDBLoader {
             key: "conc_vol_fraction",
             type: 'value',
             value: row[Column.ftot1],
-            // method: row[Column.ftot1_method], TODO: fix data to match with vocab
+            method: row[Column.ftot1_method],
             unit: null,
             citation,
           });
@@ -300,7 +293,7 @@ export class BCDBLoader {
             key: "conc_mass_fraction",
             type: 'value',
             value: row[Column.w1],
-            //method: row[Column.w1_method], TODO: fix data to match with vocab
+            method: row[Column.w1_method],
             unit: null,
             citation,
           });
@@ -309,7 +302,7 @@ export class BCDBLoader {
             key: "density",
             type: 'value',
             value: row[Column.rho1],
-            //method: row[Column.rho1_method], TODO: fix data to match with vocab
+            method: row[Column.rho1_method],
             unit: "g/mL",
             citation,
           });
@@ -318,7 +311,7 @@ export class BCDBLoader {
             key: "microstructure_phase",
             type: 'value',
             value: `${row[Column.PHASE1]},${row[Column.PHASE2]}`,
-            // method: row[Column.rho1_method], TODO: fix data to match with vocab
+            method: row[Column.rho1_method],
             unit: "g/mL",
             citation,
           })
@@ -356,7 +349,7 @@ export class BCDBLoader {
             key: "invariant_degree_of_polymerization",
             type: 'value',
             value: row[Column.N2],
-            // method: row[Column.N2_method], TODO: fix data to match with vocab
+            method: row[Column.N2_method],
             unit: null,
             citation,
           });
@@ -365,7 +358,7 @@ export class BCDBLoader {
             key: "conc_vol_fraction",
             type: 'value',
             value: row[Column.f2],
-            //method: row[Column.f2_method], TODO: fix data to match with vocab
+            method: row[Column.f2_method],
             unit: null,
             citation,
           });
@@ -374,7 +367,7 @@ export class BCDBLoader {
             key: "conc_vol_fraction",
             type: 'value',
             value: row[Column.ftot2],
-            //method: row[Column.ftot2_method], TODO: fix data to match with vocab
+            method: row[Column.ftot2_method],
             unit: null,
             citation,
           });
@@ -383,7 +376,7 @@ export class BCDBLoader {
             key: "conc_mass_fraction",
             type: 'value',
             value: row[Column.w2],
-            // method: row[Column.w2_method], TODO: fix data to match with vocab
+            method: row[Column.w2_method],
             unit: null,
             citation,
           })
@@ -392,7 +385,7 @@ export class BCDBLoader {
             key: "density",
             type: 'value',
             value: row[Column.rho2],
-            //method: row[Column.rho2_method], TODO: fix data to match with vocab
+            method: row[Column.rho2_method],
             unit: "g/mL",
             citation,
           })
