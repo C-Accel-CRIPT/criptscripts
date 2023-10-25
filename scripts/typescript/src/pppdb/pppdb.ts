@@ -6,11 +6,8 @@
 
  */
 import * as XLSX from "xlsx";
-import * as fs from "fs";
-import { resolve } from "path";
 import { ICitation, ICollection, ICondition, IMaterial, IProject, IProperty, IReference } from "@cript";
-import { Chi, Method, Polymer, PubChemCASResponse, PubChemResponse as PubChemPropertyResponse, Solvent } from "./types";
-import { molfile_to_bigsmiles } from "@cript-web/bigsmiles-toolkit";
+import { Chi, Method, PubChemCASResponse, PubChemPropertyResponse, Solvent } from "./types";
 import { CriptValidator, Logger, LogLevel, LoggerOptions, CriptGraphOptimizer, OptimizedProject } from "@utilities";
 import { Other } from "./types/sheets/others";
 import { fetch } from "cross-fetch";
@@ -42,20 +39,7 @@ export class PPPDBLoader {
       uniques: new Set<string>(),
     }
   }
-  
-  private molfile = {
-    /**
-     * Map each molfile name (lower-case, trimmed, no extension) to its molfile path.
-     * The key should match potentially with the compound1 column.
-     * "poly(developer)" => "C:/path/to/the/molfiles/folder/Poly(developer) .mol"
-     */
-    name_to_path: new Map<string, string>(),
-    missing: new Set<string>(),
-  }
 
-  private polymer = {
-    missing: new Set<string>(),
-  }
 
   private solvent = {
     missing: new Set<string>(),
@@ -99,7 +83,6 @@ export class PPPDBLoader {
       methods: string,
       polymers: string,
       solvents: string,
-      molfile_dir: string,
     };
     row_limit: number;
   }): Promise<OptimizedProject> {
@@ -115,9 +98,6 @@ export class PPPDBLoader {
     this.material.bigsmiles.missing.clear();
     this.material.bigsmiles.uniques.clear();
     this.material.unique_name.clear();
-    this.molfile.missing.clear();
-    this.molfile.name_to_path.clear();
-    this.polymer.missing.clear();
     this.solvent.missing.clear();
     this.method.missing.clear();
     this.other.missing.clear();
@@ -146,23 +126,9 @@ export class PPPDBLoader {
     this.logger.info(`Loading *.xslx files ...`);
     const chi = this.load_first_sheet_from_xlsx<Chi>(options.paths.chi, parsing_options);
     const methods = this.load_first_sheet_from_xlsx<Method>(options.paths.methods, parsing_options);
-    const polymers = this.load_first_sheet_from_xlsx<Polymer>(options.paths.polymers, parsing_options);
     const solvents = this.load_first_sheet_from_xlsx<Solvent>(options.paths.solvents, parsing_options);
     const others = this.load_first_sheet_from_xlsx<Other>(options.paths.others, parsing_options);
-    this.logger.info(`Indexing molfiles from '${options.paths.molfile_dir}' ...`);
-    try {      
-      const file_names = fs.readdirSync(options.paths.molfile_dir);
-      for(const file_name of file_names) {
-        const clean_file_name = this.compute_normalized_molfile_clean_name(file_name);
-        const absolute_file_path = resolve(options.paths.molfile_dir, file_name);
-        this.molfile.name_to_path.set(clean_file_name, absolute_file_path);
-        this.logger.debug(` ${ ("'" + clean_file_name + "'").padEnd(40)} => '${absolute_file_path}'`);
-      }
-    } catch( err: any ) {
-      throw new Error(`Unable to index molfiles.\n${err.stack}`)
-    }
-    this.logger.info(`Found ${this.molfile.name_to_path.size} file(s)`);
-    
+
     // double-check that "id" are unique
     const unique_id_count = new Set(chi.map( v => v.id)).size;
     const ids_are_unique = unique_id_count === chi.length;
@@ -219,6 +185,7 @@ export class PPPDBLoader {
         name: `PPPDB_${chi_row.id}_${chi_row.compound1}`,
         names: [] as string[],
         property: [] as IProperty[],
+        bigsmiles: chi_row.BigSMILES1,
       } satisfies IMaterial;
       if(chi_row.compound1) material1.names.push(chi_row.compound1);
       if(chi_row.ac1) material1.names.push(chi_row.ac1);
@@ -226,7 +193,6 @@ export class PPPDBLoader {
       this.logger.debug(`Material 1 is a ${chi_row.type1}`);
       switch( chi_row.type1 ) {
         case 'polymer': {
-          this.assign_polymer_fields(material1, polymers, chi_row.compound1);
           const mw_w_property = this.create_mw_w_property(chi_row.molmass1, chi_row.molmassunit);
           if( mw_w_property ) {
             mw_w_property.citation = shared_citation;
@@ -259,6 +225,7 @@ export class PPPDBLoader {
         name: `PPPDB_${chi_row.id}_${chi_row.compound2}`,
         names: [] as string[],
         property: [] as IProperty[],
+        bigsmiles: chi_row.BigSMILES2,
       } satisfies IMaterial;
       if(chi_row.compound2) material2.names.push(chi_row.compound2);
       if(chi_row.ac2) material2.names.push(chi_row.ac2);
@@ -266,7 +233,6 @@ export class PPPDBLoader {
       this.logger.debug(`Material 2 is a ${chi_row.type2}`);
       switch(chi_row.type2) {
         case 'polymer':
-          this.assign_polymer_fields(material2, polymers, chi_row.compound2);
           const mw_w_property = this.create_mw_w_property(chi_row.molmass2, chi_row.molmassunit);
           if( mw_w_property ) {
             mw_w_property.citation = shared_citation;
@@ -489,17 +455,13 @@ export class PPPDBLoader {
     this.log_set( LogLevel.INFO, this.material.bigsmiles.uniques, `Unique BigSMILES list`);
     const missing_items = [
       this.material.bigsmiles.missing,
-      this.molfile.missing,
       this.solvent.missing,
-      this.polymer.missing,
       this.method.missing,
       this.reference.doi_title.missing,
     ].reduce( (prev, curr) => prev + curr.size , 0);
     if ( missing_items ) {
       this.log_set( LogLevel.ERROR,      this.material.bigsmiles.missing, `Missing bigsmiles`);
-      this.log_set( LogLevel.WARNING,    this.molfile.missing,            `Missing molfile(s)`);
       this.log_set( LogLevel.ERROR,      this.solvent.missing,            `Missing solvent(s)`);
-      this.log_set( LogLevel.ERROR,      this.polymer.missing,            `Missing polymer`);
       this.log_set( LogLevel.WARNING,    this.method.missing,             `Missing method(s)`);
       this.log_set( LogLevel.ERROR,      this.other.missing,              `Missing other(s)`);
       this.log_set( LogLevel.INFO,       this.reference.doi_title.missing,`DOI title(s) not found on crossref.org`);
@@ -508,10 +470,8 @@ export class PPPDBLoader {
     this.logger.info(`=-=-=-=-=-=-=-=-=-==-  SUMMARY -=-=-=-=-=-=-=-=-=-=-=-=-=-`);      
     this.logger.info(`- chi row: ${this.xlsx.chi.skipped_row_count} skipped, ${this.xlsx.chi.parsed_row_count} parsed (${chi.length} total)`);
     this.logger.info(`Missing items:`);
-    this.log_count_or_none( LogLevel.WARNING, this.molfile.missing,              '- molfile(s):');
     this.log_count_or_none( LogLevel.ERROR,   this.material.bigsmiles.missing,   '- bigsmiles(s):');
     this.log_count_or_none( LogLevel.ERROR,   this.solvent.missing,              '- solvent(s):');
-    this.log_count_or_none( LogLevel.ERROR,   this.polymer.missing,              '- polymer(s):');
     this.log_count_or_none( LogLevel.WARNING, this.method.missing,               '- method(s):');
     this.log_count_or_none( LogLevel.ERROR,   this.other.missing,                '- other(s):');
     this.log_count_or_none( LogLevel.INFO,    this.reference.doi_title.missing,  '- doi title(s) not found on crossref.org:');
@@ -632,43 +592,6 @@ export class PPPDBLoader {
     this.log_if_property_is_undefined(LogLevel.WARNING, material, 'chemical_id', 'chem_formula', 'inchi', 'bigsmiles');
   }
 
-  /**
-   * Assign polymer fields ('bigsmiles' and 'inchi') to a given material
-   */
-  assign_polymer_fields(material: IMaterial, polymers: Polymer[], polymer_name: string ) {
-
-    const polymer = this.get_polymer_by_name(polymers, polymer_name);
-
-    // Assign inchi
-    if(polymer) {
-      material.inchi = polymer.InChI;
-    } else {
-      this.logger.error(`Unable to find a polymer for '${polymer_name}'`);
-    }
-    this.log_if_property_is_undefined(LogLevel.WARNING, material, 'inchi');
-
-    // Assign bigsmiles
-    const bigsmiles_from_molfile = this.try_to_generate_bigsmiles_from_molfile(polymer_name);
-    if( bigsmiles_from_molfile ) {
-      material.bigsmiles = bigsmiles_from_molfile;
-    } else if(polymer && polymer.BigSMILES && polymer.BigSMILES != '') {
-      this.logger.info(`✅ Take user defined 'BigSMILES': '${polymer.BigSMILES}'`);
-      material.bigsmiles = polymer.BigSMILES;      
-    } else {
-      this.logger.error(`Unable to get a BigSMILES (molfile conversion failed, no BigSMILES value in polymer table). 'bigsmiles' will be undefined.`);
-      this.material.bigsmiles.missing.add(material.name)
-    }
-    if (material.bigsmiles) {
-      if ( !this.material.bigsmiles.uniques.has(material.bigsmiles)) {
-        this.logger.info(`First time we see this BigSMILES: '${material.bigsmiles}' (${polymer_name})`)
-        this.material.bigsmiles.uniques.add(material.bigsmiles);
-      } else {
-        this.logger.debug(`Bigsmiles already present in unique set: '${material.bigsmiles}'`)
-      }
-    }
-    this.log_if_property_is_undefined(LogLevel.WARNING, material, 'bigsmiles');
-  }
-
   log_if_property_is_undefined(level: LogLevel, material: IMaterial, ...property_name: (keyof IMaterial)[] ): void {
     property_name.forEach( key => {
       if( !material[key] ) {
@@ -737,69 +660,6 @@ export class PPPDBLoader {
       this.logger.error(`Unable to find a 'solvent' with '${name_column_key}' == '${name}'`);
     }
     return result;
-  }
-
-  get_polymer_by_name(polymers: Polymer[], name: string): Polymer | undefined {
-    const name_column_key = "Name (new)";
-    const result = polymers.find( polymer => polymer[name_column_key] === name );
-    if ( !result ) {
-      this.polymer.missing.add(name);
-      this.logger.error(`Unable to find a 'polymer' with '${name_column_key}' == '${name}'`);
-    }
-    return result;
-  }
-
-  /**
-   * Generate a bigsmiles from a given compound name.
-   * Internaly, the name is normalized and used to lookup in all
-   * known (indexed) molfiles.
-   * If the file is found, we use @cript-web/bigsmiles-toolkit to convert it to bigsmiles.
-   */
-  try_to_generate_bigsmiles_from_molfile(compound_name: string) {
-    const molfile_clean_name = this.compute_normalized_molfile_clean_name(compound_name);
-    const molfile_path = this.molfile.name_to_path.get(molfile_clean_name);
-    let molfile_string: string | undefined;
-    let result: string | undefined;
-
-    if( molfile_clean_name === 'poly(ethylene-r-butylene).mol') {
-      // hard-coded case. The library @cript-web/bigsmiles-toolkit throws an exception while converting it (using both v2000 and v3000)
-      result = '{[][$]CC[$],[$]CC(CC)[$][]}';
-      this.logger.info(`Applied an hard-coded bigsmiles for '${molfile_clean_name}': ${result}`)
-    } else if ( !molfile_path) {
-      this.logger.warning(`No molfile found for index: '${molfile_clean_name}'`);
-      this.molfile.missing.add(molfile_clean_name);
-    } else if( fs.existsSync(molfile_path) ) {
-      try {
-        const molfile_descriptor = fs.openSync(molfile_path, 'r');
-        molfile_string = fs.readFileSync(molfile_descriptor).toString();            
-      } catch ( err: any ) {
-        this.logger.error(`Unable to load the mol file ${molfile_path}.\n${err.stack}`);
-      }        
-      if( molfile_string ) {
-        try {
-          result = molfile_to_bigsmiles(molfile_string); 
-        } catch( err: any ) {
-          this.logger.warning(`Unable to convert the mol file ${molfile_path}.\n${err.stack}`);
-        }
-      }
-    } else {
-      this.logger.error(`Molfile exists in index but is not found: ${molfile_path}`);
-    }
-    return result;
-  }
-
-  /**
-   * Ensure name is space free, lower case and contains the *.mol extension
-   */
-  compute_normalized_molfile_clean_name(name: string): string {
-    const clean_file_name = name
-      .replaceAll(' ', '')
-      .replaceAll('ε-', '')
-      .toLowerCase();
-
-    if( !clean_file_name.endsWith('.mol') )
-      return clean_file_name + '.mol';
-    return clean_file_name;
   }
 
   /**
