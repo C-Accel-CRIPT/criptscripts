@@ -132,7 +132,7 @@ export class PPPDBLoader {
      * ----------------
      * 
      * - Create some citations for the row ('doi' and 'reference' columns)
-     * - Create Materials 1 and 2 (depending of their type 'polymer' or 'solvent')
+     * - Create Materials 1 and 2 (depending on their type 'polymer' or 'solvent')
      * - Create a Material Combined (having Material 1 & 2 for component)
      */
 
@@ -190,12 +190,12 @@ export class PPPDBLoader {
       this.logger.prefix = String(`[row: ${four_digit_row_index}, id: ${four_digit_id}] `);
       this.logger.debug(`Processing row ...`);
 
-      // skip rows we do not handle (for now, 6/7/2023)
+      // Skip rows with types we do not handle (10/26/2023)
       switch( chi_row.type ) {
         case 'Type 1':
         case 'Type 2':
         case "Type 3":
-          // We should handle those types
+          // We handle those types
           break;
         case 'Type 4':
         case 'Type 5':
@@ -216,12 +216,12 @@ export class PPPDBLoader {
       const material1 = {            
         node: ['Material'],
         model_version: '1.0.0',
-        name: `PPPDB_${chi_row.id}_${chi_row.compound1}`, // PPPDB_<Column AJ (id)>_<Column B (compound1) of chi.csv>
+        name: `PPPDB_${chi_row.id}_${chi_row.compound1}`,
         names: [] as string[],
         property: [] as IProperty[],
       } satisfies IMaterial;
-      if(chi_row.compound1) material1.names.push(chi_row.compound1);// "<Column B (compound1) of chi.csv (string)>',
-      if(chi_row.ac1) material1.names.push(chi_row.ac1); // '<Column D (ac1) of chi.csv (string)>'
+      if(chi_row.compound1) material1.names.push(chi_row.compound1);
+      if(chi_row.ac1) material1.names.push(chi_row.ac1);
 
       this.logger.debug(`Material 1 is a ${chi_row.type1}`);
       switch( chi_row.type1 ) {
@@ -256,12 +256,12 @@ export class PPPDBLoader {
       const material2 = {
         node: ['Material'],
         model_version: '1.0.0',
-        name: `PPPDB_${chi_row.id}_${chi_row.compound2}`, // PPPDB_<Column AJ>_<Column F> ,
+        name: `PPPDB_${chi_row.id}_${chi_row.compound2}`,
         names: [] as string[],
         property: [] as IProperty[],
       } satisfies IMaterial;
-      if(chi_row.compound2) material2.names.push(chi_row.compound2);// <Column F of chi.csv (string)>
-      if(chi_row.ac2) material2.names.push(chi_row.ac2); // <Column H of chi.csv (string)>
+      if(chi_row.compound2) material2.names.push(chi_row.compound2);
+      if(chi_row.ac2) material2.names.push(chi_row.ac2);
 
       this.logger.debug(`Material 2 is a ${chi_row.type2}`);
       switch(chi_row.type2) {
@@ -297,7 +297,7 @@ export class PPPDBLoader {
 
       const combined_material = {
         node: ['Material'],
-        name: `PPPDB_${chi_row.id}_${chi_row.compound1}_${chi_row.compound2}`, // PPPDB_<Column AJ>_<Material1>_<Material2>
+        name: `PPPDB_${chi_row.id}_${chi_row.compound1}_${chi_row.compound2}`,
         component: [
           material1,
           material2
@@ -315,10 +315,9 @@ export class PPPDBLoader {
 
       // shared conditions
       {
-        // If column X (chimax) is blank
         if( !chi_row.chimax ) {
 
-          // If column P (tempmax) is blank, we can only have a single temperature.
+          // single temperature value
           if( !chi_row.tempmax ) {
             this.validate_and_push_condition( shared_by_all_properties, {
               node: ['Condition'],
@@ -328,8 +327,8 @@ export class PPPDBLoader {
               unit: chi_row.tempunit
             });
 
-          // Instead, If column P (tempmax) is NOT blank, we have a min/max.
-          } else if (chi_row.temperature && chi_row.tempmax) {
+          // min/max temperature values
+          } else if ( chi_row.temperature ) {
             this.validate_and_push_condition( shared_by_all_properties, {
                 node: ['Condition'],
                 key: 'temperature',
@@ -345,11 +344,11 @@ export class PPPDBLoader {
                 unit: chi_row.tempunit
               });
           }
-          // If column AK (refvolume) is NOT blank
+
           if( chi_row.refvolume ) {
             this.validate_and_push_condition( shared_by_all_properties, {
               node: ['Condition'],
-              key: 'reference_volume', // Berenger|8/4/2023: Require to merge https://github.mit.edu/cript/cript-api/pull/4
+              key: 'reference_volume',
               type: 'value',
               value: chi_row.refvolume,
               unit: chi_row.refvolumeunit
@@ -394,7 +393,7 @@ export class PPPDBLoader {
       // We only handle Type 1 to 3 here. We discard 4 and 5 at the very beginning of the loop.
       switch( chi_row.type ) {
         case "Type 1":
-          // If Type 1 and column X is blank
+
           if( !chi_row.chimax ) {
            
             this.validate_and_push_property(combined_material, {
@@ -407,7 +406,6 @@ export class PPPDBLoader {
               ...shared_by_all_properties,
             } satisfies IProperty);
 
-          // If Type 1 and column X is *not* blank
           } else if (chi_row.chinumber && chi_row.chimax) {
 
             // interaction param (min)
@@ -478,8 +476,7 @@ export class PPPDBLoader {
           throw new Error(`Unhandled type: '${unhandled_type}'`); // runtime check
       }
 
-      // finally, add the materials.
-      // This avoid to add a row partially (see multiple "continue" keywords above)
+      // Finally, add both materials at once.
       this.add_material(material1, material2, combined_material);
       this.xlsx.chi.parsed_row_count++;
       this.logger.info(`Row completed`);
@@ -814,7 +811,7 @@ export class PPPDBLoader {
 
     //
     // Strategy:
-    // - get 'doi' column as first citation (the most important)
+    // - get 'doi' as first citation (the most important)
     // - append any 'reference' (0 to N)
     //
     // note: There is 1 reference per citation.
@@ -856,7 +853,7 @@ export class PPPDBLoader {
         this.logger.info(`Apply hard-coded case for '${chiRow.reference}'`);
   
       } else {
-        const refs = chiRow.reference.split('; '); // some references includes a ";" without space
+        const refs = chiRow.reference.split('; '); // some references include a ";" without space
         for( const [index, ref] of refs.entries()) {
           const referenceNode = await this.create_reference(ref);
           if( referenceNode ) {
@@ -910,7 +907,7 @@ export class PPPDBLoader {
       const isbn = clean_input.substring(5).trim();
       reference = {
         node: ['Reference'],
-        title: isbn, // we couln't get ISBN's title from api.crossref.org
+        title: isbn, // we couldn't get ISBN title from https://api.crossref.org
         isbn,
         type: 'book'
       }      
@@ -929,7 +926,7 @@ export class PPPDBLoader {
       if(!title) {
         const default_title = doi_issn_isbn_or_string;
         this.logger.info(`Using default value for reference's title: '${default_title}'`)
-        title = default_title; // use user input for title when we cannot get it from crossref
+        title = default_title; // use user input for title when we cannot get it from https://api.crossref.org
       }
       reference = {        
         node: ['Reference'],
@@ -948,7 +945,7 @@ export class PPPDBLoader {
   }
 
   /**
-   * Fetch DOI's title from api.crossref.org
+   * Fetch DOI title from  https://api.crossref.org
    * @param doi must be a doi string without doi prefix ("doi:")
    */
   async fetch_doi_title_from_crossref_api(doi: string): Promise<string | undefined> {
@@ -997,12 +994,12 @@ export class PPPDBLoader {
     const workSheet: XLSX.WorkSheet = workBook.Sheets[sheetName] ?? [];
   
     // Convert to objects
-    //   Note: We'll loose in performance and memory usage by doing this, but our dataset is very small.
-    //         We prefer here to deal with objects instead of defining a Column enum like we did for rcbc project (the result was not well readable).
+    //   Note: We'll lose in performance and memory usage by doing this, but our dataset is very small.
+    //         We prefer here to deal with objects instead of defining a Column enum like we did for RCBC project (the result was not well readable).
     this.logger.debug(`Converting WorkSheet to JSON ...`);
     const result = XLSX.utils.sheet_to_json<T>(workSheet);
     // store the row index to help debugging.
-    result.forEach( (each, index) => each._row_index = options.index_offset + index + 1 ); // +1 because excell sheets are 1-based.
+    result.forEach( (each, index) => each._row_index = options.index_offset + index + 1 ); // +1 because Excel sheets are 1-based.
 
     this.logger.info(`Found ${result.length} row(s)`);
     this.logger.debug(`Here is a sample of the first row:\n ${JSON.stringify(result.slice(undefined, 1), null, '\t')}`);
@@ -1071,7 +1068,7 @@ export class PPPDBLoader {
 
     // Then, get the CAS from a different endpoint.
     // Note: we couldn't get the CAS using the first method, this method returns a much more complicated JSON,
-    //       that's why we prefered the first method for the 3 other fields.
+    //       that's why we preferred the first method for the 3 other fields.
     try {
       // @see https://pubchem.ncbi.nlm.nih.gov/docs/pug-view#section=Specific-Heading
       const url = `https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/${cid}/JSON?heading=CAS`;
@@ -1094,5 +1091,5 @@ export class PPPDBLoader {
 
     return result;
   }
-} // namespace PPPDBLoader
+} // class PPPDBLoader
 
