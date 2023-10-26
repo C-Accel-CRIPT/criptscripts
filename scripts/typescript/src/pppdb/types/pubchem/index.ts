@@ -1,4 +1,4 @@
-export type PubChemPropertyResponse = {
+export type PubChemResponse = {
   PropertyTable: {
     Properties: Array<{
       CID: number;

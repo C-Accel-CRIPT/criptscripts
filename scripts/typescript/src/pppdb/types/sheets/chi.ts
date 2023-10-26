@@ -13,85 +13,81 @@ export type Chi = {
     compound1: string;
     /** Column C, Compound 1's type */
     type1: CompoundType;
-    /** Column D, BigSMILES1 */
-    BigSMILES1: string;
-    /** Column E, (ex: 'PLA', 'PMA', 'PMA', 'H2O', 'PT', 'P3MT', 'P3BT', 'P3HT', etc.) */
+    /** Column D, (ex: 'PLA', 'PMA', 'PMA', 'H2O', 'PT', 'P3MT', 'P3BT', 'P3HT', etc.) */
     ac1: string;
-    /** Column F */
+    /** Column E */
     composition1: number;
-    /** Column G, Compound 2 name (ex: "poly(6-methyl-ε-caprolactone)" ) */
+    /** Column F, Compound 2 name (ex: "poly(6-methyl-ε-caprolactone)" ) */
     compound2: string;
-    /** Column H, Compound 2's type */
+    /** Column G, Compound 2's type */
     type2: CompoundType;
-    /** Column I, BigSMILES2 */
-    BigSMILES2: string;
-    /** Column J,
+    /** Column H,
      * (ex: 'PLA', 'PMA', 'PMA', 'H2O', 'PT', 'P3MT', 'P3BT', 'P3HT', etc.)
      */
     ac2: string;
-    /** Column K */
+    /** Column I */
     composition2: number;
-    /** Column L */
+    /** Column J */
     molmass1?: number;
-    /** Column M  */
+    /** Column K  */
     molmass2?: number;
-    /** Column N */
+    /** Column L */
     molmassunit?: string;
-    /** Column O */
+    /** Column M */
     type: `Type ${1|2|3|4|5}`;
     /**
-     * Column P,
+     * Column N,
      * This method value does not correspond to CRIPT's data model method.
      * It needs to be converted using a mapping defined in methods.xslx.
      * (example: ""Small-angle X-ray scattering of triblock copolymer")
      */
     method: string;
-    /** Column Q */
+    /** Column O */
     temperature: number;
-    /** Column R */
+    /** Column P */
     tempmax: number;
-    /** Column S */
+    /** Column Q */
     tempunit: string;
-    /** Column T */
+    /** Column R */
     abstract: number;
-    /** Column U */
+    /** Column S */
     text: number;
-    /** Column V, integer */
+    /** Column T, integer */
     figurenumber: number;
-    /** Column W, integer */
+    /** Column U, integer */
     tablenumber: number;
-    /** Column X, integer */
+    /** Column V, integer */
     eqnumber: number;
-    /** Column Y, floating-point */
+    /** Column W, floating-point */
     chinumber: number;
-    /** Column Z */
+    /** Column X */
     chimax: number;
-    /** Column AA */
+    /** Column Y */
     chierror: number;
-    /** Column AB */
+    /** Column Z*/
     chia: number;
-    /** Column AC */
+    /** Column AA */
     chiaerror: number;
-    /** Column AD */
+    /** Column AB */
     chib: number;
-    /** Column AE */
+    /** Column AC */
     chiberror: number;    
-    /** Column AF */
+    /** Column AD */
     chic: number;
-    /** Column AG */
+    /** Column AE */
     chicerror: number;
-    /** Column AH */
+    /** Column AF */
     indirect: number;
-    /** Column AI.
+    /** Column AH.
      * Can contain a DOI, ISBN, and other types or references */
     reference: string;
-    /** Column AJ */
+    /** Column AI */
     notes: string;
-    /** Column AK, unique identifier */
+    /** Column AJ, unique identifier */
     id: number;
-    /** Column AL */
+    /** Column AK */
     refvolume: number;
-    /** Column AM */
+    /** Column AL */
     refvolumeunit: string;
 }
 
