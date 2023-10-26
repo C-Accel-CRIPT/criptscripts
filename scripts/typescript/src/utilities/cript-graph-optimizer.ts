@@ -29,8 +29,7 @@ export class CriptGraphOptimizer {
   private next_uid = 0;
   // Set of already optimized uid
   private optimized_uid = new Set<string>();
-  // Unique names
-  private unique_names = new Set<string>();
+  private uids = new Set<string>();
   // They cannot be stored directly in a project to be reused.
   // They should be ingested first, and referenced using Edge or EdgeUUID by the Citations.
   private shared_references = new Map<string, IReference>();
@@ -45,36 +44,26 @@ export class CriptGraphOptimizer {
     if(node.uid) throw new Error("Node already has a uid, cannot be registered twice");
 
     const type = node.node[0];
-    // ensure has a name
+
+    // Skip nodes that should not be reused
     switch( type ) {
-      case 'Reference': // Reference has not a "name" it has a "title"   
-        if(!node.title) node.title = `${type}_${this.next_uid++}`;
-        break;
-      default:   
-        if(!node.name) node.name = `${type}_${this.next_uid++}`;
-        break;
       case 'Ingredient': // Ingredient has no name and should not be reused
       case 'Citation':   // Citation has no name and should not be reused        
         return;
     }
 
-    // ensure has a unique name/title
-    const name_or_title =  node.name ??  node.title;
-    if( name_or_title ) {
-      if( this.unique_names.has(name_or_title) ) {
-        throw new Error(`The name '${name_or_title}' is already in use.`);
-      } else {
-        this.unique_names.add(name_or_title);
-        // temporary method for the backend to recognyze a reference
-        node.uid = `_:${name_or_title}`;
-      } 
+    // make a uid
+    node.uid = `_:${this.next_uid++}`;
+    if( this.uids.has(node.uid) ) {
+      throw new Error(`The uid '${node.uid}' is already in use.`);
     }
+    this.uids.add(node.uid);
 
     // ensure has a name
     switch( type) {
       case 'Reference': // Reference has not a "name" it has a "title"   
         if(!node.title) node.title = `${type}_${this.next_uid++}`;
-        // References must be stored in a shared container, outside of the project (which cannot handle them by design)
+        // References must be stored in a shared container, outside the project (by design there is no place for that in a Project)
         if( this.shared_references.has(node.uid)) throw new Error(`Reference already exists in shared_references (uid: '${node.uid}')`);
         this.shared_references.set(node.uid, node);
         break;
@@ -256,7 +245,7 @@ export class CriptGraphOptimizer {
 
   reset_state() {
     this.optimized_uid.clear();
-    this.unique_names.clear();
+    this.uids.clear();
     this.shared_references.clear();
   }
 }
