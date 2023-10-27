@@ -3,11 +3,10 @@
  * @see PPPDBLoader for more information
  */
 
-import { LogLevel, OptimizedProject, output_dir_path, write_json_helper as write_json_to_out_folder } from "@utilities";
+import { LogLevel, output_dir_path, write_json_helper as write_json_to_out_folder } from "@utilities";
 import { resolve } from "path";
 import * as fs from "fs";
 import { PPPDBLoader } from "./pppdb";
-import { stdout } from "process";
 import { IProject } from "@cript";
 
 (async () => {
@@ -33,7 +32,7 @@ import { IProject } from "@cript";
 
   const sheets_dir = resolve(__dirname, "data/sheets");
 
-  let project: OptimizedProject | undefined;
+  let project: IProject | undefined;
 
   try {
     project = await pppdb_loader.load({
@@ -47,7 +46,7 @@ import { IProject } from "@cript";
       row_limit: 0, // 0 => unlimited
     });
   } catch (error: any) {
-    console.error(`An error occurend during pppdb_loader.load()`, error);
+    console.error(`An error occurred during pppdb_loader.load()`, error);
   }
 
   if( !project ) throw new Error('No project')
@@ -58,7 +57,7 @@ import { IProject } from "@cript";
       write_json_to_out_folder(project, "pppdb", "minified")
     ]);
   } catch (error: any) {
-    console.error(`An error occured during write_json_to_out_folder.`, error);
+    console.error(`An error occurred during write_json_to_out_folder.`, error);
   }
 
 

@@ -6,9 +6,9 @@
 
  */
 import * as XLSX from "xlsx";
-import { ICitation, ICollection, ICondition, IMaterial, IProject, IProperty, IReference } from "@cript";
+import { Edge, ICitation, ICollection, ICondition, IMaterial, IProject, IProperty, IReference } from "@cript";
 import { Chi, Method, PubChemCASResponse, PubChemPropertyResponse, Solvent } from "./types";
-import { CriptValidator, Logger, LogLevel, LoggerOptions, CriptGraphOptimizer, OptimizedProject } from "@utilities";
+import { CriptValidator, Logger, LogLevel, LoggerOptions, CriptGraphOptimizer } from "@utilities";
 import { Other } from "./types/sheets/others";
 import { fetch } from "cross-fetch";
 export class PPPDBLoader {
@@ -85,7 +85,7 @@ export class PPPDBLoader {
       solvents: string,
     };
     row_limit: number;
-  }): Promise<OptimizedProject> {
+  }): Promise<IProject> {
     this.logger.prefix = null;
     this.logger.info(`PPPDB.load() ...`);
     this.logger.debug(`Reset state`);
@@ -337,7 +337,7 @@ export class PPPDBLoader {
           type: 'value',
           value: chi_row.composition1,
           unit: null,
-          component: [this.optimizer.make_edge(material1)],
+          component: [material1],
           ...shared_by_all_conc_vol_fraction,
         });
       }
@@ -349,7 +349,7 @@ export class PPPDBLoader {
           type: 'value',
           value: chi_row.composition2,
           unit: null,
-          component: [this.optimizer.make_edge(material2)],
+          component: [material2],
           ...shared_by_all_conc_vol_fraction,
         });
       }
@@ -488,7 +488,7 @@ export class PPPDBLoader {
 
     // Validate the project using DB schema
     this.logger.info(`Project validation ...`);      
-    const project_is_valid = this.validator.validate('ProjectPost', optimized_project.project);      
+    const project_is_valid = this.validator.validate('ProjectPost', optimized_project);
     if( project_is_valid ) {
       this.logger.info(`Project validation: SUCCEEDED!`);
     } else {
@@ -516,7 +516,13 @@ export class PPPDBLoader {
    * Validate (or throw) a property and push it to the materials' property array.
    */
   validate_and_push_property(node_with_property: { property: IProperty[] }, property: IProperty): void | never {
-    this.validator.validate_or_throw(property);
+    // Hack, validator does not like full nodes where Edges are expected.
+    // So we discard that field.
+    const _property_no_component: IProperty = {
+      ...property,
+      component: undefined
+    }
+    this.validator.validate_or_throw(_property_no_component);
     node_with_property.property.push(property);
   }
 
