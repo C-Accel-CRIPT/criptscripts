@@ -17,12 +17,12 @@ export interface IProperty {
   sample_preparation?: string;
   notes?: string;
   structure?: string;
-  component?: IMaterial[] | Edge[] | EdgeUUID[];
+  component?: EdgeUUID[];
   method?: string;
   condition?: ICondition[];
-  data?: IData[];
+  data?: EdgeUUID[];
   computation?: IComputation[];
-  citation?: ICitation[];
+  citation?: ICitation[] | EdgeUUID[];
   created_at?: string;
   updated_at?: string;  
   uuid?: string;

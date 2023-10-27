@@ -4,4 +4,4 @@ export * from './write_json_helper';
 export * from './finishedAsync';
 export * from './cript-validator';
 export * from './logger';
-export * from './cript-graph-optimizer';
+export * from './cript-graph';

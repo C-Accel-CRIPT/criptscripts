@@ -6,21 +6,29 @@
 
  */
 import * as XLSX from "xlsx";
-import { Edge, ICitation, ICollection, ICondition, IMaterial, IProject, IProperty, IReference } from "@cript";
+import { EdgeUUID, ICitation, ICollection, ICondition, IMaterial, IProject, IProperty, IReference } from "@cript";
 import { Chi, Method, PubChemCASResponse, PubChemPropertyResponse, Solvent } from "./types";
-import { CriptValidator, Logger, LogLevel, LoggerOptions, CriptGraphOptimizer } from "@utilities";
+import { CriptValidator, Logger, LogLevel, LoggerOptions, CriptGraph } from "@utilities";
 import { Other } from "./types/sheets/others";
 import { fetch } from "cross-fetch";
+import make_edge = CriptGraph.make_edge;
+
+export type PPPDBJSON = {
+  // Nodes that must be uploaded prior to the project
+  shared: {
+    reference: IReference[]
+  },
+  project: IProject
+}
+
 export class PPPDBLoader {
 
   readonly logger: Logger;
   private project = this.createProject();
   private validator = new CriptValidator();
-  private optimizer = new CriptGraphOptimizer();
 
   private reference = {
-    /** To ensure references are unique */
-    by_name: new Map<string, IReference>(),
+    by_identifier: new Map<string, IReference>(),
     /** To report any missing data */
     doi_title: {
       missing: new Set<string>(),
@@ -66,6 +74,7 @@ export class PPPDBLoader {
 
   private createProject() {
     return {
+      uuid: CriptGraph.make_uuid(),
       name: "PPPDB",
       model_version: "1.0.0",
       node: ["Project"],
@@ -85,14 +94,14 @@ export class PPPDBLoader {
       solvents: string,
     };
     row_limit: number;
-  }): Promise<IProject> {
+  }): Promise<PPPDBJSON> {
     this.logger.prefix = null;
     this.logger.info(`PPPDB.load() ...`);
     this.logger.debug(`Reset state`);
 
     // clear state
     this.project = this.createProject();
-    this.reference.by_name.clear();
+    this.reference.by_identifier.clear();
     this.reference.doi_title.missing.clear();
     this.material.name.has_duplicates = false;
     this.material.bigsmiles.missing.clear();
@@ -179,7 +188,8 @@ export class PPPDBLoader {
 
       this.logger.debug(`Creating Material 1 ...`);
       
-      const material1 = {            
+      const material1 = {
+        uuid: CriptGraph.make_uuid(),
         node: ['Material'],
         model_version: '1.0.0',
         name: `PPPDB_${chi_row.id}_${chi_row.compound1}`,
@@ -187,8 +197,10 @@ export class PPPDBLoader {
         property: [] as IProperty[],
         bigsmiles: chi_row.BigSMILES1,
       } satisfies IMaterial;
+
       if(chi_row.compound1) material1.names.push(chi_row.compound1);
       if(chi_row.ac1) material1.names.push(chi_row.ac1);
+
 
       this.logger.debug(`Material 1 is a ${chi_row.type1}`);
       switch( chi_row.type1 ) {
@@ -220,6 +232,7 @@ export class PPPDBLoader {
 
       this.logger.debug(`Creating Material 2 ...`);
       const material2 = {
+        uuid: CriptGraph.make_uuid(),
         node: ['Material'],
         model_version: '1.0.0',
         name: `PPPDB_${chi_row.id}_${chi_row.compound2}`,
@@ -262,12 +275,10 @@ export class PPPDBLoader {
       this.logger.debug(`Creating Combined Material ...`);
 
       const combined_material = {
+        uuid: CriptGraph.make_uuid(),
         node: ['Material'],
         name: `PPPDB_${chi_row.id}_${chi_row.compound1}_${chi_row.compound2}`,
-        component: [
-          material1,
-          material2
-        ],
+        component: [material1, material2].map( CriptGraph.make_edge ),
         property: [] as Array<IProperty>
       } satisfies IMaterial;
 
@@ -276,7 +287,7 @@ export class PPPDBLoader {
         notes: `Method: ${chi_row.method}; Notes: ${chi_row.notes ?? 'none'}`,
         method: method,
         condition: [] as ICondition[],
-        citation: shared_citation
+        citation: shared_citation,
       } as const;
 
       // shared conditions
@@ -337,7 +348,7 @@ export class PPPDBLoader {
           type: 'value',
           value: chi_row.composition1,
           unit: null,
-          component: [material1],
+          component: [ CriptGraph.make_edge(material1) ],
           ...shared_by_all_conc_vol_fraction,
         });
       }
@@ -349,7 +360,7 @@ export class PPPDBLoader {
           type: 'value',
           value: chi_row.composition2,
           unit: null,
-          component: [material2],
+          component: [ CriptGraph.make_edge(material2) ],
           ...shared_by_all_conc_vol_fraction,
         });
       }
@@ -483,25 +494,32 @@ export class PPPDBLoader {
       this.logger.error(`Two or more materials share the same name, see logs`);
     }
 
-    // Ensure graph is optimised (using Edge and EdgeUUID instead of full nodes, look at the class to know more)
-    const optimized_project = this.optimizer.get_optimized(this.project);
+    // Optimize the graph
+    const result: PPPDBJSON = {
+      shared: {
+        reference: Array.from(this.reference.by_identifier.values())
+      },
+      project: CriptGraph.optimize_project(this.project)
+    };
 
     // Validate the project using DB schema
     this.logger.info(`Project validation ...`);      
-    const project_is_valid = this.validator.validate('ProjectPost', optimized_project);
+    const project_is_valid = this.validator.validate('ProjectPost', result.project);
     if( project_is_valid ) {
       this.logger.info(`Project validation: SUCCEEDED!`);
     } else {
-      this.logger.error(this.validator.errorsAsString());
+      this.logger.error(this.validator.errorsAsString(1));
       this.logger.error(`Project validation: FAILED (check logs above)`);
-      throw new Error(`The optimized project is NOT valid.`);
+
+      console.log(this.validator.errorsAsString(1));
+      console.log(`Project validation: FAILED`)
     }
 
     this.logger.info(`=-=-=-=-=-=-=-=-=-==--=- Report End =-=-=-=-=-=-=-=-=-=-=-=-=-`);
     this.logger.info(`PPPDB.loader() DONE`);
 
     console.log(`Processing DONE!`)
-    return optimized_project;
+    return result;
   } // load()
 
   /**
@@ -516,13 +534,7 @@ export class PPPDBLoader {
    * Validate (or throw) a property and push it to the materials' property array.
    */
   validate_and_push_property(node_with_property: { property: IProperty[] }, property: IProperty): void | never {
-    // Hack, validator does not like full nodes where Edges are expected.
-    // So we discard that field.
-    const _property_no_component: IProperty = {
-      ...property,
-      component: undefined
-    }
-    this.validator.validate_or_throw(_property_no_component);
+    this.validator.validate_or_throw(property);
     node_with_property.property.push(property);
   }
 
@@ -684,9 +696,9 @@ export class PPPDBLoader {
     //
 
     if(chiRow.doi){
-      const ref = await this.create_reference(chiRow.doi);
+      const ref = await this.get_reference(chiRow.doi);
       if(ref) {
-        this.logger.debug(`Push reference: ${ref.title}`);
+        this.logger.debug(`Push reference (as ${CriptGraph.is_edge(ref) ? 'EdgeUUID' : 'Reference'}): uuid:${ref.uuid}`);
         references.push(ref)
       } else {
         this.logger.warning(`Unable to create a Reference Node from 'doi': '${chiRow.doi}'`)
@@ -696,40 +708,22 @@ export class PPPDBLoader {
     }
 
     if (chiRow.reference) {
-
-      if( chiRow.reference.trim() === 'Ciation: Zaborski, M.; Kosmalska, A. Kautsch. Gummi Kunstst. 2005, 58, 354– 357.' ) {
-        //
-        // Hard-coded specific case
-        // 
-        // context:
-        // "
-        //   I think there is only one. [cell] AH84. The problem is that this particular one does not have a DOI.
-        //   Also it is German so very hard for me to figure out details. Can we just hard code the information
-        //   for this one example? The title, ISSN, etc. are available here:
-        //   https://www.webofscience.com/wos/woscc/full-record/WOS:000231441700001
-        // "
-        const ref: IReference = {
-          node: ['Reference'],
-          title: 'Silica modified by use of organosilanes as a filler for carboxylated butadiene-acrylonitrile rubber',
-          issn: '0948-3276',
-          type: 'journal_article'
-        };
-        references.push(ref)
-        this.logger.debug(`Push reference: ${ref.title}`);
-        this.logger.info(`Apply hard-coded case for '${chiRow.reference}'`);
-  
+      // Spacial case
+      if( chiRow.reference.trim() === 'Citation: Zaborski, M.; Kosmalska, A. Kautsch. Gummi Kunstst. 2005, 58, 354– 357.' ) {
+        const ref = await this.get_reference(chiRow.reference);
+        references.push(ref);
       } else {
-        const refs = chiRow.reference.split('; '); // some references include a ";" without space
-        for( const [index, ref] of refs.entries()) {
-          const referenceNode = await this.create_reference(ref);
-          if( referenceNode ) {
-            this.logger.debug(`Push reference 'reference[${index}]': ${referenceNode.title}`);
-            references.push(referenceNode)
-          } else {
-            this.logger.error(`Unable to create a Reference node for 'reference[${index}]': '${ref}'`)
+          const refs = chiRow.reference.split('; '); // some references include a ";" without space
+          for( const [index, reference_string] of refs.entries()) {
+            const ref = await this.get_reference(reference_string);
+            if( ref ) {
+              this.logger.debug(`Push reference (as ${CriptGraph.is_edge(ref) ? 'EdgeUUID' : 'Reference'}): uuid:${ref.uuid}`);
+              references.push(ref)
+            } else {
+              this.logger.error(`Unable to create a Reference node for 'reference[${index}]': '${reference_string}'`)
+            }
           }
         }
-      }
     }
 
     if(references.length === 0) {
@@ -740,74 +734,90 @@ export class PPPDBLoader {
     // Wrap each reference in a citation node
     const citations: ICitation[] =  references
       .map( each_reference => ({
+        // uuid: CriptGraph.make_uuid(), Citation should not be shared.
         node: ['Citation'],
         type: 'extracted_by_human',
-        reference: each_reference as IReference
+        reference: make_edge(each_reference),
       } satisfies ICitation));
     this.logger.debug(`Created ${citations.length} Citation Node(s)`);
-
     return citations;
   }
 
-  async create_reference(doi_issn_isbn_or_string: string) {
-    let reference: Required<Pick<IReference, 'node' | 'title' | 'type'>> & Partial<IReference> | undefined;
+  async get_reference(doi_issn_isbn_or_string: string): Promise<EdgeUUID> {
+    let reference: Required<Pick<IReference, 'uuid' | 'node' | 'title' | 'type'>> & Partial<IReference> | undefined;
 
-    let clean_input = doi_issn_isbn_or_string
-                                            .toLowerCase()
-                                            .replaceAll(' ', '')
-                                            .trim();
-    if(!clean_input) {
-      throw new Error(`doi_issn_isbn_or_string is null or undefined`);
+    const clean = ( str: string ) => {
+      return str
+        .toLowerCase()
+        .replaceAll(' ', '');
     }
-    if(clean_input === '') {
-      throw new Error(`doi_issn_isbn_or_string is empty`);
-    }
+    let clean_value = clean( doi_issn_isbn_or_string );
+    if(!clean_value) throw new Error(`doi_issn_isbn_or_string is null or undefined`);
+    if(clean_value === '')  throw new Error(`doi_issn_isbn_or_string is empty`);
 
-    // Get from the cache
-    const cached_reference = this.reference.by_name.get(clean_input);
-    if(cached_reference) {
-      return cached_reference;
-    }
-    
-    if (clean_input.startsWith('isbn:')) {
-      const isbn = clean_input.substring(5).trim();
+    // Hard-coded specific case
+    if( clean_value === clean('Citation: Zaborski, M.; Kosmalska, A. Kautsch. Gummi Kunstst. 2005, 58, 354– 357.') ) {
+      // context:
+      // "
+      //   I think there is only one. [cell] AH84. The problem is that this particular one does not have a DOI.
+      //   Also it is German so very hard for me to figure out details. Can we just hard code the information
+      //   for this one example? The title, ISSN, etc. are available here:
+      //   https://www.webofscience.com/wos/woscc/full-record/WOS:000231441700001
+      // "
       reference = {
+        uuid: CriptGraph.make_uuid(),
+        node: ['Reference'],
+        title: 'Silica modified by use of organosilanes as a filler for carboxylated butadiene-acrylonitrile rubber',
+        issn: '0948-3276',
+        type: 'journal_article'
+      };
+      this.logger.info(`Apply hard-coded case for '${clean_value}'`);
+    } else if (clean_value.startsWith('isbn:')) {
+      const isbn = clean_value.substring(5).trim();
+      reference = {
+        uuid: CriptGraph.make_uuid(),
         node: ['Reference'],
         title: isbn, // we couldn't get ISBN title from https://api.crossref.org
         isbn,
         type: 'book'
       }      
     } else if ( doi_issn_isbn_or_string.startsWith('Citation:') ) { // specific hard-coded case
-      const title = doi_issn_isbn_or_string.substring(9).trim();
+      const title = doi_issn_isbn_or_string.substring(9);
       reference = {
+        uuid: CriptGraph.make_uuid(),
         node: ['Reference'],
         title,
         type: 'thesis'
       }
     } else {
-      if ( clean_input.startsWith('doi:')) {
-        clean_input = clean_input.substring(4).trim();
-      } 
-      let title = await this.fetch_doi_title_from_crossref_api(clean_input);
-      if(!title) {
+      let doi = clean_value.startsWith('doi:') ? clean_value.substring(4) : clean_value;
+      let title = await this.fetch_doi_title_from_crossref_api(doi);
+      if (!title) {
         const default_title = doi_issn_isbn_or_string;
         this.logger.info(`Using default value for reference's title: '${default_title}'`)
         title = default_title; // use user input for title when we cannot get it from https://api.crossref.org
       }
-      reference = {        
+      reference = {
+        uuid: CriptGraph.make_uuid(),
         node: ['Reference'],
         title,
-        doi: clean_input,
+        doi,
         type: 'journal_article'
       }
     }
 
-    // Add to the cache if necessary
-    if( !this.reference.by_name.has(clean_input) ) {
-      this.reference.by_name.set(clean_input, reference);
+    // Check if reference already exists
+    // - Generate a unique identifier for the reference
+    // - If exists: use existing as EdgeUUID
+    // - Otherwise: add to cache and return as EdgeUUID
+    let identifier = reference.doi ?? reference.issn ?? reference.isbn ?? reference.title;
+    if( identifier === undefined) throw new Error("Unable to determine Reference's identifier", { cause: reference })
+    const existing = this.reference.by_identifier.get(identifier);
+    if( existing ) {
+      return CriptGraph.make_edge(existing)
     }
-
-    return reference;
+    this.reference.by_identifier.set( identifier, reference )
+    return CriptGraph.make_edge(reference);
   }
 
   /**

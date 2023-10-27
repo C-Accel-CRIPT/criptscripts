@@ -6,7 +6,7 @@
 import { LogLevel, output_dir_path, write_json_helper as write_json_to_out_folder } from "@utilities";
 import { resolve } from "path";
 import * as fs from "fs";
-import { PPPDBLoader } from "./pppdb-loader";
+import { PPPDBJSON, PPPDBLoader } from "./pppdb-loader";
 import { IProject } from "@cript";
 
 (async () => {
@@ -32,10 +32,10 @@ import { IProject } from "@cript";
 
   const sheets_dir = resolve(__dirname, "data/sheets");
 
-  let project: IProject | undefined;
+  let result: PPPDBJSON | undefined;
 
   try {
-    project = await pppdb_loader.load({
+    result = await pppdb_loader.load({
       paths: {
         others: resolve(sheets_dir, "others.xlsx"),
         chi: resolve(sheets_dir, "chi.xlsx"),
@@ -49,12 +49,16 @@ import { IProject } from "@cript";
     console.error(`An error occurred during pppdb_loader.load()`, error);
   }
 
-  if( !project ) throw new Error('No project')
+  if( !result )
+  {
+    log_file_stream.close();
+    throw new Error('No result or project')
+  }
 
   try {
     await Promise.race([
-      write_json_to_out_folder(project, "pppdb"),
-      write_json_to_out_folder(project, "pppdb", "minified")
+      write_json_to_out_folder(result, "pppdb"),
+      write_json_to_out_folder(result, "pppdb", "minified")
     ]);
   } catch (error: any) {
     console.error(`An error occurred during write_json_to_out_folder.`, error);
