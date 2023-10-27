@@ -1,47 +1,56 @@
-import { IIngredient, Edge, IReference, IProject } from "@cript";
+import { IIngredient, Edge, IProject, ICriptObject } from "@cript";
+import * as console from "console";
+
+type Options = {
+  enable_logs: boolean;
+  /** When true, the optimizer will remove duplicates by inserting Edges instead of full nodes */
+  enable_edges: boolean;
+}
 
 /**
- * Optimized project structure.
- * 
- * Why? Some shared nodes cannot be stored in a project (Reference),
- * and need to be inserted prior to the project to be reused.
- */
-export type OptimizedProject = {
-  // Unique nodes shared by the project
-  shared: {
-    reference: IReference[];
-  },
-  // Project referencing children with Edge or EdgeUUID
-  project: IProject;
-}
- 
-/**
  * The role of this class is to reduce redundancy and ensure certain fields are properly defined.
- * It is designed to work with any CRIPT object, but primarly intended to be use with an IProject.
+ * It is designed to work with any CRIPT object, but primarily intended to be used with an IProject.
  * @example
  * const my_project: IProject = { ... };
  * const optimized = CriptGraphOptimizer.get_optimized(my_project);
  * // optimized.project
  */
 export class CriptGraphOptimizer {
-  enable_logs = false;
-  // reference counter to assign unique ids during a session
+  static defaultOptions: Options = Object.freeze({
+    enable_edges: true,
+    enable_logs: false,
+  })
+  private options: Options;
+    // reference counter to assign unique ids during a session
   private next_uid = 0;
   // Set of already optimized uid
   private optimized_uid = new Set<string>();
+  // All the processed uids
   private uids = new Set<string>();
-  // They cannot be stored directly in a project to be reused.
-  // They should be ingested first, and referenced using Edge or EdgeUUID by the Citations.
-  private shared_references = new Map<string, IReference>();
 
-  private debug(...args: any) {
-    this.enable_logs && console.debug(args);
+  constructor( options: Partial<Options> = {}) {
+    this.options = {
+      ...structuredClone(CriptGraphOptimizer.defaultOptions),
+      ...structuredClone(options)
+    }
   }
+  private debug(...args: any) {
+    this.options.enable_logs && console.debug(args);
+  }
+
   /**
-   * Ensure node has a uid, if not assign a new uid
+   * Check whether a node is already registered.
    */
-  private register_node(node: any): void {
-    if(node.uid) throw new Error("Node already has a uid, cannot be registered twice");
+  private has_uid(node: any): node is Edge {
+    return 'uid' in node && node.uid !== undefined;
+  }
+
+  /**
+   * Register a node.
+   * @param node should not have an uid yet.
+   */
+  private register_node(node: any): any | never {
+    if( this.has_uid(node) ) throw new Error("Node already has a uid, cannot be registered twice");
 
     const type = node.node[0];
 
@@ -59,50 +68,76 @@ export class CriptGraphOptimizer {
     }
     this.uids.add(node.uid);
 
-    // ensure has a name
-    switch( type) {
-      case 'Reference': // Reference has not a "name" it has a "title"   
-        if(!node.title) node.title = `${type}_${this.next_uid++}`;
-        // References must be stored in a shared container, outside the project (by design there is no place for that in a Project)
-        if( this.shared_references.has(node.uid)) throw new Error(`Reference already exists in shared_references (uid: '${node.uid}')`);
-        this.shared_references.set(node.uid, node);
-        break;
-      default:   
-        if(!node.name) node.name = `${type}_${this.next_uid++}`;
-        break;
-      case 'Ingredient': // Ingredient has no name and should not be reused
-      case 'Citation':   // Citation has no name and should not be reused        
-        return;
-    }
-  };
-
-  /**
-   * Make an edge from a given node.
-   * note: and Edge only has a uid (which is NOT a uuid).
-   */
-  make_edge(node: any): Edge {
-    if (node === undefined) throw new Error("Unable to use a reference from an undefined node");
-    if (node.uid === undefined) this.register_node(node);
-
-    // Ensure the node has model_version (but won't be included in the reference)
+    // ensure has model_version
     if (!node.model_version) {
       this.debug(`-- node (uid: ${node.uid}) has no model_version, fixing it DONE`);
       node.model_version = "1.0.0";
     }
 
-    return {
-      uid: node.uid
-    };
+    // ensure has a name
+    switch( type) {
+      case 'Reference': // Reference has a "title" instead of "name".
+        if(!node.title) node.title = `${type}_${this.next_uid++}`;
+        break;
+      default:   
+        if(!node.name) node.name = `${type}_${this.next_uid++}`;
+    }
+    return node;
   };
 
   /**
-   * Convert a given node property to edges.
+   * Depending on options, return the node (making sure it has an uid and model_version) or make an Edge (only has an uid)
    */
-  private convert_to_edges<T extends {[key: string]: any }, K extends keyof T>(node: T, key: K): void {
+  reference_node<T extends {}>(node: T): T | Edge {
+    if (node === undefined) throw new Error("Unable to reference an undefined node");
+
+    // Ensure node is registered
+    // We consider a node as registered when an uid property is present and defined
+    // See register_node() for more info.
+    if ( !this.has_uid(node) || !this.uids.has(node.uid) ) {
+      // If we pass here, it means that's the first time we deal with this node. In such case we return the full node.
+      // Why? Because we have to upload at least the full node once, otherwise the Edge will point to nothing.
+      // BTW, some nodes cannot be stored in a shared array (e.g. References).
+      return this.register_node(node);
+    }
+
+    // return early if node is an edge, or make an edge if options allows it.
+    if ( this.is_edge(node) ) {
+      return node;
+    } else if( this.options.enable_edges ) {
+      return this.make_edge(node);
+    }
+
+    // Otherwise return the full node
+    return node;
+  };
+
+
+  /**
+   * Make an edge to an already registered node.
+   * Prior to make and edge, use register_node() to add a node to the register.
+   * @param node must have an uid and be present in uids Set
+   */
+  private make_edge<T extends {}>(node: T): Edge {
+    if (node === undefined) throw new Error("Cannot make an edge to an undefined node");
+    if ( !this.has_uid(node)) throw new Error("Node require an uid to make an edge to");
+    if ( !this.uids.has(node.uid) ) throw new Error("Node require to be registered in this.uids");
+    return { uid: node.uid }
+  }
+
+  private is_edge(node: any): node is Edge {
+    return (Object.keys(node).length === 1) && 'uid' in node;
+  }
+
+  /**
+   * Reference an array of nodes at a given key.
+   * Nodes might be converted to edges depending on options
+   */
+  private reference_nodes_at_key<T extends {[key: string]: any }, K extends keyof T>(node: T, key: K): void {
     const arr = node[key];
     if(arr && arr.length !== 0) {
       this.debug(`\tkey: ${key as string} ...`);
-      (node[key] as any[]) = arr.map((node: any) => this.make_edge(node));
+      (node[key] as any[]) = arr.map((node: any) => this.reference_node(node));
       this.debug(`\tkey: ${key as string} DONE`);
     }
   }
@@ -134,7 +169,7 @@ export class CriptGraphOptimizer {
       // specific case on per-type basis
       switch (type) {
         case "Inventory":
-          this.convert_to_edges(node, 'material');
+          this.reference_nodes_at_key(node, 'material');
           break;
 
         case 'Experiment':
@@ -143,22 +178,22 @@ export class CriptGraphOptimizer {
 
         case 'Property':
         case 'Condition':
-          this.convert_to_edges(node, 'data');
-          this.convert_to_edges(node, 'computation');
+          this.reference_nodes_at_key(node, 'data');
+          this.reference_nodes_at_key(node, 'computation');
           break;
 
         case 'Process':
           if(node.ingredient) {
             this.debug(`\tkey: ingredient ...`);
-            node.ingredient = node.ingredient?.map( (each: IIngredient, index: number) => {
+            node.ingredient = node.ingredient?.map( (each: IIngredient) => {
               return {
                ...each,
-                material: each.material?.map((m: any) => this.make_edge(m))
+                material: each.material?.map((m: any) => this.reference_node(m))
               }
             })
             this.debug(`\tkey: ingredient DONE`);
           }
-          this.convert_to_edges(node, 'data');
+          this.reference_nodes_at_key(node, 'data');
           break;
 
         case 'Project':
@@ -180,7 +215,7 @@ export class CriptGraphOptimizer {
       case "output_data":
         if(value) {
           this.debug(`\tkey: ${key} ...`);
-          value = value.map((v: any ) => this.make_edge(v));
+          value = value.map((v: any ) => this.reference_node(v));
           this.debug(`\tkey: ${key} DONE`);
         }
         break;
@@ -190,7 +225,7 @@ export class CriptGraphOptimizer {
       case "citation":
         // Reference will be moved to the shared_references, and a simple Edge will be set for node.reference
         if (value) value = value.map( _citation => {
-          _citation.reference = this.make_edge(_citation.reference);
+          _citation.reference = this.reference_node(_citation.reference);
           return _citation;
         })
         break;
@@ -220,32 +255,18 @@ export class CriptGraphOptimizer {
   }
   /**
    * Optimize a given cript object
-   * - uses Edge or EdgeUUID when possible
-   * - criptObject not changed (a deep copy is made)
+   * - uses Edge or EdgeUUID (if options.enable_edges is true)
+   * - A deep copy of project is made, original object remains untouched.
+   * @param project a project to optimize
    */
-  get_optimized(project: IProject): OptimizedProject {
+  get_optimized(project: IProject): IProject {
     this.reset_state();
-
     // Generate an optimized structure
-    const _project = this.optimize_recursively('', structuredClone(project));
-
-    const result: OptimizedProject = {
-      shared: {
-        reference: [...this.shared_references.values()]
-      },
-      project: _project
-    }
-    // Warn user in case no references are present
-    if( result.shared.reference.length === 0 ) {
-      this.debug(`No shared references found`);
-    }
-
-    return result;
+    return this.optimize_recursively('', structuredClone(project));
   }
 
   reset_state() {
     this.optimized_uid.clear();
     this.uids.clear();
-    this.shared_references.clear();
   }
 }
