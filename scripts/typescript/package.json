@@ -9,7 +9,8 @@
     "afrl": "npx ts-node ./src/afrl",
     "bcdb": "npx ts-node ./src/bcdb",
     "rcbc": "npx ts-node ./src/rcbc",
-    "pppdb": "npx ts-node ./src/pppdb",
+    "pppdb:generate-json": "npx ts-node ./src/pppdb/generate-json",
+    "pppdb:upload-json": "npx ts-node ./src/pppdb/upload-json",
     "test": "bash ./test.sh"
   },
   "author": "Bérenger Dalle-Cort, CRIPT, MIT",

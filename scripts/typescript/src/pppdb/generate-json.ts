@@ -6,7 +6,7 @@
 import { LogLevel, output_dir_path, write_json_helper as write_json_to_out_folder } from "@utilities";
 import { resolve } from "path";
 import * as fs from "fs";
-import { PPPDBLoader } from "./pppdb";
+import { PPPDBLoader } from "./pppdb-loader";
 import { IProject } from "@cript";
 
 (async () => {
