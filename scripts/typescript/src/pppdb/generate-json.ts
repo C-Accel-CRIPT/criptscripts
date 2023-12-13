@@ -64,11 +64,6 @@ import { IProject } from "@cript";
     console.error(`An error occurred during write_json_to_out_folder.`, error);
   }
 
-
-  logger.info("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
-  logger.info("-=-=-=->>  WARNING: This script is WIP, do not use data for production.  <<-=-=-");
-  logger.info("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
-
   console.log(`PPPDB Ingestion Script: DONE, see logs: ${log_file_path}`);
 
   return log_file_stream.close();
