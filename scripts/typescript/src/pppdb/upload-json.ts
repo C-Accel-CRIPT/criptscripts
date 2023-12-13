@@ -68,21 +68,27 @@ import { PPPDBJSON } from "./pppdb-loader";
 
   // Upload material by material
   console.log(`PPPDB Upload materials ...`);
+
+  // Materials can be published by set of 3 materials (component 1, component 2, and compound)
+  let index = 0;
   const materials = project.material ?? [];
-  let index = 1;
-  for( const each_material of materials ) {
+  while( index < materials.length ) {
+
+    const start = index;
+    const end   = Math.min(materials.length, index +  3 * 50); // Must be limited to 1000 nodes (children included)
+    const chunk = materials.slice(start, end)
+
     // Try to patch with a full node
-    console.log(`PPPDB Upload material ${index+1}/${materials.length} ...`);
-    const payload_full = { material: [ each_material ] };
+    console.log(`PPPDB Upload material chunk [${start}-${end}] (total: ${materials.length}) ...`);
+    const payload_full = { material: chunk };
     const response = await client.patch('Project', payload_full, project.uuid);
 
     // if exist already, try to patch with an EdgeUUID
     if (response.code === 409) {
-      console.log(`PPPDB Upload material ${index+1}/${materials.length} - existing uuid, trying PATCH ...`);
-      const payload_edge = { material: [ CriptGraph.make_edge(each_material) ] };
-      await client.patch('Project', payload_edge, project.uuid);
+      console.error("Material already exists!", JSON.stringify(response, null, " "));
     }
-    index++;
+
+    index += chunk.length;
   }
   console.log(`PPPDB Upload project: DONE`);
 })();
