@@ -11,7 +11,7 @@ import { Chi, Method, PubChemCASResponse, PubChemPropertyResponse, Solvent } fro
 import { CriptValidator, Logger, LogLevel, LoggerOptions, CriptGraph } from "@utilities";
 import { Other } from "./types/sheets/others";
 import { fetch } from "cross-fetch";
-import make_edge = CriptGraph.make_edge;
+import make_edge = CriptGraph.make_edge_uuid;
 
 export type PPPDBJSON = {
   // Nodes that must be uploaded prior to the project
@@ -189,7 +189,7 @@ export class PPPDBLoader {
       this.logger.debug(`Creating Material 1 ...`);
       
       const material1 = {
-        uuid: CriptGraph.make_uuid(),
+        uid: CriptGraph.make_uid(),
         node: ['Material'],
         model_version: '1.0.0',
         name: `PPPDB_${chi_row.id}_${chi_row.compound1}`,
@@ -232,7 +232,7 @@ export class PPPDBLoader {
 
       this.logger.debug(`Creating Material 2 ...`);
       const material2 = {
-        uuid: CriptGraph.make_uuid(),
+        uid: CriptGraph.make_uid(),
         node: ['Material'],
         model_version: '1.0.0',
         name: `PPPDB_${chi_row.id}_${chi_row.compound2}`,
@@ -275,10 +275,10 @@ export class PPPDBLoader {
       this.logger.debug(`Creating Combined Material ...`);
 
       const combined_material = {
-        uuid: CriptGraph.make_uuid(),
+        uid: CriptGraph.make_uid(),
         node: ['Material'],
         name: `PPPDB_${chi_row.id}_${chi_row.compound1}_${chi_row.compound2}`,
-        component: [material1, material2].map( CriptGraph.make_edge ),
+        component: [material1, material2].map( CriptGraph.make_edge_uid ), // we use UID because materials will be uploaded together
         property: [] as Array<IProperty>
       } satisfies IMaterial;
 
@@ -348,7 +348,7 @@ export class PPPDBLoader {
           type: 'value',
           value: chi_row.composition1,
           unit: null,
-          component: [ CriptGraph.make_edge(material1) ],
+          component: [ CriptGraph.make_edge_uid(material1) ],
           ...shared_by_all_conc_vol_fraction,
         });
       }
@@ -360,7 +360,7 @@ export class PPPDBLoader {
           type: 'value',
           value: chi_row.composition2,
           unit: null,
-          component: [ CriptGraph.make_edge(material2) ],
+          component: [ CriptGraph.make_edge_uid(material2) ],
           ...shared_by_all_conc_vol_fraction,
         });
       }
@@ -499,7 +499,7 @@ export class PPPDBLoader {
       shared: {
         reference: Array.from(this.reference.by_identifier.values())
       },
-      project: CriptGraph.optimize_project(this.project)
+      project: CriptGraph.optimize_project(this.project, 'make-edge-uid')
     };
 
     // Validate the project using DB schema
@@ -698,7 +698,7 @@ export class PPPDBLoader {
     if(chiRow.doi){
       const ref = await this.get_reference(chiRow.doi);
       if(ref) {
-        this.logger.debug(`Push reference (as ${CriptGraph.is_edge(ref) ? 'EdgeUUID' : 'Reference'}): uuid:${ref.uuid}`);
+        this.logger.debug(`Push reference (as ${CriptGraph.is_edge_uid(ref) ? 'EdgeUUID' : 'Reference'}): uuid:${ref.uuid}`);
         references.push(ref)
       } else {
         this.logger.warning(`Unable to create a Reference Node from 'doi': '${chiRow.doi}'`)
@@ -717,7 +717,7 @@ export class PPPDBLoader {
           for( const [index, reference_string] of refs.entries()) {
             const ref = await this.get_reference(reference_string);
             if( ref ) {
-              this.logger.debug(`Push reference (as ${CriptGraph.is_edge(ref) ? 'EdgeUUID' : 'Reference'}): uuid:${ref.uuid}`);
+              this.logger.debug(`Push reference (as ${CriptGraph.is_edge_uid(ref) ? 'EdgeUUID' : 'Reference'}): uuid:${ref.uuid}`);
               references.push(ref)
             } else {
               this.logger.error(`Unable to create a Reference node for 'reference[${index}]': '${reference_string}'`)
@@ -814,10 +814,10 @@ export class PPPDBLoader {
     if( identifier === undefined) throw new Error("Unable to determine Reference's identifier", { cause: reference })
     const existing = this.reference.by_identifier.get(identifier);
     if( existing ) {
-      return CriptGraph.make_edge(existing)
+      return CriptGraph.make_edge_uuid(existing)
     }
     this.reference.by_identifier.set( identifier, reference )
-    return CriptGraph.make_edge(reference);
+    return CriptGraph.make_edge_uuid(reference);
   }
 
   /**

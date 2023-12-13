@@ -1,6 +1,6 @@
 import { IProject } from './IProject';
 import { IProperty } from './IProperty';
-import { EdgeUUID } from "./Edges";
+import { EdgeUID, EdgeUUID } from "./Edges";
 
 
 export interface IComputationalForcefield {}
@@ -21,7 +21,7 @@ export interface IMaterial {
   parent_material?: string;
   property?: IProperty[];
   property_count?: number;  
-  component?: EdgeUUID[];
+  component?: EdgeUUID[] | EdgeUID[];
   component_count?: number;
   computational_forcefield?: IComputationalForcefield;
   //identifiers (3/20/2023: Fatjon and I decided to rely on typings not on CV)
