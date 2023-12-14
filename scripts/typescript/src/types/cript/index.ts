@@ -22,7 +22,7 @@ import { ISoftwareConfiguration } from './ISoftwareConfiguration';
 import { IVocabBase, IVocabIdentifier, IVocabProperty, IVocabQuantity, IVocab, IControlledVocabulary } from './IVocab';
 import { IQuantity } from './IQuantity';
 import { IEquipment } from './IEquipment';
-import { Edge, EdgeUUID } from './Edges';
+import { EdgeUID, EdgeUUID } from './Edges';
 
 export type IPrimary =
   | ICollection
@@ -66,7 +66,7 @@ IVocabIdentifier |
 IVocabProperty |
 IVocabQuantity |
 IControlledVocabulary |
-Edge |
+EdgeUID |
 EdgeUUID; 
 
 export type Item = IPrimary | ICitation | IReference | IUser;
@@ -101,7 +101,7 @@ export type {
   IVocabProperty,
   IVocabQuantity,
   IControlledVocabulary,
-  Edge,
+  EdgeUID,
   EdgeUUID,
 };
 
