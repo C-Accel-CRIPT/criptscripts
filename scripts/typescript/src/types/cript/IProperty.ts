@@ -1,10 +1,7 @@
-import { Edge, EdgeUUID } from "@cript";
 import { ICitation } from "./ICitation";
 import { IComputation } from "./IComputation";
 import { ICondition } from "./ICondition";
-import { IData } from "./IData";
-import { IMaterial } from "./IMaterial";
-import { EdgeUID } from "./Edges";
+import { EdgeUID, EdgeUUID} from "./Edges";
 
 export interface IProperty {
   readonly node: ['Property'];

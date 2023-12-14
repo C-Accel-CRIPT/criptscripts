@@ -8,9 +8,15 @@
  * See link to google drive files above (column_meanings.xlsx)
  */
 import * as XLSX from "xlsx";
-import { Column } from "./types/column";
+import { Column } from "./types";
 import { ICitation, ICollection, ICondition, IMaterial, IProject, IProperty, IReference } from "@cript";
-import { CriptGraphOptimizer, CriptValidator, LogLevel, Logger, LoggerOptions, OptimizedProject } from "@utilities";
+import {
+  CriptValidator,
+  LogLevel,
+  Logger,
+  LoggerOptions,
+  CriptGraph
+} from "@utilities";
 
 export class BCDBLoader {
   readonly logger: Logger;
@@ -34,13 +40,13 @@ export class BCDBLoader {
     input_file_path: string;
     sheets: ['blocks', 'diblock']; // added for the user to understand, but only expect a const array
     limitSheetRows: number;
-  }): Promise<OptimizedProject> {
+  }): Promise<IProject> {
 
     //-- Download DB schema
     try {
       await this.validator.init();
     } catch(error: any) {
-      throw new Error('Unable to initialize the validator', error);
+      throw new Error('Unable to initialize the validator');
     }
     //-- Load desired sheets
 
@@ -393,7 +399,7 @@ export class BCDBLoader {
           project.material.push(block2);
 
           this.logger.info(`Add blocks to process as ingredients ...`);
-          polymer.component = [block1, block2];
+          polymer.component = [block1, block2].map( CriptGraph.make_edge_uid );
         };
     }
     this.logger.prefix = null;
@@ -418,18 +424,17 @@ export class BCDBLoader {
     };
 
     // Optimise the project object (uses uids, create Edges, etc..)
-    const optimizer = new CriptGraphOptimizer();
-    const optimized_project: OptimizedProject = optimizer.get_optimized(project);
+    const optimized_project = CriptGraph.optimize_project(project, 'make-edge-uid');
 
     // Validate against DB schema
-    const is_valid = await this.validator.validate('ProjectPost', optimized_project.project);
+    const is_valid = this.validator.validate('ProjectPost', optimized_project);
 
     if(!is_valid) {
       this.logger.error(this.validator.errorsAsString(100));
-      this.logger.error(`Project '${optimized_project.project.name}' is NOT valid, see errors in logs above!`)
+      this.logger.error(`Project '${optimized_project.name}' is NOT valid, see errors in logs above!`)
       throw new Error(`Project is NOT valid`);
     } else {
-      this.logger.info(`Project '${optimized_project.project.name}' is valid.`)
+      this.logger.info(`Project '${optimized_project.name}' is valid.`)
     }
 
     return optimized_project;
