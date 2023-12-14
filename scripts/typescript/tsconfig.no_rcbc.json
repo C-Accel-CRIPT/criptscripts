@@ -1,0 +1,6 @@
+{
+  "extends": "./tsconfig.json",
+  "exclude": [
+    "src/rcbc", /* Some work is required in order to compile. Many nodes are uncompleted */
+  ]
+}

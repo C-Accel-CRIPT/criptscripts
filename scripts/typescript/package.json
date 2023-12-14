@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "npx tsc",
+    "build:no_rcbc": "npm run build -- --project tsconfig.no_rcbc.json",
     "validate": "npx ts-node ./src/validate",
     "afrl": "npx ts-node ./src/afrl",
     "bcdb": "npx ts-node ./src/bcdb",
