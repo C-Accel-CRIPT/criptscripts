@@ -24,12 +24,9 @@ export interface IMaterial {
   component?: EdgeUUID[] | EdgeUID[];
   component_count?: number;
   computational_forcefield?: IComputationalForcefield;
-  //identifiers (3/20/2023: Fatjon and I decided to rely on typings not on CV)
   identifier_count?: number;
   bigsmiles?: string;
   smiles?: string;
-  /** @deprecated, use chem_formula instead*/
-  cas?: string;
   inchi?: string;
   inchi_key?: string;
   mol_form?: string;
