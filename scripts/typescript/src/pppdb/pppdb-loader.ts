@@ -6,24 +6,29 @@
 
  */
 import * as XLSX from "xlsx";
-import * as fs from "fs";
-import { resolve } from "path";
-import { ICitation, ICollection, ICondition, IMaterial, IProject, IProperty, IReference } from "@cript";
-import { Chi, Method, Polymer, PubChemCASResponse, PubChemResponse as PubChemPropertyResponse, Solvent } from "./types";
-import { molfile_to_bigsmiles } from "@cript-web/bigsmiles-toolkit";
-import { CriptValidator, Logger, LogLevel, LoggerOptions, CriptGraphOptimizer, OptimizedProject } from "@utilities";
+import { EdgeUUID, ICitation, ICollection, ICondition, IMaterial, IProject, IProperty, IReference } from "@cript";
+import { Chi, Method, PubChemCASResponse, PubChemPropertyResponse, Solvent } from "./types";
+import { CriptValidator, Logger, LogLevel, LoggerOptions, CriptGraph } from "@utilities";
 import { Other } from "./types/sheets/others";
 import { fetch } from "cross-fetch";
+import make_edge = CriptGraph.make_edge_uuid;
+
+export type PPPDBJSON = {
+  // Nodes that must be uploaded prior to the project
+  shared: {
+    reference: IReference[]
+  },
+  project: IProject
+}
+
 export class PPPDBLoader {
 
   readonly logger: Logger;
   private project = this.createProject();
   private validator = new CriptValidator();
-  private optimizer = new CriptGraphOptimizer();
 
   private reference = {
-    /** To ensure references are unique */
-    by_name: new Map<string, IReference>(),
+    by_identifier: new Map<string, IReference>(),
     /** To report any missing data */
     doi_title: {
       missing: new Set<string>(),
@@ -42,20 +47,7 @@ export class PPPDBLoader {
       uniques: new Set<string>(),
     }
   }
-  
-  private molfile = {
-    /**
-     * Map each molfile name (lower-case, trimmed, no extension) to its molfile path.
-     * The key should match potentially with the compound1 column.
-     * "poly(developer)" => "C:/path/to/the/molfiles/folder/Poly(developer) .mol"
-     */
-    name_to_path: new Map<string, string>(),
-    missing: new Set<string>(),
-  }
 
-  private polymer = {
-    missing: new Set<string>(),
-  }
 
   private solvent = {
     missing: new Set<string>(),
@@ -82,6 +74,7 @@ export class PPPDBLoader {
 
   private createProject() {
     return {
+      uuid: CriptGraph.make_uuid(),
       name: "PPPDB",
       model_version: "1.0.0",
       node: ["Project"],
@@ -99,25 +92,21 @@ export class PPPDBLoader {
       methods: string,
       polymers: string,
       solvents: string,
-      molfile_dir: string,
     };
     row_limit: number;
-  }): Promise<OptimizedProject> {
+  }): Promise<PPPDBJSON> {
     this.logger.prefix = null;
     this.logger.info(`PPPDB.load() ...`);
     this.logger.debug(`Reset state`);
 
     // clear state
     this.project = this.createProject();
-    this.reference.by_name.clear();
+    this.reference.by_identifier.clear();
     this.reference.doi_title.missing.clear();
     this.material.name.has_duplicates = false;
     this.material.bigsmiles.missing.clear();
     this.material.bigsmiles.uniques.clear();
     this.material.unique_name.clear();
-    this.molfile.missing.clear();
-    this.molfile.name_to_path.clear();
-    this.polymer.missing.clear();
     this.solvent.missing.clear();
     this.method.missing.clear();
     this.other.missing.clear();
@@ -132,7 +121,7 @@ export class PPPDBLoader {
      * ----------------
      * 
      * - Create some citations for the row ('doi' and 'reference' columns)
-     * - Create Materials 1 and 2 (depending of their type 'polymer' or 'solvent')
+     * - Create Materials 1 and 2 (depending on their type 'polymer' or 'solvent')
      * - Create a Material Combined (having Material 1 & 2 for component)
      */
 
@@ -146,23 +135,9 @@ export class PPPDBLoader {
     this.logger.info(`Loading *.xslx files ...`);
     const chi = this.load_first_sheet_from_xlsx<Chi>(options.paths.chi, parsing_options);
     const methods = this.load_first_sheet_from_xlsx<Method>(options.paths.methods, parsing_options);
-    const polymers = this.load_first_sheet_from_xlsx<Polymer>(options.paths.polymers, parsing_options);
     const solvents = this.load_first_sheet_from_xlsx<Solvent>(options.paths.solvents, parsing_options);
     const others = this.load_first_sheet_from_xlsx<Other>(options.paths.others, parsing_options);
-    this.logger.info(`Indexing molfiles from '${options.paths.molfile_dir}' ...`);
-    try {      
-      const file_names = fs.readdirSync(options.paths.molfile_dir);
-      for(const file_name of file_names) {
-        const clean_file_name = this.compute_normalized_molfile_clean_name(file_name);
-        const absolute_file_path = resolve(options.paths.molfile_dir, file_name);
-        this.molfile.name_to_path.set(clean_file_name, absolute_file_path);
-        this.logger.debug(` ${ ("'" + clean_file_name + "'").padEnd(40)} => '${absolute_file_path}'`);
-      }
-    } catch( err: any ) {
-      throw new Error(`Unable to index molfiles.\n${err.stack}`)
-    }
-    this.logger.info(`Found ${this.molfile.name_to_path.size} file(s)`);
-    
+
     // double-check that "id" are unique
     const unique_id_count = new Set(chi.map( v => v.id)).size;
     const ids_are_unique = unique_id_count === chi.length;
@@ -190,12 +165,12 @@ export class PPPDBLoader {
       this.logger.prefix = String(`[row: ${four_digit_row_index}, id: ${four_digit_id}] `);
       this.logger.debug(`Processing row ...`);
 
-      // skip rows we do not handle (for now, 6/7/2023)
+      // Skip rows with types we do not handle (10/26/2023)
       switch( chi_row.type ) {
         case 'Type 1':
         case 'Type 2':
         case "Type 3":
-          // We should handle those types
+          // We handle those types
           break;
         case 'Type 4':
         case 'Type 5':
@@ -213,20 +188,23 @@ export class PPPDBLoader {
 
       this.logger.debug(`Creating Material 1 ...`);
       
-      const material1 = {            
+      const material1 = {
+        uid: CriptGraph.make_uid(),
         node: ['Material'],
         model_version: '1.0.0',
-        name: `PPPDB_${chi_row.id}_${chi_row.compound1}`, // PPPDB_<Column AJ (id)>_<Column B (compound1) of chi.csv>
+        name: `PPPDB_${chi_row.id}_${chi_row.compound1}`,
         names: [] as string[],
         property: [] as IProperty[],
+        bigsmiles: chi_row.BigSMILES1,
       } satisfies IMaterial;
-      if(chi_row.compound1) material1.names.push(chi_row.compound1);// "<Column B (compound1) of chi.csv (string)>',
-      if(chi_row.ac1) material1.names.push(chi_row.ac1); // '<Column D (ac1) of chi.csv (string)>'
+
+      if(chi_row.compound1) material1.names.push(chi_row.compound1);
+      if(chi_row.ac1) material1.names.push(chi_row.ac1);
+
 
       this.logger.debug(`Material 1 is a ${chi_row.type1}`);
       switch( chi_row.type1 ) {
         case 'polymer': {
-          this.assign_polymer_fields(material1, polymers, chi_row.compound1);
           const mw_w_property = this.create_mw_w_property(chi_row.molmass1, chi_row.molmassunit);
           if( mw_w_property ) {
             mw_w_property.citation = shared_citation;
@@ -254,19 +232,20 @@ export class PPPDBLoader {
 
       this.logger.debug(`Creating Material 2 ...`);
       const material2 = {
+        uid: CriptGraph.make_uid(),
         node: ['Material'],
         model_version: '1.0.0',
-        name: `PPPDB_${chi_row.id}_${chi_row.compound2}`, // PPPDB_<Column AJ>_<Column F> ,
+        name: `PPPDB_${chi_row.id}_${chi_row.compound2}`,
         names: [] as string[],
         property: [] as IProperty[],
+        bigsmiles: chi_row.BigSMILES2,
       } satisfies IMaterial;
-      if(chi_row.compound2) material2.names.push(chi_row.compound2);// <Column F of chi.csv (string)>
-      if(chi_row.ac2) material2.names.push(chi_row.ac2); // <Column H of chi.csv (string)>
+      if(chi_row.compound2) material2.names.push(chi_row.compound2);
+      if(chi_row.ac2) material2.names.push(chi_row.ac2);
 
       this.logger.debug(`Material 2 is a ${chi_row.type2}`);
       switch(chi_row.type2) {
         case 'polymer':
-          this.assign_polymer_fields(material2, polymers, chi_row.compound2);
           const mw_w_property = this.create_mw_w_property(chi_row.molmass2, chi_row.molmassunit);
           if( mw_w_property ) {
             mw_w_property.citation = shared_citation;
@@ -296,12 +275,10 @@ export class PPPDBLoader {
       this.logger.debug(`Creating Combined Material ...`);
 
       const combined_material = {
+        uid: CriptGraph.make_uid(),
         node: ['Material'],
-        name: `PPPDB_${chi_row.id}_${chi_row.compound1}_${chi_row.compound2}`, // PPPDB_<Column AJ>_<Material1>_<Material2>
-        component: [
-          material1,
-          material2
-        ],
+        name: `PPPDB_${chi_row.id}_${chi_row.compound1}_${chi_row.compound2}`,
+        component: [material1, material2].map( CriptGraph.make_edge_uid ), // we use UID because materials will be uploaded together
         property: [] as Array<IProperty>
       } satisfies IMaterial;
 
@@ -310,15 +287,14 @@ export class PPPDBLoader {
         notes: `Method: ${chi_row.method}; Notes: ${chi_row.notes ?? 'none'}`,
         method: method,
         condition: [] as ICondition[],
-        citation: shared_citation
+        citation: shared_citation,
       } as const;
 
       // shared conditions
       {
-        // If column X (chimax) is blank
         if( !chi_row.chimax ) {
 
-          // If column P (tempmax) is blank, we can only have a single temperature.
+          // single temperature value
           if( !chi_row.tempmax ) {
             this.validate_and_push_condition( shared_by_all_properties, {
               node: ['Condition'],
@@ -328,8 +304,8 @@ export class PPPDBLoader {
               unit: chi_row.tempunit
             });
 
-          // Instead, If column P (tempmax) is NOT blank, we have a min/max.
-          } else if (chi_row.temperature && chi_row.tempmax) {
+          // min/max temperature values
+          } else if ( chi_row.temperature ) {
             this.validate_and_push_condition( shared_by_all_properties, {
                 node: ['Condition'],
                 key: 'temperature',
@@ -345,11 +321,11 @@ export class PPPDBLoader {
                 unit: chi_row.tempunit
               });
           }
-          // If column AK (refvolume) is NOT blank
+
           if( chi_row.refvolume ) {
             this.validate_and_push_condition( shared_by_all_properties, {
               node: ['Condition'],
-              key: 'reference_volume', // Berenger|8/4/2023: Require to merge https://github.mit.edu/cript/cript-api/pull/4
+              key: 'reference_volume',
               type: 'value',
               value: chi_row.refvolume,
               unit: chi_row.refvolumeunit
@@ -372,7 +348,7 @@ export class PPPDBLoader {
           type: 'value',
           value: chi_row.composition1,
           unit: null,
-          component: [this.optimizer.make_edge(material1)],
+          component: [ CriptGraph.make_edge_uid(material1) ],
           ...shared_by_all_conc_vol_fraction,
         });
       }
@@ -384,7 +360,7 @@ export class PPPDBLoader {
           type: 'value',
           value: chi_row.composition2,
           unit: null,
-          component: [this.optimizer.make_edge(material2)],
+          component: [ CriptGraph.make_edge_uid(material2) ],
           ...shared_by_all_conc_vol_fraction,
         });
       }
@@ -394,7 +370,7 @@ export class PPPDBLoader {
       // We only handle Type 1 to 3 here. We discard 4 and 5 at the very beginning of the loop.
       switch( chi_row.type ) {
         case "Type 1":
-          // If Type 1 and column X is blank
+
           if( !chi_row.chimax ) {
            
             this.validate_and_push_property(combined_material, {
@@ -407,7 +383,6 @@ export class PPPDBLoader {
               ...shared_by_all_properties,
             } satisfies IProperty);
 
-          // If Type 1 and column X is *not* blank
           } else if (chi_row.chinumber && chi_row.chimax) {
 
             // interaction param (min)
@@ -478,8 +453,7 @@ export class PPPDBLoader {
           throw new Error(`Unhandled type: '${unhandled_type}'`); // runtime check
       }
 
-      // finally, add the materials.
-      // This avoid to add a row partially (see multiple "continue" keywords above)
+      // Finally, add both materials at once.
       this.add_material(material1, material2, combined_material);
       this.xlsx.chi.parsed_row_count++;
       this.logger.info(`Row completed`);
@@ -492,17 +466,13 @@ export class PPPDBLoader {
     this.log_set( LogLevel.INFO, this.material.bigsmiles.uniques, `Unique BigSMILES list`);
     const missing_items = [
       this.material.bigsmiles.missing,
-      this.molfile.missing,
       this.solvent.missing,
-      this.polymer.missing,
       this.method.missing,
       this.reference.doi_title.missing,
     ].reduce( (prev, curr) => prev + curr.size , 0);
     if ( missing_items ) {
       this.log_set( LogLevel.ERROR,      this.material.bigsmiles.missing, `Missing bigsmiles`);
-      this.log_set( LogLevel.WARNING,    this.molfile.missing,            `Missing molfile(s)`);
       this.log_set( LogLevel.ERROR,      this.solvent.missing,            `Missing solvent(s)`);
-      this.log_set( LogLevel.ERROR,      this.polymer.missing,            `Missing polymer`);
       this.log_set( LogLevel.WARNING,    this.method.missing,             `Missing method(s)`);
       this.log_set( LogLevel.ERROR,      this.other.missing,              `Missing other(s)`);
       this.log_set( LogLevel.INFO,       this.reference.doi_title.missing,`DOI title(s) not found on crossref.org`);
@@ -511,10 +481,8 @@ export class PPPDBLoader {
     this.logger.info(`=-=-=-=-=-=-=-=-=-==-  SUMMARY -=-=-=-=-=-=-=-=-=-=-=-=-=-`);      
     this.logger.info(`- chi row: ${this.xlsx.chi.skipped_row_count} skipped, ${this.xlsx.chi.parsed_row_count} parsed (${chi.length} total)`);
     this.logger.info(`Missing items:`);
-    this.log_count_or_none( LogLevel.WARNING, this.molfile.missing,              '- molfile(s):');
     this.log_count_or_none( LogLevel.ERROR,   this.material.bigsmiles.missing,   '- bigsmiles(s):');
     this.log_count_or_none( LogLevel.ERROR,   this.solvent.missing,              '- solvent(s):');
-    this.log_count_or_none( LogLevel.ERROR,   this.polymer.missing,              '- polymer(s):');
     this.log_count_or_none( LogLevel.WARNING, this.method.missing,               '- method(s):');
     this.log_count_or_none( LogLevel.ERROR,   this.other.missing,                '- other(s):');
     this.log_count_or_none( LogLevel.INFO,    this.reference.doi_title.missing,  '- doi title(s) not found on crossref.org:');
@@ -526,25 +494,32 @@ export class PPPDBLoader {
       this.logger.error(`Two or more materials share the same name, see logs`);
     }
 
-    // Ensure graph is optimised (using Edge and EdgeUUID instead of full nodes, look at the class to know more)
-    const optimized_project = this.optimizer.get_optimized(this.project);
+    // Optimize the graph
+    const result: PPPDBJSON = {
+      shared: {
+        reference: Array.from(this.reference.by_identifier.values())
+      },
+      project: CriptGraph.optimize_project(this.project, 'make-edge-uid')
+    };
 
     // Validate the project using DB schema
     this.logger.info(`Project validation ...`);      
-    const project_is_valid = this.validator.validate('ProjectPost', optimized_project.project);      
+    const project_is_valid = this.validator.validate('ProjectPost', result.project);
     if( project_is_valid ) {
       this.logger.info(`Project validation: SUCCEEDED!`);
     } else {
-      this.logger.error(this.validator.errorsAsString());
+      this.logger.error(this.validator.errorsAsString(1));
       this.logger.error(`Project validation: FAILED (check logs above)`);
-      throw new Error(`The optimized project is NOT valid.`);
+
+      console.log(this.validator.errorsAsString(1));
+      console.log(`Project validation: FAILED`)
     }
 
     this.logger.info(`=-=-=-=-=-=-=-=-=-==--=- Report End =-=-=-=-=-=-=-=-=-=-=-=-=-`);
     this.logger.info(`PPPDB.loader() DONE`);
 
     console.log(`Processing DONE!`)
-    return optimized_project;
+    return result;
   } // load()
 
   /**
@@ -635,43 +610,6 @@ export class PPPDBLoader {
     this.log_if_property_is_undefined(LogLevel.WARNING, material, 'chemical_id', 'chem_formula', 'inchi', 'bigsmiles');
   }
 
-  /**
-   * Assign polymer fields ('bigsmiles' and 'inchi') to a given material
-   */
-  assign_polymer_fields(material: IMaterial, polymers: Polymer[], polymer_name: string ) {
-
-    const polymer = this.get_polymer_by_name(polymers, polymer_name);
-
-    // Assign inchi
-    if(polymer) {
-      material.inchi = polymer.InChI;
-    } else {
-      this.logger.error(`Unable to find a polymer for '${polymer_name}'`);
-    }
-    this.log_if_property_is_undefined(LogLevel.WARNING, material, 'inchi');
-
-    // Assign bigsmiles
-    const bigsmiles_from_molfile = this.try_to_generate_bigsmiles_from_molfile(polymer_name);
-    if( bigsmiles_from_molfile ) {
-      material.bigsmiles = bigsmiles_from_molfile;
-    } else if(polymer && polymer.BigSMILES && polymer.BigSMILES != '') {
-      this.logger.info(`✅ Take user defined 'BigSMILES': '${polymer.BigSMILES}'`);
-      material.bigsmiles = polymer.BigSMILES;      
-    } else {
-      this.logger.error(`Unable to get a BigSMILES (molfile conversion failed, no BigSMILES value in polymer table). 'bigsmiles' will be undefined.`);
-      this.material.bigsmiles.missing.add(material.name)
-    }
-    if (material.bigsmiles) {
-      if ( !this.material.bigsmiles.uniques.has(material.bigsmiles)) {
-        this.logger.info(`First time we see this BigSMILES: '${material.bigsmiles}' (${polymer_name})`)
-        this.material.bigsmiles.uniques.add(material.bigsmiles);
-      } else {
-        this.logger.debug(`Bigsmiles already present in unique set: '${material.bigsmiles}'`)
-      }
-    }
-    this.log_if_property_is_undefined(LogLevel.WARNING, material, 'bigsmiles');
-  }
-
   log_if_property_is_undefined(level: LogLevel, material: IMaterial, ...property_name: (keyof IMaterial)[] ): void {
     property_name.forEach( key => {
       if( !material[key] ) {
@@ -742,69 +680,6 @@ export class PPPDBLoader {
     return result;
   }
 
-  get_polymer_by_name(polymers: Polymer[], name: string): Polymer | undefined {
-    const name_column_key = "Name (new)";
-    const result = polymers.find( polymer => polymer[name_column_key] === name );
-    if ( !result ) {
-      this.polymer.missing.add(name);
-      this.logger.error(`Unable to find a 'polymer' with '${name_column_key}' == '${name}'`);
-    }
-    return result;
-  }
-
-  /**
-   * Generate a bigsmiles from a given compound name.
-   * Internaly, the name is normalized and used to lookup in all
-   * known (indexed) molfiles.
-   * If the file is found, we use @cript-web/bigsmiles-toolkit to convert it to bigsmiles.
-   */
-  try_to_generate_bigsmiles_from_molfile(compound_name: string) {
-    const molfile_clean_name = this.compute_normalized_molfile_clean_name(compound_name);
-    const molfile_path = this.molfile.name_to_path.get(molfile_clean_name);
-    let molfile_string: string | undefined;
-    let result: string | undefined;
-
-    if( molfile_clean_name === 'poly(ethylene-r-butylene).mol') {
-      // hard-coded case. The library @cript-web/bigsmiles-toolkit throws an exception while converting it (using both v2000 and v3000)
-      result = '{[][$]CC[$],[$]CC(CC)[$][]}';
-      this.logger.info(`Applied an hard-coded bigsmiles for '${molfile_clean_name}': ${result}`)
-    } else if ( !molfile_path) {
-      this.logger.warning(`No molfile found for index: '${molfile_clean_name}'`);
-      this.molfile.missing.add(molfile_clean_name);
-    } else if( fs.existsSync(molfile_path) ) {
-      try {
-        const molfile_descriptor = fs.openSync(molfile_path, 'r');
-        molfile_string = fs.readFileSync(molfile_descriptor).toString();            
-      } catch ( err: any ) {
-        this.logger.error(`Unable to load the mol file ${molfile_path}.\n${err.stack}`);
-      }        
-      if( molfile_string ) {
-        try {
-          result = molfile_to_bigsmiles(molfile_string); 
-        } catch( err: any ) {
-          this.logger.warning(`Unable to convert the mol file ${molfile_path}.\n${err.stack}`);
-        }
-      }
-    } else {
-      this.logger.error(`Molfile exists in index but is not found: ${molfile_path}`);
-    }
-    return result;
-  }
-
-  /**
-   * Ensure name is space free, lower case and contains the *.mol extension
-   */
-  compute_normalized_molfile_clean_name(name: string): string {
-    const clean_file_name = name
-      .replaceAll(' ', '')
-      .replaceAll('ε-', '')
-      .toLowerCase();
-
-    if( !clean_file_name.endsWith('.mol') )
-      return clean_file_name + '.mol';
-    return clean_file_name;
-  }
-
   /**
    * Create Citation nodes from a given ChiData (a row as JSON)
    */
@@ -814,16 +689,16 @@ export class PPPDBLoader {
 
     //
     // Strategy:
-    // - get 'doi' column as first citation (the most important)
+    // - get 'doi' as first citation (the most important)
     // - append any 'reference' (0 to N)
     //
     // note: There is 1 reference per citation.
     //
 
     if(chiRow.doi){
-      const ref = await this.create_reference(chiRow.doi);
+      const ref = await this.get_reference(chiRow.doi);
       if(ref) {
-        this.logger.debug(`Push reference: ${ref.title}`);
+        this.logger.debug(`Push reference (as ${CriptGraph.is_edge_uid(ref) ? 'EdgeUUID' : 'Reference'}): uuid:${ref.uuid}`);
         references.push(ref)
       } else {
         this.logger.warning(`Unable to create a Reference Node from 'doi': '${chiRow.doi}'`)
@@ -833,40 +708,22 @@ export class PPPDBLoader {
     }
 
     if (chiRow.reference) {
-
-      if( chiRow.reference.trim() === 'Ciation: Zaborski, M.; Kosmalska, A. Kautsch. Gummi Kunstst. 2005, 58, 354– 357.' ) {
-        //
-        // Hard-coded specific case
-        // 
-        // context:
-        // "
-        //   I think there is only one. [cell] AH84. The problem is that this particular one does not have a DOI.
-        //   Also it is German so very hard for me to figure out details. Can we just hard code the information
-        //   for this one example? The title, ISSN, etc. are available here:
-        //   https://www.webofscience.com/wos/woscc/full-record/WOS:000231441700001
-        // "
-        const ref: IReference = {
-          node: ['Reference'],
-          title: 'Silica modified by use of organosilanes as a filler for carboxylated butadiene-acrylonitrile rubber',
-          issn: '0948-3276',
-          type: 'journal_article'
-        };
-        references.push(ref)
-        this.logger.debug(`Push reference: ${ref.title}`);
-        this.logger.info(`Apply hard-coded case for '${chiRow.reference}'`);
-  
+      // Spacial case
+      if( chiRow.reference.trim() === 'Citation: Zaborski, M.; Kosmalska, A. Kautsch. Gummi Kunstst. 2005, 58, 354– 357.' ) {
+        const ref = await this.get_reference(chiRow.reference);
+        references.push(ref);
       } else {
-        const refs = chiRow.reference.split('; '); // some references includes a ";" without space
-        for( const [index, ref] of refs.entries()) {
-          const referenceNode = await this.create_reference(ref);
-          if( referenceNode ) {
-            this.logger.debug(`Push reference 'reference[${index}]': ${referenceNode.title}`);
-            references.push(referenceNode)
-          } else {
-            this.logger.error(`Unable to create a Reference node for 'reference[${index}]': '${ref}'`)
+          const refs = chiRow.reference.split('; '); // some references include a ";" without space
+          for( const [index, reference_string] of refs.entries()) {
+            const ref = await this.get_reference(reference_string);
+            if( ref ) {
+              this.logger.debug(`Push reference (as ${CriptGraph.is_edge_uid(ref) ? 'EdgeUUID' : 'Reference'}): uuid:${ref.uuid}`);
+              references.push(ref)
+            } else {
+              this.logger.error(`Unable to create a Reference node for 'reference[${index}]': '${reference_string}'`)
+            }
           }
         }
-      }
     }
 
     if(references.length === 0) {
@@ -877,78 +734,94 @@ export class PPPDBLoader {
     // Wrap each reference in a citation node
     const citations: ICitation[] =  references
       .map( each_reference => ({
+        // uuid: CriptGraph.make_uuid(), Citation should not be shared.
         node: ['Citation'],
         type: 'extracted_by_human',
-        reference: each_reference as IReference
+        reference: make_edge(each_reference),
       } satisfies ICitation));
     this.logger.debug(`Created ${citations.length} Citation Node(s)`);
-
     return citations;
   }
 
-  async create_reference(doi_issn_isbn_or_string: string) {
-    let reference: Required<Pick<IReference, 'node' | 'title' | 'type'>> & Partial<IReference> | undefined;
+  async get_reference(doi_issn_isbn_or_string: string): Promise<EdgeUUID> {
+    let reference: Required<Pick<IReference, 'uuid' | 'node' | 'title' | 'type'>> & Partial<IReference> | undefined;
 
-    let clean_input = doi_issn_isbn_or_string
-                                            .toLowerCase()
-                                            .replaceAll(' ', '')
-                                            .trim();
-    if(!clean_input) {
-      throw new Error(`doi_issn_isbn_or_string is null or undefined`);
+    const clean = ( str: string ) => {
+      return str
+        .toLowerCase()
+        .replaceAll(' ', '');
     }
-    if(clean_input === '') {
-      throw new Error(`doi_issn_isbn_or_string is empty`);
-    }
+    let clean_value = clean( doi_issn_isbn_or_string );
+    if(!clean_value) throw new Error(`doi_issn_isbn_or_string is null or undefined`);
+    if(clean_value === '')  throw new Error(`doi_issn_isbn_or_string is empty`);
 
-    // Get from the cache
-    const cached_reference = this.reference.by_name.get(clean_input);
-    if(cached_reference) {
-      return cached_reference;
-    }
-    
-    if (clean_input.startsWith('isbn:')) {
-      const isbn = clean_input.substring(5).trim();
+    // Hard-coded specific case
+    if( clean_value === clean('Citation: Zaborski, M.; Kosmalska, A. Kautsch. Gummi Kunstst. 2005, 58, 354– 357.') ) {
+      // context:
+      // "
+      //   I think there is only one. [cell] AH84. The problem is that this particular one does not have a DOI.
+      //   Also it is German so very hard for me to figure out details. Can we just hard code the information
+      //   for this one example? The title, ISSN, etc. are available here:
+      //   https://www.webofscience.com/wos/woscc/full-record/WOS:000231441700001
+      // "
       reference = {
+        uuid: CriptGraph.make_uuid(),
         node: ['Reference'],
-        title: isbn, // we couln't get ISBN's title from api.crossref.org
+        title: 'Silica modified by use of organosilanes as a filler for carboxylated butadiene-acrylonitrile rubber',
+        issn: '0948-3276',
+        type: 'journal_article'
+      };
+      this.logger.info(`Apply hard-coded case for '${clean_value}'`);
+    } else if (clean_value.startsWith('isbn:')) {
+      const isbn = clean_value.substring(5).trim();
+      reference = {
+        uuid: CriptGraph.make_uuid(),
+        node: ['Reference'],
+        title: isbn, // we couldn't get ISBN title from https://api.crossref.org
         isbn,
         type: 'book'
       }      
     } else if ( doi_issn_isbn_or_string.startsWith('Citation:') ) { // specific hard-coded case
-      const title = doi_issn_isbn_or_string.substring(9).trim();
+      const title = doi_issn_isbn_or_string.substring(9);
       reference = {
+        uuid: CriptGraph.make_uuid(),
         node: ['Reference'],
         title,
         type: 'thesis'
       }
     } else {
-      if ( clean_input.startsWith('doi:')) {
-        clean_input = clean_input.substring(4).trim();
-      } 
-      let title = await this.fetch_doi_title_from_crossref_api(clean_input);
-      if(!title) {
+      let doi = clean_value.startsWith('doi:') ? clean_value.substring(4) : clean_value;
+      let title = await this.fetch_doi_title_from_crossref_api(doi);
+      if (!title) {
         const default_title = doi_issn_isbn_or_string;
         this.logger.info(`Using default value for reference's title: '${default_title}'`)
-        title = default_title; // use user input for title when we cannot get it from crossref
+        title = default_title; // use user input for title when we cannot get it from https://api.crossref.org
       }
-      reference = {        
+      reference = {
+        uuid: CriptGraph.make_uuid(),
         node: ['Reference'],
         title,
-        doi: clean_input,
+        doi,
         type: 'journal_article'
       }
     }
 
-    // Add to the cache if necessary
-    if( !this.reference.by_name.has(clean_input) ) {
-      this.reference.by_name.set(clean_input, reference);
+    // Check if reference already exists
+    // - Generate a unique identifier for the reference
+    // - If exists: use existing as EdgeUUID
+    // - Otherwise: add to cache and return as EdgeUUID
+    let identifier = reference.doi ?? reference.issn ?? reference.isbn ?? reference.title;
+    if( identifier === undefined) throw new Error("Unable to determine Reference's identifier", { cause: reference })
+    const existing = this.reference.by_identifier.get(identifier);
+    if( existing ) {
+      return CriptGraph.make_edge_uuid(existing)
     }
-
-    return reference;
+    this.reference.by_identifier.set( identifier, reference )
+    return CriptGraph.make_edge_uuid(reference);
   }
 
   /**
-   * Fetch DOI's title from api.crossref.org
+   * Fetch DOI title from  https://api.crossref.org
    * @param doi must be a doi string without doi prefix ("doi:")
    */
   async fetch_doi_title_from_crossref_api(doi: string): Promise<string | undefined> {
@@ -997,12 +870,12 @@ export class PPPDBLoader {
     const workSheet: XLSX.WorkSheet = workBook.Sheets[sheetName] ?? [];
   
     // Convert to objects
-    //   Note: We'll loose in performance and memory usage by doing this, but our dataset is very small.
-    //         We prefer here to deal with objects instead of defining a Column enum like we did for rcbc project (the result was not well readable).
+    //   Note: We'll lose in performance and memory usage by doing this, but our dataset is very small.
+    //         We prefer here to deal with objects instead of defining a Column enum like we did for RCBC project (the result was not well readable).
     this.logger.debug(`Converting WorkSheet to JSON ...`);
     const result = XLSX.utils.sheet_to_json<T>(workSheet);
     // store the row index to help debugging.
-    result.forEach( (each, index) => each._row_index = options.index_offset + index + 1 ); // +1 because excell sheets are 1-based.
+    result.forEach( (each, index) => each._row_index = options.index_offset + index + 1 ); // +1 because Excel sheets are 1-based.
 
     this.logger.info(`Found ${result.length} row(s)`);
     this.logger.debug(`Here is a sample of the first row:\n ${JSON.stringify(result.slice(undefined, 1), null, '\t')}`);
@@ -1071,7 +944,7 @@ export class PPPDBLoader {
 
     // Then, get the CAS from a different endpoint.
     // Note: we couldn't get the CAS using the first method, this method returns a much more complicated JSON,
-    //       that's why we prefered the first method for the 3 other fields.
+    //       that's why we preferred the first method for the 3 other fields.
     try {
       // @see https://pubchem.ncbi.nlm.nih.gov/docs/pug-view#section=Specific-Heading
       const url = `https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/${cid}/JSON?heading=CAS`;
@@ -1094,5 +967,5 @@ export class PPPDBLoader {
 
     return result;
   }
-} // namespace PPPDBLoader
+} // class PPPDBLoader
 

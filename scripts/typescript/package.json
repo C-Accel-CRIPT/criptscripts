@@ -9,7 +9,8 @@
     "afrl": "npx ts-node ./src/afrl",
     "bcdb": "npx ts-node ./src/bcdb",
     "rcbc": "npx ts-node ./src/rcbc",
-    "pppdb": "npx ts-node ./src/pppdb",
+    "pppdb:generate-json": "npx ts-node ./src/pppdb/generate-json",
+    "pppdb:upload-json": "npx ts-node ./src/pppdb/upload-json",
     "test": "bash ./test.sh"
   },
   "author": "Bérenger Dalle-Cort, CRIPT, MIT",
@@ -22,11 +23,13 @@
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.0.3",
+    "uuid": "^9.0.1",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@tsconfig/node18": "^18.2.0",
     "@types/node": "^18.15.12",
+    "@types/uuid": "^9.0.6",
     "ajv": "^8.12.0",
     "ajv-formats": "^2.1.1",
     "date-and-time": "^3.0.0"

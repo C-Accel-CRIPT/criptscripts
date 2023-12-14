@@ -4,6 +4,7 @@ import { IComputation } from "./IComputation";
 import { ICondition } from "./ICondition";
 import { IData } from "./IData";
 import { IMaterial } from "./IMaterial";
+import { EdgeUID } from "./Edges";
 
 export interface IProperty {
   readonly node: ['Property'];
@@ -17,12 +18,12 @@ export interface IProperty {
   sample_preparation?: string;
   notes?: string;
   structure?: string;
-  component?: IMaterial[] | Edge[] | EdgeUUID[];
+  component?: EdgeUUID[] | EdgeUID[];
   method?: string;
   condition?: ICondition[];
-  data?: IData[];
+  data?: EdgeUUID[] | EdgeUID[];
   computation?: IComputation[];
-  citation?: ICitation[];
+  citation?: ICitation[] | EdgeUUID[];
   created_at?: string;
   updated_at?: string;  
   uuid?: string;

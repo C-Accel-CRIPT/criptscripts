@@ -1,4 +1,5 @@
 import { IReference } from "./IReference";
+import { EdgeUUID } from "./Edges";
 
 export type CitationType =
   'extracted_by_human' |
@@ -13,7 +14,7 @@ export interface ICitation {
   created_at?: string;
   updated_at?: string;
   model_version?: string;
-  reference: IReference;
+  reference: IReference | EdgeUUID;
   uuid?: string;
   type: CitationType;
 }

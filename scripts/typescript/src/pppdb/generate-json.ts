@@ -6,8 +6,7 @@
 import { LogLevel, output_dir_path, write_json_helper as write_json_to_out_folder } from "@utilities";
 import { resolve } from "path";
 import * as fs from "fs";
-import { PPPDBLoader } from "./pppdb";
-import { stdout } from "process";
+import { PPPDBJSON, PPPDBLoader } from "./pppdb-loader";
 import { IProject } from "@cript";
 
 (async () => {
@@ -33,38 +32,37 @@ import { IProject } from "@cript";
 
   const sheets_dir = resolve(__dirname, "data/sheets");
 
-  let project: IProject | undefined;
+  let result: PPPDBJSON | undefined;
 
   try {
-    project = await pppdb_loader.load({
+    result = await pppdb_loader.load({
       paths: {
         others: resolve(sheets_dir, "others.xlsx"),
         chi: resolve(sheets_dir, "chi.xlsx"),
         methods: resolve(sheets_dir, "methods.xlsx"),
         polymers: resolve(sheets_dir, "polymers.xlsx"),
         solvents: resolve(sheets_dir, "solvents.xlsx"),
-        molfile_dir: resolve(__dirname, "data/molfiles/")
       },
       row_limit: 0, // 0 => unlimited
     });
   } catch (error: any) {
-    console.error(`An error occurend during pppdb_loader.load()`, error);
+    console.error(`An error occurred during pppdb_loader.load()`, error);
   }
 
-  if( project ) {
-    try {
-      await Promise.race([
-        write_json_to_out_folder(project, "pppdb"),
-        write_json_to_out_folder(project, "pppdb", "minified")
-      ]);
-    } catch (error: any) {
-      console.error(`An error occured during write_json_to_out_folder.`, error);
-    }
+  if( !result )
+  {
+    log_file_stream.close();
+    throw new Error('No result or project')
   }
 
-  logger.info("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
-  logger.info("-=-=-=->>  WARNING: This script is WIP, do not use data for production.  <<-=-=-");
-  logger.info("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+  try {
+    await Promise.race([
+      write_json_to_out_folder(result, "pppdb"),
+      write_json_to_out_folder(result, "pppdb", "minified")
+    ]);
+  } catch (error: any) {
+    console.error(`An error occurred during write_json_to_out_folder.`, error);
+  }
 
   console.log(`PPPDB Ingestion Script: DONE, see logs: ${log_file_path}`);
 

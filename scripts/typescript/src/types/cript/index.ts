@@ -108,6 +108,7 @@ export type {
 export type Slug =
   | 'Citation' // FIXME: Citation is not a node, it is a sub-object (see p24 in the data model)
   | 'Collection'
+  | 'Condition'
   | 'Computation'
   | 'ComputationProcess'
   | 'Data'
@@ -117,6 +118,7 @@ export type Slug =
   | 'Material'
   | 'Process'
   | 'Project'
+  | 'Property'
   | 'Reference'
   | 'Software'
   | 'User';
