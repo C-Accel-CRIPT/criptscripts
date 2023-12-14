@@ -1,7 +1,10 @@
-import { AFRLData } from "./types"
-import { ICitation, ICollection, ICondition, IInventory, IMaterial, IProject, IProperty, IReference } from "../types/cript"
+import { AFRLData } from "./types";
+import { ICitation, ICollection, ICondition, IInventory, IMaterial, IProject, IProperty, IReference } from "@cript";
 import csvtojson from "csvtojson";
-import * as fs from 'stream';
+import * as fs from "stream";
+import { CriptGraph, CriptValidator } from "@utilities";
+import { EdgeUID } from "../types/cript/Edges";
+
 /**
  * This script is a typescript port of @see https://github.com/C-Accel-CRIPT/criptscripts/tree/master/scripts/python_sdk_scripts/AFRL
  * The main difference is the source data is now read from the original CSV and not a preprocessed *.js.
@@ -27,20 +30,22 @@ export class AFRLtoJSON {
     private readonly mixtures = new Map<string, IMaterial>();
 
     // The project data will be stored in
-    private project: IProject;
+    private readonly project: IProject;
 
     // The collection data will be stored in
-    private collection: ICollection;
+    private readonly collection: ICollection;
 
     // The inventories data will be stored in
-    private inventory_solvents: IInventory;
-    private inventory_polymers: IInventory;
-    private inventory_mixtures: IInventory;
+    private readonly inventory_solvents: IInventory;
+    private readonly inventory_polymers: IInventory;
+    private readonly inventory_mixtures: IInventory;
 
     private error_stream: fs.Writable;
 
-    constructor(config: Config) {
+    private validator: CriptValidator;
 
+    constructor(config: Config) {
+        this.validator = new CriptValidator();
         this.error_stream = config.error_stream ?? process.stderr;
         this.error_stream.on('error', e => console.error(e));
 
@@ -81,12 +86,31 @@ export class AFRLtoJSON {
 
         // Create a project with the collection in it        
         this.project = {
+            uuid: CriptGraph.make_uuid(),
             name: config.project_name,
             node: ['Project'],
             collection: [this.collection],
             material: new Array<IMaterial>()
         } as IProject;
 
+    }
+
+    /**
+     * Check if the property is valid before to push it into the properties.
+     * In case property is invalid, an exception is thrown including information to debug
+     */
+    private add_property( properties: IProperty[], property: IProperty) {
+        this.validator.validate_or_throw(property)
+        properties.push(property)
+    }
+
+    /**
+     * Check if the condition is valid before to push it into the conditions.
+     * In case condition is invalid, an exception is thrown including information to debug
+     */
+    private add_condition( conditions: ICondition[], condition: ICondition) {
+        this.validator.validate_or_throw(condition)
+        conditions.push(condition)
     }
 
     private get_citation(row: AFRLData): ICitation | undefined {
@@ -98,12 +122,12 @@ export class AFRLtoJSON {
         // Check if citation was already created
         const existing_citation = this.citations.get(row.reference);
         if (existing_citation) {
-            console.log(`-- Found existing reference: ${existing_citation.reference.title}`)
+            console.log(`-- Found existing reference: ${JSON.stringify(existing_citation.reference)}`)
             return existing_citation;
         }
 
         // Create citation
-        const citation: ICitation = {
+        const citation = {
             node: ['Citation'],
             reference: {
                 title: row.reference,
@@ -111,7 +135,7 @@ export class AFRLtoJSON {
                 node: ['Reference'],
             } as IReference,
             type: 'reference',
-        } as ICitation;
+        } satisfies ICitation;
 
         // get DOI and authors
         const DOI_DOT_ORG = "doi.org/";
@@ -127,7 +151,8 @@ export class AFRLtoJSON {
             //                                          .map( a => a.trim() ); // remove empty pre/post spaces
         }
 
-        // Store in hashmap
+        // Check and store node in an index
+        this.validator.validate_or_throw(citation)
         this.citations.set(row.reference, citation);
 
         return citation;
@@ -146,7 +171,8 @@ export class AFRLtoJSON {
         }
 
         // Pull solvent from server
-        // Blocker: the script assumes the solvent already exists on the backend, but we probably don't have it.
+        // BLOCKER: The API does not allow to search by chemical_id (a.k.a. CAS).
+        //          Still true on 12/14/2023.
         /*
         try {
             solvent = api.get(
@@ -171,13 +197,15 @@ export class AFRLtoJSON {
 
         // Temporary solution: we create a new Solvent...        
         const solvent: IMaterial = {
+            uid: CriptGraph.make_uid(),
             node: ['Material'],
             name: row.solvent,
-            cas,
+            chemical_id: cas, // CRIPT does not have a "cas" field, we store it as "chemical_id" instead.
         } as IMaterial;
         this.record_error(`Search material from "cas" is not implemented, creating a local solvent for ${JSON.stringify(solvent)}`)
 
-        // Store in hashmap
+        // Check and store node in an index
+        this.validator.validate_or_throw(solvent)
         this.solvents.set(cas, solvent);
 
         return solvent;
@@ -205,52 +233,51 @@ export class AFRLtoJSON {
         // Create properties
         const properties: IProperty[] = [];
         if (mw_w && !isNaN(mw_w))
-            properties.push({
+            this.add_property(properties, {
                 key: "mw_w",
-                value: String(mw_w), // FIXME: backend does not accept numbers
+                value: mw_w,
                 unit: "g/mol",
                 citation,
                 node: ['Property'],
-                type: 'value'  // FIXME: is this correct from a chemist point of view?
-            } as IProperty)
+                type: 'value'
+            })
+
 
         if (mw_d && !isNaN(mw_d))
             properties.push({
                 key: "mw_d",
-                value: String(mw_d), // FIXME: backend does not accept numbers,
+                value: mw_d,
                 unit: "",
                 citation,
                 node: ['Property'],
-                type: 'value'  // FIXME: is this correct from a chemist point of view?
+                type: 'value'
             } as IProperty)
 
 
         // Create new material object
         const polymer: IMaterial = {
+            uid: CriptGraph.make_uid(),
             name: unique_name,
             property: properties,
             node: ['Material'],
         } as IMaterial;
 
         // Create identifiers
-        //
-        // note: the new API does not have a concept for the legacy's API Identifiers.
-        //       We have to set those directly on the Material node.
-        //
+
         if (name) {
-            polymer.names = [name]; // Not sure about that, waiting for Brilant's answer.
-            //identifiers.push(cript.Identifier(key="prefered_name", value=name))
+            polymer.names = [name];
         }
         if (cas) {
-            polymer.cas = cas;
-            //identifiers.push(cript.Identifier(key="cas", value=cas))
+            polymer.chemical_id = cas;
         }
         if (bigsmiles) {
             polymer.bigsmiles = bigsmiles;
-            //identifiers.push(cript.Identifier(key="bigsmiles", value=bigsmiles))
         }
 
+        // Check and store node in an index
+        this.validator.validate_or_throw(polymer)
         this.polymers.set(unique_name, polymer);
+
         return polymer
     }
 
@@ -267,16 +294,15 @@ export class AFRLtoJSON {
 
         // Create new material object        
         const mixture = {
+            uid: CriptGraph.make_uid(),
             node: ['Material'],
             name: unique_name,
             // "identifiers": identifiers, deprecated, see explanation below
-            component: [
-                polymer,
-                solvent
-            ],
+            component: [polymer, solvent].map( CriptGraph.make_edge_uid ),
             property: new Array<IProperty>,
             names: [unique_name],
         } satisfies IMaterial;
+        this.validator.validate_or_throw(mixture)
 
         // Create identifiers
         //
@@ -292,29 +318,27 @@ export class AFRLtoJSON {
 
         // Create properties
         if (conc_vol_fraction && !isNaN(conc_vol_fraction)) {
-            const property: IProperty = {
+            this.add_property(mixture.property, {
                 key: "conc_vol_fraction",
                 value: conc_vol_fraction,
-                component: [polymer],
+                component: [polymer].map(CriptGraph.make_edge_uid),
                 citation,
                 node: ['Property'],
-                type: 'value',  // FIXME: is this correct from a chemist point of view?
+                type: 'value',
                 unit: null,
-            };
-            mixture.property.push(property);
+            });
         }
 
         if (conc_mass_fraction && !isNaN(conc_mass_fraction)) {
-            const property: IProperty = {
+            this.add_property(mixture.property,{
                 key: "conc_mass_fraction",
                 value: conc_mass_fraction,       
-                component: [polymer],
+                component: [polymer].map(CriptGraph.make_edge_uid),
                 citation,
                 node: ['Property'],
-                type: 'value',  // FIXME: is this correct from a chemist point of view?
+                type: 'value',
                 unit: null,
-            }
-            mixture.property.push(property);
+            })
         }
 
         if (temp_cloud && !isNaN(temp_cloud)) {
@@ -322,10 +346,10 @@ export class AFRLtoJSON {
             const temp_cloud_property = {
                 key: "temp_cloud",
                 value: temp_cloud,
-                component: [polymer],
+                component: [polymer].map(CriptGraph.make_edge_uid),
                 citation,
                 node: ['Property'],
-                type: 'value',  // FIXME: is this correct from a chemist point of view?
+                type: 'value',
                 unit: "degC",
                 condition: new Array<ICondition>() // will be filled below...
             } satisfies IProperty;
@@ -333,27 +357,29 @@ export class AFRLtoJSON {
             // If present, add conditions
 
             if (pressure)
-                temp_cloud_property.condition.push({
+                this.add_condition(temp_cloud_property.condition, {
                     node: ['Condition'],
                     key: "pressure",
-                    value: String(pressure), // FIXME: typings are wrong, we should be able to use a number
+                    value: pressure,
                     unit: "MPa",
                 });
 
 
             if (one_phase_direction) {
-                temp_cloud_property.condition.push({
-                    node: ['Condition'],
-                    key: "+one_phase_direction",
-                    type: 'value',
-                    value: one_phase_direction,
-                } as ICondition);
+              const one_phase_direction_condition = {
+                node: ['Condition'],
+                key: "+one_phase_direction",
+                type: 'value',
+                value: one_phase_direction,
+              } satisfies ICondition
 
-                this.record_error(`one_phase_direction cannot be stored in CRIPT, +one_phase_direction vocab is not allowed.`)
+              // Still true on 12/14/2023:
+              this.record_error(`${one_phase_direction_condition.key} cannot be stored in CRIPT, we don't have a key for that yet. Skipping it.`)
+              // temp_cloud_property.condition.push(one_phase_direction_condition);
             }
 
             // Add property to the mixture
-            mixture.property.push(temp_cloud_property);
+            this.add_property(mixture.property, temp_cloud_property);
         }
 
         // Store in hashmap
@@ -427,11 +453,15 @@ export class AFRLtoJSON {
     add_material(material: IMaterial, inventory: IInventory) {
         if(!this.project.material) this.project.material = [];
         if(!inventory.material) inventory.material = [];
-        // note: here I do not check if inventry is a part of a collection in this.project
+
+        // note: here I do not check if inventory is a part of a collection in this.project
         //       but by design (cf. constructor) the inventory should be a part of it.
 
+        // Check if material is valid (sooner is better)
+        this.validator.validate_or_throw(material)
+
         this.project.material.push(material);
-        inventory.material.push(material);
+        inventory.material.push(CriptGraph.make_edge_uid(material));
     }
 
     private static load_config(): Config {
@@ -470,7 +500,8 @@ export class AFRLtoJSON {
      * @returns 
      */
     async load_csv(csv_file_path: string): Promise<AFRLData[]> {
-        console.log(`Loading file and converting to javascript data types: ${csv_file_path} ...`)
+
+        console.log(`Loading file and converting to AFRLData objects: ${csv_file_path} ...`)
         const raw_json: { [key: string]: string }[] = await csvtojson().fromFile(csv_file_path)
         console.log(`Found ${raw_json.length} rows found in CSV. File is now converted as a { [key: string]: string }[] `)
 
@@ -484,14 +515,8 @@ export class AFRLtoJSON {
         }
         console.log(`Logging samples randomly DONE`);
 
-        
-        // Checking data against type
-        console.warn(`Assigning default value for string properties ...`)
-        console.warn(`Data validation is not 100% safe, some fields might be missing. TODO: install AJV and create a schema for AFRLData type.`)
-
         // Use typecheck to list all (unique) fields existing on AFRLdata
         const empty_data: AFRLData = {
-
             cloud_point_temp: 0,
             mixture_id: 0,
             one_phase_direction: "",
@@ -581,7 +606,13 @@ export class AFRLtoJSON {
      * @param data 
      * @returns 
      */
-    load_data(data: AFRLData[]): IProject {
+    async make_project(data: AFRLData[]): Promise<IProject> {
+
+        console.log(`Initializing CriptValidator ...`)
+        if( !await this.validator.init() ) {
+          throw new Error(`Initializing CriptValidator FAILED.`)
+        }
+        console.log(`Initializing CriptValidator ...`)
 
         // load data
         console.log('Loading data ...')
@@ -604,6 +635,10 @@ export class AFRLtoJSON {
         }
 
         console.log('Loading data OK')
+
+        // Ensure Project is valid before to return it
+        this.validator.validate_or_throw(this.project)
+
         return this.project;
     }
 }

@@ -52,7 +52,7 @@ export namespace CriptGraph {
    * @param node must have an uid and be present in uids Set
    */
   export function make_edge_uid(node: any): EdgeUID {
-    if ( !has_uid(node) ) throw new Error("Node should have an uuid to be converted to an EdgeUUID");
+    if ( !has_uid(node) ) throw new Error("Node should have an uid to be converted to an EdgeUID");
     return { uid: node.uid }
   }
 
