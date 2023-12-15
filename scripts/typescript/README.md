@@ -1,9 +1,3 @@
----
-layout: default
-title: AFRL README.md
-published: false
----
-
 # TypeScript ingestion scripts for CRIPT
 
 This folder is a unique npm package shared between all ingestion scripts. Browse the `./src` folder.
