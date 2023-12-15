@@ -13,6 +13,13 @@ import { Other } from "./types/sheets/others";
 import { fetch } from "cross-fetch";
 import make_edge = CriptGraph.make_edge_uuid;
 
+type FetchPubChemResult = {
+    chem_formula?: string;
+    chemical_id?: string;
+    inchi?: string;
+    smiles?: string;
+}
+
 export type PPPDBJSON = {
   // Nodes that must be uploaded prior to the project
   shared: {
@@ -904,22 +911,12 @@ export class PPPDBLoader {
     this.log_set(LogLevel.DEBUG, new Set(materials.map( m => m.name) ), 'Adding material(s) to the project');
   }
 
-  /**
+    /**
    * Fetch some metadata from PubChem using a given cid
    */
-  async fetch_pubchem_by_cid(cid: string): Promise<{
-    chem_formula?: string;
-    chemical_id?: string;
-    inchi?: string;
-    smiles?: string;
-  } > {
+  async fetch_pubchem_by_cid(cid: string): Promise<FetchPubChemResult> {
 
-    let result: {
-      chem_formula?: string;
-      inchi?: string;
-      smiles?: string;
-      chemical_id?: string;
-    } = {};
+    let result: FetchPubChemResult = {};
 
     // First get the properties using the "/property" method
     try {     
