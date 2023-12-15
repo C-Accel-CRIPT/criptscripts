@@ -592,7 +592,7 @@ export class PPPDBLoader {
   async assign_solvents_or_other_fields(material: IMaterial, solvent_or_other: Solvent | Other) {
     const pubchem_cid = solvent_or_other["PubChem CID"];
     if (!pubchem_cid || pubchem_cid == '') {
-      this.logger.warning(`pubchem_cid is expected for the solvent (row: ${solvent_or_other?._row_index} in solvents`);
+      this.logger.warning(`pubchem_cid is expected for the solvent or other: ${JSON.stringify(solvent_or_other)}`);
     } else {
       const pubchem_metadata = await this.fetch_pubchem_by_cid(pubchem_cid);
       material.chemical_id = pubchem_metadata.chemical_id;
