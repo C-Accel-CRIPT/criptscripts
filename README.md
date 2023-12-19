@@ -1,7 +1,7 @@
 [![CRIPT Scripts logo](./assets/images/criptscripts-logo.svg)](https://criptscripts.org/)
 
-This is the repository of the [CRIPTScrips](https://criptscripts.org/) website
-
+This is the repository of the [CRIPTScrips](https://criptscripts.org/) website.
+> **Note: criptscripts.org as static website is deprecated and will be redirected to [www.criptapp.org](https://criptapp.org/resources/scripts/) soon**)
 
 <!--
 ![Markdown](https://img.shields.io/badge/Language-Markdown-lightgrey?style=for-the-badge&logo=markdown)
