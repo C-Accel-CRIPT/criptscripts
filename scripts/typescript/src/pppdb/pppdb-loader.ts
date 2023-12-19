@@ -546,7 +546,7 @@ export class PPPDBLoader {
   validate_and_push_condition(node_with_condition: { condition: ICondition[]}, condition: ICondition) {
     this.validator.validate_or_throw(condition);
 
-    // Add a manual check on value:
+    // Add a manual check on value (validtion does not detect it)
     if( condition.value === undefined ) {
       throw new Error(`Condition has an undefined value!`)
     }
