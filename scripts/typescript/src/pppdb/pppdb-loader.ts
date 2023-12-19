@@ -382,40 +382,47 @@ export class PPPDBLoader {
       switch( chi_row.type ) {
         case "Type 1":
 
-          if( !chi_row.chimax ) {
-           
-            this.validate_and_push_property(combined_material, {
-              node: ['Property'],
-              key: 'interaction_param',
-              type: 'value',
-              value: chi_row.chinumber,
-              uncertainty: chi_row.chierror,
-              unit: null,
-              ...shared_by_all_properties,
-            } satisfies IProperty);
+          if( chi_row.chinumber !== undefined ) {
 
-          } else if (chi_row.chinumber && chi_row.chimax) {
+              // If "chimax" is not defined, we interpret "chinumber" as "interaction_param" ("value")
+              if( chi_row.chimax === undefined ) {
+                  this.validate_and_push_property(combined_material, {
+                      node: ['Property'],
+                      key: 'interaction_param',
+                      type: 'value',
+                      value: chi_row.chinumber,
+                      uncertainty: chi_row.chierror,
+                      unit: null,
+                      ...shared_by_all_properties,
+                  } satisfies IProperty);
 
-            // interaction param (min)
-            this.validate_and_push_property( combined_material, {
-              node: ['Property'],
-              key: 'interaction_param',
-              type: 'min',
-              value: chi_row.chinumber,
-              unit: null,
-              ...shared_by_all_properties,
-            });
+              // Otherwise, we interpret "chinumber" - "interaction_param - "min" and "chimax" as "max".
+              } else {
 
-            // interaction param (max)
-            this.validate_and_push_property( combined_material, {
-              node: ['Property'],
-              key: 'interaction_param',
-              type: 'max',
-              value: chi_row.chimax,
-              unit: null,
-              ...shared_by_all_properties,
-            });
+                  // interaction param (min)
+                  this.validate_and_push_property( combined_material, {
+                      node: ['Property'],
+                      key: 'interaction_param',
+                      type: 'min',
+                      value: chi_row.chinumber,
+                      unit: null,
+                      ...shared_by_all_properties,
+                  });
+
+                  // interaction param (max)
+                  this.validate_and_push_property( combined_material, {
+                      node: ['Property'],
+                      key: 'interaction_param',
+                      type: 'max',
+                      value: chi_row.chimax,
+                      unit: null,
+                      ...shared_by_all_properties,
+                  });
+              }
+          } else if ( chi_row.chimax ) {
+              this.logger.warning(`chinumber is undefined but chimax is defined, interaction_param skipped`)
           }
+
           break;
         
         case 'Type 3':
@@ -538,6 +545,12 @@ export class PPPDBLoader {
    */
   validate_and_push_condition(node_with_condition: { condition: ICondition[]}, condition: ICondition) {
     this.validator.validate_or_throw(condition);
+
+    // Add a manual check on value:
+    if( condition.value === undefined ) {
+      throw new Error(`Condition has an undefined value!`)
+    }
+
     node_with_condition.condition.push(condition);
   }
 
@@ -546,6 +559,12 @@ export class PPPDBLoader {
    */
   validate_and_push_property(node_with_property: { property: IProperty[] }, property: IProperty): void | never {
     this.validator.validate_or_throw(property);
+
+    // Add a manual check on value:
+    if( property.value === undefined ) {
+      throw new Error(`Property has an undefined value!`)
+    }
+
     node_with_property.property.push(property);
   }
 
