@@ -299,34 +299,38 @@ export class PPPDBLoader {
 
       // shared conditions
       {
-        if( !chi_row.chimax ) {
+        if( chi_row.chimax === undefined ) {
+          if( chi_row.temperature !== undefined) {
 
-          // single temperature value
-          if( !chi_row.tempmax ) {
-            this.validate_and_push_condition( shared_by_all_properties, {
-              node: ['Condition'],
-              key: 'temperature',
-              type: 'value',
-              value: chi_row.temperature,
-              unit: chi_row.tempunit
-            });
+              // When we have no "tempmax", we store "temperature" as value.
+              if( chi_row.tempmax === undefined ) {
+                  this.validate_and_push_condition( shared_by_all_properties, {
+                      node: ['Condition'],
+                      key: 'temperature',
+                      type: 'value',
+                      value: chi_row.temperature,
+                      unit: chi_row.tempunit
+                  });
 
-          // min/max temperature values
-          } else if ( chi_row.temperature ) {
-            this.validate_and_push_condition( shared_by_all_properties, {
-                node: ['Condition'],
-                key: 'temperature',
-                type: 'min',
-                value: chi_row.temperature, // temperature is considered as min in such case
-                unit: chi_row.tempunit
-              });
-            this.validate_and_push_condition( shared_by_all_properties, {              
-                node: ['Condition'],
-                key: 'temperature',
-                type: 'max',
-                value: chi_row.tempmax,
-                unit: chi_row.tempunit
-              });
+              // Otherwise, we store "temperature" as "min", and "tempmax" as "max".
+              } else {
+                  this.validate_and_push_condition( shared_by_all_properties, {
+                      node: ['Condition'],
+                      key: 'temperature',
+                      type: 'min',
+                      value: chi_row.temperature, // temperature is considered as min in such case
+                      unit: chi_row.tempunit
+                  });
+                  this.validate_and_push_condition( shared_by_all_properties, {
+                      node: ['Condition'],
+                      key: 'temperature',
+                      type: 'max',
+                      value: chi_row.tempmax,
+                      unit: chi_row.tempunit
+                  });
+              }
+          } else {
+              this.logger.warning(`Unable to add condition, "temperature" column is undefined`)
           }
 
           if( chi_row.refvolume ) {
