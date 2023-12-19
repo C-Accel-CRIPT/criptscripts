@@ -560,7 +560,7 @@ export class PPPDBLoader {
   validate_and_push_property(node_with_property: { property: IProperty[] }, property: IProperty): void | never {
     this.validator.validate_or_throw(property);
 
-    // Add a manual check on value:
+    // Add a manual check on value (validation does not detect it)
     if( property.value === undefined ) {
       throw new Error(`Property has an undefined value!`)
     }
