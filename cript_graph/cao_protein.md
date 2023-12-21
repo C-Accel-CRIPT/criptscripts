@@ -1,9 +1,3 @@
----
-layout: default
-title: Cao Protein
-parent: CRIPT Graphs
----
-
 # Strengthening and Toughening of Protein-Based Thermosets via Intermolecular Self-Assembly
 
 [Research paper](https://pubs.acs.org/doi/10.1021/acs.biomac.2c00372) written by Yiping Cao and Bradley D. Olsen.
