@@ -17,11 +17,14 @@ import {
   CreatedReference,
   PropertyType,
   ReferenceType,
+  createCombinedStructure,
   createConditionObject,
   createPropertyObject,
   createReferenceObject,
   getSharedPropertyParams,
 } from "./helpers";
+import { createCombinedMaterialTitle } from "./helpers/create-combined-material-title";
+import { createChiParameters } from "./helpers/create-chi-parameters";
 
 type FetchPubChemResult = {
   chem_formula?: string;
@@ -179,6 +182,13 @@ export class PPPDBLoader {
       this.logger.prefix = String(`[row: ${four_digit_row_index}, id: ${four_digit_id}] `);
       this.logger.debug(`Processing row ...`);
 
+      const isMixture = chi_row.mixture;
+      const isReadyForTesting = chi_row.ready_for_testing;
+
+      if (isMixture !== undefined && isReadyForTesting !== undefined) {
+        console.log(chi_row);
+      }
+
       // Skip rows with types we do not handle (10/26/2023)
       switch (chi_row.type) {
         case "Type 1":
@@ -197,281 +207,325 @@ export class PPPDBLoader {
           throw new Error(error_message);
       }
 
-      // Create a unique for the whole row
-      const shared_citation = await this.create_citations(chi_row);
+      // Skip rows that aren't ready_for_testing
+      if (!isReadyForTesting) {
+        // this.xlsx.chi.skipped_row_count++;
+        this.logger.warning(`Row: ${chi_row.id} is not ready for testing. The entire row will be skipped.`);
+      } else if (!isMixture) {
+        const combined_material = {
+          uid: CriptGraph.make_uid(),
+          node: ["Material"],
+          name: createCombinedMaterialTitle(chi_row),
+          property: [] as Array<IProperty>,
+          bigsmiles: chi_row.BigSMILEScombined ?? "",
+          names: [chi_row.compoundcombined] ?? ([] as string[]),
+        } satisfies IMaterial;
 
-      this.logger.debug(`Creating Material 1 ...`);
+        const shared_citation = await this.create_citations(chi_row);
 
-      const material1 = {
-        uid: CriptGraph.make_uid(),
-        node: ["Material"],
-        model_version: "1.0.0",
-        name: `PPPDB_${chi_row.id}_${chi_row.compound1}`,
-        names: [] as string[],
-        property: [] as IProperty[],
-        bigsmiles: chi_row.BigSMILES1,
-      } satisfies IMaterial;
+        const mw_w_property_1 = this.create_mw_w_property(chi_row.molmass1, chi_row.molmassunit, chi_row, 1);
+        const mw_w_property_2 = this.create_mw_w_property(chi_row.molmass2, chi_row.molmassunit, chi_row, 2);
 
-      if (chi_row.compound1) material1.names.push(chi_row.compound1);
-      if (chi_row.ac1) material1.names.push(chi_row.ac1);
+        const structure_1 = createCombinedStructure(chi_row, 1);
+        const structure_2 = createCombinedStructure(chi_row, 2);
+        if (structure_1 && mw_w_property_1) mw_w_property_1.structure = structure_1;
+        if (structure_2 && mw_w_property_2) mw_w_property_2.structure = structure_2;
+        if (chi_row.type1 === "polymer" && mw_w_property_1) mw_w_property_1.citation = shared_citation;
+        if (chi_row.type2 === "polymer" && mw_w_property_2) mw_w_property_2.citation = shared_citation;
 
-      this.logger.debug(`Material 1 is a ${chi_row.type1}`);
-      switch (chi_row.type1) {
-        case "polymer": {
-          const mw_w_property = this.create_mw_w_property(chi_row.molmass1, chi_row.molmassunit);
-          if (mw_w_property) {
-            mw_w_property.citation = shared_citation;
-            this.validate_and_push_property(material1, mw_w_property);
-          } else {
-            this.logger.debug(`Unable to create molmass1 property`);
-          }
-          break;
-        }
-        case "solvent": {
-          await this.assign_solvent_fields(material1, solvents, chi_row.compound1);
-          break;
-        }
-        case "other": {
-          await this.assign_other_fields(material1, others, chi_row.compound1);
-          break;
-        }
-        default:
-          this.logger.warning(`type1 == '${chi_row.type1}' is not handled yet.`);
-          this.logger.warning(`Skipping row`);
-          this.xlsx.chi.parsed_row_count++;
-          continue;
-      }
-      this.validator.validate_or_throw(material1); // To find errors earlier
+        if (mw_w_property_1) combined_material.property.push(mw_w_property_1);
+        if (mw_w_property_2) combined_material.property.push(mw_w_property_2);
 
-      this.logger.debug(`Creating Material 2 ...`);
-      const material2 = {
-        uid: CriptGraph.make_uid(),
-        node: ["Material"],
-        model_version: "1.0.0",
-        name: `PPPDB_${chi_row.id}_${chi_row.compound2}`,
-        names: [] as string[],
-        property: [] as IProperty[],
-        bigsmiles: chi_row.BigSMILES2,
-      } satisfies IMaterial;
-      if (chi_row.compound2) material2.names.push(chi_row.compound2);
-      if (chi_row.ac2) material2.names.push(chi_row.ac2);
+        const method: string | undefined = this.get_method_key_by_name(methods, chi_row.method); // can be undefined, we allow this
+        const shared_by_all_properties = getSharedPropertyParams(chi_row, method, shared_citation);
 
-      this.logger.debug(`Material 2 is a ${chi_row.type2}`);
-      switch (chi_row.type2) {
-        case "polymer":
-          const mw_w_property = this.create_mw_w_property(chi_row.molmass2, chi_row.molmassunit);
-          if (mw_w_property) {
-            mw_w_property.citation = shared_citation;
-            this.validate_and_push_property(material2, mw_w_property);
-          } else {
-            this.logger.debug(`Unable to create molmass2 property`);
-          }
-          break;
+        // shared conditions
+        {
+          if (chi_row.chimax === undefined) {
+            if (chi_row.temperature !== undefined) {
+              // When we have no "tempmax", we store "temperature" as value.
+              if (chi_row.tempmax === undefined) {
+                this.validate_and_push_condition(
+                  shared_by_all_properties,
+                  createConditionObject({
+                    value: chi_row.temperature,
+                    unit: chi_row.tempunit,
+                  })
+                );
 
-        case "solvent":
-          await this.assign_solvent_fields(material2, solvents, chi_row.compound2);
-          break;
-
-        case "other": {
-          await this.assign_other_fields(material2, others, chi_row.compound2);
-          break;
-        }
-        default:
-          this.logger.warning(`type2 == '${chi_row.type2}' is not handled yet.`);
-          this.logger.warning(`Skipping row`);
-          this.xlsx.chi.parsed_row_count++;
-          continue;
-      }
-      this.validator.validate_or_throw(material2); // To find errors earlier
-
-      this.logger.debug(`Creating Combined Material ...`);
-
-      const combined_material = {
-        uid: CriptGraph.make_uid(),
-        node: ["Material"],
-        name: `PPPDB_${chi_row.id}_${chi_row.compound1}_${chi_row.compound2}`,
-        component: [material1, material2].map(CriptGraph.make_edge_uid), // we use UID because materials will be uploaded together
-        property: [] as Array<IProperty>,
-      } satisfies IMaterial;
-
-      const method: string | undefined = this.get_method_key_by_name(methods, chi_row.method); // can be undefined, we allow this
-      const shared_by_all_properties = getSharedPropertyParams(chi_row, method, shared_citation);
-
-      // shared conditions
-      {
-        if (chi_row.chimax === undefined) {
-          if (chi_row.temperature !== undefined) {
-            // When we have no "tempmax", we store "temperature" as value.
-            if (chi_row.tempmax === undefined) {
-              this.validate_and_push_condition(
-                shared_by_all_properties,
-                createConditionObject({
-                  value: chi_row.temperature,
-                  unit: chi_row.tempunit,
-                })
-              );
-
-              // Otherwise, we store "temperature" as "min", and "tempmax" as "max".
+                // Otherwise, we store "temperature" as "min", and "tempmax" as "max".
+              } else {
+                this.validate_and_push_condition(
+                  shared_by_all_properties,
+                  createConditionObject({
+                    type: ConditionType.min,
+                    value: chi_row.temperature, // temperature is considered as min in such case
+                    unit: chi_row.tempunit,
+                  })
+                );
+                this.validate_and_push_condition(
+                  shared_by_all_properties,
+                  createConditionObject({
+                    type: ConditionType.max,
+                    value: chi_row.tempmax,
+                    unit: chi_row.tempunit,
+                  })
+                );
+              }
             } else {
+              this.logger.warning(`Unable to add condition, "temperature" column is undefined`);
+            }
+
+            if (chi_row.refvolume) {
               this.validate_and_push_condition(
                 shared_by_all_properties,
                 createConditionObject({
-                  type: ConditionType.min,
-                  value: chi_row.temperature, // temperature is considered as min in such case
-                  unit: chi_row.tempunit,
-                })
-              );
-              this.validate_and_push_condition(
-                shared_by_all_properties,
-                createConditionObject({
-                  type: ConditionType.max,
-                  value: chi_row.tempmax,
-                  unit: chi_row.tempunit,
+                  key: ConditionType.referenceVolume,
+                  value: chi_row.refvolume,
+                  unit: chi_row.refvolumeunit,
                 })
               );
             }
-          } else {
-            this.logger.warning(`Unable to add condition, "temperature" column is undefined`);
-          }
-
-          if (chi_row.refvolume) {
-            this.validate_and_push_condition(
-              shared_by_all_properties,
-              createConditionObject({
-                key: ConditionType.referenceVolume,
-                value: chi_row.refvolume,
-                unit: chi_row.refvolumeunit,
-              })
-            );
           }
         }
-      }
 
-      // Add properties *not* depending on 'type
+        // Add properties *not* depending on 'type
 
-      const shared_by_all_conc_vol_fraction = {
-        citation: shared_citation,
-        condition: shared_by_all_properties.condition?.filter((c) => c.key !== ConditionType.referenceVolume),
-      };
+        const shared_by_all_conc_vol_fraction = {
+          citation: shared_citation,
+          condition: shared_by_all_properties.condition?.filter((c) => c.key !== ConditionType.referenceVolume),
+        };
 
-      if (chi_row.composition1) {
-        this.validate_and_push_property(
+        if (chi_row.composition1) {
+          this.validate_and_push_property(
+            combined_material,
+            createPropertyObject({
+              key: PropertyType.concVolFraction,
+              value: chi_row.composition1,
+              structure: structure_1,
+              ...shared_by_all_conc_vol_fraction,
+            })
+          );
+        }
+
+        if (chi_row.composition2) {
+          this.validate_and_push_property(
+            combined_material,
+            createPropertyObject({
+              key: PropertyType.concVolFraction,
+              value: chi_row.composition2,
+              structure: structure_2,
+              ...shared_by_all_conc_vol_fraction,
+            })
+          );
+        }
+
+        createChiParameters({
+          chi_row,
+          isMixture,
+          shared_by_all_properties,
           combined_material,
-          createPropertyObject({
-            key: PropertyType.concVolFraction,
-            value: chi_row.composition1,
-            component: [CriptGraph.make_edge_uid(material1)],
-            ...shared_by_all_conc_vol_fraction,
-          })
-        );
-      }
+          loader_instance: this,
+        });
 
-      if (chi_row.composition2) {
-        this.validate_and_push_property(
-          combined_material,
-          createPropertyObject({
-            key: PropertyType.concVolFraction,
-            value: chi_row.composition2,
-            component: [CriptGraph.make_edge_uid(material2)],
-            ...shared_by_all_conc_vol_fraction,
-          })
-        );
-      }
+        this.add_material(combined_material);
+        this.xlsx.chi.parsed_row_count++;
+      } else {
+        // Create a unique for the whole row
+        const shared_citation = await this.create_citations(chi_row);
 
-      // Add properties depending on 'type'
-      // We only handle Type 1 to 3 here. We discard 4 and 5 at the very beginning of the loop.
-      switch (chi_row.type) {
-        case "Type 1":
-          if (chi_row.chinumber !== undefined) {
-            // If "chimax" is not defined, we interpret "chinumber" as "interaction_param" ("value")
-            if (chi_row.chimax === undefined) {
-              this.validate_and_push_property(
-                combined_material,
-                createPropertyObject({
-                  type: PropertyType.value,
-                  value: chi_row.chinumber,
-                  uncertainty: chi_row.chierror,
-                  ...shared_by_all_properties,
-                }) satisfies IProperty
-              );
+        this.logger.debug(`Creating Material 1 ...`);
 
-              // Otherwise, we interpret "chinumber" - "interaction_param - "min" and "chimax" as "max".
+        const material1 = {
+          uid: CriptGraph.make_uid(),
+          node: ["Material"],
+          model_version: "1.0.0",
+          name: `PPPDB_${chi_row.id}_${chi_row.compound1}`,
+          names: [] as string[],
+          property: [] as IProperty[],
+          bigsmiles: chi_row.BigSMILES1,
+        } satisfies IMaterial;
+
+        if (chi_row.compound1) material1.names.push(chi_row.compound1);
+        if (chi_row.ac1) material1.names.push(chi_row.ac1);
+
+        this.logger.debug(`Material 1 is a ${chi_row.type1}`);
+        switch (chi_row.type1) {
+          case "polymer": {
+            const mw_w_property = this.create_mw_w_property(chi_row.molmass1, chi_row.molmassunit, chi_row, 1);
+            if (mw_w_property) {
+              mw_w_property.citation = shared_citation;
+              this.validate_and_push_property(material1, mw_w_property);
             } else {
-              // interaction param (min)
-              this.validate_and_push_property(
-                combined_material,
-                createPropertyObject({
-                  type: PropertyType.min,
-                  value: chi_row.chinumber,
-                  ...shared_by_all_properties,
-                })
-              );
+              this.logger.debug(`Unable to create molmass1 property`);
+            }
+            break;
+          }
+          case "solvent": {
+            await this.assign_solvent_fields(material1, solvents, chi_row.compound1);
+            break;
+          }
+          case "other": {
+            await this.assign_other_fields(material1, others, chi_row.compound1);
+            break;
+          }
+          default:
+            this.logger.warning(`type1 == '${chi_row.type1}' is not handled yet.`);
+            this.logger.warning(`Skipping row`);
+            this.xlsx.chi.parsed_row_count++;
+            continue;
+        }
+        this.validator.validate_or_throw(material1); // To find errors earlier
 
-              // interaction param (max)
-              this.validate_and_push_property(
-                combined_material,
-                createPropertyObject({
-                  value: chi_row.chimax,
-                  ...shared_by_all_properties,
+        this.logger.debug(`Creating Material 2 ...`);
+        const material2 = {
+          uid: CriptGraph.make_uid(),
+          node: ["Material"],
+          model_version: "1.0.0",
+          name: `PPPDB_${chi_row.id}_${chi_row.compound2}`,
+          names: [] as string[],
+          property: [] as IProperty[],
+          bigsmiles: chi_row.BigSMILES2,
+        } satisfies IMaterial;
+        if (chi_row.compound2) material2.names.push(chi_row.compound2);
+        if (chi_row.ac2) material2.names.push(chi_row.ac2);
+
+        this.logger.debug(`Material 2 is a ${chi_row.type2}`);
+        switch (chi_row.type2) {
+          case "polymer":
+            const mw_w_property = this.create_mw_w_property(chi_row.molmass2, chi_row.molmassunit, chi_row, 2);
+            if (mw_w_property) {
+              mw_w_property.citation = shared_citation;
+              this.validate_and_push_property(material2, mw_w_property);
+            } else {
+              this.logger.debug(`Unable to create molmass2 property`);
+            }
+            break;
+
+          case "solvent":
+            await this.assign_solvent_fields(material2, solvents, chi_row.compound2);
+            break;
+
+          case "other": {
+            await this.assign_other_fields(material2, others, chi_row.compound2);
+            break;
+          }
+          default:
+            this.logger.warning(`type2 == '${chi_row.type2}' is not handled yet.`);
+            this.logger.warning(`Skipping row`);
+            this.xlsx.chi.parsed_row_count++;
+            continue;
+        }
+        this.validator.validate_or_throw(material2); // To find errors earlier
+
+        this.logger.debug(`Creating Combined Material ...`);
+
+        const combined_material = {
+          uid: CriptGraph.make_uid(),
+          node: ["Material"],
+          name: createCombinedMaterialTitle(chi_row),
+          component: [material1, material2].map(CriptGraph.make_edge_uid), // we use UID because materials will be uploaded together
+          property: [] as Array<IProperty>,
+          bigsmiles: "",
+          names: [] as string[],
+        } satisfies IMaterial;
+
+        const method: string | undefined = this.get_method_key_by_name(methods, chi_row.method); // can be undefined, we allow this
+        const shared_by_all_properties = getSharedPropertyParams(chi_row, method, shared_citation);
+
+        // shared conditions
+        {
+          if (chi_row.chimax === undefined) {
+            if (chi_row.temperature !== undefined) {
+              // When we have no "tempmax", we store "temperature" as value.
+              if (chi_row.tempmax === undefined) {
+                this.validate_and_push_condition(
+                  shared_by_all_properties,
+                  createConditionObject({
+                    value: chi_row.temperature,
+                    unit: chi_row.tempunit,
+                  })
+                );
+
+                // Otherwise, we store "temperature" as "min", and "tempmax" as "max".
+              } else {
+                this.validate_and_push_condition(
+                  shared_by_all_properties,
+                  createConditionObject({
+                    type: ConditionType.min,
+                    value: chi_row.temperature, // temperature is considered as min in such case
+                    unit: chi_row.tempunit,
+                  })
+                );
+                this.validate_and_push_condition(
+                  shared_by_all_properties,
+                  createConditionObject({
+                    type: ConditionType.max,
+                    value: chi_row.tempmax,
+                    unit: chi_row.tempunit,
+                  })
+                );
+              }
+            } else {
+              this.logger.warning(`Unable to add condition, "temperature" column is undefined`);
+            }
+
+            if (chi_row.refvolume) {
+              this.validate_and_push_condition(
+                shared_by_all_properties,
+                createConditionObject({
+                  key: ConditionType.referenceVolume,
+                  value: chi_row.refvolume,
+                  unit: chi_row.refvolumeunit,
                 })
               );
             }
-          } else if (chi_row.chimax) {
-            this.logger.warning(`chinumber is undefined but chimax is defined, interaction_param skipped`);
           }
+        }
 
-          break;
+        // Add properties *not* depending on 'type
 
-        case "Type 3":
-          if (chi_row.chic) {
-            this.validate_and_push_property(
-              combined_material,
-              createPropertyObject({
-                key: "interaction_param_c",
-                value: chi_row.chic,
-                uncertainty: chi_row.chicerror,
-                unit: "K**2",
-                // unit: undefined, // on purpose
-                ...shared_by_all_properties,
-              })
-            );
-          }
-        // break; // on purpose, see next case
+        const shared_by_all_conc_vol_fraction = {
+          citation: shared_citation,
+          condition: shared_by_all_properties.condition?.filter((c) => c.key !== ConditionType.referenceVolume),
+        };
 
-        case "Type 2" /* or 'Type 3'*/:
-          if (chi_row.chia) {
-            this.validate_and_push_property(
-              combined_material,
-              createPropertyObject({
-                key: "interaction_param_a",
-                value: chi_row.chia,
-                uncertainty: chi_row.chiaerror,
-                ...shared_by_all_properties,
-              })
-            );
-          }
+        if (chi_row.composition1) {
+          this.validate_and_push_property(
+            combined_material,
+            createPropertyObject({
+              key: PropertyType.concVolFraction,
+              value: chi_row.composition1,
+              component: [CriptGraph.make_edge_uid(material1)],
+              ...shared_by_all_conc_vol_fraction,
+            })
+          );
+        }
 
-          if (chi_row.chib) {
-            this.validate_and_push_property(
-              combined_material,
-              createPropertyObject({
-                key: "interaction_param_b",
-                value: chi_row.chib,
-                uncertainty: chi_row.chiberror,
-                unit: "K",
-                ...shared_by_all_properties,
-              })
-            );
-          }
-          break;
-        default:
-          const unhandled_type: never = chi_row.type; // compile-time check
-          throw new Error(`Unhandled type: '${unhandled_type}'`); // runtime check
+        if (chi_row.composition2) {
+          this.validate_and_push_property(
+            combined_material,
+            createPropertyObject({
+              key: PropertyType.concVolFraction,
+              value: chi_row.composition2,
+              component: [CriptGraph.make_edge_uid(material2)],
+              ...shared_by_all_conc_vol_fraction,
+            })
+          );
+        }
+
+        createChiParameters({
+          chi_row,
+          isMixture,
+          shared_by_all_properties,
+          combined_material,
+          loader_instance: this,
+        });
+
+        // Finally, add both materials at once.
+        this.add_material(material1, material2, combined_material);
+        this.xlsx.chi.parsed_row_count++;
       }
-
-      // Finally, add both materials at once.
-      this.add_material(material1, material2, combined_material);
-      this.xlsx.chi.parsed_row_count++;
       this.logger.info(`Row completed`);
     }
 
@@ -575,7 +629,13 @@ export class PPPDBLoader {
   /**
    * Create a mw_w property
    */
-  create_mw_w_property(mw_w_value: number | undefined, mw_w_unit: string | undefined): IProperty | undefined {
+  create_mw_w_property(
+    mw_w_value: number | undefined,
+    mw_w_unit: string | undefined,
+    chi_row: Chi,
+    type: 1 | 2
+  ): IProperty | undefined {
+    const isMixture = chi_row.mixture;
     if (mw_w_value) {
       if (!mw_w_unit) {
         this.logger.warning(
@@ -588,6 +648,7 @@ export class PPPDBLoader {
         key: "mw_w",
         value: mw_w_value,
         unit: mw_w_unit?.toLowerCase() ?? null, // Celcius => celsius, Kelvin => kelvin, etc..
+        ...(!isMixture && chi_row.BigSMILEScombined && { structure: createCombinedStructure(chi_row, type) }),
       });
     }
   }

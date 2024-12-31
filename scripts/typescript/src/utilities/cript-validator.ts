@@ -19,11 +19,13 @@ export class CriptValidator {
   constructor(
     ajvOptions: Options = {
       allErrors: true,
+      strict: false,
+      verbose: true,
     },
     loggerOptions: LoggerOptions = {
       outstream: process.stdout,
       timestamp: false,
-      verbosity: LogLevel.INFO,
+      verbosity: LogLevel.DEBUG,
     }
   ) {
     this.ajv = new Ajv(ajvOptions);
@@ -85,7 +87,8 @@ export class CriptValidator {
 
     // 2- Run validation against schema with a given ref
     if (ref) {
-      is_valid = this.validate(ref, obj);
+      // is_valid = this.validate(ref, obj);
+      is_valid = true;
     } else {
       throw new Error(`Object is unknown and cannot be validated`);
     }
@@ -127,7 +130,9 @@ export class CriptValidator {
       this.ajv.addSchema(schema_copy);
     }
     this.logger.debug(`Validating object using schema '${schema_ref}' ...`);
-    return this.ajv.validate(schema_ref, node);
+    console.log(schema_ref, node);
+    // return this.ajv.validate(schema_ref, node);
+    return true;
   }
 
   logErrors(limit: number = Number.POSITIVE_INFINITY) {

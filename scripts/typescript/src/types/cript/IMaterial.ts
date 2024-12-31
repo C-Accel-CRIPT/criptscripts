@@ -1,11 +1,10 @@
-import { IProject } from './IProject';
-import { IProperty } from './IProperty';
+import { IProject } from "./IProject";
+import { IProperty } from "./IProperty";
 import { EdgeUID, EdgeUUID } from "./Edges";
-
 
 export interface IComputationalForcefield {}
 export interface IMaterial {
-  readonly node: ['Material'];
+  readonly node: ["Material"];
   created_at?: string;
   locked?: boolean;
   model_version?: string;
@@ -20,17 +19,20 @@ export interface IMaterial {
   keyword?: string[];
   parent_material?: string;
   property?: IProperty[];
-  property_count?: number;  
+  property_count?: number;
   component?: EdgeUUID[] | EdgeUID[];
   component_count?: number;
   computational_forcefield?: IComputationalForcefield;
   identifier_count?: number;
+  identifiers?: string[];
   bigsmiles?: string;
+  process?: any;
+  keywords?: string[];
   smiles?: string;
   inchi?: string;
   inchi_key?: string;
   mol_form?: string;
-  pubchem_cid?: number;  
+  pubchem_cid?: number;
   chem_formula?: string;
   // a.k.a CAS number
   chemical_id?: string;

@@ -7,21 +7,21 @@ import { LogLevel, output_dir_path, write_json_helper as write_json_to_out_folde
 import { resolve } from "path";
 import * as fs from "fs";
 import { PPPDBJSON, PPPDBLoader } from "./pppdb-loader";
-import { IProject } from "@cript";
 
 (async () => {
-  const log_file_path = resolve(output_dir_path, 'pppdb.logs.txt');
+  const log_file_path = resolve(output_dir_path, "pppdb.logs.txt");
   const log_file_stream = fs.createWriteStream(log_file_path);
 
   console.log(`PPPDB Ingestion Script: running ...`);
 
   const pppdb_loader = new PPPDBLoader({
-    logger: { 
+    logger: {
       outstream: log_file_stream,
       verbosity: LogLevel.DEBUG, // use LogLevel.DEBUG to get exhaustive logs
       timestamp: true,
-    }});
-    
+    },
+  });
+
   const logger = pppdb_loader.logger;
   // Uncomment to see logs in console (will slow down)
   // logger.logStream.pipe(stdout);
@@ -33,7 +33,6 @@ import { IProject } from "@cript";
   const sheets_dir = resolve(__dirname, "data/sheets");
 
   let result: PPPDBJSON | undefined;
-
   try {
     result = await pppdb_loader.load({
       paths: {
@@ -49,16 +48,17 @@ import { IProject } from "@cript";
     console.error(`An error occurred during pppdb_loader.load()`, error);
   }
 
-  if( !result )
-  {
+  console.log(result, "result");
+
+  if (!result) {
     log_file_stream.close();
-    throw new Error('No result or project')
+    throw new Error("No result or project");
   }
 
   try {
     await Promise.race([
       write_json_to_out_folder(result, "pppdb"),
-      write_json_to_out_folder(result, "pppdb", "minified")
+      write_json_to_out_folder(result, "pppdb", "minified"),
     ]);
   } catch (error: any) {
     console.error(`An error occurred during write_json_to_out_folder.`, error);
@@ -67,5 +67,4 @@ import { IProject } from "@cript";
   console.log(`PPPDB Ingestion Script: DONE, see logs: ${log_file_path}`);
 
   return log_file_stream.close();
-
 })();
